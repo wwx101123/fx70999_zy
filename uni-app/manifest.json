@@ -2,7 +2,7 @@
     "name" : "卓异商城",
     "appid" : "__UNI__1E98697",
     "description" : "卓异商城",
-    "versionName" : "4.7",
+    "versionName" : "4.8",
     "versionCode" : 1,
     "transformPx" : false,
     "app-plus" : {
@@ -75,7 +75,7 @@
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "D:/phpStudy/PHPTutorial/WWW/fx70999_zy/app/images/logo.png",
+                    "appstore" : "D:/phpStudy/WWW/fx70999_zy/app/images/logo.png",
                     "ipad" : {
                         "app" : "unpackage/res/icons/76x76.png",
                         "app@2x" : "unpackage/res/icons/152x152.png",
@@ -109,9 +109,9 @@
             },
             "splashscreen" : {
                 "android" : {
-                    "hdpi" : "D:/phpStudy/PHPTutorial/WWW/fx70999_zy/欢迎图.png",
-                    "xhdpi" : "D:/phpStudy/PHPTutorial/WWW/fx70999_zy/欢迎图.png",
-                    "xxhdpi" : "D:/phpStudy/PHPTutorial/WWW/fx70999_zy/欢迎图.png"
+                    "hdpi" : "D:/phpStudy/WWW/fx70999_zy/欢迎图.png",
+                    "xhdpi" : "D:/phpStudy/WWW/fx70999_zy/欢迎图.png",
+                    "xxhdpi" : "D:/phpStudy/WWW/fx70999_zy/欢迎图.png"
                 }
             }
         }

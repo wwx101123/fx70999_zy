@@ -46,7 +46,7 @@
 				"navigationStyle": "custom",
 				// #endif
 				"app-plus": {
-					"bounce": "none",
+					"bounce": "none", 
 					"titleNView": {
 						"type": "transparent",
 						"buttons": [{

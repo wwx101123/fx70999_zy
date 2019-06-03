@@ -7,7 +7,7 @@
 				<view class="portrait-box">
 					<avatar selWidth="150px" selHeight="150px" @upload="myUpload" :avatarSrc="url" avatarStyle="width: 150upx; height: 150upx; border-radius: 100%;">
 					</avatar>
-					
+
 					<!-- <image class="portrait" :src="userInfo.portrait || '/static/missing-face.png'"></image> -->
 				</view>
 				<view class="info-box">
@@ -49,9 +49,9 @@
 					<text>{{bi.agent_cash||''}}</text>
 				</view>
 			</view>
-			<view class="history-section icon"  style="padding:0px" >
+			<view class="history-section icon" style="padding:0px">
 				<view class="cu-bar bg-white ">
-					<view class="sec-header" >
+					<view class="sec-header">
 						<text class="yticon icon-lishijilu"></text>
 						<text>邀请</text>
 					</view>
@@ -60,7 +60,7 @@
 					</view>
 				</view>
 				<view class="tj-sction">
-					<view class="tj-item"  >
+					<view class="tj-item">
 						<text class="num">{{userInfo.user_count1}}</text>
 						<text>我的邀请</text>
 					</view>
@@ -68,11 +68,11 @@
 						<text class="num">{{userInfo.user_count2}}</text>
 						<text>今日邀请</text>
 					</view>
-					<view class="tj-item" >
+					<view class="tj-item">
 						<text class="num">{{userInfo.user_count3}}</text>
 						<text>粉丝人数</text>
 					</view>
-					<view class="tj-item" >
+					<view class="tj-item">
 						<text class="num">{{userInfo.user_count4}}</text>
 						<text>今日新增</text>
 					</view>
@@ -108,17 +108,80 @@
 					<image :src="item.icon" v-for="(item, index) in goods_show_list" :key="index" mode="aspectFill" @click="navTo(item.url)"></image>
 
 				</scroll-view>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="店铺商品" tips="" @eventClick="navTo('/pages/shop/goods_list')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="兑换商品" tips="" @eventClick="navTo('/pages/shop/dui_list')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="我要提现" tips="" @eventClick="navTo('/user/user/tiqu')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="个人信息" tips="" @eventClick="navTo('/user/user/bank')"></list-cell>
-				<list-cell icon="icon-iconfontweixin" iconColor="#e07472" title="密码修改" tips="" @eventClick="navTo('/user/user/password')"></list-cell>
-				<list-cell icon="icon-dizhi" iconColor="#5fcda2" title="地址管理" @eventClick="navTo('/pages/address/address')"></list-cell>
-				<!-- <list-cell v-show="false"  icon="icon-pinglun-copy" iconColor="#ee883b" title="晒单" tips="晒单抢红包"></list-cell>
-				<list-cell v-show="false"  icon="icon-shoucang_xuanzhongzhuangtai" iconColor="#54b4ef" title="我的收藏"></list-cell> -->
-				<list-cell    ref="version" icon="icon-shezhi1" iconColor="#e07472" title="检查版本" tips="" v-if="isShow" @eventClick="update_version"></list-cell>
-				<list-cell icon="icon-share" iconColor="#9789f7" title="退出登录" tips="" @eventClick="toLogout"></list-cell>
 
+
+			</view>
+			<!-- 工具栏 -->
+			<view class="toolbar icon">
+				<view class="title">我的工具栏</view>
+				<view class="list">
+					<view class="box" @click="navTo('/pages/shop/goods_list')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">店铺商品</view>
+					</view>
+					<view class="box" @click="navTo('/pages/shop/dui_list')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">兑换商品</view>
+					</view>
+					<view class="box" @click="navTo('/user/user/tiqu')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">我要提现</view>
+					</view>
+					<view class="box" @click="navTo('/user/user/bank')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">个人信息</view>
+					</view>
+
+
+
+
+
+
+
+
+
+
+
+
+					<view class="box" @click="navTo('/user/user/password')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">密码修改</view>
+					</view>
+					<view class="box" @click="navTo('/pages/address/address')">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">地址管理</view>
+					</view>
+					<view class="box" v-if="isShow" @click="update_version">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">检查版本</view>
+					</view>
+					<view class="box" @click="toLogout">
+						<view class="img">
+							<image src="../../static/img/user/bank.png"></image>
+						</view>
+						<view class="text">退出登录</view>
+					</view>
+
+
+
+
+
+
+				</view>
 			</view>
 		</view>
 
@@ -152,13 +215,59 @@
 				update_tips: '',
 				goods_show_list: [],
 				url: "../../static/logo.png",
-				basicArr: []
+				basicArr: [],
+				// 工具栏列表
+				mytoolbarList: [{
+						url: '../user/keep/keep',
+						text: '我的收藏',
+						img: '../../static/img/user/point.png'
+					},
+					{
+						url: '../user/coupon/coupon',
+						text: '优惠券',
+						img: '../../static/img/user/quan.png'
+					},
+					{
+						url: '',
+						text: '新客豪礼',
+						img: '../../static/img/user/renw.png'
+					},
+					{
+						url: '',
+						text: '领红包',
+						img: '../../static/img/user/momey.png'
+					},
+
+					{
+						url: '../user/address/address',
+						text: '收货地址',
+						img: '../../static/img/user/addr.png'
+					},
+					{
+						url: '',
+						text: '账户安全',
+						img: '../../static/img/user/security.png'
+					},
+					{
+						url: '',
+						text: '银行卡',
+						img: '../../static/img/user/bank.png'
+					},
+					{
+						url: '',
+						text: '抽奖',
+						img: '../../static/img/user/choujiang.png'
+					},
+					// {text:'客服',img:'../../static/img/user/kefu.png'},
+					// {text:'签到',img:'../../static/img/user/mingxi.png'}
+
+				]
 			}
 		},
 		onLoad() {
-			
-			
-			
+
+
+
 			// #ifdef MP-WEIXIN
 			console.log('MP-WEIXIN')
 			this.isShow = false;
@@ -167,7 +276,7 @@
 			console.log('H5')
 			this.isShow = false;
 			// #endif
-			
+
 			if (this.userInfo == undefined) {
 				// console.log(this.userInfo)
 				this.navTo('/pages/public/login')
@@ -188,7 +297,7 @@
 				const res = uni.getSystemInfoSync();
 				// console.log(JSON.stringify(res));
 				//判断app还是小程序
-				if (res.brand == '' || res.brand == 'iPhone') { 
+				if (res.brand == '' || res.brand == 'iPhone') {
 
 					//这里就是赋值  
 					plus.runtime.getProperty(plus.runtime.appid, function(inf) {
@@ -233,9 +342,9 @@
 									success: function(res) {
 										if (res.data.status == 1) {
 											that.update_tips = '有新版本';
-											that.$refs.version.tips = '有新版本';
+											// that.$refs.version.tips = '有新版本';
 											const update_tips = res.data.update_tip.join("\n");
-											console.log(that.$refs.version.tips)
+											// console.log(that.$refs.version.tips)
 
 											that.init_update_version(update_tips, res.data.url);
 
@@ -254,10 +363,10 @@
 							}
 						});
 					});
-				} else { 
+				} else {
 
 				}
-				
+
 
 
 
@@ -379,8 +488,9 @@
 			},
 			update_version() {
 				let that = this;
-
-				that.$refs.version.tips = that.update_tips;
+				console.log(222)
+				// that.$refs.version.tips = that.update_tips;
+				that.$api.msg(that.update_tips);
 				autoUpdater.show();
 
 			},
@@ -392,9 +502,9 @@
 				// 	is_view_show =false;
 				// }
 				// console.log(client)
-				
-				
-				
+
+
+
 			},
 			//退出登录
 			toLogout() {
@@ -616,6 +726,52 @@
 				height: 160upx;
 				margin-right: 20upx;
 				border-radius: 10upx;
+			}
+		}
+	}
+
+	.toolbar {
+		margin-top: 10px;
+		padding: 0 0 20upx 0;
+		background-color: #fff;
+		border-radius: 5px;
+
+		.title {
+			padding-top: 10upx;
+			margin: 0 0 10upx 3%;
+			font-size: 30upx;
+			height: 80upx;
+			display: flex;
+			align-items: center;
+		}
+
+		.list {
+			display: flex;
+			flex-wrap: wrap;
+
+			.box {
+				width: 25%;
+				margin-bottom: 30upx;
+
+				.img {
+					width: 23vw;
+					height: 10.5vw;
+					display: flex;
+					justify-content: center;
+
+					image {
+						width: 9vw;
+						height: 9vw;
+					}
+				}
+
+				.text {
+					width: 100%;
+					display: flex;
+					justify-content: center;
+					font-size: 26upx;
+					color: #3d3d3d;
+				}
 			}
 		}
 	}
