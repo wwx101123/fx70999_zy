@@ -4932,10 +4932,27 @@ else if ($type == 5) {
         
         $item=ARRAY();
         $item['id']=0;
-        $item['name']='全部';
-        $item['item_list']=[];
+        $item['name']='全部商品';
         
         
+        $item_list = M('goods')->alias('t')
+        ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+        ->field('  t.*')
+        ->where('  t.type=0 AND t.stock>0')
+        ->order(' t.sort_id asc')
+        ->limit(10)
+        ->select();
+        foreach ($item_list as $key1 => $goods1) {
+            $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
+            $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
+            $item_list[$key1]['url'] = 'goods_show.html';
+            $sell_count = 0;
+            $item_list[$key1]['sell_count'] = $sell_count;
+            $item_list[$key1]['percent'] = 90;
+        }
+        $item['item_list']=$item_list;
+        
+       
         $category[]=$item;
         
         
