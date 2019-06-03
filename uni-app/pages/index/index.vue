@@ -17,7 +17,7 @@
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage(item.id)">
 					<image :src="item.src" />
 				</swiper-item>
-			</swiper>
+			</swiper> 
 			<!-- 自定义swiper指示器 -->
 			<view class="swiper-dots">
 				<text class="num">{{swiperCurrent+1}}</text>
@@ -42,146 +42,7 @@
 			<image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
 		</view> -->
 
-		<!-- 秒杀楼层 -->
-		<view class="seckill-section m-t" v-show="false">
-			<view class="s-header">
-				<!-- <image class="s-img" src="/static/temp/secskill-img.jpg" mode="widthFix"></image> -->
-				<text class="tip">8点场</text>
-				<text class="hour timer">07</text>
-				<text class="minute timer">13</text>
-				<text class="second timer">55</text>
-				<text class="yticon icon-you"></text>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in hotList[0].list" :key="index" class="floor-item">
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-
-		<!-- 团购楼层 -->
-		<view class="f-header m-t" v-show="false">
-			<!-- 	<image src="/static/temp/h1.png"></image> -->
-			<view class="tit-box">
-				<text class="tit">精品团购</text>
-				<text class="tit2">Boutique Group Buying</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="group-section" v-show="false">
-			<swiper class="g-swiper" :duration="500">
-				<swiper-item class="g-swiper-item" v-for="(item, index) in hotList[0].list" :key="index" v-if="index%2 === 0">
-					<view class="g-item left">
-						<image :src="item.image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{item.title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{item.price}}</text>
-								<text class="m-price">￥188</text>
-							</view>
-
-							<view class="pro-box">
-								<view class="progress-box">
-									<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-								</view>
-								<text>6人成团</text>
-							</view>
-						</view>
-
-					</view>
-					<view class="g-item right">
-						<image :src="hotList[0].list[index+1].image" mode="aspectFill"></image>
-						<view class="t-box">
-							<text class="title clamp">{{hotList[0].list[index+1].title}}</text>
-							<view class="price-box">
-								<text class="price">￥{{hotList[0].list[index+1].price}}</text>
-								<text class="m-price">￥188</text>
-							</view>
-							<view class="pro-box">
-								<view class="progress-box">
-									<progress percent="72" activeColor="#fa436a" active stroke-width="6" />
-								</view>
-								<text>10人成团</text>
-							</view>
-						</view>
-					</view>
-				</swiper-item>
-
-			</swiper>
-		</view>
-
-
-
-		<!-- 分类推荐楼层 -->
-		<view class="f-header m-t" v-show="false">
-			<!-- <image src="/static/temp/h1.png"></image> -->
-			<view class="tit-box">
-				<text class="tit">分类精选</text>
-				<text class="tit2">Competitive Products For You</text>
-			</view>
-			<text class="yticon icon-you"></text>
-		</view>
-		<view class="hot-floor" v-show="false">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409398864&di=4a12763adccf229133fb85193b7cc08f&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201703%2F19%2F20170319150032_MNwmn.jpeg"
-				 mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in hotList[0].list" :key="index" class="floor-item">
-						<image :src="item.image" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="hot-floor" v-show="false">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409984228&di=dee176242038c2d545b7690b303d65ea&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F5ef4da9f17faaf4612f0d5046f4161e556e9bbcfdb5b-rHjf00_fw658"
-				 mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in hotList[0].list" :key="index" class="floor-item">
-						<image :src="item.image3" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="hot-floor" v-show="false">
-			<view class="floor-img-box">
-				<image class="floor-img" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553409794730&di=12b840ec4f5748ef06880b85ff63e34e&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01dc03589ed568a8012060c82ac03c.jpg%40900w_1l_2o_100sh.jpg"
-				 mode="scaleToFill"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in hotList[0].list" :key="index" class="floor-item">
-						<image :src="item.icon" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-					<view class="more">
-						<text>查看全部</text>
-						<text>More+</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
+		  
 
 		<!-- 猜你喜欢 -->
 
@@ -421,7 +282,7 @@
 							that.cateList = cateList;
 							let hotList = res.data.data;
 							// console.log(hotList)
-							that.hotList = hotList;
+							// that.hotList = hotList;
 						} else {
 
 
