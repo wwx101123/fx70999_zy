@@ -4940,7 +4940,7 @@ else if ($type == 5) {
         
         
         
-        
+        $category= array_reverse ($category);
         
         
         
