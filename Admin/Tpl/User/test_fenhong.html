@@ -1,0 +1,228 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>留言反馈管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>留言反馈管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu">
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script> <script
+	type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.test_fenhong').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #Operate').css('display', 'block')
+		$('.sidebar #test_fenhong').addClass('current')
+	});
+	
+
+	function test_fenhong(id,obj) {
+		
+		var time=$(obj).parent().parent().parent().parent().find('#time').val() 
+		if(confirm('确定分红?')){
+			var postData = {
+					"id" : id, 
+					"time" : time
+				};
+				//发送AJAX请求
+				sendAjaxUrl( postData,
+						"{:U('User/test_fenhong')}");
+		
+		
+		}
+		
+		
+		
+	}
+	function view_content(content) {
+		var winDialog =  dialog(
+						{
+							title : '留言内容',
+							content : content,
+							okValue : '确定',
+							ok : function() {
+								 
+								return true;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+
+	function reply(id) {
+		var winDialog =  dialog(
+						{
+							title : '回复',
+							content : '<textarea id="content" name="content" rows="3" cols="50" class="input"> </textarea>',
+							okValue : '确定',
+							ok : function() {
+								 
+								var remark = $("#content").val();
+								if (remark == "") {
+									 dialog({
+										title : '提示',
+										content : '对不起，请输入回复内容！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal();
+									return false;
+								}
+								var postData = {
+									"id" : id, 
+									"reply_content" : remark
+								};
+								//发送AJAX请求
+								sendAjaxUrl( postData,
+										"{:U('User/reply')}");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//发送AJAX请求
+	function sendAjaxUrl(  postData, sendUrl) {
+		$.ajax({
+			type : "post",
+			url : sendUrl,
+			data : postData,
+			dataType : "json",
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				dialog({
+					title : '提示',
+					content : '尝试发送失败，错误信息：' + errorThrown,
+					okValue : '确定',
+					ok : function() {
+					}
+				}).showModal();
+			},
+			success : function(data, textStatus) {
+				if (data.status == 1) {
+					 
+					var d = dialog({
+						content : data.msg
+					}).show();
+					setTimeout(function() {
+						d.close().remove();
+						location.reload(); //刷新页面
+					}, 2000);
+				} else {
+					dialog({
+						title : '提示',
+						content : '错误提示：' + data.msg,
+						okValue : '确定',
+						ok : function() {
+						}
+					}).showModal();
+				}
+			}
+		});
+	}
+</script>
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<!-- <div class="alert alert-success">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            点击用户账号可<strong>登录留言反馈前台</strong>
+        </div> -->
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>留言反馈列表</h5>
+			<div class="ibox-tools">
+				<!--<a href="{:U('Reg/Topuser')}" class="btn btn-primary">新增顶点</a>-->
+			</div>
+		</div>
+
+		<div class="ibox-content" style="display: block;">
+
+			<div class="tablesaw-bar mode-stack"></div>
+			<form name="form3" method="post" action="{:U('YouZi/adminMenberAC')}">
+				<table class="table table-hover tablesaw-stack"
+					data-tablesaw-mode="stack" id="table-1166">
+					<thead>
+						<tr>
+							<!--<th></th>-->
+							<th>注册时间</th>
+							<th>用户账号</th>
+							<th>分红次数</th>
+							<th>分红金额</th>
+							<th>最新分红时间</th>
+							<th>选择时间</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="list" id="vo">
+						<tr>
+							<!--<td><b class="tablesaw-cell-label"></b><input type="checkbox" name="id[]" value="{$vo['id']}" class="btn2" /></td>-->
+							<td><span class="tablesaw-cell-content">{$vo['rdt']|date="Y-m-d
+									H:i:s",###}</span></td>
+							<td><span class="tablesaw-cell-content">{$vo.user_id}</span></td>
+							<td><span class="rankcolor_1">{$vo.fanli_count} </span></td>
+							<td><span class="rankcolor_1">{$vo.fanli_money} </span></td>
+							<td><span class="tablesaw-cell-content">{$vo['fanli_time']|date="Y-m-d
+									H:i:s",###}</span></td>
+							<td><span class="tablesaw-cell-content"><input name="create_time" type="text" id="time"
+							value="{$vo.fanli_time|date='Y-m-d H:i:s',###}" class="form-control"
+							required=""
+							onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})"></span></td>
+
+
+							<td>  <font color="green"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)"
+									onclick="test_fenhong({$vo.id},this)">测试分红</a></font> </td>
+						</tr>
+						</volist>
+						<!--<tr> 
+                        <td colspan="18">
+                            <span class="tablesaw-cell-content">
+                            <input name="全选" type="button" class="btn btn-xs" id="全选" onclick="CheckAll(this.form)" value="全选" />
+                            <input type="submit" class="btn btn-xs btn-outline btn-danger" name="action"  value="配股" onclick="{if(confirm('确定为选中的留言反馈配股?')){return true;}return false;}">
+                        </span></td>
+                    </tr>-->
+					</tbody>
+				</table>
+			</form>
+			{$page}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> <script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+</script> </block>

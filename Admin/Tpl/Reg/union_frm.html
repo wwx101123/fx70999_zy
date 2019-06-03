@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,user-scalable=0">
+<meta charset="UTF-8">
+<title>提现授权</title>
+</head>
+<body>  
+
+
+  <gt
+									name="over_time" value='0'>
+	<div style="text-align: center; font-size: 30px;">操作失败!</div>
+	<div style="text-align: center; font-size: 15px;">对不起二维码已过期,请重新获取!</div></gt>  
+									
+									<eq
+									name="over_time" value='0'>
+	<div style="text-align: center; font-size: 30px;">操作成功!</div>
+	<div style="text-align: center; font-size: 15px;">用户{$res['nickname']}现在可以去APP内申请提现!</div></eq>
+									 
+ 
+<!-- <div>
+{$openid}</div>
+<div>
+{$access_token}</div>
+<div>
+{$user_info}</div>
+<div>
+{$wx_appID}</div>
+<div>
+{$wx_appsecret}</div> -->
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+
+		<style>
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			
+			h5.mui-content-pRadded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			
+			.item-title {
+				width: 20%;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				font-size: 13px;
+			}
+			
+			.mui-input-row label {
+				font-size: 13px;
+			}
+			
+			.mui-input-row {
+				background: #fff;
+				margin: 0.1rem 0;
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<!--<script src="../js/mui.picker.min.js"></script>-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.plusReady(function() {
+				var UploadUrl = localStorage.getItem('UploadUrl');
+				var user = localStorage.getItem('user');
+				localStorage.setItem('bank', '')
+				localStorage.setItem('province', '')
+				localStorage.setItem('city', '')
+				localStorage.setItem('area', '')
+				var huikui_id = localStorage.getItem('huikui_id');
+				$('#huikui_id').val(huikui_id);
+				user = JSON.parse(user);
+				$('#user_id').val(user.id);
+				var seller_type = localStorage.getItem('seller_type');
+				$('#seller_type').val(seller_type);
+				var seller = localStorage.getItem('seller');
+				seller = JSON.parse(seller);
+				if(seller != null && seller != '') {
+
+					console.log(seller.bank_province)
+					$('#seller_id').val(seller.id);
+					$('#seller_type').val(seller.seller_type);
+					$('#bank_card').val(seller.bank_card);
+					$('#zhihang').val(seller.zhihang);
+					$('#zhihang_name').val(seller.zhihang);
+					$('#userResult').val(seller.bank);
+					//					$('#showCityPicker').val(seller.bank_province + seller.bank_city);
+
+					localStorage.setItem('bank', seller.bank)
+					console
+						.log(seller.bank_city)
+					if(seller.bank_city != null) {
+						$('#txtProvince').val(seller.bank_province);
+						$('#txtCity').val(seller.bank_city);
+						$('#txtArea').val(seller.bank_area);
+						$('#showCityPicker').val(seller.bank_province + seller.bank_city);
+
+						localStorage.setItem('province', seller.bank_province)
+						localStorage.setItem('city', seller.bank_city)
+						localStorage.setItem('area', seller.bank_area)
+
+						$('.J-area').html(seller.bank_province + seller.bank_city + seller.bank_area);
+						var $target = $('#J_Address2');
+						//						$target.citySelect({
+						//							provance: seller.bank_province,
+						//							city: seller.bank_city,
+						//							area: seller.bank_area
+						//						});
+
+					}
+				}
+				$('.button-success').click(function() {
+					$('#zhihang_name').val($('#zhihang').val())
+					$('#bank_name').val($('#userResult').val())
+					open_shop_step4();
+				})
+
+				$('#zhihang_select').click(function() {
+					var city = (localStorage.getItem('city'))
+					var province = localStorage.getItem('province')
+					//					var area = localStorage.getItem('area')
+					var bank = localStorage.getItem('bank')
+					if(city == '') {
+						mui.toast('请选择开户地址')
+						return;
+					}
+
+					if(bank == '') {
+						mui.toast('请选择开户银行')
+						return;
+					}
+					localStorage.setItem('bank_keywords', '')
+					openWindowWithTitle('选择支行', 'bank_radio.html')
+				})
+
+				$('.item-title').css('width', '25%')
+			});
+
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_auth_info');
+
+				}
+			});
+			(function($, doc) {
+
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					var user = localStorage.getItem('seller');
+
+					user = JSON.parse(user);
+
+					var userbank = localStorage.getItem('userbank');
+					userbank = JSON.parse(userbank);
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+					var index; //用index来记住给你的那个默认值的下标
+					var List = userbank;
+					for(var i = 0; i < List.length; i++) {
+						shopList1.push({
+
+							value: List[i].label, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+							text: List[i].label,
+							phone: List[i].value,
+							saddress: List[i].value, //地址                     
+
+						})
+						if(user != null && user != '') {
+							if(List[i].value == user.bank) {
+								index = i
+							}
+						}
+
+					}
+					userPicker.setData(shopList1);
+
+					var showUserPickerButton = doc.getElementById('bank_name_select');
+					var userResult = doc.getElementById('userResult');
+					var bank = doc.getElementById('bank');
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							localStorage.setItem('bank', items[0].text)
+							userResult.value = (items[0].text);
+						});
+					}, false);
+
+				});
+			})(mui, document);
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_auth_info');
+
+				}
+			});
+			window.addEventListener('update_select_bank', function(e) {
+				var zhihang = $('#zhihang');
+				var zhihang_name = $('#zhihang_name');
+
+				var select_bank = localStorage.getItem('select_bank');
+
+				zhihang.val(select_bank)
+				zhihang_name.val(select_bank)
+
+			});
+		</script>
+	</head>
+
+	<body style="background: #efeff4;">
+
+		<div class="">
+			<form id="editForm" name="editForm" class="form-box">
+				<input id="history_url" name="history_url" type="hidden" value="" />
+				<input id="user_id" name="user_id" type="hidden" />
+				<input id="seller_id" name="seller_id" type="hidden" />
+				<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+				<input type="hidden" id="seller_type" class="seller_type" name="seller_type" />
+				<input id="huikui_id" name="huikui_id" type="hidden" value="0" />
+
+				<div id="account-page" class="page-group">
+					<!--页面头部-->
+
+					<!--/页面头部-->
+
+					<div class="page no-animate page-current" style="margin-top: 00px;">
+						<div class="content page-content native-scroll mt-right">
+							<div class="contentInner">
+
+								<div class="sub-nav"></div>
+								<div class="list-block mt0">
+									<div class="mui-input-row">
+										<label>银行卡号</label>
+										<input onkeyup="formatBankCarNumber(this)" onkeydown="formatBankCarNumber(this)" name="bank_card" id="bank_card" placeholder="请输入银行卡号" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row " id="bank_name_select">
+										<label>开户银行</label>
+										<input type="hidden" name="bank_name" id="bank_name">
+										<input name="userResult" id="userResult" placeholder="请选择开户银行" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row " id="bank_name_select">
+										<label>开户地址</label>
+										<input id="txtProvince" name="txtProvince" type="hidden" />
+										<input id="txtCity" name="txtCity" type="hidden" />
+										<input id="txtArea" name="txtArea" type="hidden" />
+										<input class="J-area" name="bank_address" id="showCityPicker" placeholder="请选择开户地址" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row " id="zhihang_select">
+										<label>选择支行</label>
+										<input type="hidden" name="zhihang_name" id="zhihang_name">
+										<input name="zhihang" id="zhihang" placeholder="请选择支行" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<ul id="account-info"><input type="hidden" value="private">
+
+										<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+										<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+										<script>
+											(function($, doc) {
+												$.init();
+												$.ready(function() {
+													/** 
+													 * 获取对象属性的值
+													 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+													 * @param {Object} obj 对象
+													 * @param {String} param 属性名
+													 */
+													var _getParam = function(obj, param) {
+														return obj[param] || '';
+													};
+													//普通示例
+
+													//-----------------------------------------
+													//级联示例
+													var cityPicker = new $.PopPicker({
+														layer: 2
+													});
+													cityPicker.setData(cityData);
+													var showCityPickerButton = doc.getElementById('showCityPicker');
+													var cityResult = doc.getElementById('showCityPicker');
+													var txtProvince = doc.getElementById('txtProvince');
+													var txtCity = doc.getElementById('txtCity');
+													showCityPickerButton.addEventListener('tap', function(event) {
+														cityPicker.show(function(items) {
+															cityResult.value = "" + items[0].text + " " + items[1].text;
+															txtProvince.value = (items[0].text);
+															txtCity.value = (items[1].text);
+															localStorage.setItem('province', items[0].text)
+															localStorage.setItem('city', items[1].text)
+
+														});
+													}, false);
+
+												});
+											})(mui, document);
+										</script>
+
+										<li class="item-content" style="display: none;">
+											<div class="item-inner">
+												<div class="item-title label">开户姓名</div>
+												<div class="item-input">
+
+													<div><input id="bank_user_name" type="text" name="bank_user_name" id="bank_user_name" value="不用填写" placeholder="请输入开户人姓名"><span class="validate"></span></div>
+												</div>
+											</div>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+							<div class="mui-content-padded">
+								<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success">下一步</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+
+	</body>
+
+</html>

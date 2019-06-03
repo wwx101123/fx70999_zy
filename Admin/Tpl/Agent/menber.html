@@ -1,0 +1,136 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>未激活会员</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li>
+                <a>团队管理</a>
+            </li>
+            <li class="active">
+                <strong>未激活会员</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                   <div class="ibox-title">
+                        <h5><!-- 我的注册积分余额为:{$agent_cash}&nbsp; -->我的激活积分余额为:{$agent_kt}</h5>
+                    </div>
+                    <div class="ibox-title">
+                        <h5>未激活会员 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <table class="table table-hover" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>用户账号</th>
+                                        <th>会员姓名</th>
+                                        <th>消费级别</th>
+                                        <th>推荐人</th>
+                                        <th>接点人</th> 
+                                        <th>位置</th> 
+                                        <th>注册时间</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <volist name='list' id='item'>
+                                    <tr>
+                                        <th>{$item['id']}</th>
+                                        <th>{$item['user_id']}</th>
+                                        <th>{$item['user_name']}</th>
+                                        <th>{$item['get_level']|getUserLevel=###}</th>
+                                        <th>{$item['re_name']}</th>
+                                        <th>{$item['father_name']}</th>
+                                        <th><eq name="item['treeplace']" value='0'><span style="color: #FF0000;">左区</span><else />右区</eq></th>
+                                        <th>{$item['rdt']|date="Y-m-d H:i:s",###}</th>
+                                        <th>
+                                            <b class="tablesaw-cell-label">状态</b>
+                                            <span class="tablesaw-cell-content">
+                                            <a class="btn btn-xs btn-outline btn-info" href="{:U('User/userInfo')}?id={$item['id']}">查看</a>&nbsp;
+                                            <button class="btn btn-xs btn-outline btn-primary confirm"  money="{$item['cpzj']}" url="{:U('Agent/menberAC')}?action=confirm&amp;id={$item['id']}" >确认</button>
+                                            <button class="btn btn-xs btn-outline btn-info del" url="{:U('Agent/menberAC')}?action=del&id={$item['id']}">删除</button>
+                                        </span>
+                                        </th>
+                                    </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                            <script type="text/javascript">
+                                layui.use(['layer'],function() {
+                                    $('.confirm').on('click',function() {
+                                        console.log(1);
+                                        var self=$(this);
+                                        var money=self.attr('money');
+                                        layer.confirm('您确认花费'+money+' 元开通该会员吗？',
+                                            {title:'提示',icon:3},
+                                            function(index) {
+                                                $.get(self.attr('url'),function (data) {
+                                                    console.log(data);
+                                                    if (data.status) {
+                                                        layer.msg(data.info,{end:function() {
+                                                            location.reload();
+                                                        }});
+                                                    }else{
+                                                        layer.msg(data.info);
+                                                    }
+                                                })
+                                            layer.close(index);
+                                        });
+                                    return false;
+                                    }); 
+                                    $('.del').on('click',function() {
+                                        console.log(1);
+                                        var self=$(this);
+                                        layer.confirm('您确认删除该会员吗？',
+                                            {title:'提示',icon:3},
+                                            function(index) {
+                                                $.get(self.attr('url'),function (data) {
+                                                    console.log(data);
+                                                    if (data.status) {
+                                                        layer.msg(data.info,{end:function() {
+                                                            location.reload();
+                                                        }});
+                                                    }else{
+                                                        layer.msg(data.info);
+                                                    }
+                                                })
+                                            layer.close(index);
+                                        });
+                                    return false;
+                                    });   
+                                });                                      
+                                    
+                                </script>
+                            <!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <title>Title</title>
+                            </head>
+                            <body>
+                                <div class="row grey-bg">
+                                {$page}
+                                </div>
+                            </body>
+                            </html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>

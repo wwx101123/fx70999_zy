@@ -1,0 +1,168 @@
+body{
+	background-color: #fff;
+}
+.logo{
+	background-color:#447FF8; 
+	padding-top: 0.6rem;
+    padding-left: 0.6rem;
+    height: 2.5rem;
+}
+.logo_icon{
+	width: 5.2rem;
+}
+.logo_img{
+	position: absolute;
+}
+
+.select_icon{
+	position: absolute;
+    line-height: 1.4rem;
+    right: 0.4rem;
+}
+.language{
+    color: #fff;
+    font-size: 0.7rem;
+}
+.language li{
+	padding: 0 0.3rem;
+	float: left;
+}
+.language li a{
+	color: rgba(255, 255, 255, 0.61);
+	font-size: 0.7rem;
+}
+.language li .colorEn{
+	color: #fff;
+}
+
+.center_logo{
+	width: 2.9rem;
+	height: 2.9rem;
+	margin: 2.4rem auto 1.1rem auto;
+}
+
+.center_title{
+	font-size: 0.8rem;
+	text-align: center;
+	margin-top: 1rem;
+	color:#3F4447;
+}
+
+.center_download{
+	width: 7.8rem;
+	height:2.1rem;
+	background: linear-gradien(#8DAFFF,#1280F8);
+    background: -webkit-linear-gradient(left,#8DAFFF,#1280F8);
+    border: none;
+    border-radius: 1rem;
+    margin: 2.5rem auto 0 auto;
+    display: block;
+    font-size: 0.8rem;
+    line-height: 2.1rem;
+    text-align: center;
+    color: #fff;
+
+}
+
+.center_line{
+	width: 100%
+	height:1px;
+	border-top: 1px solid #EFF4F7;
+}
+
+
+.detail_title{
+	font-size: 0.9rem;
+	color:#3F4447;
+	text-align: center;
+	margin-top: 2.5rem;
+}
+.detail_title_line{
+	width: 1rem;
+	height: 1px;
+	border-top: 0.1rem solid #2A73F4;
+	margin:0.4rem auto 0 auto;
+}
+
+
+.step{
+	margin-left: 2rem;
+	margin-right: 2rem;
+	margin-top: 1.7rem;
+	margin-bottom: 1rem;
+	position: relative;
+}
+.step_num{
+	position: absolute;
+	left:0;
+	top: 0;
+	color: #C5C6C7;
+	font-size: 0.9rem;
+}
+.step_title{
+	margin-left: 4rem;
+	color: #6D777C;
+	font-size: 0.75rem;
+	line-height: 1rem;
+}
+.step_img{
+	margin-top: 1rem;
+	width: 100%;
+}
+
+.footer{
+	font-size: 0.6rem;
+    color: #92939D;
+    text-align: center;
+    margin-top: 3rem;
+    line-height: 0.9rem;
+    padding-bottom: 1.75rem;
+}
+
+.center_download:active:focus,
+.center_download:active:hover,
+.center_download.active:hover,
+.center_download.active:focus {
+	background: linear-gradien(#633DDB,#088BC8);
+    background: -webkit-linear-gradient(left,#633DDB,#088BC8);
+}
+
+
+.version{
+	text-align: center;
+	margin-bottom: 1.2rem;
+	margin-top: 0.5rem;
+	font-size: 0.5rem;
+	color:#6D777C;
+}
+
+.center_tips{
+	margin-left: 1rem;
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+	font-size: 0.7rem;
+	line-height: 0.8rem;
+	color: #f15125;
+}
+
+.projectile{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 9;
+	display: none;
+	background: rgba(0, 0, 0, 0.8);
+}
+
+#showtext{
+	display: none;
+	text-align: center;
+	font-size: 0.7rem;
+	line-height: 100%;
+    margin:0.5rem;
+	color: #1abc9c;
+}

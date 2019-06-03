@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>我的下线 </title>
+		<link rel="stylesheet" type="text/css" href="../css/introduction.32e41245.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common1.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=12e112ed914077e56c9952451ca7d4fd&plugin=AMap.Geolocation"></script>
+		<style>
+			.search header {
+				left: 0;
+				right: 0;
+				padding: 30px 10px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important
+			}
+		</style>
+	</head>
+
+	<body style="background: white;">
+
+		<div class="tab-panel mescroll" id="mescroll">
+			<div class="search">
+				<header style="background-color: rgba(242, 242, 242, 0);">
+					<a class="position back" style="color: rgb(255, 255, 255);">
+						<img src="../images/back.png" /> <span></span> <i class="iconfont icon-down-arrow"></i></a>
+					<section class="input search_section" style="color: rgb(255, 255, 255);">
+						<a href="javacript:void(0);"></a> <i class="mui-icon mui-icon-search"></i>搜索商家
+					</section>
+					<a class="city" style="color: rgb(255, 255, 255);"><i data-v-79b83520="" class="mui-icon mui-icon-location"></i> <span class="city_name">获取中</span> <i class="iconfont icon-down-arrow"></i></a>
+					<a class="message" href="javacript:void(0);" style="color: rgb(255, 255, 255);"><i class="iconfont icon-message"></i></a>
+				</header>
+				<div class="mask "></div>
+			</div>
+			<div id="mainBanner" class="main_banner">
+
+				<div id="slider" class="swiper-container">
+					<div class="swiper-wrapper">
+
+					</div>
+					<div class="pagination"></div>
+				</div>
+
+			</div>
+			<div class="tab-panel-item tab-active">
+
+				<div class="aui-product">
+
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		mui.init({
+			beforeback: function() {　　　
+				localStorage.setItem('category_id', 0);
+				localStorage.setItem('is_login', 0);
+
+			}
+		});
+		$(function() {
+			localStorage.setItem('city_name', '');
+			localStorage.setItem('is_login', 0);
+			localStorage.setItem('is_pay', 0)
+
+		});
+	</script>
+	<script type="text/javascript">
+		var watchId;
+
+		function getGeocode() {
+			console.log('getGeocode')
+			//高德地图API
+			//AMap.service解决只使用高德Geolocation功能提示Geolocation不是构造函数问题  
+			    
+			AMap.service(["AMap.Geolocation"], function() {
+				var geolocation = new AMap.Geolocation({
+					timeout: 10,
+					GeoLocationFirst: false,
+					maximumAge: 0 //定位结果缓存0毫秒，默认：0
+				});
+				geolocation.getCurrentPosition(function(status, result) {
+					if(status == "complete") {
+						console.log(result.position.lng)
+
+						var city_name = localStorage.getItem('city_name');
+						if(city_name != null && city_name != '') {
+							$('.city_name').html(city_name)
+						} else {
+							localStorage.setItem('city_name', result.addressComponent.city)
+							localStorage.setItem('lat', result.position.lat)
+							localStorage.setItem('lng', result.position.lng)
+
+							$('.city_name').html(result.addressComponent.city)
+						}
+
+						//设置当前经纬度
+
+					} else {
+						attendanceVue.currentAddress.ADDRESS = result.message;
+					}
+				});
+			});
+		}
+		//		function geoInf(position) {
+		////			var str = "";
+		////			str += "地址：" + position.addresses + "\n"; //获取地址信息
+		////			str += "坐标类型：" + position.coordsType + "\n";
+		////			var timeflag = position.timestamp; //获取到地理位置信息的时间戳；一个毫秒数；
+		////			str += "时间戳：" + timeflag + "\n";
+		////			var codns = position.coords; //获取地理坐标信息；
+		////			var lat = codns.latitude; //获取到当前位置的纬度；
+		////			str += "纬度：" + lat + "\n";
+		////			var longt = codns.longitude; //获取到当前位置的经度
+		////			str += "经度：" + longt + "\n";
+		////			var alt = codns.altitude; //获取到当前位置的海拔信息；
+		////			str += "海拔：" + alt + "\n";
+		////			var accu = codns.accuracy; //地理坐标信息精确度信息；
+		////			str += "精确度：" + accu + "\n";
+		////			var altAcc = codns.altitudeAccuracy; //获取海拔信息的精确度；
+		////			str += "海拔精确度：" + altAcc + "\n";
+		////			var head = codns.heading; //获取设备的移动方向；
+		////			str += "移动方向：" + head + "\n";
+		////			var sped = codns.speed; //获取设备的移动速度；
+		////			str += "移动速度：" + sped;
+		//			console.log(JSON.stringify(position));
+		//			var city_name = localStorage.getItem('city_name');
+		//			if(city_name != null && city_name != '') {
+		//				$('.city_name').html(city_name)
+		//			} else {
+		//
+		//				$('.city_name').html(position.address.city)
+		//			}
+		//		}
+
+		function getPos() {
+			console.log("获取位置信息:");
+			plus.geolocation.getCurrentPosition(geoInf, function(e) {
+				console.log("获取位置信息失败：" + e.message);
+			}, {
+				geocode: false
+			});
+		}
+
+		function watchPos() {
+			if(watchId) {
+				return;
+			}
+			watchId = plus.geolocation.watchPosition(function(p) {
+				console.log("监听位置变化信息:");
+				geoInf(p);
+			}, function(e) {
+				console.log("监听位置变化信息失败：" + e.message);
+			}, {
+				geocode: false
+			});
+		}
+
+		function clearWatch() {
+			if(watchId) {
+				console.log("停止监听位置变化信息");
+				plus.geolocation.clearWatch(watchId);
+				watchId = null;
+			}
+		}
+		// 通过定位模块获取位置信息
+
+		getGeocode()
+	</script>
+	<script type="text/javascript">
+		var mescroll
+		$(function() {
+			localStorage.setItem('keywords', '')
+			$('#keywords').bind('input propertychange', function() {
+				var keywords = $(this).val();
+				localStorage.setItem('keywords', keywords)
+
+				localStorage.setItem('page_index', 1)
+				mescroll.resetUpScroll();
+
+			});
+			var size = 20;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					my_seller_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.my_cate li').remove()
+				$('.goods_list .tab-item .aui-list-item').remove();
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				var IP = localStorage.getItem('IP');
+				info = JSON.parse(data);
+
+				info = info.data;
+
+				$('.no-div-message').css('display', 'none');
+
+				var page_index = localStorage.getItem('page_index');
+
+				if(page_index == 1 || page_index == 0) {
+					$('.aui-product .aui-flex').remove();
+				}
+				var lng = localStorage.getItem('lng')
+				var lat = localStorage.getItem('lat')
+				if(info != null) {
+					var item = '';
+					var u_level = 0;
+					$.each(info, function(index, content) {
+						console.log(lng)
+						console.log(content.lng)
+						var distance = distanceByLnglat(lng, lat, content.lng, content.lat);
+
+						item += '<a href="javascript:;" class="aui-flex b-line item" seller_id="' + content.id + '"  price="' + content.price + '" seller_name="' + content.title + '">';
+						item += '<div class="aui-product-img">';
+						item += '	<img src="' + IP + content.img + '" alt="">';
+						item += '	<span class="aui-fl-tag"></span>';
+						item += '</div>';
+						item += '<div class="aui-flex-box">';
+						item += '	<h2>' + content.title + '</h2>';
+						item += '<p>' + content.content + '</p>';
+						item += '<span>';
+						if(content.remark1 != '' && content.remark1 != null) {
+							item += '              <em>' + content.remark1 + '</em>';
+
+						}
+						if(content.remark2 != '' && content.remark2 != null) {
+							item += '              <em>' + content.remark2 + '</em>';
+
+						}
+						item += '       </span>';
+						item += '	<h3>' + content.price + '<em>折起</em></h3>';
+						item += '</div>';
+						item += '<div class="aui-arrow-text">' + content.km + '</div>';
+						item += '</a>';
+
+					});
+					$('.aui-product').append(item);
+
+				} else {
+					$('.no-div-message').css('display', 'block');
+
+				}
+				$(".back").click(function() {
+
+					mui.back()
+				});
+				$(".city").click(function() {
+					openWindowWithTitle('城市选择', 'city.html')
+				});
+				$(".item").click(function() {
+					localStorage.setItem('seller_name', $(this).attr('seller_name'));
+					localStorage.setItem('price', $(this).attr('price'));
+					localStorage.setItem('seller_id', $(this).attr('seller_id'));
+					console.log($(this).attr('seller_id'))
+
+					openWindowWithTitle('付款', 'buy_seller.html')
+				});
+				info = JSON.parse(data);
+				$('.shouquan_item').css('display', 'none');
+
+				$('.mui-control-item1').click(function() {
+					$('#sliderSegmentedControl a').removeClass('mui-active')
+					var is_pay = $(this).attr('is_pay')
+
+					localStorage.setItem('is_pay', is_pay);
+
+					$('#sliderSegmentedControl').css('display', 'block');
+					$('.ranking-view').css('display', 'none');
+					$('.mui-control-item1').css('color', 'black');
+					$('.mui-control-item1').css('border-bottom', '');
+					$(this).css('border-bottom', '2PX solid #f82566');
+					$(this).css('color', '#f82566');
+					$('.ranking-view:eq(' + $(this).index() + ')').css('display', 'block');
+					mescroll.resetUpScroll()
+
+				});
+				data = JSON.parse(data);
+				info = data.cate_slider;
+
+				$('.swiper-wrapper .swiper-slide').remove();
+				var height = $('.swiper-container').height();
+				var goods_albums = info;
+				//				console.log(goods_albums)
+				if(goods_albums != null) {
+					if(goods_albums.length >= 1) {
+						$.each(goods_albums, function(index, content) {
+							//							console.log(IP + content.img)
+							var item = '	 <div class="swiper-slide"> ';
+							item += '<a href="javacript:void(0);">	<img src="' + IP + content + '"  style="height:200px"/></a> </div>';
+
+							$('.swiper-wrapper').append(item);
+
+						});
+					}
+					var mySwiper = new Swiper('.swiper-container', {
+						calculateHeight: true,
+						resizeReInit: true,
+						pagination: ".pagination",
+						autoplay: 5000,
+						paginationClickable: true,
+						autoplayDisableOnInteraction: false
+					});
+				}
+
+			}
+		});
+		/*搜索查询*/
+		function SiteSearch(divTgs) {
+			var str = $(divTgs).val();
+			//				mui.toast(str)
+			if(str == '') {
+				//		weui.alert('请输入关键字');
+				//		return;
+			}
+
+			localStorage.setItem('keywords', str)
+			localStorage.setItem('page_index', 1)
+			mescroll.resetUpScroll();
+
+		}
+
+		//打开规格选择窗口
+		function showActionSheet(actiontype, real_user_id, user_id, money) {
+			//			address = JSON.parse(decodeURI(address));
+
+			var goods_id = localStorage.getItem('goods_id');
+			//			$('.area').html(address.province + address.city + address.area)
+			//			$('.address').html(address.address)
+			$('.accept_name').html(real_user_id)
+			$('.money').html(money)
+			var express_item = '';
+			$('.profit_list .options-item').remove();
+
+			//显示窗口
+			$('#specActionsheet').addClass('weui-actionsheet_toggle');
+			$('#specMask').fadeIn(200);
+			//添加隐藏事件
+			$('#specMask').on('click', hideActionSheet);
+			$('#specActionsheetCancel').on('click', hideActionSheet);
+			//判断是选择规格|立即购买|加入购物车
+			$('#confirmButton').unbind("click");
+			$('#confirmButton').attr("user_id", user_id); //移除事件
+
+			if(actiontype == "shoukuan") {
+				$('#confirmButton').on('click', function() {
+
+					menberOpenUse(user_id)
+
+					hideActionSheet();
+
+				});
+
+			} else if(actiontype == "sell") { //加入购物车
+
+			}
+			$(".options-item").click(function() {
+				$(".options-item").find("input[type='checkbox']").prop("checked", false); //每次点击前，将所有checkbox置为 未选中
+				var cobj = $(this).find("input[type='checkbox']"); //当前点击的checkbox
+				cobj.prop("checked", true); //将当前点击的checkbox置为选中状态
+
+				$('#profit').val(cobj.val());
+
+			})
+			var agent_data = localStorage.getItem('user');
+
+			var info = JSON.parse(agent_data);
+			if(info.u_level == 2) {
+				$('.profit_list .options-item:eq(0)').trigger('click')
+			}
+
+		}
+
+		//隐藏规格选择窗口
+		function hideActionSheet() {
+			$('#specActionsheet').removeClass('weui-actionsheet_toggle');
+			$('.weui-mask1').fadeOut(200);
+		}
+
+		function hideActionSheet2() {
+			$('#shouquanInfoActionsheet').removeClass('weui-actionsheet_toggle');
+			$('.weui-mask2').fadeOut(200);
+		}
+
+		//打开规格选择窗口
+		function showShouquanSheet(actiontype, shouquan_time_str, percent, money, use_money) {
+			//			address = JSON.parse(decodeURI(address));
+
+			$('.use_money').html(use_money)
+			$('.money').html(money)
+			$('.percent').html(percent)
+			$('.shouquan_time_str').html(shouquan_time_str)
+			//显示窗口
+			$('#shouquanInfoActionsheet').addClass('weui-actionsheet_toggle');
+			$('#shouquanInfo').fadeIn(200);
+			//添加隐藏事件
+			$('#shouquanInfo').on('click', hideActionSheet2);
+			$('#specActionsheetCancel2').on('click', hideActionSheet2);
+			//判断是选择规格|立即购买|加入购物车
+			$('#confirmButton2').unbind("click"); //移除事件
+
+			$('#confirmButton2').on('click', function() {
+
+				hideActionSheet2();
+
+			});
+
+			$(".options-item").click(function() {
+				$(".options-item").find("input[type='checkbox']").prop("checked", false); //每次点击前，将所有checkbox置为 未选中
+				var cobj = $(this).find("input[type='checkbox']"); //当前点击的checkbox
+				cobj.prop("checked", true); //将当前点击的checkbox置为选中状态
+
+				$('#profit').val(cobj.val());
+
+			})
+		}
+		window.addEventListener('update_city_name', function(e) {
+			var city_name = localStorage.getItem('city_name');
+
+			$('.city_name').html(city_name)
+		});
+	</script>
+	<!--规格容器-->
+
+	<!--规格容器-->
+
+	<!--规格容器-->
+
+	<!--规格容器-->
+
+</html>

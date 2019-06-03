@@ -1,0 +1,176 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>会员审核</h2>
+      <ol class="breadcrumb">
+        <li> <a href="{:U('Index/index')}">首页</a> </li>
+        <li> <a>后台管理</a> </li>
+        <li class="active"> <strong>{$str}</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user_list').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #user_list').css('display','block')
+		$('.sidebar #auditMenber{$type}').addClass('current')
+	});
+</script>
+  <div class="wrapper wrapper-content animated fadeInRight"> 
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>{$str}</h5>
+      </div>
+      <div class="ibox-content" style="display: block;">
+        <div class="row wrapper border-bottom white-bg page-heading">
+          <div class="col-sm-12">
+            <form class="form-inline title-form" name="qfrm" method="post" action="?action=query">
+              <div class="form-group">
+                <label for="username"></label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="用户账号查询" value="{$user_id}">
+              </div>
+              <div class="form-group">
+                <label for="tjrname"></label>
+                <input type="text" class="form-control" id="tjrname" name="tjrname" placeholder="推荐人编号查询" value="{$re_id}">
+              </div>
+              <!-- <div class="form-group">
+                                <label for="realname"></label>
+                                <input type="text" class="form-control" id="realname" name="realname" placeholder="会员姓名查询" value="">
+                            </div> -->
+              <div class="form-group" id="data_5">
+                <label class="font-noraml"></label>
+                <div class="input-daterange input-group" id="datepicker">
+                  <input type="text" class="form-control" name="time1" placeholder="审核开始日期" value="{$s_time}" id="time1">
+                  <span class="input-group-addon">到</span>
+                  <input type="text" class="form-control" name="time2" placeholder="审核截止日期" value="{$e_time}" id="time2">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">查询</button>
+            </form>
+          </div>
+        </div>
+        <script type="text/javascript">
+                    layui.use('laydate', function(){
+                      var laydate = layui.laydate;
+                          var start = {
+                          // min: laydate.now(-2)
+                          max: '2099-06-16 23:59:59'
+                          ,istoday: false
+                          ,choose: function(datas){
+                            end.min = datas; //开始日选好后，重置结束日的最小日期
+                            end.start = datas //将结束日的初始值设定为开始日
+                          }
+                        };
+                        
+                        var end = {
+                          min: laydate.now()
+                          ,max: '2099-06-16 23:59:59'
+                          ,istoday: false
+                          ,choose: function(datas){
+                            start.max = datas; //结束日选好后，重置开始日的最大日期
+                          }
+                        };
+                        
+                        $('#time1').on('click',function(){
+                          start.elem = this;
+                          laydate(start);
+                        });
+                        $('#time2').on('click',function(){
+                          end.elem = this
+                          laydate(end);
+                        });
+                    });
+                </script>
+        <div class="tablesaw-bar mode-stack"></div>
+        <table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-1166">
+          <thead>
+            <tr>
+              <th>用户账号</th>
+              <th>会员姓名</th>
+              <th>推荐人编号</th>
+              <th>所属地区</th>
+              <th>联系电话</th>
+              <th>注册时间</th>
+              <th>认证状态</th>
+              <neq name="type" value='3'>
+              <th>错误原因</th>
+              <th style="display: none">注册金额</th>
+              
+              
+              <th>操作</th>
+              </neq>
+            </tr>
+          </thead>
+          <tbody>
+            <volist name="list" id="vo">
+              <tr>
+                <td><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content">  <span class="rankcolor_1">{$vo.user_id}</span>
+                  
+                  </span></td>
+                <td><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo.user_name}</span></td>
+                <td><b class="tablesaw-cell-label">推荐人编号</b><span class="tablesaw-cell-content">{$vo.re_name}</span></td>
+                <td><b class="tablesaw-cell-label">联系地址</b><span class="tablesaw-cell-content">{$vo.province}{$vo.city}{$vo.area}</span></td>
+                <td><b class="tablesaw-cell-label">联系电话</b><span class="tablesaw-cell-content"><i>{$vo.user_tel}</i></span></td>
+                <td><b class="tablesaw-cell-label">注册时间</b><span class="tablesaw-cell-content"> {$vo.rdt|date='Y-m-d H:i:s',###} </span></td>
+                <td>  {$vo.auth_status_str}  </td>
+                  <neq name="type" value='3'> 
+                <td title="{$vo.auth_error}" ><b class="tablesaw-cell-label">联系电话</b><span class="tablesaw-cell-content"><i>{$vo.auth_error}</i></span></td>
+                <td style="display: none"><b class="tablesaw-cell-label">注册金额</b><span class="tablesaw-cell-content">{$vo['cpzj']}</td>
+               
+              <neq name="type" value='3'> <td><b class="tablesaw-cell-label">操作</b> <span class="tablesaw-cell-content"> <a class="  btn btn-xs btn-outline btn-info" href="{:U('YouZi/auditMenberData')}?PT_id={$vo.id}">查看</a>     <a class="btn btn-xs btn-outline btn-primary confirm" href="{:U('YouZi/adminuserData')}?id={$vo.id}"  style="display: none">修改</a> <a  style="display: none" class="btn btn-xs btn-outline btn-info" href="__URL__/LoginMenber/id/{$vo.id}" target="_blank" title="登录会员账号">登入</a> 
+                  <!--| <a style="color:green" href="editrank.php?id=82&pageno=1">等级修改</a>--> 
+                  </span></td></neq>
+              </tr>
+            </volist>
+          </tbody>
+        </table> 
+        <script type="text/javascript">
+		$(document)
+				.ready(
+						function() {
+
+							 
+
+						});
+		layui.use('layer', function() {
+			$('.ajax-a').on('click', function() {
+				var self = $(this);
+				layer.confirm(self.attr('info'), {
+					shade : 0,
+					icon : 3,
+					title : '警告'
+				}, function(index) {
+					$url = self.attr('url');
+					$.get($url, function(data) {
+						if (data.status) {
+							layer.msg(data.info, {
+								time : 1000,
+								end : function() {
+									if (data.url) {
+										location.href = data.url;
+									} else {
+										location.reload();
+									}
+								}
+							});
+						} else {
+							layer.msg(data.info);
+						}
+					});
+				});
+				return false;
+			});
+		});
+	</script>         
+        {$page} </div>
+    </div>
+  </div>
+   
+</block>

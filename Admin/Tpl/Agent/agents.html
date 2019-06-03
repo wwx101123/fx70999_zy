@@ -1,0 +1,180 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>服务中心申请</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="main.php">首页</a>
+                </li>
+                <li>
+                    <a>团队管理</a>
+                </li>
+                <li class="active">
+                    <strong>服务中心申请</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>服务中心申请 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-8 b-r"><h3 class="m-t-none m-b">{$frs['user_id']}</h3>
+                                <p>{$level[$frs['get_level']]}</p>
+                                <form role="form" id="sendForm" action="__URL__/agentsAC" method="post" class="ajax-post">
+                                    <input type="hidden" name="rank" value="1">
+                                    <input type="hidden" name="action" value="applystore_ajax">
+                                    <div class="form-group col-sm-12"><label>申请级别</label>
+                                        <select name="ranktype" id="ranktype" class="form-control">
+                                            <option value="1" >服务中心</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4 hidden">
+                                        <label>省级</label>
+                                        <select name="province" id="province"  class="form-control" >
+                                            <option>请选择</option>
+                                            <volist name="provincelist" id="item">
+                                                <option value="{$item['p_code']}">{$item['p_name']}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4 hidden" id="citydiv">
+                                        <label>市级</label>
+                                        <select name="city" id="city" class="form-control" >
+                                            <option>请选择</option>
+                                            <volist name="citylist" id="item">
+                                                <option value="{$item['p_code']}">{$item['p_name']}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-4 hidden" id="districediv">
+                                        <label>区级</label>
+                                        <select name="districe" id="districe" class="form-control" >
+                                            <option>请选择</option>
+                                            <volist name="provincelist" id="item">
+                                                <option value="{$item['p_code']}">{$item['p_name']}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                </form>
+                                    </div>
+                                    <div class="col-sm-4"><h4>确认升级</h4>
+                                        <p>点击下方按钮进行升级申请</p>
+                                        <p class="text-center">
+                                          <!--  <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" type="button" id="sendUp" onclick="sendAjax('sendUp','applystore.php');">确认修改</button>-->
+                                          <!--  <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" type="button" id="sendUp" onclick="sendAjax('sendUp','applystore.php');"><i class="fa fa-level-up big-icon" style="color: #FFF"></i></button>-->
+                                           <button id="sendUp" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">申请</button>
+                                       <!--  <a id="sendUp" class="ladda-button ladda-button-demo" data-style="zoom-in"><i class="fa fa-level-up big-icon" style="color: #1ab394"></i></a> -->
+                                      </p>
+                                  </div>
+                              </div>
+                                <script type="text/javascript">
+                                    $('#ranktype').on('change',function() {
+                                        var self=$(this);
+                                        $rank=self.val();
+                                        if ($rank==3) {
+                                            $('#citydiv').addClass('hidden');
+                                            $('#districediv').addClass('hidden');
+                                        }
+                                        if ($rank==2) {
+                                            $('#citydiv').removeClass('hidden');
+                                            $('#districediv').addClass('hidden');
+                                        }
+                                        if ($rank==1) {
+                                            $('#citydiv').removeClass('hidden');
+                                            $('#districediv').removeClass('hidden');
+                                        }
+                                    });
+                                    $('#province').on('change',function() {
+                                        var self=$(this);
+                                        var rank=self.val();
+                                        $.post("{:U('Public/getAgentList')}",{type:'province',pid:rank},
+                                            function(data) {
+                                            $('#city').empty().append('<option>请选择</option>');
+                                            $('#districe').empty().append('<option>请选择</option>');
+                                            $.each(data,function(index,element) {
+                                               $('#city').append("<option value='"+element.c_code+"'>"+element.c_name+"</option>");
+                                            })
+                                        });
+                                    });
+                                    $('#city').on('change',function() {
+                                        var self=$(this);
+                                        var rank=self.val();
+                                        $.post("{:U('Public/getAgentList')}",{type:'city',pid:rank},
+                                            function(data) {
+                                            $('#districe').empty().append('<option>请选择</option>');
+                                            $.each(data,function(index,ele) {
+                                                $('#districe').append("<option value='"+ele.d_code+"'>"+ele.d_name+"</option>")
+                                            })
+                                        });
+                                    });
+                                    layui.use('layer',function() {
+                                        $('#sendUp').on('click',function() {
+                                        $.post($('#sendForm').attr('action')
+                                            ,$('#sendForm').serialize(),
+                                            function(data) {
+                                                if (data.status) {
+                                                    layer.msg(data.info,{end:function() {
+                                                        location.reload();
+                                                    }});
+                                                }else{
+                                                    layer.msg(data.info);
+                                                }
+                                            });
+                                        return false;
+                                    });
+                                    });
+                                    
+                                </script>
+                              <div class="alert alert-success">
+                                申请记录
+                            </div>
+                            <table class="table table-hover" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>申请级别</th>
+                                        <!--<th>申请区域</th>
+                                        <th>升级金额</th>-->
+                                        <th>申请时间</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <empty name='list'>
+                                    <tr>
+                                        <td>暂无数据</td>
+                                    </tr>
+                                    <else/> 
+                                    <volist name="list" id="vo">
+                                        <tr>
+                                            <td>{$vo.id}</td>
+                                            <td>{$Aname[$vo['up_level']]}</td>
+                                            <!--<td>{:agentD($vo['uid'],$vo['u_level'],$vo['up_level'])}</td>
+                                            <td>{$vo.money|default=0}</td>-->
+                                            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                            <td>
+                                                <eq name="vo.is_pay" value="2"><span class="label label-danger">拒绝</span></eq>
+                                                <eq name="vo.is_pay" value="0"><span class="label label-warning">未审核</span></eq>
+                                                <eq name="vo.is_pay" value="1"><span class="label label-success">已通过</span></eq>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                    </empty>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </block>

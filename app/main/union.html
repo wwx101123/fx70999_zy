@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>注册会员邀请好友</title>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/usermoney.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css">
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weixin.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/js_sdk20170302.js"></script>
+
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				$('.content').css('margin-top', 40)
+				mui.init({
+					pullRefresh: {
+						container: '.content',
+						down: {
+							style: 'circle',
+							color: localStorage.getItem('color'),
+							auto: true,
+							callback: down
+						}
+					}
+				});
+			});
+
+			function init_view() {
+				var user = localStorage.getItem('user');
+				info = JSON.parse(user);
+				$('.today_time').html(info.today_time);
+				$('.today_epoints').html(info.today_epoints);
+				$('.all_epoints').html(info.all_epoints);
+				$('.yestoday_epoints').html(info.yestoday_epoints);
+				$('.month_user_count').html(info.month_user_count);
+				$('.month_user_active_count').html(info.month_user_active_count);
+				$('.month_trade_money').html(info.month_trade_money);
+
+
+				$('.month_shop_count').html(info.month_shop_count);
+				$('.month_shop_active_count').html(info.month_shop_active_count);
+				$('.month_shop_trade_money').html(info.month_shop_trade_money);
+
+				$('.code').html('' + info.id);
+				console.log(user)
+
+			}
+
+			function down() {
+				var user_id = localStorage.getItem('user_id');
+
+				get_user_info(user_id, init_view)
+				mui('.page__bd').pullRefresh().endPulldown();
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+		<div class="content page__bd">
+			<div class="red_bg">
+				<div class="today">
+
+					<div class="today_title" style="margin-top: 5%;">
+						<span class="today_tip">今日收益  （元）  </span>
+						<span class="today_time">2018-04-29</span>
+					</div>
+					<div class="log_title" onclick="open_history_task()">
+						<span class="today_tip">收益明细</span>
+
+					</div>
+				</div>
+				<div class="money today_epoints">
+
+					0
+				</div>
+				<div class="today">
+
+					<div class="today_title">
+						<span class="shouyi_tip">昨日收益  （元）  </span>
+						<span class="shouyi_money yestoday_epoints">0</span>
+					</div>
+					<div class="today_title">
+						<span class="shouyi_tip">总收益  （元）  </span>
+						<span class="shouyi_money all_epoints">0</span>
+					</div>
+				</div>
+
+			</div>
+
+			<!--<div class="usermoney_bg">
+				<span class="tip agent_kt_txt"> </span>
+				<span class="usermoney ">0</span>
+
+				<button class="tixian" onclick="open_tixian()">提现</button>
+			</div>-->
+			<div class="shouyi_bg">
+				<img src="../images/app_assets_images_alliance_ally_view_icon.png" class="user_icon" />
+
+				<div class="tip">本月盟友商户交易额(元)</div>
+				<div class="money month_trade_money ">0.00</div>
+
+				<div class="today">
+
+					<div class="today_title">
+						<span class="shouyi_tip month_user_count"> 0 </span>
+						<span class="tip  ">本月新增盟友(人)</span>
+					</div>
+					<div class="today_title ">
+						<span class="shouyi_tip month_user_active_count">0  </span>
+						<span class="tip  ">本月激活盟友(人)</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="shouyi_bg">
+				<img src="../images/app_assets_images_alliance_merch_view_icon.png" class="user_icon" />
+
+				<div class="tip">本月自营商户交易额(元)</div>
+				<div class="money month_shop_trade_money">0.00</div>
+
+				<div class="today">
+
+					<div class="today_title">
+						<span class="shouyi_tip month_shop_count"> 0 </span>
+						<span class="tip  ">本月新增商户(户)</span>
+					</div>
+					<div class="today_title">
+						<span class="shouyi_tip month_shop_active_count" >0  </span>
+						<span class="tip  ">本月激活商户(户)</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="recommend_bg">
+				<div class="tip">您的邀请码</div>
+
+				<div class="code"></div>
+				<div class="button" onclick="shareHref(1)">立即邀请好友</div>
+				<div class="yq-ts"></div>
+				<div class="rw-tt"></div>
+
+				<div class="money_tip">
+
+				</div>
+			</div>
+
+		</div>
+	</body>
+	<script>
+		function open_history_task() {
+			openWindowWithTitle('我的收益', 'useralldetailmoney.html')
+		}
+
+		function goto_user_project() {
+			console.log('我要去看我的任务列表')
+			//				var list = plus.webview.currentWebview().opener();　　
+			//				mui.fire(list, 'goto_user_project');
+			//				mui.back();
+			openWindowWithTitle('我的任务', 'test2.html')
+
+		}
+		var count = 0;
+	</script>
+	<input id="sharehref" style="display: none;" class="sharehref" type="url" value="www.baidu.com" placeholder="请输入要分享的链接地址" />
+	<input id="sharehrefTitle" style="display: none;" class="sharehref" type="text" value="加工详情" placeholder="请输入要分享的链接标题" />
+	<input id="sharehrefDes" style="display: none;" class="sharehref" type="text" value="我正在使用HBuilder+HTML5开发移动应用，赶紧跟我一起来体验！" placeholder="请输入要分享的链接描述" />
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			var re_share_sub_title = localStorage.getItem('re_share_sub_title');
+			var re_share_title = localStorage.getItem('re_share_title');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var user = localStorage.getItem('user');
+			user = JSON.parse(user);
+			//alert(re_share_title) 
+			$('#sharehref').val(PreUrl + 'Reg/regist_frm/RID/' + user.user_id);
+			$('#sharehrefTitle').val(re_share_title);
+			$('#sharehrefDes').val(re_share_sub_title);
+		});
+	</script>
+
+</html>

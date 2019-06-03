@@ -1,0 +1,73 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>查看邮件</h2>
+      <ol class="breadcrumb">
+        <li> <a href="{:U('Index/index')}">首页</a> </li>
+        <li> <a>信息管理</a> </li>
+        <li class="active"> <strong>查看邮件</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>查看邮件 </h5>
+          </div>
+          <div class="ibox-content">
+            <div class="row">
+              <form name="myform" method="post" action="__URL__/replyAC" onSubmit="return checklogin()">
+                <table width="100%" border="0" cellpadding="3" cellspacing="0" class="tab4">
+                  <tr>
+                    <td width="22%" align="right">发件人编号：</td>
+                    <td width="78%">{$vo['f_user_id']|conname}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">收件时间：</td>
+                    <td>{$vo.f_time|date='Y-m-d H:i:s',###}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">邮件标题：</td>
+                    <td>{$vo['title']}</td>
+                  </tr>
+                  <tr>
+                    <td align="right">邮件内容：</td>
+                    <td valign="top">{$vo['content']}</td>
+                  </tr>
+                  <tr>
+                    <td>&nbsp;</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td align="right">回复内容：</td>
+                    <td><textarea name="Msg" cols="60" rows="6" id="Msg"></textarea></td>
+                  </tr>
+                  <tr>
+                    <td><input type="hidden" name="Pid" value="{$vo['id']}" /></td>
+                    <td><input type="submit" name="Submit" value="回 复" class="btn btn-primary" /></td>
+                  </tr>
+                </table>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <SCRIPT language=JavaScript>
+function checklogin() {
+	if (document.myform.Msg.value=="") {
+		alert("请输入回复内容!");
+		myform.Msg.focus();
+		return false;
+	}
+	return true;
+}
+</SCRIPT> 
+</block>
+</html>

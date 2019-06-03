@@ -1,0 +1,140 @@
+
+._qrCode {
+  position: relative;
+}
+._qrCodeCanvas {
+  position: fixed;
+  top: -99999rpx;
+  left: -99999rpx;
+  z-index: -99999;
+}
+
+
+.tugurl {
+	color: #999;
+}
+.sharbuttn {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.shartitle {
+	width: 80%;
+	text-align: center;
+	margin-left: 10%;
+	border-bottom: 1px solid #dddddd;
+	position: relative;
+	height: 60rpx;
+}
+.tgtit {
+	text-align: center;
+}
+.shartitle view {
+	height: 50rpx;
+	line-height: 50rpx;
+	font-size: 28rpx;
+	color: #999;
+	width: 120rpx;
+	margin: 32rpx auto;
+	position: absolute;
+	background: #fff;
+	left: 50%;
+	margin-left: -60rpx;
+}
+.sharapk {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	margin: 20rpx auto
+}
+.sharapk view {
+	margin: 40rpx;
+}
+.sharapk view image {
+	height: 80rpx;
+	width: 80rpx;
+}
+.content {
+	width: 100%;
+	background-color: #ffffff;
+}
+.top {
+	width: 100%;
+	height: 400rpx;
+	/* background: url(http://pds.jyt123.com/wxtest/banner.png) no-repeat ; */
+	background-size: 100%;
+	background-position: center center;
+}
+.banner {
+	width: 100%;
+	background-color: #FFFFFF;
+	border-radius: 60rpx 60rpx 0 0;
+	margin-top: -60rpx;
+}
+.banner ._dl {
+	margin-top: -80rpx;
+}
+.banner ._dl ._dt {
+	text-align: center;
+}
+.banner ._dl ._dt image {
+	width: 160rpx;
+	height: 160rpx;
+	border-radius: 50%;
+}
+.banner ._dl ._dd {
+	text-align: center;
+}
+.img {
+	width: 100%;
+	height:  100%;
+	text-align: center;
+	margin: 0 auto;
+	margin-top: 60rpx;
+}
+.img image {
+	width: 100%;
+	height: 100%;
+}
+.btn {
+	width: 260rpx;
+	height: 60rpx;
+	line-height: 60rpx;
+	margin: 0 auto;
+	margin-top: 60rpx;
+	border-radius: 40rpx;
+	border: 0;
+	font-size: 26rpx;
+	outline: 0;
+	background: #33b17b;
+	color: #FFFFFF;
+	text-align: center;
+}
+.bottom {
+	width: 100%;
+	height: 400rpx;
+	/* 	background: url(../../static/img/beij.png) no-repeat; */
+	background-position: left bottom;
+	/* 设置背景图片位置 */
+	background-size: 20%;
+}
+.bottom ._ul {
+	padding-left: 40rpx;
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+.bottom ._ul ._li {
+	width: 100%;
+	height: 60rpx;
+}
+

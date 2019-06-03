@@ -1,0 +1,214 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>类别管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>类别管理</a></li>
+			<li class="active"><strong>编辑类别</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" style="min-height: 600px">
+			<form class="form-horizontal ajax-form" name="form1" id="form1"
+				method="post" action="__ACTION__">
+
+
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">类别名称：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="title" type="text" value="{$vo.title}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">介绍：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="sub_title" type="text" value="{$vo.sub_title}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属类别： <i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<select name="ddlParentId" id="ddlParentId" class="form-control">
+							<volist name="category" id="vvo" key="i"> <eq
+								name="vo.parent_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">排序数字：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="sort_id" type="text" value="{$vo.sort_id}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">发布单价：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="price" type="text" value="{$vo.price}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">任务佣金：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="user_price" type="text" value="{$vo.user_price}"
+							class="form-control" required="">
+					</div>
+				</div>
+					<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">佣金差价：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="gap_price" type="text" value="{$vo.gap_price}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">封面：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+
+						<input type="text" placeholder="" class="form-control" name="img"
+							value="{$vo.img_url}">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_b" width="350" height="30"
+								scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">内容：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input type="hidden" name="detail" id="detail">
+						<textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<input type="hidden" name="id" value="{$vo.id}">
+						<button class="btn btn-primary ajax-submit" type="submit">编辑发布</button>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$("#checkbox").change(function() {
+							if ($('#checkbox').is(':checked')) {
+								$('#type').val(1);
+							} else {
+								$('#type').val(0);
+							}
+						});
+					});
+
+					layui
+							.use(
+									[ 'layedit', 'upload', 'layer', 'laydate' ],
+									function() {
+										var layedit = layui.layedit;
+										var layer = layui.layer;
+										layedit
+												.set({
+													uploadImage : {
+														url : '__APP__/Gouwu/upload_layedit_pp'
+													}
+												});
+										edit = layedit.build('demo'); //建立编辑器
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+														});
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+															form = $('.ajax-form');
+															$
+																	.post(
+																			form
+																					.attr('action'),
+																			form
+																					.serialize(),
+																			function(
+																					data) {
+																				// console.log(data);
+																				if (data.status) {
+																					layer
+																							.msg(
+																									data.info,
+																									{
+																										offset : '100px',
+																										end : function() {
+																											if (data.url) {
+																												location.href = data.url;
+																											} else {
+																												location
+																														.reload();
+																											}
+																										}
+																									});
+																				} else {
+
+																					layer
+																							.msg(data.info);
+																				}
+																			});
+															return false;
+														});
+									});
+				</script>
+			</form>
+		</div>
+	</div>
+</div>
+</block>

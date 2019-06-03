@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<title>{$System_namex}</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description" />
+<meta content="" name="author" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<link rel="shortcut icon"
+	href="http://sgzx.zhongjieceshi.com/Resource/plugins/hplus/favicon.ico">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/bootstrap.min14ed.css?v=3.3.6"
+	rel="stylesheet">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/tablesaw/tablesaw.css">
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/animate.min.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/style_inspina.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/xin.css"
+	rel="stylesheet">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css"
+	rel="stylesheet">
+
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/toastr/toastr.min.css"
+	rel="stylesheet">
+
+<!-- Gritter -->
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/gritter/jquery.gritter.css"
+	rel="stylesheet">
+
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/datapicker/datepicker3.css"
+	rel="stylesheet">
+
+<!--<link href="__PUBLIC__/Adm/Resource/plugins/hplus/blueimp/blueimp-gallery.min.css" rel="stylesheet">-->
+
+<!--<link rel="stylesheet" type="text/css" href="Resource/plugins/hplus/css/plugins/markdown/bootstrap-markdown.min.css" />-->
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/simditor/simditor.css" />
+
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick-theme.css"
+	rel="stylesheet">
+
+<!--<link href="__PUBLIC__/Adm/Resource/plugins/assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">-->
+
+
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/assets/plugins/jQuery-city/css/city-picker.css"
+	rel="stylesheet" type="text/css" />
+
+<!-- Ladda style -->
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/ladda/ladda-themeless.min.css"
+	rel="stylesheet">
+
+<!-- Sweet Alert -->
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/sweetalert/sweetalert.css"
+	rel="stylesheet">
+
+<!-- Switchery -->
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/switchery/switchery.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/page.css" rel="stylesheet">
+
+<style>
+.b-page {
+	background: #fff;
+	box-shadow: 0px 1px 2px 0px #E2E2E2;
+}
+
+.page {
+	width: 100%;
+	padding: 30px 15px;
+	background: #FFF;
+	text-align: center;
+	overflow: hidden;
+}
+
+.page .first, .page .prev, .page .current, .page .num, .page .current,
+	.page .next, .page .end {
+	padding: 8px 16px;
+	margin: 0px 5px;
+	display: inline-block;
+	color: #008CBA;
+	border: 1px solid #F2F2F2;
+	border-radius: 5px;
+}
+
+.page .first:hover, .page .prev:hover, .page .current:hover, .page .num:hover,
+	.page .current:hover, .page .next:hover, .page .end:hover {
+	text-decoration: none;
+	background: #F8F5F5;
+}
+
+.page .current {
+	background-color: #008CBA;
+	color: #FFF;
+	border-radius: 5px;
+	border: 1px solid #008CBA;
+}
+
+.page .current:hover {
+	text-decoration: none;
+	background: #008CBA;
+}
+
+.page .not-allowed {
+	cursor: not-allowed;
+}
+/*@media (max-width: 1200px) {*/
+.container {
+	width: 100%;
+	padding-left: 00px;
+	padding-right: 20px;
+}
+
+.wrapper-content {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.top-navigation .wrapper.wrapper-content {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+/*}*/
+@media screen and (max-width: 767px) {
+	.table-responsive>.table>tbody>tr>td, .table-responsive>.table>tbody>tr>th,
+		.table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th,
+		.table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th
+		{
+		white-space: inherit;
+	}
+}
+
+@media ( min-width : 768px) {
+	.top-navigation {
+		margin-top: 0px !important;
+	}
+	#topMenu {
+		z-index: 1000;
+		width: 100%;
+		position: fixed;
+		top: 0px;
+	}
+}
+
+@media ( max-width : 768px) {
+	.container {
+		width: 100%;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+@media ( max-width : 900px) {
+	#pc-top {
+		display: none;
+	}
+}
+
+@media ( max-width : 768px) { /* .top-navigation .navbar-collapse{
+            position: absolute;
+            min-height: 100%;
+            z-index: 1000;
+            background: #fff;
+            transition: transform .15s ease-in-out,width .15s ease-in-out;
+            transform: translate(-160px, 0);
+        }
+        .top-navigation .in{
+            transform: translate(0, 0);
+        }*/
+}
+</style>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+<!-- bootstrap-table-->
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/toastr/toastr.min.js"></script>
+
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/tablesaw/dependencies/respond.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/hplus/tablesaw/tablesaw.js"></script>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/tablesaw/tablesaw-init.js"></script>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/gritter/jquery.gritter.min.js"></script>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+<script
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/blueimp/jquery.blueimp-gallery.min.js"></script>
+<!--<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/markdown/markdown.js"></script>-->
+<!--<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/markdown/to-markdown.js"></script>-->
+<!--<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/markdown/bootstrap-markdown.js"></script>-->
+<!--<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/markdown/bootstrap-markdown.zh.js"></script>-->
+
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/simditor/module.js"></script>
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/simditor/uploader.js"></script>
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/simditor/hotkeys.js"></script>
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/simditor/simditor.js"></script>
+
+<!-- slick carousel-->
+
+<!--<link href="__PUBLIC__/Adm/Resource/plugins/assets/plugins/bootstrap-select/js/bootstrap-select.js" rel="stylesheet">-->
+
+<!-- 省市区插件-->
+
+<!-- Ladda -->
+
+<!-- StickUp -->
+<!--<script src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/stickUp.js"></script>-->
+
+<link href="__PUBLIC__/Adm/Resource/admin_style.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/default_color.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/trade_style.css" rel="stylesheet">
+
+
+<script>
+	function sendAjax(buttonId, goPage) {
+		var thisTicket = "#" + buttonId;
+		var l = $(thisTicket).ladda();
+
+		// Start loading
+		l.ladda('start');
+		setTimeout(function() {
+			$.ajax({
+				url : goPage,
+				type : "post",
+				dataType : "json",
+				data : $("#sendForm").serialize(),
+				error : function(msg) {
+					showSweetAlert('', msg, 'error');
+				},
+				success : function(msg) {
+					if (msg.resultType != 1) {
+						showSweetAlert('', msg.msg, 'error')
+					} else {
+						showSweetAlert("", msg.msg, "success", function(
+								isConfirm) {
+							location.href = msg.toUrl;
+						});
+						setTimeout(function() {
+							location.href = msg.toUrl;
+						}, 2000);
+					}
+					l.ladda('stop');
+				}
+			});
+		}, 500);
+	}
+</script>
+<!--<link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick.css" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick-theme.css" rel="stylesheet">-->
+
+<!--<link rel="stylesheet" type="text/css" href="Resource/plugins/lunbotu/css/normalize.css" />-->
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/Resource/plugins/lunbotu/css/default.css">
+<link rel="stylesheet"
+	href="__PUBLIC__/Adm/Resource/plugins/lunbotu/assets/css/sangarSlider.css"
+	type="text/css" media="all">
+<link rel="stylesheet"
+	href="__PUBLIC__/Adm/Resource/plugins/lunbotu/assets/themes/default/default.css"
+	type="text/css" media="all">
+
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+
+<style type="text/css">
+@media ( max-width : 768px) {
+	#headerImg {
+		margin: auto;
+	}
+}
+</style>
+<!--导航-->
+<style type="text/css">
+.bk-toolBar {
+	line-height: 36px;
+	background-color: #2a333a;
+}
+
+.pull-left {
+	float: left !important;
+}
+
+.bk-toolBar>ul, li, dl, dt, dd {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.bk-toolBar>ul>li {
+	display: inline-block;
+	height: 100%;
+	color: #7c8187;
+}
+
+.bk-toolBar>ul>li p {
+	margin: 0;
+}
+
+.bk-toolBar>.btn.btn-skew {
+	-webkit-transform: skew(-20deg);
+	-moz-transform: skew(-20deg);
+	-o-transform: skew(-20deg);
+	transform: skew(-20deg);
+}
+
+.bk-toolBar>.btn.btn-skew span {
+	-webkit-transform: skew(20deg);
+	-moz-transform: skew(20deg);
+	-o-transform: skew(20deg);
+	transform: skew(20deg);
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+	border: 1px solid #CCC !important;
+}
+</style>
+</head>
+
+<body class="top-navigation">
+	<div id="wrapper">
+		<div id="page-wrapper" class="gray-bg">
+
+			<div class="row border-bottom white-bg" id="topMenu">
+				<!--<div class="bk-toolBar clearfix" id="pc-top">
+                    <ul class="pull-left" id="topMenuPrice">
+                        <li><p>&nbsp;&nbsp;<i class="fa fa-fire"></i>&nbsp;欢迎您！ <span class="text-warning">{$Think.session.loginUseracc}</span></p></li>
+                        <li><p>&nbsp;&nbsp;这是您第 <span class="text-warning">{$Think.session.login_count}</span> 次登录系统</p></li>
+                        <li><p>&nbsp;&nbsp;您上次的登录时间是 <span class="text-warning">
+                        {$Think.session.lastLoginTime}</span><span class="text-warning"></span></p></li>
+                    </ul>
+
+                    <ul class="pull-right" id="topMenuNav" style="margin-top:1px;margin-right: 20px;">
+                        <li id="menuNew"><a href="{:U('News/News_show')}" target="_self"><span class="text-warning">信息资讯<span class="badge"></span></span></a></li>
+                    </ul>
+                    <a id="btnRecommed" role="button" class="btn btn-primary btn-skew btn-sm pull-right" style="margin-top:4px;margin-right: 20px;" target="_self">
+                        <span><i class="fa fa-clock-o" ></i> <span id="timer"></span></span>
+                        <script language="javascript">
+                            document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());
+                            setInterval("document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+                        </script>
+                    </a>
+                </div>-->
+				<input type="hidden" id="prem" value="{$fck_rs.prem}"> <input
+					type="hidden" id="user_id" value="{$fck_rs.id}"> <input
+					type="hidden" id="is_boss" value="{$fck_rs.is_boss}">
+
+
+
+
+				<div class="navbar navbar-inverse navbar-fixed-top"
+					role="navigation">
+					<div class="navbar-header">
+						<a class="navbar-brand" style="width: 200px; text-align: center;"
+							href="#">{$System_namex}管理系统</a>
+					</div>
+					<div class="navbar-collapse collapse">
+						<ul class="nav navbar-nav navbar-left" style="display: none">
+							<!-- 主导航 -->
+							<li class="sys" role=100 style="display: none"><a
+								href="{:U('Index/index')}"> <span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span> 系统
+							</a></li>
+							<li class="user_list" role=1><a
+								href="{:U('YouZi/adminMenber',array('type'=>0))}"> <span
+									class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+									会员
+							</a></li>
+							<!-- 	<li class="adminTerminal" role=6><a
+								href="{:U('YouZi/adminTerminal',array('terminal_type'=>0))}">
+									<span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+									终端
+							</a></li> -->
+
+
+							<li style="display: none" class="trade" role=103><a
+								href="{:U('Trade/market')}"> <span
+									class="glyphicon glyphicon-stats" aria-hidden="true"></span> 交易
+							</a></li>
+							<li class="goods" role=16><a
+								href="{:U('Goods/goods',array('is_sys'=>0,'is_site'=>0))}">
+									<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+									商城
+							</a></li>
+							<li class="shop" role=21 style="display: none"><a
+								href="{:U('Shop/seller',array('auth_status'=>2,'seller_type'=>0))}">
+									<span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+									商户
+							</a></li>
+							<!-- <li><a href="/Admin/Config/index.html"> <span
+									class="glyphicon glyphicon-cog" aria-hidden="true"></span> 设置
+							</a></li> -->
+
+							<li class="caiwu" role=21><a
+								href="{:U('YouZi/adminmoneyflows')}"> <span
+									class="glyphicon glyphicon-share" aria-hidden="true"></span> 财务
+							</a></li>
+
+							<li class="Operate" role=106><a
+								href="{:U('YouZi/setBankParameter')}"> <span
+									class="glyphicon glyphicon-share" aria-hidden="true"></span> 运营
+							</a></li>
+							<!-- <li><a href="/Admin/Tools/index.html"> <span
+									class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+									工具
+							</a></li>
+							<li><a href="/Admin/Cloud/index.html"> <span
+									class="glyphicon glyphicon-tasks" aria-hidden="true"></span> 扩展
+							</a></li> -->
+						</ul>
+						<ul class="nav navbar-nav navbar-right"
+							style="margin-right: 20px;">
+							<li class="dropdown"><a href="javascript:void(0);">
+									管理员:{$fck_rs.user_id} </a>
+							<li class="dropdown"><a href="{:U('Public/LogOut')}">
+									退出后台 </a>
+								<ul class="dropdown-menu">
+									<!-- <li class="center"><a href="/" target="_blank"> <span
+											class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+											前台首页
+									</a></li>
+									<li class="center"><a href="javascript:void(0);"
+										onclick="lockscreen()"> <span
+											class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+											锁屏休息
+									</a></li>
+									<li><a href="/Admin/Tools/index.html"> <span
+											class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+											清除缓存
+									</a></li>
+									<li><a href="/Admin/User/setpwd.html"> <span
+											class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+											修改密码
+									</a></li> -->
+									<!-- <li><a  href="{:U('Public/LogOut')}"
+								onClick="{if(confirm('确定安全退出吗?')){return true;}return false;}">
+									  <span
+											class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+											退出后台
+									</a></li> -->
+								</ul></li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<div class="sidebar" style="display: none">
+					<!-- 子导航 -->
+
+					<div id="sys" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>系统
+						</h3>
+						<ul class="side-sub-menu">
+							<li><a class="item" href="{:U('Index/index')}"> <span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span>
+									系统概览
+							</a></li>
+							<li><a class="item" href="javascript:"> <span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span>
+									币种统计
+							</a></li>
+							<li><a class="item" href="javascript:"> <span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span>
+									市场统计
+							</a></li>
+							<li id="feedback_list"><a class="item"
+								href="{:U('User/feedback_list')}"> <span
+									class="glyphicon glyphicon-home" aria-hidden="true"></span>
+									留言反馈
+							</a></li>
+
+						</ul>
+						<!-- /子导航 -->
+					</div>
+					<div id="user_list" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>会员管理
+						</h3>
+						<ul class="side-sub-menu">
+							<li id="userReg"><a class="item" href="{:U('Reg/userReg')}">会员注册【测试专用】</a></li>
+
+							<!-- <li id="auditMenber1" role=2><a class="item"
+								href="{:U('YouZi/auditMenber',array('type'=>1))}">已审核</a></li> -->
+							<!-- <li id="auditMenber2" role=3><a class="item"
+								href="{:U('YouZi/auditMenber',array('type'=>2))}">实名申请</a></li> -->
+							<!-- <li id="auditMenber3" role=4><a class="item"
+								href="{:U('YouZi/auditMenber',array('type'=>3))}">未开通</a></li> -->
+							<li id="adminMenber0" role=5><a class="item"
+								href="{:U('YouZi/adminMenber',array('type'=>0))}">会员管理</a></li>
+							<!-- <li id="adminMenber1"><a class="item"
+								href="{:U('YouZi/adminMenber',array('type'=>1))}">股东管理</a></li>
+							<li id="adminMenber2"><a class="item"
+								href="{:U('YouZi/adminMenber',array('type'=>2))}">员工管理</a></li> -->
+
+
+							<li id="user_tree"><a class="item"
+								href="{:U('Tree/user_tree')}">推荐网络</a></li>
+
+
+						</ul>
+						<!-- /子导航 -->
+					</div>
+					<div id="adminTerminal" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>终端管理
+						</h3>
+						<ul class="side-sub-menu">
+
+							<li id="adminCheckTerminal1" role=7><a class="item"
+								href="{:U('YouZi/adminCheckTerminal',array('type'=>1))}">下发管理</a></li>
+							<li style="display: none" id="adminCheckTerminal2" role=8><a
+								class="item"
+								href="{:U('YouZi/adminCheckTerminal',array('type'=>2))}">下发待审核</a></li>
+							<li id="adminCheckBackTerminal3" role=9><a class="item"
+								href="{:U('YouZi/adminCheckBackTerminal',array('type'=>3))}">回收管理</a></li>
+							<li style="display: none" id="adminCheckBackTerminal4" role=10><a
+								class="item"
+								href="{:U('YouZi/adminCheckBackTerminal',array('type'=>4))}">回收待审核</a></li>
+							<li id="adminTerminal0" role=11><a class="item"
+								href="{:U('YouZi/adminTerminal',array('terminal_type'=>0))}">传统终端管理</a></li>
+							<li id="adminTerminal1" role=11><a class="item"
+								href="{:U('YouZi/adminTerminal',array('terminal_type'=>1))}">二维码终端管理</a></li>
+							<li role=13 id="order_list0"><a class="item"
+								href="{:U('Shop/order_list',array('type'=>0))}">待下发订单</a></li>
+							<li role=15 id="order_list1"><a class="item"
+								href="{:U('Shop/order_list',array('type'=>1))}">已下发订单</a></li>
+
+						</ul>
+						<!-- /子导航 -->
+					</div>
+
+					<div id="user" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>推荐管理
+						</h3>
+						<ul class="side-sub-menu">
+							<li style="display: none" id="myTeam"><a class="item"
+								href="{:U('User/myTeam')}">直推列表</a></li>
+							<li id="user_tree"><a class="item"
+								href="{:U('Tree/user_tree')}">推荐网络</a></li>
+							<li style="display: none" id="Tree2"><a class="item"
+								href="{:U('Tree/Tree2')}">安置网络</a></li>
+						</ul>
+						<!-- /子导航 -->
+					</div>
+
+					<div id="goods" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>商城管理
+						</h3>
+						<ul class="side-sub-menu">
+							<!-- <li role=20 id="seller"><a class="item"
+								href="{:U('Goods/seller')}">供应商管理</a></li> -->
+							<li id="category_list"><a class="item"
+								href="{:U('Goods/category_list')}">类别管理</a></li>
+							<li id="spec_list"><a class="item"
+								href="{:U('Goods/spec_list')}">规格管理</a></li>
+							<!-- 	<li role=12 id="goods"><a class="item"
+								href="{:U('Goods/goods',array('is_sys'=>0,'is_site'=>0))}">商城产品</a></li>
+							<li role=18 id="sys_goods"><a class="item"
+								href="{:U('Goods/goods',array('is_sys'=>1))}">分销产品</a></li> -->
+							<li id="goods"><a class="item"
+								href="{:U('Goods/goods',array('is_sys'=>0,'is_site'=>1))}">商品管理</a></li>
+							<li id="shop_goods" style="display: NONE"><a class="item"
+								href="{:U('Goods/shop_goods')}">自营商品</a></li>
+
+							<li role=13 id="order_list1"><a class="item"
+								href="{:U('Goods/order_list',array('type'=>1))}">全部订单</a></li>
+							<li role=14 id="order_list2"><a class="item"
+								href="{:U('Goods/order_list',array('type'=>2))}">待付款订单</a></li>
+							<li role=15 id="order_list3"><a class="item"
+								href="{:U('Goods/order_list',array('type'=>3))}">待发货订单</a></li>
+						</ul>
+						<!-- /子导航 -->
+					</div>
+					<div id="shop" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>商户管理
+						</h3>
+						<ul class="side-sub-menu">
+							<li id="seller1_seller_type0" role=17><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>1,'seller_type'=>0))}">传统商户未审核</a></li>
+							<li id="seller3_seller_type0" role=19><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>3,'seller_type'=>0))}">传统商户待完善</a></li>
+							<li role=20 id="seller2_seller_type0"><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>2,'seller_type'=>0))}">传统商户管理</a></li>
+							<!-- <li id="seller1_seller_type1" role=17><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>1,'seller_type'=>1))}">二维码小微商户未审核</a></li>
+							<li id="seller3_seller_type1" role=19><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>3,'seller_type'=>1))}">二维码小微商户待完善</a></li>
+							<li role=20 id="seller2_seller_type1"><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>2,'seller_type'=>1))}">二维码小微商户管理</a></li>
+							<li id="seller1_seller_type2" role=17><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>1,'seller_type'=>2))}">二维码快速商户未审核</a></li>
+
+							<li id="seller3_seller_type2" role=19><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>3,'seller_type'=>2))}">二维码快速商户待完善</a></li>
+							<li role=20 id="seller2_seller_type2"><a class="item"
+								href="{:U('Shop/seller',array('auth_status'=>2,'seller_type'=>2))}">二维码快速商户管理</a></li>
+							<li role=13 id="order_list1"><a class="item"
+								href="{:U('Shop/order_list1')}">全部扫码订单</a></li> -->
+
+						</ul>
+						<!-- /子导航 -->
+					</div>
+					<div id="caiwu" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>财务管理
+						</h3>
+						<ul class="side-sub-menu">
+							<!-- <li role=22 id="ok_profits"><a class="item"
+								href="{:U('User/ok_profits')}">普通分红列表</a></li>
+							<li role=22 id="ok_te_profits"><a class="item"
+								href="{:U('User/ok_te_profits')}">固定分红列表</a></li>
+							<li role=23 id="test_excel"><a class="item"
+								href="{:U('User/test_excel')}">待分红列表</a></li>
+							<li role=23 id="user_profit_web"><a class="item"
+								href="{:U('User/user_profit',array('upload_type'=>'web'))}">直营分红【web】</a></li>
+							<li role=23 id="user_profit_excel"><a class="item"
+								href="{:U('User/user_profit',array('upload_type'=>'excel'))}">直营分红【excel】</a></li>
+							<li role=23 id="user_te_profit"><a class="item"
+								href="{:U('User/user_te_profit')}">固定分红</a></li> -->
+
+							<li id="adminmoneyflows"><a class="item"
+								href="{:U('YouZi/adminmoneyflows')}">货币流向</a></li>
+							 <li id="tradeflows0"><a class="item"
+								href="{:U('YouZi/tradeflows',array('seller_type'=>'0'))}">商户付款明细</a></li>
+							<!--<li id="tradeflows1"><a class="item"
+								href="{:U('YouZi/tradeflows',array('seller_type'=>'1'))}">二维码交易量明细</a></li>
+							<li id="profitflows"><a class="item"
+								href="{:U('YouZi/profitflows')}">普通分润明细</a></li>
+							<li id="te_profitflows"><a class="item"
+								href="{:U('YouZi/te_profitflows')}">固定分润明细</a></li> -->
+							<li role=24 id="adminCurrency" role=7><a class="item"
+								href="{:U('Currency/adminCurrency')}">提现管理</a></li>
+
+							<li id="adminCurrencyRecharge"><a class="item"
+								href="{:U('Recharge/adminCurrencyRecharge')}">充值管理</a></li>
+							<li id="adminRechargeMoney"><a class="item"
+								href="{:U('Recharge/adminRechargeMoney')}">充值货币</a></li>
+
+							<!-- <li style="display: none" id="adminTransferMoney"><a
+								class="item" href="{:U('Transfer/adminTransferMoney')}">转换管理</a></li>
+
+							<li style="display: none" id="adminTransferMoney2"><a
+								class="item" href="{:U('Transfer/adminTransferMoney2')}">转账管理</a></li>
+							<li id="profitflows_manager"><a class="item"
+								href="{:U('YouZi/profitflows_manager')}">分润补贴管理</a></li>
+							<li id="error_manager"><a class="item"
+								href="{:U('YouZi/error_manager')}">异常数据统计</a></li> -->
+						</ul>
+						<!-- /子导航 -->
+					</div>
+
+					<div id="Operate" class="subnav">
+						<!-- 子导航 -->
+						<h3>
+							<i class="icon icon-unfold"></i>运营管理
+						</h3>
+						<ul class="side-sub-menu">
+							<!-- <li id="adminClearing" style="display: none"><a class="item"
+								href="{:U('YouZi/adminClearing')}">结算分红</a></li>
+							<li id="test_fenhong" style="display: none"><a class="item"
+								href="{:U('User/test_fenhong')}">测试分红</a></li> -->
+
+							<!-- <li id="auditMenber"><a class="item"
+								href="{:U('YouZi/auditMenber')}">会员审核</a></li>
+							<li id="adminMenber"><a class="item"
+								href="{:U('YouZi/adminMenber')}">会员管理</a></li> -->
+							<li id="feedback_list"><a class="item"
+								href="{:U('User/feedback_list')}">留言管理</a></li>
+							<li id="adminnewslist86"><a class="item"
+								href="{:U('News/adminnewslist',array('type'=>86))}">KN新天地</a></li>
+							<li id="seller"><a class="item"
+								href="{:U('Shop/seller')}">盟友商铺</a></li>
+							<li id="adminnewslist85"><a class="item"
+								href="{:U('News/adminnewslist',array('type'=>85))}">KN品鉴区</a></li>
+							<li id="adminnewslist84"><a class="item"
+								href="{:U('News/adminnewslist',array('type'=>84))}">KN商学院</a></li>
+							<li id="adminnewslist1"><a class="item"
+								href="{:U('News/adminnewslist',array('type'=>1))}">最新公告</a></li>
+							<li id="adminnewslist0"><a class="item"
+								href="{:U('News/adminnewslist',array('type'=>0))}">最新新闻</a></li>
+							<li style="display: none" id="adminnewslist2"><a
+								class="item" href="{:U('News/adminnewslist',array('type'=>2))}">视频教程</a></li>
+
+							<li id="setParameter"><a class="item"
+								href="{:U('YouZi/setBankParameter')}">参数设置</a></li>
+							<li id="setImagesParameter"><a class="item"
+								href="{:U('YouZi/setImagesParameter')}">图片设置</a></li>
+							<li id="index"><a class="item" href="{:U('Backup/index')}">数据库备份</a></li>
+							<li id="delTable"><a class="item"
+								href="{:U('YouZi/delTable')}">清空数据</a></li>
+
+							<li style="display: none" id="change_tree"><a class="item"
+								href="{:U('YouZi/change_tree')}">接点人修改</a></li>
+							<li id="detail"><a class="item" href="{:U('YouZi/detail')}">数据统计</a></li>
+							<li id="usercode_list"><a class="item"
+								href="{:U('User/usercode_list')}"> 验证码列表 </a></li>
+						</ul>
+						<!-- /子导航 -->
+					</div>
+
+
+
+
+
+
+
+
+
+
+
+					<!-- /子导航 -->
+				</div>
+
+			</div>
+
+			<block name="breadcrumb" style="display:none"></block>
+			<div class="container" id="iframeContainer">
+				<block name="menu"></block>
+				<block name="breadcrumb1"></block>
+				<!-- <block name="footer"><include file="Public:footer"/></block> -->
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+
+</body>
+<script type="text/javascript" src="__PUBLIC__/Adm/common.js"></script>
+<script>
+	var prem = $('#prem').val().split(',');
+	var user_id = $('#user_id').val();
+	if (user_id > 2) {
+		$('.navbar .navbar-left li').css('display', 'none');
+		$('.side-sub-menu li').css('display', 'none');
+		var item = 0;
+		var pathname = window.location.pathname;
+		for ( var i in prem) {
+			$('.navbar .navbar-left li').each(function() {
+				if (prem[i] == $(this).attr('role')) {
+					$(this).css('display', 'block')
+					item = $(this).find('a').attr('href');
+				}
+
+			});
+
+			$('.side-sub-menu li').each(function() {
+				if (prem[i] == $(this).attr('role')) {
+					$(this).css('display', 'block')
+					item = $(this).find('a').attr('href');
+				}
+
+			});
+
+		}
+		/* if (pathname!=item) {
+			window.location.href = item;
+		} */
+	}
+	$('.navbar .navbar-left').css('display', 'block');
+	$('td b').css('display', 'none')
+</script>
+</html>

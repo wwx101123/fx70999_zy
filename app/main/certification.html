@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style3.css">
+		<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_410780_vmhsz3ig7mwbfbt9.css"> 
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script> 
+		<link href="../css/index(2).css" rel="stylesheet">
+	</head>
+
+	<body>
+		<!--top-->
+
+		<div class="width100 hidden" style="margin-bottom:57px;">
+			<div class="width100 font13" style="background:#f4f4f4;height:36px;line-height:36px;text-indent:2%;">个人信息</div>
+			<div class="width96 hidden center">
+				<div class="width100 center hidden borderb" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">真实姓名</span>
+					<input class="form-control" type="text" style="" placeholder="请输入真实姓名">
+				</div>
+				<div class="width100 center hidden borderb" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">QQ号码</span>
+					<input class="form-control" type="text" style="" placeholder="请输入QQ号码">
+				</div>
+
+				<div class="width100 center hidden" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">证件号码</span>
+					<input class="form-control" type="text" style="" placeholder="请输入证件号码">
+				</div>
+			</div>
+			<div class="width100 font13" style="background:#f4f4f4;height:36px;line-height:36px;text-indent:2%;">绑定结算账户</div>
+			<div class="width96 hidden center">
+				<div class="width100 center hidden borderb relative" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14 left">开户行名称</span>
+					<div class="position-rel">
+						<div class="position-rel">
+							<input type="text" id="chose_input" class="form-control" placeholder="--储蓄卡--">
+							<div class="bank_xljt"><img class="jt_xz" width="20" src="../images/jtx.png" alt=""></div>
+							<div id="chose_bank" class="bank_xljt1"></div>
+						</div>
+						<div class="bank_xl" style="display: none">
+							<ul>
+
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国农业银行">
+										<img src="../images/zs1.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国建设银行">
+										<img src="../images/zs2.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国工商银行">
+										<img src="../images/zs3.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国银行">
+										<img src="../images/zs4.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国光大银行">
+										<img src="../images/zs5.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="华夏银行">
+										<img src="images/zs6.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="中国民生银行">
+										<img src="../images/zs7.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="平安银行">
+										<img src="../images/zs8.png" width="150" alt="">
+									</a>
+								</li>
+								<li class="hotBank-list">
+									<a href="javascript:" class="hotBank-list-ico " title="兴业银行">
+										<img src="../images/zs9.png" width="150" alt="">
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="width100 center hidden borderb" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">开户行所在省</span>
+					<input class="form-control" type="text" style="" placeholder="请输入开户行所在省">
+				</div>
+				<div class="width100 center hidden borderb" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">开户行省市区</span>
+					<input class="form-control" type="text" style="" placeholder="请输入开户行所在市">
+				</div>
+				 
+				<div class="width100 center hidden borderb" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">持卡人姓名</span>
+					<input class="form-control" type="text" style="" placeholder="请输入持卡人真实姓名">
+				</div>
+				<div class="width100 center hidden" style="margin-top:23px;padding-bottom:10px;">
+					<span class="font14">银行卡账号</span>
+					<input class="form-control" type="text" style="" placeholder="请输入银行卡账号">
+				</div>
+			</div>
+			<div class="width100 font13" style="background:#f4f4f4;height:36px;line-height:36px;text-indent:2%;">上传证件照片</div>
+			<div class="width96 center hidden">
+				<div class="aui-palace aui-palace-two">
+                    <a href="javascript:;" class="aui-palace-grid">
+                        <div class="aui-palace-grid-icon">
+                            <img src="../images/app_assets_images_mine_authentication_id_face.png" alt="">
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>身份证正面</h2> 
+                        </div>
+                         <div class="aui-palace-grid-text">
+                            <h2>(文字清晰,四角齐全)</h2>
+                        </div>
+                    </a>
+                    <a href="javascript:;" class="aui-palace-grid">
+                        <div class="aui-palace-grid-icon">
+                            <img src="../images/app_assets_images_mine_authentication_id_back.png" alt="">
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>身份证背面</h2>
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>(文字清晰,四角齐全)</h2>
+                        </div>
+                    </a>
+                    <a href="javascript:;" class="aui-palace-grid">
+                        <div class="aui-palace-grid-icon">
+                            <img src="../images/app_assets_images_mine_authentication_handle.png" alt="">
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>手持身份证照片</h2>
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>(文字清晰,四角齐全)</h2>
+                        </div>
+                    </a>
+                    <a href="javascript:;" class="aui-palace-grid">
+                        <div class="aui-palace-grid-icon">
+                            <img src="../images/app_assets_images_mine_authentication_bank.png" alt="">
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>银行卡正面</h2>
+                        </div>
+                        <div class="aui-palace-grid-text">
+                            <h2>(文字清晰,四角齐全)</h2>
+                        </div>
+                    </a>
+                   
+                </div>
+			</div>
+		</div>
+		<a href="javascript:void(0)" class="width96 bj_red fff tcenter block center" style="height:36px;line-height:36px;border-radius:18px;margin-top:64px;">提交资料</a>
+		</div>
+	</body>
+<script>
+    $(function(){
+
+//        下拉银行卡
+
+        $(".hotBank-list-ico").bind('click',function(){
+           $('#chose_input').val($(this).attr('title'));
+            $('.bank_xl').hide();
+            $("#chose_bank").parent('div').find('img').attr('src','../images/jtx.png'); 
+        });
+        $("#chose_bank").click(function(){
+            $('.bank_xl').show();
+            $("#chose_bank").parent('div').find('img').attr('src','../images/jtx1.png');
+        });
+//        下拉银行卡
+
+    })
+</script>
+<script type="text/javascript">
+		window.addEventListener('update_upload_img', function(e) {
+
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+			console.log(upload_obj_id)
+			if(avatar != null && avatar != "") {
+				$('' + upload_obj_id + '_class').attr('src', IP + '/' + avatar)
+				upload_obj_id=upload_obj_id.replace('.', '')
+				$('#' + upload_obj_id).val(avatar);
+			} else {
+
+				//				$('' + upload_obj_id).attr('src', '../images/icon_upload_photo.png')
+			}
+		});
+	</script>
+</html>

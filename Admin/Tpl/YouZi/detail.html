@@ -1,0 +1,238 @@
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/ecaps.min.css">
+<div class="page-inner">
+	<div class="page-title">
+		<h3 class="breadcrumb-header">会员统计</h3>
+	</div>
+	<div id="main-wrapper">
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$all_user_count}</span>
+							<p class="stats-info">总会员数</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$all_active_user_count}</span>
+							<p class="stats-info">总激活</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_downward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$today_user_count}</span>
+							<p class="stats-info">今日会员</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$today_active_user_count}</span>
+							<p class="stats-info">今日激活</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$week_user_count}</span>
+							<p class="stats-info">本周会员</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$week_active_user_count}</span>
+							<p class="stats-info">本周激活</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$month_user_count}</span>
+							<p class="stats-info">本月会员</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$month_active_user_count}</span>
+							<p class="stats-info">本月激活</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<div class="page-title">
+		<h3 class="breadcrumb-header">充值统计</h3>
+	</div>
+	<div id="main-wrapper">
+		<div class="row">
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$all_cz_agent_use}</span>
+							<p class="stats-info">总计{$bi.agent_use}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$all_cz_buy_point}</span>
+							<p class="stats-info">总计{$bi.buy_point}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_downward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$today_cz_agent_use}</span>
+							<p class="stats-info">今日{$bi.agent_use}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$today_cz_buy_point}</span>
+							<p class="stats-info">今日{$bi.buy_point}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_downward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$week_cz_agent_use}</span>
+							<p class="stats-info">本周{$bi.agent_use}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$week_cz_buy_point}</span>
+							<p class="stats-info">本周{$bi.buy_point}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_downward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$month_cz_agent_use}</span>
+							<p class="stats-info">本月{$bi.agent_use}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_upward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-6">
+				<div class="panel panel-white stats-widget">
+					<div class="panel-body">
+						<div class="pull-left">
+							<span class="stats-number">{$month_cz_buy_point}</span>
+							<p class="stats-info">本月{$bi.buy_point}充值</p>
+						</div>
+						<div class="pull-right">
+							<i class="icon-arrow_downward stats-icon"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- Main Wrapper -->
+
+</div>

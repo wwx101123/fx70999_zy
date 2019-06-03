@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/video_list.css" />
+		<link rel="stylesheet" type="text/css" href="../css/zy.media.min.css" />
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+			
+			.mui-control-content {
+				height: 150px;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/zy.media.min.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<style>
+			.tab-panel {
+				position: relative;
+				overflow: hidden;
+			}
+			
+			.tab-panel .tab-panel-item {
+				width: 100%;
+				position: absolute;
+				top: 0;
+				-webkit-transform: translateX(-100%);
+				transform: translateX(-100%);
+			}
+			
+			.tab-nav-item.tab-active:before {
+				content: '';
+				width: 60%;
+				height: 2px;
+				position: absolute;
+				left: 50%;
+				bottom: 0;
+				margin-left: -30%;
+				z-index: 4;
+				background-color: #00a5f5;
+			}
+			
+			.tab-panel .tab-panel-item.tab-active~.tab-panel-item {
+				-webkit-transform: translateX(100%);
+				transform: translateX(100%);
+			}
+			
+			.tab-panel .tab-panel-item.tab-active {
+				position: relative;
+				-webkit-transition: -webkit-transform .15s;
+				transition: -webkit-transform .15s;
+				transition: transform .15s;
+				transition: transform .15s, -webkit-transform .15s;
+				-webkit-transform: translateX(0);
+				transform: translateX(0);
+			}
+			
+			.aui-find-img {
+				width: 100%;
+				height: auto;
+				display: block;
+				overflow: hidden;
+			}
+			
+			.aui-find-img img {
+				width: 100%;
+				height: auto;
+				display: block;
+				border: none;
+			}
+			
+			.aui-find-link {
+				padding: 15px;
+				display: block;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.aui-find-link h2 {
+				font-size: 0.95rem;
+				color: #333;
+				font-weight: bold;
+			}
+			
+			.aui-find-link h2 em {
+				font-size: 0.7rem;
+				font-style: normal;
+				color: #eb4561;
+				border: 1px solid #eb4561;
+				border-radius: 2px;
+				padding: 1px 4px;
+				margin-right: 5px;
+				font-weight: normal;
+			}
+			
+			.aui-find-link p {
+				font-size: 0.8rem;
+				color: #999999;
+				margin: 5px 0;
+			}
+			
+			.aui-find-link span {
+				display: block;
+				overflow: hidden;
+			}
+			
+			.aui-find-link span em {
+				font-size: 0.8rem;
+				display: block;
+				overflow: hidden;
+				float: left;
+				font-style: normal;
+				padding-right: 30px;
+				color: #999;
+			}
+			
+			.aui-find-link .aui-find-link-name {
+				text-align: right;
+			}
+			
+			.tab-nav {
+				height: 45px;
+				line-height: 45px;
+				display: block;
+				position: relative;
+				background: #fff;
+				z-index: 1;
+				width: 100%;
+			}
+			
+			.tab-nav-item {
+				height: 45px;
+				position: relative;
+				text-align: center;
+				color: #585858;
+				font-size: 0.9rem;
+				display: block;
+				float: left;
+				border-radius: 80px;
+				width: 25%;
+			}
+			
+			.tab-nav-item.tab-active {
+				/* background-color: #51bd03; */
+			}
+			
+			.tab-nav-item.tab-active a {
+				color: #00a5f5;
+			}
+			
+			.tab-nav-item a {
+				display: inherit;
+				font-size: 0.85rem;
+				color: #888888;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!--<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">顶部选项卡-div模式</h1>
+		</header>-->
+		<div class="mui-content mescroll" id="mescroll" style="background: #f1f0f0;">
+			<div class="tab-panel">
+
+			</div>
+
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			var _video = document.getElementById("h5video");
+			$("#poster").click(function() {
+				$(this).hide();
+				_video.play();
+			});
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_video_list(pageNum, pageSize, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				info = JSON.parse(data);
+				info = info.data;
+				var IP = localStorage.getItem('IP');
+
+				$('.tab-panel .detail-vdo').remove();
+				if(info != null) {
+					var item = '';
+					$.each(info, function(index, content) {
+
+						item += '<div class="details-content fix-width-center detail-vdo">';
+						item += '<div class="playvideo">';
+						item += '<div class="zy_media">';
+						item += '<video poster="'+IP+content.video_img+'">';
+						item += '	<source src="'+IP+content.img+'" type="video/mp4"> 您的浏览器不支持HTML5视频';
+						item += '</video>';
+
+						item += '	</div>';
+						item += '</div>';
+						item += '<div class="push-app wap-show" id="play-appdown" data-url="http://www.pearvideo.com/download?id=5">';
+						item += '	<a href="javascript:void(0);">' + content.title + '</a>';
+						item += '</div>';
+						item += '</div>';
+						console.log(IP + content.img)
+
+					});
+
+					$('.tab-panel').append(item);
+
+					zymedia('video', {
+						autoplay: false
+					});
+
+				}
+
+			}
+		});
+	</script>
+	<script>
+		//document.documentElement.style.overflow='hidden';
+		document.body.style.overflow = 'hidden';
+		zymedia('video', {
+			autoplay: true
+		});
+		var screenheight = window.screen.height / 2;
+		$("#modelView").width(window.screen.width);
+		$("#modelView").height(window.screen.height);
+		var videoheight = $(".zy_media").height() / 2;
+		var padding_top = screenheight - videoheight;
+		//		$(".playvideo").css({
+		//			"top": padding_top
+		//		});
+		$("#modelView").css({
+			"margin-top": -1 * (padding_top + $(".zy_media").height())
+		});
+	</script>
+
+</html>

@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>频道管理</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<style>
+td {
+	text-align: center
+}
+</style>
+
+</head>
+
+<body class="mainbody">
+	<form id="form1" runat="server">
+		<!--导航栏-->
+		<div class="location">
+			<a href="javascript:history.back(-1);" class="back"><i
+				class="iconfont icon-up"></i><span>返回上一页</span></a> <a
+				href="../center.aspx" class="home"><i class="iconfont icon-home"></i><span>首页</span></a>
+			<i class="arrow iconfont icon-arrow-right"></i> <span>频道管理</span>
+		</div>
+		<!--/导航栏-->
+
+		<!--工具栏-->
+		<div id="floatHead" class="toolbar-wrap">
+			<div class="toolbar">
+				<div class="box-wrap">
+					<a class="menu-btn"><i class="iconfont icon-more"></i></a>
+					<div class="l-list">
+						<ul class="icon-list">
+							<li><a href="javacript:void(0);" id="itemAddButton3"><i
+									class="iconfont icon-close"></i><span>新增级别</span></a></li>
+							<li><a href="javacript:void(0);" id="itemAddButton2"><i
+									class="iconfont icon-close"></i><span>新增银行</span></a></li>
+							<li><a ID="btnSave" onclick="btnSave_Click()" ><i
+									class="iconfont icon-save"></i><span>保存</span> </a></li>
+						</ul>
+						<div class="menu-list">
+							<div class="rule-single-select">
+								<asp:DropDownList ID="ddlSiteId" runat="server"
+									AutoPostBack="True"
+									onselectedindexchanged="ddlSiteId_SelectedIndexChanged"></asp:DropDownList>
+							</div>
+						</div>
+					</div>
+					 
+				</div>
+			</div>
+		</div>
+		<!--/工具栏-->
+<div class="control-group tab-content">
+			<dl>
+				<dt>提现设置：</dt>
+			<dd>
+			
+			<div class="rule-multi-radio">
+						<input type="radio" name="i2" value="1" class="input normal"    <eq name="i2" value="1">checked</eq>    
+							required="" readonly /> <label>开启</label> <input
+							type="radio" value="0" class="input normal" required="" name="i2" <eq name="i2" value="0">checked</eq>
+							readonly /> <label>关闭</label>
+
+					</div>
+			
+			 
+				<p class="help-block">提现开关 关闭时禁止全部提现</p>
+			</dd>
+		</div>
+		<!--列表-->
+		<div class="table-container">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="ltable">
+				<tr>
+					<th width="10%">级别</th>
+					<th width="10%">业绩</th>
+					<th width="10%">直推人数</th>
+					<th width="10%">伞下人数</th>
+					<th width="10%">直推奖</th>
+					<th width="10%">平级奖</th>
+					<!-- <th width="10%">红包奖</th> -->
+					<th width="10%">团队销售奖</th>
+					<!-- <th width="10%">分红股权</th> -->
+					<th width="10%">赠送{$bi.agent_cash}</th>
+					<th width="15%">操作</th>
+				</tr>
+				<tbody id="tr_box " class="userlevel">
+					<foreach name="userLevel" item="vo1" key="k">
+					<tr class="td_c">
+						<td style=""><input type="text" name="u_level[]"
+							class="td-input" value="{$vo1}" style="width: 50%;"></td>
+						<td><input type="text" name="trade_money[]" class="td-input"
+							value="{$trade_money[$k]}" style="width: 50%;"></td>
+						<td><input type="text" name="s8[]" class="td-input"
+							value="{$s8[$k]}" style="width: 50%;"></td>
+
+						<td><input type="text" name="s11[]" class="td-input"
+							value="{$s11[$k]}" style="width: 50%;"></td>
+
+
+						<td><input type="text" name="user_num[]" class="td-input"
+							value="{$user_num[$k]}" style="width: 50%;"></td>
+						<td><input type="text" name="user_money[]" class="td-input"
+							value="{$user_money[$k]}" style="width: 50%;"></td>
+						<!-- <td><input type="text" name="user_money[]" class="td-input"
+								value="{$user_money[$k]}" style="width: 50%;"></td> -->
+						<td><input type="text" name="user_ew_money[]"
+							class="td-input" value="{$user_ew_money[$k]}" style="width: 50%;"></td>
+
+						<!-- <td><input type="text" name="user_shui[]" class="td-input"
+								value="{$user_shui[$k]}" style="width: 50%;">%</td> -->
+						<td><input type="text" name="s2[]" class="td-input"
+							value="{$s2[$k]}" style="width: 50%;"></td>
+
+						<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i
+								class="iconfont icon-delete"></i></a></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</div>
+		<!--/列表-->
+
+		<!--列表-->
+		<div class="table-container">
+
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="ltable">
+				<tr>
+					<th width="50%">银行</th>
+					<th width="50%">操作</th>
+				</tr>
+				<tbody id="tr_box " class="userbank">
+					<foreach name="userbank" item="vo1" key="k">
+					<tr class="td_c">
+						<td><input type="text" name="userbank[]" class="td-input"
+							value="{$vo1}" style="width: 50%;"></td>
+
+
+						<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i
+								class="iconfont icon-delete"></i></a></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+		</div>
+		<!--/列表-->
+	</form>
+</body>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script>
+<script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+	$(function() {
+		//创建商品规格
+
+		//绑定品牌按钮
+		$("#itemAddButton1").click(function() {
+			addVarTr()
+		});
+		$("#itemAddButton2").click(function() {
+			addVarTr2()
+		});
+		$("#itemAddButton3").click(function() {
+			addVarTr3()
+		});
+		$("#itemAddButton4").click(function() {
+			addVarTr4()
+		});
+
+	});
+	//创建URL变量HTML
+	function createVarHtml() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="bank[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td>  '
+				+ '<input type="text" name="bankcard[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td>  '
+				+ '<input type="text" name="bankusername[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml2() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="userbank[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml3() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="u_level[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="trade_money[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_num[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_money[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="jq_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="jq_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="jq_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml4() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="s1[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s2[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s3[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s4[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s5[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s6[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s7[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	//删除一行变量
+	function delVarTr(obj) {
+		$(obj).parent().parent().remove();
+	}
+	//添加一行变量
+	function addVarTr() {
+		varHtml = createVarHtml();
+		$(".bank").append(varHtml);
+	}
+	function addVarTr2() {
+		varHtml = createVarHtml2();
+		$(".userbank").append(varHtml);
+	}
+	function addVarTr3() {
+		varHtml = createVarHtml3();
+		$(".userlevel").append(varHtml);
+	}
+	function addVarTr4() {
+		varHtml = createVarHtml4();
+		$(".terminal").append(varHtml);
+	}
+	function btnSave_Click() {
+
+
+		 
+		$.ajax({
+			url: "{:U('YouZi/setBankParameterSave')}",
+			data:$("#form1").serialize(),
+			dataType: 'json', //服务器返回json格式数据
+			type: 'POST', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+
+			success: function(data) { 
+				layer.msg(data.msg, {
+					icon : 1,
+					time : 1000
+				});
+
+				if(data.status == 1) {
+					location.reload()
+				}
+			},
+			error: function(xhr, type, errorThrown) {
+
+				mui.toast('提交失败');
+				//异常处理；
+				console.log(type);
+			}
+		});
+
+  
+
+		
+		
+	}
+</script>
+</html>

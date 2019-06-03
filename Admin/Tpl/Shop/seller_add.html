@@ -1,0 +1,981 @@
+<extend name="Public:header" />
+
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.Operate').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #Operate').css('display', 'block')
+		$('.sidebar #seller')
+				.addClass('current')
+		//$('.sidebar #goods').addClass('current')
+	});
+</script>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/demo.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/webuploader-0.1.5/webuploader.css">
+
+
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<STYLE>
+.multi-radio a {
+	height: 30px;
+}
+
+.multi-radio {
+	padding-LEFT: 5PX
+}
+
+.error {
+	display: none;
+	margin-left: 20px;
+	color: red
+}
+</STYLE>
+<script type="text/javascript" src="__PUBLIC__/Adm/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/webuploader-0.1.5/webuploader.js"></script> <script
+	type="text/javascript">
+		window.webuploader = {
+			config : {
+				thumbWidth : 110, //缩略图宽度，可省略，默认为110
+				thumbHeight : 110, //缩略图高度，可省略，默认为110
+				wrapId : 'uploader', //必填
+			},
+			//处理客户端新文件上传时，需要调用后台处理的地址, 必填
+			uploadUrl : '__URL__/goods_fileupload',
+			//处理客户端原有文件更新时的后台处理地址，必填
+			updateUrl : '__URL__/goods_fileupdate',
+			//当客户端原有文件删除时的后台处理地址，必填
+			removeUrl : '__URL__/goods_filedel',
+			//初始化客户端上传文件，从后台获取文件的地址, 可选，当此参数为空时，默认已上传的文件为空
+			initUrl : '__URL__/seller_fileinit/id/{$vo.id}',
+		}
+	</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" style="min-height: 600px">
+
+			<link rel="stylesheet" type="text/css"
+				href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script>
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+
+
+			<link rel="stylesheet" type="text/css"
+				href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+			<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+
+
+
+
+			<form class="form-horizontal ajax-post ajax-form" name="form1"
+				id="form1" method="post" action="{:U('Shop/seller_add')}">
+				<input name="auth_status" type="hidden" id="auth_status" value="0">
+				<input name="auth_error" type="hidden" id="auth_error"
+					value="{$vo.auth_error}"> <input id="auth_check_status"
+					type="hidden" name="auth_check_status" value="0"> <input
+					id="auth_check_label" type="hidden" name="auth_check_label"
+					value=""> <input style="margin-top: 7px;" name="page"
+					type="hidden" id="page" value="" class="dfinput"> <input
+					type="hidden" name="id" id="id" value="{$vo.id}"> <input
+					name="type" type="hidden" id="type" value="1">
+
+				 
+
+				<div class="hr-line-dashed"></div>
+
+
+				     
+
+				<input name="user_id" type="hidden" value="{$user_id}"
+					class="form-control" required="">
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属盟友：<i
+						class="text-danger"></i></label>
+					<div class="col-sm-10">
+						<input name="shop_user_name" type="text"
+							value="{$vo.shop_user_name}" class="form-control" required="">
+
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">商户名称：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="title" type="text" value="{$vo.title}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">身份证号：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="card_no" type="text" value="{$vo.card_no}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">开户行：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<select name="bank" id="bank" class="form-control">
+							<foreach name="banklist" item="vo1" key="k">
+
+							<option value="{$vo1}"<eq name="vo.bank" value="$vo1">selected</eq>>{$vo1}
+							</option>
+							</foreach>
+						</select>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">开户行地址：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="bank_address" type="text"
+							value="{$vo.bank_province}{$vo.bank_city}{$vo.bank_area}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">支行地址：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="zhihang" type="text" value="{$vo.zhihang}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">开户姓名：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="bank_user_name" type="text"
+							value="{$vo.bank_user_name}" class="form-control" required="">
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">银行卡号：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="bank_card" type="text" value="{$vo.bank_card}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">手机号码：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="mobile" ID="mobile" type="text" value="{$vo.mobile}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">信用卡预留电话：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="credit_mobile" ID="credit_mobile" type="text"
+							value="{$vo.credit_mobile}" class="form-control" required="">
+					</div>
+				</div>
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<script type="text/javascript">
+					$(function() {
+
+						//绑定品牌按钮
+						$("#itemAddButton1").click(function() {
+							addVarTr()
+						});
+
+					});
+
+					//删除附件节点
+					function delNode(obj) {
+						$(obj).parent().remove();
+					}
+
+					//创建URL变量HTML
+					function createVarHtml(count) {
+
+						varHtml = '<tr class="td_c">'
+								+ '<td> '
+								+ '<select style="width:200px" id="txtProvince'+count+'" name="txtProvince'+count+'" class="select txtProvince"></select></td>'
+								+ '<td>  '
+								+ '<select style="width:200px"id="txtCity'+count+'" name="txtCity'+count+'" class="select txtCity"></select></td>'
+								+ '<td style="display:none">  '
+								+ '<select id="txtArea'+count+'" name="txtArea'+count+'" class="select"></select></td>'
+
+								+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+								+ '</tr>'
+						return varHtml;
+					}
+					//删除一行变量
+					function delVarTr(obj) {
+						$(obj).parent().parent().remove();
+					}
+					//添加一行变量
+					function addVarTr() {
+						var count = $('#tr_box tr').length + 1;
+
+						varHtml = createVarHtml(count);
+						$("#tr_box").append(varHtml);
+
+						var mypcas = new PCAS("txtProvince" + count + "",
+								"txtCity" + count + '', "txtArea" + count + '');
+
+						$("#tr_box tr  select").change(function() {
+
+						});
+
+					}
+				</script>
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">身份证正面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<img id="img" name="card_img1" width="300" height="200"
+							src="__PUBLIC__/images/app_assets_images_mine_authentication_id_face.png">
+						<input type="hidden" name="card_img1_value" id="card_img1_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img1" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">身份证背面面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<img id="img" name="card_img2" width="300" height="200"
+							src="__PUBLIC__/images/app_assets_images_mine_authentication_id_back.png">
+						<input type="hidden" name="card_img2_value" id="card_img2_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img2" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">手持身份证正面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img3" width="300" height="200"
+							src="__PUBLIC__/images/app_assets_images_mine_authentication_handle.png">
+						<input type="hidden" name="card_img3_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img3" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">手持身份证反面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img4" width="300" height="200"
+							src="__PUBLIC__/images/app_assets_images_mine_authentication_handle.png">
+						<input type="hidden" name="card_img4_value">
+
+
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img4" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">手持银行卡正面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img5" width="300" height="200"
+							src="__PUBLIC__/images/bankcard_positive.png"><input
+							type="hidden" name="card_img5_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img5" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">手持银行卡反面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img6" width="300" height="200"
+							src="__PUBLIC__/images/bankcard_reserve.png"> <input
+							type="hidden" name="card_img6_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img6" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">银行卡正面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img7" width="300" height="200"
+							src="__PUBLIC__/images/bankcard_positive.png"> <input
+							type="hidden" name="card_img7_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img7" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">银行卡反面图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img8" width="300" height="200"
+							src="__PUBLIC__/images/bankcard_reserve.png"> <input
+							type="hidden" name="card_img8_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img8" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">信用卡图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img9" width="300" height="200"
+							src="__PUBLIC__/images/bankcard_positive.png"> <input
+							type="hidden" name="card_img9_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img9" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">经营场所照片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img10" width="300" height="200"
+							src="__PUBLIC__/images/card2.png"> <input type="hidden"
+							name="card_img10_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img10" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">门头照片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img11" width="300" height="200"
+							src="__PUBLIC__/images/card3.png"> <input type="hidden"
+							name="card_img11_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img11" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+
+					</div>
+				</div>
+
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">收银台照片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img12" width="300" height="200"
+							src="__PUBLIC__/images/11.png"> <input type="hidden"
+							name="card_img12_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img12" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">营业执照：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+						<img id="img" name="card_img13" width="300" height="200"
+							src="__PUBLIC__/images/card1.png"> <input type="hidden"
+							name="card_img13_value">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1?name=card_img13" width="350"
+								height="30" scrolling="no" frameborder="0"></iframe>
+						</p>
+
+					</div>
+				</div>
+
+
+
+
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">内容：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input type="hidden" name="detail" id="content">
+						<script type="text/javascript" charset="utf-8"
+							src="__PUBLIC__//Resource/plugins/ueditor/ueditor.config.js"></script>
+						<script type="text/javascript" charset="utf-8"
+							src="__PUBLIC__//Resource/plugins/ueditor/ueditor.all.min.js">
+							
+						</script>
+						<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+						<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+						<script type="text/javascript" charset="utf-8"
+							src="__PUBLIC__/Resource/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+						<script id="editor" type="text/plain" style="height: 500px;">{$vo.content|htmlspecialchars_decode}</script>
+						<!-- <textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea> -->
+					</div>
+				</div>
+
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<button class="btn btn-primary edit" type="button"
+							style="float: right; margin-left: 0">确认提交</button>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$("#checkbox").change(function() {
+							if ($('#checkbox').is(':checked')) {
+								$('#type').val(1);
+							} else {
+								$('#type').val(0);
+							}
+						});
+
+						$('.select_sn_type input').click(
+								function() {
+									$('input[name=sn_type]').val(
+											$(this).attr('sn_type'))
+									$('input[name=fan_money]').val(
+											$(this).attr('fan_money'))
+									$('input[name=min_fan_money]').val(
+											$(this).attr('min_fan_money'))
+									$('input[name=min_day]').val(
+											$(this).attr('min_day'))
+									$('input[name=shop_fan_money]').val(
+											$(this).attr('shop_fan_money'))
+									$('input[name=shop_min_fan_money]').val(
+											$(this).attr('shop_min_fan_money'))
+									$('input[name=shop_expire_day]').val(
+											$(this).attr('shop_expire_day'))
+
+								});
+						$('.select_shop_type input').click(function() {
+							if ($(this).index() == 0) {
+
+								$('input[name=shop_type]').val(0)
+								$('.shop_profit').css('display', 'none')
+							} else {
+								$('input[name=shop_type]').val(1)
+
+								$('.shop_profit').css('display', 'block')
+							}
+
+						});
+						$('.select_shop_type input:eq(0)').trigger("click");
+
+					});
+
+					layui
+							.use(
+									[ 'layedit', 'upload', 'layer', 'laydate' ],
+									function() {
+										var layedit = layui.layedit;
+										var layer = layui.layer;
+										layedit
+												.set({
+													uploadImage : {
+														url : '__APP__/Gouwu/upload_layedit_pp'
+													}
+												});
+										edit = layedit.build('demo'); //建立编辑器
+										var ue = UE.getEditor('editor');
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#content')
+																	.val(
+																			UE
+																					.getEditor(
+																							'editor')
+																					.getContent());
+														});
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#content')
+																	.val(
+																			UE
+																					.getEditor(
+																							'editor')
+																					.getContent());
+															form = $('.ajax-form');
+
+															var province = '';
+
+															$
+																	.each(
+																			$('.txtProvince'),
+																			function(
+																					index,
+																					item) {
+																				province += $(
+																						item)
+																						.val()
+																						+ ','
+																			})
+
+															$('#province').val(
+																	province)
+
+															var city = '';
+
+															$
+																	.each(
+																			$('.txtCity'),
+																			function(
+																					index,
+																					item) {
+																				city += $(
+																						item)
+																						.val()
+																						+ ','
+																			})
+
+															$('#city')
+																	.val(city)
+
+															$
+																	.post(
+																			form
+																					.attr('action'),
+																			form
+																					.serialize(),
+																			function(
+																					data) {
+																				// console.log(data);
+																				if (data.status) {
+																					layer
+																							.msg(
+																									data.info,
+																									{
+																										offset : '100px',
+																										end : function() {
+																											if (data.url) {
+																												location.href = data.url;
+																											} else {
+																												location
+																														.reload();
+																											}
+																										}
+																									});
+																				} else {
+
+																					layer
+																							.msg(data.info);
+																				}
+																			});
+															return false;
+														});
+									});
+				</script>
+			</form>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//页面加载完成执行
+	$(function() {
+		//设置按钮及事件
+		$('dl').each(function() {
+			var auth_error = $('#auth_error').val();
+			if (auth_error.indexOf($(this).attr('type')) >= 0) {
+				$(this).find('a:eq(1)').trigger("click");
+				$('.no').css('display', 'block')
+				$('.yes').css('display', 'none')
+				$(this).find('.multi-radio').css('display', 'NONE')
+				$(this).find('.error').css('display', 'block')
+			}
+
+		});
+		$('dl a').click(
+				function() {
+					var type = ($(this).parent().parent().parent().parent()
+							.attr('type'))
+
+					var auth_check_label = '';
+					var auth_check_status = '';
+
+					$('.yes').css('display', 'block')
+
+					$('.no').css('display', 'none')
+					$('#auth_status').val(0)
+
+					$('dl').each(
+							function() {
+								auth_check_label = auth_check_label
+										+ $(this).attr('type') + '|';
+								auth_check_status = auth_check_status
+										+ $(this).find('a.selected').index()
+										+ '|';
+								if ($(this).find('a.selected').index() == 1) {
+									$('.no').css('display', 'block')
+									$('.yes').css('display', 'none')
+									$('#auth_status').val(2)
+
+								}
+
+							});
+
+					$('#auth_check_label').val(auth_check_label)
+					$('#auth_check_status').val(auth_check_status)
+
+				});
+		layui
+				.use(
+						[ 'layedit', 'upload', 'layer', 'laydate' ],
+						function() {
+
+							$('.yes')
+									.on(
+											'click',
+											function() {
+												var auth_check_label = '';
+												var auth_check_status = '';
+												var ret = true;
+												$('#auth_status').val(0)
+
+												$('dl')
+														.each(
+																function() {
+																	auth_check_label = auth_check_label
+																			+ $(
+																					this)
+																					.attr(
+																							'type')
+																			+ '|';
+																	auth_check_status = auth_check_status
+																			+ $(
+																					this)
+																					.find(
+																							'a.selected')
+																					.index()
+																			+ '|';
+																	if ($(this)
+																			.find(
+																					'a.selected')
+																			.index() == 1) {
+																		$('.no')
+																				.css(
+																						'display',
+																						'block')
+																		$(
+																				'.yes')
+																				.css(
+																						'display',
+																						'none')
+																		$(
+																				'#auth_status')
+																				.val(
+																						2)
+
+																	}
+
+																});
+
+												$('#auth_check_label').val(
+														auth_check_label)
+												$('#auth_check_status').val(
+														auth_check_status)
+
+												if (ret) {
+
+													form = $('.ajax-form');
+													$
+															.post(
+																	form
+																			.attr('action'),
+																	form
+																			.serialize(),
+																	function(
+																			data) {
+																		// console.log(data);
+																		if (data.status) {
+																			layer
+																					.msg(
+																							data.info,
+																							{
+																								offset : '100px',
+																								end : function() {
+																									if (data.url) {
+																										location.href = data.url;
+																									} else {
+																										location
+																												.reload();
+																									}
+																								}
+																							});
+																		} else {
+
+																			layer
+																					.msg(data.info);
+																		}
+																	});
+													return false;
+												}
+											});
+
+							$('.no')
+									.on(
+											'click',
+											function() {
+												var auth_check_label = '';
+												var auth_check_status = '';
+												var ret = true;
+												$('#auth_status').val(0)
+
+												$('dl')
+														.each(
+																function() {
+																	auth_check_label = auth_check_label
+																			+ $(
+																					this)
+																					.attr(
+																							'type')
+																			+ '|';
+																	auth_check_status = auth_check_status
+																			+ $(
+																					this)
+																					.find(
+																							'a.selected')
+																					.index()
+																			+ '|';
+																	if ($(this)
+																			.find(
+																					'a.selected')
+																			.index() == 1) {
+																		$('.no')
+																				.css(
+																						'display',
+																						'block')
+																		$(
+																				'.yes')
+																				.css(
+																						'display',
+																						'none')
+																		$(
+																				'#auth_status')
+																				.val(
+																						2)
+
+																	}
+
+																});
+
+												$('#auth_check_label').val(
+														auth_check_label)
+												$('#auth_check_status').val(
+														auth_check_status)
+
+												if (ret) {
+
+													form = $('.ajax-form');
+													$
+															.post(
+																	form
+																			.attr('action'),
+																	form
+																			.serialize(),
+																	function(
+																			data) {
+																		// console.log(data);
+																		if (data.status) {
+																			layer
+																					.msg(
+																							data.info,
+																							{
+																								offset : '100px',
+																								end : function() {
+																									if (data.url) {
+																										location.href = data.url;
+																									} else {
+																										location
+																												.reload();
+																									}
+																								}
+																							});
+																		} else {
+
+																			layer
+																					.msg(data.info);
+																		}
+																	});
+													return false;
+												}
+											});
+						});
+
+		$('.edit').on('click', function() {
+
+			form = $('.ajax-form');
+			$.post('{:U(Shop/seller_edit)}', form.serialize(), function(data) {
+				// console.log(data);
+				if (data.status) {
+					layer.msg(data.info, {
+						offset : '100px',
+						end : function() {
+							if (data.url) {
+								location.href = data.url;
+							} else {
+								location.reload();
+							}
+						}
+					});
+				} else {
+
+					layer.msg(data.info);
+				}
+			});
+			return false;
+
+		});
+
+	});
+</script> </block>

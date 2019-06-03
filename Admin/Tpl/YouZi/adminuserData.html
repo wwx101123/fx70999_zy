@@ -1,0 +1,211 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		$("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		});
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form id="form1" method="post" action="{:U('YouZi/adminuserDataSave')}">
+		<input name="id" type="hidden" id="id" value="{$user.id}">
+		<!--导航栏-->
+		<div class="location">
+			<a href="nav_list.aspx" class="back"><i class="iconfont icon-up"></i><span>返回列表页</span></a>
+			<a href="../center.aspx"><i class="iconfont icon-home"></i><span>首页</span></a>
+			<i class="arrow iconfont icon-arrow-right"></i> <a
+				href="nav_list.aspx"><span>后台导航</span></a> <i
+				class="arrow iconfont icon-arrow-right"></i> <span>编辑会员资料</span>
+		</div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+						<li><a href="javascript:;">个人信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			<dl>
+				<dt>会员级别</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="newulevel" class="form-control">
+							<volist name="level" id="vvo" key="i"> <eq
+								name="user.u_level" value="$i">
+							<option value="{$i}" selected>{$level[$i]}</option>
+							<else />
+							<option value="{$i}">{$level[$i]}</option>
+							</eq> </volist>
+						</select> <input name="oldulevel" type="hidden" id="oldulevel" class="ipt"
+							value="{$user['u_level']}" />
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>后台角色</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="role_id" class="form-control">
+							<volist name="role_list" id="vvo" key="i"> <eq
+								name="user.role_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.role_name}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.role_name}</option>
+							</eq> </volist>
+						</select>  
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>用户编号</dt>
+				<dd>
+					<input name="user_id" type="text" value="{$user['user_id']}"
+						class="input normal" required="" readonly />
+				</dd>
+			</dl>
+			<dl>
+				<dt>会员姓名</dt>
+				<dd>
+					<input name="username" type="text" value="{$user['user_name']}"
+						class="input normal" required="" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>推荐人</dt>
+				<dd>
+					<input name="ReName" type="text" value="{$user['re_name']}"
+						class="input normal" required="" /> <input name="oldReName"
+						type="hidden" id="oldReName" value="{$user['re_name']}"
+						required="" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>一级密码</dt>
+				<dd>
+					<input name="pwd1" type="text" id="pwd1" value="{$user['pwd1']}"
+						class="input normal" required="" />
+				</dd>
+			</dl>
+			<dl>
+				<dt>二级密码</dt>
+				<dd>
+					<input name="pwd2" type="text" id="pwd2" value="{$user['pwd2']}"
+						class="input normal" />
+				</dd>
+			</dl>
+
+
+
+		</div>
+		<!--/内容-->
+		<div class="tab-content" style="display:none;">
+
+			<dl>
+				<dt>身份证号码</dt>
+				<dd>
+					<input ID="idcard" maxlength="255" name="idcard"
+						class="input normal" value="{$user.card_no}" /> <span
+						class="Validform_checktip"></span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>开户银行</dt>
+				<dd>
+					<div class="rule-single-select">
+						<select name="bankname" id="bank" class="form-control">
+							<option value="">请选择开户行</option>
+							<foreach name="banklist" item="vo1" key="k">
+
+							<option value="{$vo1.name}"<eq name='vo1.is_select'
+									value="1">selected</eq> >{$vo1.name}
+							</option>
+							</foreach>
+
+						</select>
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>银行卡号</dt>
+				<dd>
+
+					<input name="bankcard" type="text" id="zhanghao" size="35"
+						class="input normal" maxlength="19" value="{$user['bank_card']}">
+				</dd>
+			</dl>
+
+			<dl class="hr-line-dashed">
+
+				<dt class="col-sm-2 control-label">开户姓名</dt>
+				<dd class="col-sm-10">
+					<input name="huzhu" type="text" id="huzhu" class="input normal"
+						value="{$user['name']}">
+				</dd>
+
+			</dl>
+			<dl class="form-group">
+				<dt class="col-sm-2 control-label">开户行地址</dt>
+				<dd> <input name="bankaddress" type="text"
+						id="bankaddress" class="input normal" size="35"
+						value="{$user.bank_address}">
+				</dd>
+			</dl>
+
+		</div>
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="submit" value="提交保存" class="btn "
+					onclick="btnSubmit_Click" /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+</body>
+</html>

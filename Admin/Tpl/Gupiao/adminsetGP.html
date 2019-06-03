@@ -1,0 +1,174 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>股票参数设置</h2>
+            <ol class="breadcrumb">
+                <li>
+                <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>股票市场</a>
+                </li>
+                <li class="active">
+                    <strong>股票参数设置</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>股票参数设置
+                            <small>（打<i class="text-danger">*</i> 号为必填项）</small>
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal ajax-post" name="form1" id="form1" method="post"
+                        action="{:U('Gupiao/setGPSave')}">
+                        <input type="hidden" name="temp1" value="haha">
+                        <input name="regfrom" type="hidden" value="">
+                        <div class="form-group" style="display:none">
+                            <label class="col-sm-2 control-label">未配送配送积分：<i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                {$allagcash}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">股票(股)价格： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_one" type="text" id="gp_one" value="{$fee_rs['gp_one']}"
+                                class="form-control" required="" onkeyup="guolv(this.name);"/>
+                            </div>
+                        </div>
+                        <!--<div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 今日开盘价： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_open" type="text" id="gp_open" size="20"
+                                value="{$fee_rs['gp_one']}"
+                                class="form-control" required="" onkeyup="guolv(this.name);"/><span class="help-block m-b-none"></span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 今日关盘价： <i class="text-danger">*</i></label>
+
+                            <div class="col-sm-5">
+                                <input name="gp_close" type="text" id="gp_close" size="20"
+                                value="{$fee_rs['gp_close']}" class="form-control" required=""/>
+                            </div>
+                        </div>-->
+                        <div class="hr-line-dashed" style="display:none"></div>
+                        <div class="form-group" style="display:none">
+                            <label class="col-sm-2 control-label"> 税收： <i class="text-danger">*</i></label>
+
+                            <div class="col-sm-5">
+                                <input name="gp_perc" type="text" id="gp_perc" size="20"
+                                value="{$fee_rs['gp_perc']}"
+                                class="form-control" required=""/><span class="help-block m-b-none">%</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed" style="display:none"></div>
+
+
+                        <div class="form-group" style="display:none">
+                            <label class="col-sm-2 control-label"> 交易分账： <i class="text-danger">*</i></label>
+
+                            <div class="col-sm-5">
+                                <input name="gp_inm" type="text" id="gp_inm" size="20"
+                                value="{$fee_rs['gp_inm']}" class="form-control" required=""/>
+                                <span id="showShopid" style="color: #1ab394">百分比 进入现金点值</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed" style="display:none"></div>
+
+                        <div class="form-group" style="display:none" id="data_1">
+                            <label class="col-sm-2 control-label">交易分账： <i>&nbsp;</i></label>
+                            <div class="col-sm-5">
+                                 <input name="gp_inn" type="text" id="gp_inn" size="10" class="form-control" required="" value="{$fee_rs['gp_inn']}">
+                                 <span id="showShopid" style="color: #1ab394">百分比 进入复投积分</span>
+                            </div>
+                        </div>
+                        
+                        <div class="hr-line-dashed" style="display:none"></div>
+                        <div class="form-group" style="display:none">
+                            <label class="col-sm-2 control-label"> 交易分账： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_ino" type="text" id="gp_ino"  value="{$fee_rs['gp_ino']}" class="form-control" required="">
+                            	<span id="showShopid" style="color: #1ab394">百分比 进入幸运积分</span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-2 control-label"> 上涨数量： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_fxnum" type="text" id="gp_fxnum"  value="{$fee_rs['gp_fxnum']}" class="form-control" required="" >
+                                <span id="showReid" style="color: #1ab394"></span>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 上涨价格： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="str12" type="text" id="str12"  value="{$fee_rs['str12']}" class="form-control" required="" >
+                                <span id="showReid" style="color: #1ab394"></span>
+                            </div>
+                        </div>
+                         <div class="hr-line-dashed"></div> -->
+                        <div class="form-group " style="display:none">
+                            <label class="col-sm-2 control-label"> 拆分股票(股)（比率）： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_cgbl" type="text" id="gp_cgbl"
+                                value="{$fee_rs['gp_cgbl']}"   class="form-control">【拆分后的价格：<span style="color:#F00" id="cur_p"></span>，如果不拆分请填写<span style="color:#36f">1:1</span>】
+        {$btn}
+                            </div>
+                        </div> 
+                         <div class="hr-line-dashed" style="display:none"></div>
+                        <div class="form-group"   style="display:none"    >
+                            <label class="col-sm-2 control-label"> 股票拆分上限值： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_cfmax" type="text" id="gp_cfmax"  value="{$fee_rs['gp_cfmax']}" class="form-control" required="" >
+                                <span id="showReid" style="color: #1ab394"></span>
+                            </div>
+                        </div>
+                          <div class="hr-line-dashed" style="display:none"></div>
+                        <div class="form-group" style="display:none">
+                            <label class="col-sm-2 control-label"> 股票拆分指导值： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                                <input name="gp_zhidao" type="text" id="gp_zhidao"  value="{$fee_rs['gp_zhidao']}" class="form-control" required="" >
+                                <span id="showReid" style="color: #1ab394"></span>
+                            </div>
+                        </div>
+                         <div class="hr-line-dashed " style="display:none"></div>
+                        <div class="form-group " style="display:none">
+                            <label class="col-sm-2 control-label"> 股票(股)开关： <i class="text-danger">*</i></label>
+                            <div class="col-sm-5">
+                            <input type="radio" name="gp_kg" value="0" <eq name="fee_rs['gp_kg']" value="0">checked</eq> />开启&nbsp;
+    						<input type="radio" name="gp_kg" value="1" <eq name="fee_rs['gp_kg']" value="1">checked</eq> />关闭
+		&nbsp; <span>(关闭将无法进行交易)</span>
+                            </div>
+                        </div> 
+  
+                            
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">修改</button>
+                                    <button class="btn btn-white" onclick="history.go(-1)">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</block>

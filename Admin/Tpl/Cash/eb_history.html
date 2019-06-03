@@ -1,0 +1,63 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>历史记录</h2>
+      <ol class="breadcrumb">
+        <li> <a href="{:U('Index/index')}">首页</a> </li>
+        <li> <a>积分交易</a> </li>
+        <li class="active"> <strong>历史记录</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>历史记录</h5>
+          </div>
+          <div class="ibox-content p-xl">
+            <div class="row">
+              <div class="col-sm-12 text-right">
+                <form id="form1" name="form1" method="post" action="__URL__/eb_history/">
+                  <table class="table invoice-total">
+                    <tr>
+                      <td height="60"> 查询日期：
+                        <input name="Sdate" type="text" id="Sdate" onFocus="showCalendar(this)" readonly />
+                        至
+                        <input name="Edate" type="text" id="Edate" onFocus="showCalendar(this)" readonly />
+                        <input type="submit" name="Submit" value=" 查询 " class="btn1" /></td>
+                    </tr>
+                  </table>
+                </form>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><span>操作时间</span></th>
+                      <th><span>卖家</span></th>
+                      <th><span>买家</span></th>
+                      <th><span>操作说明</span></th>
+                      <th><span>金额</span></th>
+                    </tr>
+                  </thead>
+                  <volist name='list' id='vo'>
+                    <tr align="left">
+                      <td>{$vo.pdt|date='Y-m-d h:i:s A',###}</td>
+                      <td>{$vo['user_id']}</td>
+                      <td>{$vo['d_user_id']}&nbsp;</td>
+                      <td>{$vo['bz']}</td>
+                      <td>{$vo['epoints']}</td>
+                    </tr>
+                  </volist>
+                </table>
+                {$page} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</block>

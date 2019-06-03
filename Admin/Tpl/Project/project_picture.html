@@ -1,0 +1,53 @@
+ <style> 
+
+/*图片列表*/
+.photo-list{ margin:15px 15px 0; padding:0; }
+    .photo-list:after{ clear:both; content:"."; display:block; height:0; visibility:hidden; }
+    .photo-list ul{ margin:0 0 0 -15px; }
+    .photo-list ul .nodata{ margin:0 0 15px 0; padding:0; display:block; color:#999; font-size:14px; text-align:center; line-height:80px; background:#fff; }
+    .photo-list li{ float:left; width:33.333%; list-style:none; }
+    .photo-list li a{ display:block; margin:0 0 15px 15px; }
+    .photo-list li a:active{ background:#ececec; }
+    .photo-list li a img{ display:block; height:auto; width:100%; }
+    .photo-list li a:active img{ opacity:0.8; }
+    .photo-list li a h2{ display:block; color:#333; font-size:13px; font-weight:normal; line-height:30px; height:30px; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+    .photo-list li a p{ color:#cecece; font-size:12px; line-height:1.2em; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+
+</style>
+ 
+ 
+ 
+<div class="list-div" id="listDiv">
+
+	
+			{$page}
+	<br>
+	<br>
+ <div class="photo-list">
+                    <ul>
+                        <foreach name="list" key="k" item="vo">
+			 
+  <li>
+                            <a href="javascript:void(0)">
+                                <img src="{$vo.original_path}">
+                                <h2>{$k}</h2>
+                            </a>
+                        </li>
+
+ 
+			</foreach>
+                      
+                         
+                        
+                    </ul>
+                </div>
+		 
+			  
+
+
+	<br>
+	<br>
+	
+			{$page}
+
+</div> 

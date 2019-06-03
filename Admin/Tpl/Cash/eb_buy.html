@@ -1,0 +1,84 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>买入积分</h2>
+    <ol class="breadcrumb">
+      <li> <a href="{:U('Index/index')}">首页</a> </li>
+      <li> <a>积分交易</a> </li>
+      <li class="active"> <strong>买入积分</strong> </li>
+    </ol>
+  </div>
+</div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>买入积分 </h5>
+          </div>
+          <div class="ibox-content">
+            <div class="row">
+              <div class="col-sm-12">
+                <!--<table class="table">
+                  <tr>
+                    <td><input type="button" name="button" id="button" class="ladda-button ladda-button-demo btn btn-primary" value="50 ~ 250" onclick="window.location='__URL__/eb_buy/tt/1/'"/>
+                      &nbsp;&nbsp;
+                      <input type="button" name="button" id="button" class="ladda-button ladda-button-demo btn btn-primary" value="251 ~ 500" onclick="window.location='__URL__/eb_buy/tt/2/'"/>
+                      &nbsp;&nbsp;
+                      <input type="button" name="button" id="button" class="ladda-button ladda-button-demo btn btn-primary" value="501 ~ 1000" onclick="window.location='__URL__/eb_buy/tt/3/'"/>
+                      &nbsp;&nbsp;
+                      <input type="button" name="button" id="button" class="ladda-button ladda-button-demo btn btn-primary" value="1001 ~ 2000" onclick="window.location='__URL__/eb_buy/tt/4/'"/>
+                      &nbsp;&nbsp;
+                      <input type="button" name="button" id="button" class="ladda-button ladda-button-demo btn btn-primary" value="2001 ~ 5000" onclick="window.location='__URL__/eb_buy/tt/5/'"/></td>
+                  </tr>
+                </table>-->
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th><span>卖出日期</span></th>
+                      <th><span>卖家</span></th>
+                      <th><span>卖家信誉</span></th>
+                      <th><span>额度</span></th>
+                      <th><span>备注</span></th>
+                      <th><span>功能</span></th>
+                    </tr>
+                  </thead>
+                  <empty name='list'>
+                    <tr>
+                      <td>暂无数据</td>
+                    </tr>
+                    <else/>
+                    <volist name='list' id='vo'>
+                      <tr>
+                        <td>{$vo.rdt|date='Y-m-d H:i:s',###}</td>
+                        <td>{$vo['user_id']}</td>
+                        <td>{$vo['uid']|cx_usrate}</td>
+                        <td>{$vo['money']}</td>
+                        <td><span style="cursor:hand; color:blue" class="title" title="查看备注|<strong>备注：</strong>{$vo['sellbz']}">查看</span></td>
+                        <td><a href="__URL__/eb_buyAC/cid/{$vo['id']}/">下订单购买</a></td>
+                      </tr>
+                    </volist>
+                  </empty>
+                </table>
+                {$page} </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+function open_m(oid){
+	var ttt = "menu_t"+oid;
+	document.getElementById(ttt).style.display="";
+}
+function close_m(oid){
+	var ttt = "menu_t"+oid;
+	document.getElementById(ttt).style.display="none";
+}
+</script> 
+</block>

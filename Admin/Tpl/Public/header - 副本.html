@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <title>{$System_namex}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+    <link rel="shortcut icon" href="http://sgzx.zhongjieceshi.com/Resource/plugins/hplus/favicon.ico">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="__PUBLIC__/Adm/Resource/plugins/hplus/tablesaw/tablesaw.css">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/animate.min.css" rel="stylesheet">
+    <!-- <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/style_inspina.css" rel="stylesheet"> -->
+     <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/style.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/xin.css" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+    <!-- Gritter -->
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+    <!--<link href="__PUBLIC__/Adm/Resource/plugins/hplus/blueimp/blueimp-gallery.min.css" rel="stylesheet">-->
+
+    <!--<link rel="stylesheet" type="text/css" href="Resource/plugins/hplus/css/plugins/markdown/bootstrap-markdown.min.css" />-->
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/simditor/simditor.css" />
+
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick.css" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick-theme.css" rel="stylesheet">
+
+    <!--<link href="__PUBLIC__/Adm/Resource/plugins/assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">-->
+
+
+    <link href="__PUBLIC__/Adm/Resource/plugins/assets/plugins/jQuery-city/css/city-picker.css" rel="stylesheet" type="text/css" />
+
+    <!-- Ladda style -->
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+
+    <!-- Sweet Alert -->
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+    <!-- Switchery -->
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/plugins/switchery/switchery.css" rel="stylesheet">
+
+    <style>
+        /*@media (max-width: 1200px) {*/
+            .container{
+                width: 100%;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .wrapper-content{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            .top-navigation .wrapper.wrapper-content{
+                padding-left: 0px;
+                padding-right: 0px;
+            }
+            /*}*/
+            @media screen and (max-width: 767px) {
+                .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tbody > tr > th, .table-responsive > .table > tfoot > tr > td, .table-responsive > .table > tfoot > tr > th, .table-responsive > .table > thead > tr > td, .table-responsive > .table > thead > tr > th {
+                    white-space: inherit;
+                }
+            }
+            @media (min-width: 768px){
+                .top-navigation{
+                    margin-top:87px;
+                }
+                #topMenu{
+                    z-index: 1000;width: 100%;position: fixed;top:0px;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container{
+                    width: 100%;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                }
+            }
+            @media (max-width: 900px) {
+                #pc-top{
+                    display: none;
+                }
+            }
+            @media (max-width: 768px) {
+       /* .top-navigation .navbar-collapse{
+            position: absolute;
+            min-height: 100%;
+            z-index: 1000;
+            background: #fff;
+            transition: transform .15s ease-in-out,width .15s ease-in-out;
+            transform: translate(-160px, 0);
+        }
+        .top-navigation .in{
+            transform: translate(0, 0);
+        }*/
+    }
+      #wrapper{background: none;}
+      .navbar-static-side {
+             position: fixed;
+             width: 220px;
+             z-index: 2001;
+             height: 100%;
+         }
+         .nav > li.active > a{color: #666;}
+
+         @media (max-width: 320px) {
+           body.mini-navbar .navbar-static-side {
+                 width: 0;
+             }
+         }
+         .nav > li > a:focus, .nav > li > a:hover {
+             text-decoration: none;
+             background-color: inherit;
+         }
+</style>
+
+<script src="__PUBLIC__/Adm/Resource/plugins/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+<!-- bootstrap-table-->
+<script src="__PUBLIC__/Adm/Resource/plugins/hplus/js/plugins/toastr/toastr.min.js"></script>
+
+<script>
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "onclick": null,
+        "showDuration": "400",
+        "hideDuration": "1000",
+        "timeOut": "7000",
+        "extendedTimeOut": "3000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+    function showToastrMessage(text,type){
+        switch (type) {
+            case 'success':
+            toastr.success(text);break;
+            case 'error':
+            toastr.error(text);break;
+            default :
+            toastr.info(text);break;
+        }
+    }
+</script>
+
+<script>
+    function sendAjax(buttonId,goPage){
+        var thisTicket = "#"+buttonId;
+        var l = $(thisTicket).ladda();
+
+        // Start loading
+        l.ladda('start');
+        setTimeout(function () {
+            $.ajax({
+                url: goPage,
+                type: "post",
+                dataType: "json",
+                data: $("#sendForm").serialize(),
+                error: function (msg) {
+                    showSweetAlert('', msg, 'error');
+                },
+                success: function (msg) {
+                    if (msg.resultType != 1) {
+                        showSweetAlert('', msg.msg, 'error')
+                    } else {
+                        showSweetAlert("", msg.msg, "success",function (isConfirm) {
+                            location.href = msg.toUrl;
+                        });
+                        setTimeout(function () {
+                            location.href = msg.toUrl;
+                        },2000);
+                    }
+                    l.ladda('stop');
+                }
+            });
+        }, 500);
+    }
+</script>
+    <!--<link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick.css" rel="stylesheet">
+    <link href="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick-theme.css" rel="stylesheet">-->
+
+    <!--<link rel="stylesheet" type="text/css" href="Resource/plugins/lunbotu/css/normalize.css" />-->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Adm/Resource/plugins/lunbotu/css/default.css">
+    <link rel="stylesheet" href="__PUBLIC__/Adm/Resource/plugins/lunbotu/assets/css/sangarSlider.css" type="text/css" media="all">
+    <link rel="stylesheet" href="__PUBLIC__/Adm/Resource/plugins/lunbotu/assets/themes/default/default.css" type="text/css" media="all">
+    <!--<link rel="stylesheet" href="Resource/plugins/lunbotu/assets/css/demo.css" type="text/css" media="all">-->
+
+    <!--http://www.htmleaf.com/jQuery/Slideshow-Scroller/201505131821.html-->
+
+    <script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+    
+    <style type="text/css">
+        @media (max-width: 768px) {
+            #headerImg{
+                margin:auto;
+            }
+        }
+
+    </style>
+</head>
+
+<div id="wrapper">
+    <!--左侧导航开始-->
+    <nav class="navbar-static-side" role="navigation">
+        <div class="nav-close"><i class="fa fa-times-circle"></i>
+        </div>
+        <div class="sidebar-collapse">
+            <ul class="nav sidebar-menu" id="side-menu">
+
+
+             <li  class="skin4" style="background: #1ab394;color: #fff;text-align: center;font-size: 18px;" >
+                <a aria-expanded="false" role="button" href="">
+                    <span class="nav-label" style="color:#fff;">会员平台</span>
+                </a>
+            </li>
+             <li  class="skin4" >
+                <a aria-expanded="false" role="button" href="{:U('Index/index')}" class="dropdown-toggle">
+                    <i class="fa fa-home"></i>
+                    <span class="nav-label">首页</span>
+                    <span class="fa arrow"></span>
+                </a>
+            </li>
+            <li class="skin4" >
+                <a aria-expanded="false" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-paper-plane"></i>
+                
+                    <!--<img src="Resource/plugins/Public/admin/images/icon_12.png" class="margin-right-10" style="margin-right:5px;width: 16px;margin-bottom: 0px;padding-bottom: 4px"/>-->
+                    <span class="nav-label">资料管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <li>
+                        <a class="" href="{:U('User/userInfo')}" data-index="0" name="left-menu"><i class='fa fa-rmb'></i>资料查看</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('User/userEdit')}" data-index="0" name="left-menu"><i class='fa fa-dollar'></i>资料修改</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('User/pwdEdit')}" data-index="0" name="left-menu"><i class='fa fa-btc'></i>密码修改</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="skin4" >
+                 <a aria-expanded="false" role="button" href="recommended_query.html" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-users"></i>
+          
+                    <span class="nav-label">团队管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                	<!--<li><a href="{:U('Agent/agents')}">服务中心申请</a></li>-->
+                    <li>
+                        <a class="" href="{:U('User/myTeam')}" data-index="0" name="left-menu"><i class='fa fa-money'></i>分享列表</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Tree/TreeAjax')}" data-index="0" name="left-menu"><i class='fa fa-clone'></i>分享结构</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Tree/Tree2')}" data-index="0" name="left-menu"><i class='fa fa-clone'></i>团队结构</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Reg/userReg')}" data-index="0" name="left-menu"><i class='fa fa-history'></i>会员申请</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Agent/menber')}" data-index="0" name="left-menu"><i class='fa fa-history'></i>未审会员</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Uplevel/MenberJinji')}" data-index="0" name="left-menu"><i class='fa fa-history'></i>会员升级</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li class="skin4" >
+                <a aria-expanded="false" role="button" href="salaryquery.html" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-money"></i>
+
+                    <span class="nav-label">财务管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <li>
+                        <a class="" href="{:U('Change/pprofile')}" data-index="0" name="left-menu"><i class='fa fa-comments'></i>财务列表</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Bonus/financeTable')}" data-index="0" name="left-menu"><i class='fa fa-comments'></i>财务明细</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Transfer/transferTob')}" data-index="0" name="left-menu"><i class='fa fa-credit-card'></i>积分转换</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Transfer/transferMoney')}" data-index="0" name="left-menu"><i class='fa fa-newspaper-o'></i>积分转账</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Recharge/currencyRecharge')}" data-index="0" name="left-menu"><i class='fa fa-credit-card'></i>充值</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Currency/frontCurrency')}" data-index="0" name="left-menu"><i class='fa fa-credit-card'></i>提现</a>
+                    </li>
+                </ul>
+
+            </li>
+            
+            <li class="skin4">
+               <a aria-expanded="false" role="button" href="announces.html" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-exchange"></i>
+
+                    <span class="nav-label">股票市场</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <li>
+                        <a class="" href="{:U('Gupiao/trade')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>股票走势</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gupiao/buyGPform')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>买入股票</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gupiao/sellGPform')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>卖出股票</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gupiao/alllistGP')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>股票行情</a>
+                    </li>
+                    <eq name="Think.session.administrator" value="1">
+                    <li>
+                        <a class="" href="{:U('Gupiao/adminsetGP')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>股票参数设置</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gupiao/buylist')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>购买列表</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gupiao/selllist')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>出售列表</a>
+                    </li>
+					</eq>
+                </ul>
+
+            </li>
+            
+            <li class="skin4" >
+                <a aria-expanded="false" role="button" href="{:U('Gouwu/Buycp')}" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-shopping-cart"></i>
+
+                    <span class="nav-label">订单管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <li>
+                        <a class="" href="{:U('Gouwu/shop')}" data-index="0" name="left-menu"><i class='fa fa-ra'></i>进入商城</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gouwu/BuycpInfo')}" data-index="0" name="left-menu"><i class='fa fa-pinterest'></i>订单查询</a>
+                    </li>
+                    <li>
+                        <a class="" href="{:U('Gouwu/shopCar')}" data-index="0" name="left-menu"><i class='fa fa-shopping-cart'></i>我的购物车</a>
+                    </li>
+                </ul>
+
+            </li>
+
+            <li class="skin4" >
+               <a aria-expanded="false" role="button" href="announces.html" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-newspaper-o"></i>
+
+                    <span class="nav-label">信息管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <li>
+                        <a class="" href="{:U('News/News')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>新闻公告</a>
+                    </li>
+                </ul>
+
+            </li>
+            
+            <eq name="Think.session.administrator" value="1">
+            <li class="skin4" >
+               <a aria-expanded="false" role="button" href="announces.html" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i>
+
+                    <span class="nav-label">后台管理</span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse-menu">
+                    <if condition="(($arss[4] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('YouZi/adminMenber')}" data-index="0" name="left-menu"><i class='fa fa-calendar'></i>会员管理</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[6] eq 1) or ($fck_rs['id'] eq 1))">
+                    <!--<li>
+                        <a class="" href="{:U('Cash/admin_eblist')}" data-index="0" name="left-menu"><i class='fa fa-user-times'></i>交易管理</a>
+                    </li>-->
+					</if>
+                    <if condition="(($arss[2] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Bonus/financeManage')}" data-index="0" name="left-menu"><i class='fa fa-database'></i>会员奖金</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[3] eq 1) or ($fck_rs['id'] eq 1))">
+                    <!--<li>
+                        <a class="" href="{:U('YouZi/BonusSettlement')}" data-index="0" name="left-menu"><i class='fa fa-database'></i>积分结算</a>
+                    </li>-->
+					</if>
+                    <if condition="(($arss[1] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Bonus/adminFinance')}" data-index="0" name="left-menu"><i class='fa fa-cc-diners-club'></i>当期出纳</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[5] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('YouZi/adminmoneyflows')}" data-index="0" name="left-menu"><i class='fa fa-cogs'></i>货币流向</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[7] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Currency/adminCurrency')}" data-index="0" name="left-menu"><i class='fa fa-gear'></i>提现管理</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[8] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Recharge/adminCurrencyRecharge')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>充值管理</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[17] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Gouwu/proManage')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>产品管理</a>
+                        <a class="" href="{:U('Gouwu/imgManage')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>轮播图片</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[14] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Gouwu/adminLogistics')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>订单管理</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[10] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('News/adminnewsManage')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>新闻公告管理</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[12] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('YouZi/setParameterManage')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>参数设置</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[11] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('Backup/index')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>数据库备份</a>
+                    </li>
+					</if>
+                    <if condition="(($arss[13] eq 1) or ($fck_rs['id'] eq 1))">
+                    <li>
+                        <a class="" href="{:U('YouZi/delTable')}" data-index="0" name="left-menu"><i class='fa fa-bar-chart'></i>清空数据</a>
+                    </li>
+					</if>
+                </ul>
+
+            </li>
+			</eq>
+        </ul>
+        </div>
+    </nav>
+    <!--左侧导航结束-->
+
+    <!--右侧部分开始-->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <div class="row border-bottom">
+            <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#" style="margin-right: 30px;"><i class="fa fa-bars"></i> </a>
+
+                </div>
+                <ul class="nav navbar-top-links navbar-right">
+
+                </ul>
+            </nav>
+        </div>
+        <div class="row content-tabs">
+        <div class="bk-toolBar clearfix" id="pc-top">
+            <ul class="pull-left" id="topMenuPrice">
+                <li><p>&nbsp;&nbsp;<i class="fa fa-fire"></i>&nbsp;欢迎您！ <span class="text-warning">{$Think.session.loginUseracc}</span></p></li>
+                <li><p>&nbsp;&nbsp;这是您第 <span class="text-warning">{$Think.session.login_count}</span> 次登录系统</p></li>
+                <li><p>&nbsp;&nbsp;您上次的登录时间是 <span class="text-warning">
+                {$Think.session.lastLoginTime}</span><span class="text-warning"></span></p></li>
+                <!-- <li><p>&nbsp;&nbsp;本次登录IP <span class="text-warning">113.16.149.242</span></p></li> -->
+                <!--<li><p>&nbsp;&nbsp;DAO/CNY：<b id="T_daoLastPrice" class="text-primary"><i class="fa fa-arrow-up fa-fw"></i></b></p></li> -->
+            </ul>
+
+            <ul class="pull-right" id="topMenuNav" style="margin-top:1px;margin-right: 20px;">
+                <li id="menuNew"><a href="{:U('News/News_show')}" target="_self"><span class="text-warning">信息资讯<span class="badge"></span></span></a></li>
+                <li id="menuNew"><a href="{:U('Public/LogOut')}" target="_self"><span class="text-warning">安全退出<span class="badge"></span></span></a></li>
+            </ul>
+            <a id="btnRecommed" role="button" class="btn btn-primary btn-skew btn-sm pull-right" style="margin-top:4px;margin-right: 20px;" target="_self">
+                <span><i class="fa fa-clock-o" ></i> <span id="timer"></span></span>
+                <script language="javascript">
+                    document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());
+                    setInterval("document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+                </script>
+            </a>
+        </div>
+        </div>
+
+
+
+<!-- 右侧框架开始-->
+<!--         <div class="row J_mainContent" id="content-main">
+            <iframe id='iframe0' class="J_iframe" name="iframe0" width="100%" height="100%" src="default.html" frameborder="0" data-id="default.html" seamless></iframe>
+        </div> -->
+        <block name="breadcrumb"></block>
+        <div class="container" id="iframeContainer">
+            <block name="menu"></block>
+            <block name="breadcrumb1"></block>
+            <block name="footer"><include file="Public:footer"/></block>
+            <div style="height:10px;"></div>
+        </div>
+<!-- 右侧框架结束-->
+
+
+
+    </div>
+</div>
+
+
+
+<!-- slick carousel-->
+<script src="__PUBLIC__/Adm/Resource/plugins/hplus/slick/slick.min.js"></script>
+<script type="text/javascript">
+    jQuery(function($) {
+        $(document).ready( function() {
+//enabling stickUp on the '.navbar-wrapper' class
+//            $('#topMenu').stickUp();
+});
+    });
+
+</script>
+
+
+<script language="JavaScript" src="__PUBLIC__/Adm/Resource/plugins/hplus/js/numberAnimate.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/common.js"></script>
+
+
+<script src="__PUBLIC__/Adm/Resource/plugins/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/js/plugins/layer/layer.min.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/js/hplus.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/js/contabs.min.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/js/plugins/pace/pace.min.js"></script>
+<script src="__PUBLIC__/Adm/Resource/plugins/js/plugins/layer/extend/layer.ext.js"></script>
+</body>
+
+</html>

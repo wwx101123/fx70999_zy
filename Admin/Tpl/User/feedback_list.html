@@ -1,0 +1,299 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>会员管理</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/page.css" rel="stylesheet">
+<style type="text/css">
+b {
+	display: none
+}
+
+td {
+	text-align: center
+}
+</style>
+
+</head>
+
+<body class="mainbody">
+	<form id="form1" runat="server">
+		<!--导航栏-->
+		 
+		<!--/导航栏-->
+
+		<!--工具栏-->
+		<div id="floatHead" class="toolbar-wrap">
+			<div class="toolbar">
+				<div class="box-wrap">
+					<a class="menu-btn"><i class="iconfont icon-more"></i></a>
+					<div class="l-list">
+						
+						 <form class="form-inline title-form" name="form2" method="get" action="__ACTION__">
+						<div class="menu-list">
+						<div class="date-input">
+								<i class="iconfont icon-user-full"></i>
+							<input name="UserID" type="text" id="UserID"
+								class="input " placeholder="用户账号或姓名查询"
+								value="{$user_id}"></div>
+							<div class="date-input">
+								<i class="iconfont icon-date"></i><input name="time1"
+									type="text" id="time1" class="input rule-date-input"
+									placeholder="开始日期"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$S_Date}">
+							</div>
+							-
+							<div class="date-input">
+								<i class="iconfont icon-date"></i><input name="time2"
+									type="text" id="time2" class="input rule-date-input"
+									placeholder="结束日期"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"value="{$E_Date}">
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-primary">查询</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				var start = {
+					// min: laydate.now(-2)
+					max : '2099-06-16 23:59:59',
+					istoday : false,
+					choose : function(datas) {
+						end.min = datas; //开始日选好后，重置结束日的最小日期
+						end.start = datas //将结束日的初始值设定为开始日
+					}
+				};
+
+				var end = {
+					min : laydate.now(),
+					max : '2099-06-16 23:59:59',
+					istoday : false,
+					choose : function(datas) {
+						start.max = datas; //结束日选好后，重置开始日的最大日期
+					}
+				};
+
+				$('#time1').on('click', function() {
+					start.elem = this;
+					laydate(start);
+				});
+				$('#time2').on('click', function() {
+					end.elem = this
+					laydate(end);
+				});
+			});
+		</script>
+		<!--/工具栏-->
+
+		<!--列表-->
+		<div class="table-container">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="ltable">
+				<tr>
+					<!--<th></th>-->
+							<th>发布时间</th>
+							<th>用户账号</th>
+							<th>标题</th>
+							<th>内容</th>
+							<th>状态</th>
+							<th>操作</th>
+				</tr>
+				<volist name="list" id="vo"><tr>
+							<!--<td><b class="tablesaw-cell-label"></b><input type="checkbox" name="id[]" value="{$vo['id']}" class="btn2" /></td>-->
+							<td><span class="tablesaw-cell-content">{$vo['add_time']|date="Y-m-d
+									H:i:s",###}</span></td>
+							<td><span class="tablesaw-cell-content">{$vo.user_name}</span></td>
+							<td><span class="rankcolor_1">{$vo.title} </span></td>
+							<td><span class="rankcolor_1"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.content}')">查看</a>
+							</span></td>
+							<td><span class="rankcolor_1"> <eq name="vo.is_lock"
+										value="1"> <font color="red"><i
+										class="fa fa-check"></i>未回复</font></span> <else /> <font color="green"><i
+									class="fa fa-close"></i>已回复</font></span> </eq> </span></td>
+
+
+							<td><eq name="vo.is_lock" value="1"> <font color="red">  <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="reply({$vo.id})">回复留言</a></font>
+								</span><else /> <font color="green">  <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)"onclick="view_content('{$vo.reply_content}')">查看回复</a></font></span>  </eq> </td>
+						</tr>
+
+				</volist>
+			</table>
+		</div>
+		<!--/列表-->
+
+		<!--内容底部-->
+		{$page}
+		<!--/内容底部-->
+
+	</form>
+</body>
+</html>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+
+	function view_content(content) {
+		var winDialog =  dialog(
+						{
+							title : '留言内容',
+							content : content,
+							okValue : '确定',
+							ok : function() {
+								 
+								return true;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+
+	function reply(id) {
+		var winDialog =  dialog(
+						{
+							title : '回复',
+							content : '<textarea id="content" name="content" rows="3" cols="50" class="input"> </textarea>',
+							okValue : '确定',
+							ok : function() {
+								 
+								var remark = $("#content").val();
+								if (remark == "") {
+									 dialog({
+										title : '提示',
+										content : '对不起，请输入回复内容！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal();
+									return false;
+								}
+								var postData = {
+									"id" : id, 
+									"reply_content" : remark
+								};
+								//发送AJAX请求
+								sendAjaxUrl( postData,
+										"{:U('User/reply')}");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//发送AJAX请求
+	function sendAjaxUrl(  postData, sendUrl) {
+		$.ajax({
+			type : "post",
+			url : sendUrl,
+			data : postData,
+			dataType : "json",
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				dialog({
+					title : '提示',
+					content : '尝试发送失败，错误信息：' + errorThrown,
+					okValue : '确定',
+					ok : function() {
+					}
+				}).showModal();
+			},
+			success : function(data, textStatus) {
+				if (data.status == 1) {
+					 
+					var d = dialog({
+						content : data.msg
+					}).show();
+					setTimeout(function() {
+						d.close().remove();
+						location.reload(); //刷新页面
+					}, 2000);
+				} else {
+					dialog({
+						title : '提示',
+						content : '错误提示：' + data.msg,
+						okValue : '确定',
+						ok : function() {
+						}
+					}).showModal();
+				}
+			}
+		});
+	}
+</script>
+<script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+
+	// 输入框失去焦点 ajax 保存
+	//	$('input[name^="field_"]').on('blur', function () {
+	function ajaxUpdateField(obj, field) {
+
+		var id = $(obj).attr('user_id');
+
+		var value = $(obj).val();
+
+		$.ajax({
+			type : 'POST',
+			data : {
+				id : id,
+				field : field,
+				value : value
+			},
+			url : "{:U('YouZi/UpdateField')}",
+			success : function(data) {
+				layer.msg('修改成功', {
+					icon : 1,
+					time : 1000
+				});
+			}
+		});
+	}
+</script>
+
+ 

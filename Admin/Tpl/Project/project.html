@@ -1,0 +1,135 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>任务管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>任务管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>任务列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<!-- <a href="{:U('Project/project_edit')}"
+				class="btn btn-success pull-right">新增任务</a> -->
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-7205">
+				<thead>
+					<tr>
+						<th  width="5%">编号</th>
+						<th style="display:none" >任务名称</th>
+						<th  width="6%" >发布人</th>
+						<th width="6%">所属类别</th>
+						<th class="center" width="5%">被投人</th> 
+						<th class="center" width="4%">初始单价</th>
+						<th class="center" width="4%">发布单价</th>
+						<th class="center" width="4%">实际单价</th>
+						<th class="center" width="4%">最大份数</th>
+						<th class="center" width="4%">总金额</th>
+						<th class="center" width="4%">加价</th>
+						<th class="center" width="4%">退单率</th>
+						<th class="center" width="8%">发布时间</th>
+						<th class="center" width="8%">开始时间</th>
+						<th class="center" width="8%">结束时间</th> 
+							<th class="center" width="6%">状态</th>
+							<th class="center" width="6%">是否冻结</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+						<td><span class="tablesaw-cell-content">{$vo.id}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.member_id}</span></td>
+						<td style="display:none" ><span class="tablesaw-cell-content">{$vo.title}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.category}</span></td>
+						<td class="center">{$vo.user_name}</td> 
+						<td class="center">{$vo.user_price}</td>
+						<td class="center">{$vo.money}</td>
+						<td class="center">{$vo.real_money}</td>
+						<td class="center">{$vo.num}</td>
+						<td class="center">{$vo.all_money}</td>
+						<td class="center">{$vo.zd_money}</td>
+						<td class="center">{$vo.exit_percent}</td>
+						<td class="center">{$vo.add_time|date="Y-m-d H:i:s",###}</td>
+						<td class="center">{$vo.start_time|date="Y-m-d H:i:s",###}</td>
+						<td class="center">{$vo.end_time|date="Y-m-d H:i:s",###}</td> 
+						<td class="center">{$vo.status_str}</td>
+						
+							<td > <span
+								class="tablesaw-cell-content"> <eq name="vo.is_sys_lock"
+										value="0"> <font color="red"><i
+										class="fa fa-close"></i>未冻结</font></span> <else /> <font color="green"><i
+									class="fa fa-check"></i>已冻结</font></span> </eq></td>
+						
+						<td><span class="tablesaw-cell-content">
+						<eq  name="vo.is_lock" value="0">
+						<eq  name="vo.is_sys_lock" value="0"><a style="color: red;"
+								href="__URL__/sys_lock/id/{$vo.id}">冻结</a>  |  </eq>
+						 </eq>
+						
+						<gt  name="vo.sort_id" value="0"><a style="color: red;"
+								href="__URL__/sort/id/{$vo.id}">取消置顶</a><else/><a
+								href="__URL__/sort/id/{$vo.id}">置顶</a></gt>
+						
+						  |<a
+								href="__URL__/project_edit/id/{$vo.id}">修改</a> | <a
+								href="{:U('Project/projectDel')}?action=del&id={$vo.id}"
+								class="ajax-a" info="确定删除任务？">删除</a></span></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

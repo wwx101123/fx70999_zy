@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.qrcode.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weixin.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/js_sdk20170302.js"></script>
+ 
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style4.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/html2canvas.js"></script>
+
+		<style>
+			.recommend_images {
+				width: 100%;
+			}
+			
+			.logo {
+				position: absolute;
+				top: 5%;
+				left: 20%;
+				z-index: 1;
+			}
+			
+			.code {
+				position: absolute;
+				bottom: 10%;
+				right: 10%;
+				z-index: 1;
+				width: 50px;
+				height: 50px;
+			}
+			
+			canvas {
+				z-index: 1;
+				width: 50px;
+				height: 50px;
+				border: 2px white solid;
+			}
+			
+			.tip {
+				color: black;
+				font-size: 13px;
+				position: absolute;
+				bottom: -20px;
+				right: -25px;
+				width: 100px;
+				text-align: center;
+			}
+			
+			.recommend_div {
+				position: absolute;
+				bottom: 13%;
+				left: 5%;
+				width: 100px;
+			}
+			
+			#Gallery {
+				content: "";
+				display: block;
+				border: 0px solid #cec9b9;
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				bottom: 0px;
+				right: 0px;
+				opacity: 1;
+				z-index: 2;
+				transition: all 0.3s ease 0s;
+			}
+			
+			.recommend_div h2 {
+				color: white;
+				width: 200px;
+				margin-bottom: 5px;
+				margin-top: 5px;
+				font-size: 12px;
+				text-align: left;
+			}
+			
+			.re_tip {
+				color: black;
+				position: absolute;
+				bottom: 5%;
+				left: 0%;
+				width: 200px;
+				font-size: 15px;
+			}
+			
+			.myapp-login-form-listico .am-icon-btn {}
+		</style>
+		<style>
+			.aui-palace-grid {
+				width: 50%;
+				height: 100%;
+				padding: 8%;
+			}
+			
+			.aui-palace-grid-icon {
+				width: 50px;
+				height: 50px;
+			}
+			
+			.aui-palace-grid-text h2 {
+				font-size: 15px;
+			}
+			
+			.back {
+				display: none;
+				width: 30px;
+				height: 30px;
+				position: absolute;
+				top: 10%;
+				left: 5%;
+				z-index: 100000;
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body class="mescroll" id="mescroll" style="background: white;overflow: hidden;position: relative;">
+		<div class="mui-icon mui-icon-undo back" onclick="back()"></div>
+		<img style="width: 100PX; height: 200PX;display: none;" class="test" />
+		<div id="Gallery" class="mui-slider " style="  text-align: center; position: relative;z-index: 10000;width: 80%;
+    margin: 0 auto; border: 2px solid black;
+    border-radius: 10px;margin-top: 10%; ">
+			<img class="recommend_images" style="margin: 0 auto;"/>
+			
+			<div class="my-c-img code" id="code" style="position: absolute;">
+				<span class="tip">长按识别二维码</span>
+			</div>
+
+			<div class="recommend_div" style="position: absolute;">
+				<div class="aui-flex" style="padding:15px;">
+					<img class="aui-mobile-user avatar" style=" width:50PX; height: 50PX;border-radius: 50px; "/>
+			
+					<div class="aui-flex-box">
+						<h2 class="username"></h2>
+						<h2 id="tip"></h2>
+					</div>
+				</div>
+
+			</div>
+			<div class="re_tip"></div>
+			<div class="user_div" style="background: white; height: 80px;width:100%;margin: 0 auto;"></div>
+
+		</div>
+
+		<script>
+			mui.init();
+
+			function back() {
+				mui.back()
+			}
+			mui.ready(function() {
+				mui.showLoading("正在生成..","div"); 
+				localStorage.setItem('weixin_type', 'image');
+
+				var recommend_images = localStorage.getItem('recommend_images')
+				var height = $('body').height()
+				console.log(window.devicePixelRatio)
+				$('.recommend_images').attr('src', '' + recommend_images + '')
+				$('.recommend_images').css('background-size', '100% 100%')
+				$('.recommend_images').css('height', height * 0.65);
+				var copyDom = $("#Gallery"); //要保存的dom
+				var width = copyDom.offsetWidth; //dom宽
+				var height = copyDom.offsetHeight; //dom高
+				var scale = 1; //放大倍数
+				html2canvas(copyDom, {
+					dpi: 500,
+					scale: scale,
+					width: width,
+					heigth: height,
+					useCORS: true, // 【重要】开启跨域配置
+					onrendered: function(canvas) {
+						canvas.id = "mycanvas";
+						//生成base64图片数据    
+						var dataUrl = canvas.toDataURL();
+						var newImg = document.createElement("img");
+						newImg.src = dataUrl;
+						console.log(dataUrl);
+//						$('#Gallery').html('')
+//						$('#Gallery').css('background','url('+dataUrl+')') 
+						
+//						$('#apptest').attr('src', newImg.src);
+//						$('.test').attr('src', newImg.src) 
+						app.baseImgFile('recommend_images', dataUrl, 100, function(i) {
+							mui.hideLoading();
+							console.log(JSON.stringify(i.target));
+							$('#apptest').attr('src', i.target);
+							$('.test').attr('src', i.target)
+							//查看下文件路径是否有效
+						});
+					}
+				});
+
+				//				$('#Gallery').append('<img src="../images/logo.png" width="20px" class="logo" />')
+
+			});
+			mui.init({
+				beforeback: function() {　　　
+
+					localStorage.setItem('is_login', '0');
+					localStorage.setItem('weixin_type', 'web');
+
+				}
+			});
+			(function($, owner) {
+				//将BASE 64保存为图片文件
+				owner.baseImgFile = function(uid, base64, quality, callback) {
+					quality = quality || 10;
+					callback = callback || $.noop;
+					var bitmap = new plus.nativeObj.Bitmap();
+					// 从本地加载Bitmap图片
+					bitmap.loadBase64Data(base64, function() {
+						//    console.log('加载图片成功');
+						bitmap.save("_doc/" + uid + ".jpg", {
+							overwrite: true,
+							quality: quality
+						}, function(i) {
+							callback(i);
+							//    console.log('保存图片成功：'+JSON.stringify(i));
+						}, function(e) {
+							console.log('保存图片失败：' + JSON.stringify(e));
+						});
+					}, function(e) {
+						console.log('加载图片失败：' + JSON.stringify(e));
+					});
+				}
+			}(mui, window.app = {}));
+		</script>
+
+		<div class="page-content pull-to-refresh-content" style="display: none;">
+
+			<!-- 会员信息 -->
+			<div class="content-block padding0 marginT0 height165">
+				<div class="row no-gutter">
+					<div class="col-100">
+						<div class="my-bj">
+							<div class="my-bj-2">
+								<div class="radius my-radius-1"></div>
+								<div class="radius my-radius-2"></div>
+								<div class="radius my-radius-3"></div>
+								<div class="radius my-radius-4"></div>
+							</div>
+							<div class="col-100 user-a">
+								<div class="my-shezhi">
+									<i class="icon iconfont icon-vip41 ca-color11 size-22 vip"></i>
+								</div>
+								<div class="user-name my-T my-TI user_name">王大花(9827)
+								</div>
+								<div class="user-phone my-TI user_id">13000000000</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 会员信息 end-->
+
+			<!-- 条码二维码 -->
+			<div class="content-block padding0 marginT0 height100f">
+				<div class="row no-gutter marginT20 my-c-borderT">
+					<div class="my-c-img" id="code" style="position: relative;">
+						<img id="qrCodeIco" src="../images/logo.png" style="position: absolute;width: 50px; height: 50px;" /></div>
+				</div>
+			</div>
+			<!-- 条码二维码 end-->
+
+			<input id="sharehref" style="display: none;" class="sharehref" type="web" value="www.baidu.com" placeholder="请输入要分享的链接地址" />
+			<input id="sharehrefTitle" style="display: none;" class="sharehref" type="text" value="加工详情" placeholder="请输入要分享的链接标题" />
+			<input id="sharehrefDes" style="display: none;" class="sharehref" type="text" value="我正在使用HBuilder+HTML5开发移动应用，赶紧跟我一起体验！" placeholder="请输入要分享的链接描述" />
+		</div>
+
+		<div class=" clearfix category-list" style="margin: 0 auto;border-top: 1px solid #f9f9f9;">
+
+			<a href="javascript:;" class="aui-palace-grid" onclick="shareHref(1)">
+				<div class="aui-palace-grid-icon"> <img src="../images/share/gbRes_2.png" alt=""></div>
+				<div class="aui-palace-grid-text">
+					<h2>好友</h2></div>
+			</a>
+			<a href="javascript:;" class="aui-palace-grid" onclick="shareHref(0)">
+				<div class="aui-palace-grid-icon"> <img src="../images/friend.png" alt=""></div>
+				<div class="aui-palace-grid-text">
+					<h2>朋友圈</h2></div>
+			</a>
+
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			var re_share_sub_title = localStorage.getItem('re_share_sub_title');
+			var re_share_title = localStorage.getItem('re_share_title');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var user = localStorage.getItem('user');
+			user = JSON.parse(user);
+			//alert(re_share_title) 
+			$('#sharehref').val(PreUrl + 'Reg/register/rid/' + user.id);
+			$('#sharehrefTitle').val(re_share_title);
+
+			re_share_sub_title = re_share_sub_title.replace('{0}', user.user_name);
+
+			$('#sharehrefDes').val(re_share_sub_title);
+			$('#sharetype').val('web');
+		});
+	</script>
+	<script type="text/javascript" charset="utf-8">
+		//mui初始化
+
+		$(function() {
+
+			var PreUrl = localStorage.getItem('PreUrl');
+			var IP = localStorage.getItem('IP');
+			var AppUrl = localStorage.getItem('AppUrl');
+			var width = $('body').width() * 0.55;
+			var height = $('body').height() * 0.27;
+			var host = window.location.host;
+			var user = localStorage.getItem('user');
+			user = JSON.parse(user);
+			$('.user_id').html(user.user_id)
+			$('.user_name').html(user.user_name)
+			console.log(IP + user.avatar)
+			$('.in-content-hd img').attr('src', IP + '/' + user.avatar)
+			$('.in-header img').attr('src', IP + '/' + user.avatar)
+			$('.vip').addClass('icon-vip' + user.u_level + '1')
+			var url = PreUrl + 'Reg/register/rid/' + user.id
+			$('#code').qrcode(url);
+			var margin = ($("#code").height() - $("#qrCodeIco").height()) / 2;
+			$("#qrCodeIco").css("margin", margin);
+			var canvas = $('body').find('canvas').get(0);
+			//			$('#imgOne').attr('src', canvas.toDataURL('image/jpg'))
+			$('.in-pop').css('background', 'url(' + canvas.toDataURL('image/jpg') + ') no-repeat');
+			$('.in-pop').css('background-size', '100%');
+
+			$('#tip').html(user.tip);
+			$('.username').html(user.user_name);
+			console.log(user.weixinlogo)
+			if(user.avatar != null && user.avatar != '') {
+
+				$('.avatar').removeAttr('src');
+				$('.avatar').css('background-size', '100% 100%');
+				console.log(user.weixinlogo )
+				$('.avatar').attr('src',  '' + user.weixinlogo + '');
+			} else {
+
+				$('.avatar').css('background-image', 'url(../images/user-001.png)');
+			}
+			$('.re_tip').html(user.re_tip);
+
+		});
+	</script>
+
+	<script type="text/javascript">
+		//二维码弹窗
+		function Ceng() {
+			document.getElementById('ceng').style.display = 'block';
+			document.getElementById('close').style.display = 'block';
+
+			$('.in-pop').css('height', $('.in-pop').width())
+
+			var height = ($(".in-pop").height())
+
+			var margin = (height - $("#CodeIco").height()) / 2;
+			$("#CodeIco").css("top", margin);
+			$("#CodeIco").css("right", margin);
+
+			return false;
+		}
+
+		function closeCeng() {
+			document.getElementById('ceng').style.display = 'none';
+			document.getElementById('close').style.display = 'none';
+			return false;
+
+		}
+
+		// 获取弹窗
+		var modal = document.getElementById('myModal');
+
+		// 打开弹窗的按钮对象
+
+		//		var btn = document.getElementById("myBtn");
+
+		// 获取 <span> 元素，用于关闭弹窗 that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// 点击按钮打开弹窗
+		//		btn.onclick = function() {
+		//			modal.style.display = "block";
+		//		}
+
+		// 点击 <span> (x), 关闭弹窗
+		//		span.onclick = function() {
+		//			modal.style.display = "none";
+		//		}
+
+		// 在用户点击其他地方时，关闭弹窗
+		window.onclick = function(event) {
+			if(event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	</script>
+
+</html>

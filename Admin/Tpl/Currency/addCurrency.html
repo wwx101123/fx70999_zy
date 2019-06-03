@@ -1,0 +1,149 @@
+<extend name="Public:header" />
+
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.caiwu').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #caiwu').css('display', 'block')
+		$('.sidebar #adminCurrency').addClass('current')
+
+	});
+</script> <script type="text/javascript">
+	layui.use('laydate', function() {
+		var laydate = layui.laydate;
+		var start = {
+			// min: laydate.now(-2)
+			max : '2099-06-16 23:59:59',
+			istoday : false,
+			choose : function(datas) {
+				end.min = datas; //开始日选好后，重置结束日的最小日期
+				end.start = datas //将结束日的初始值设定为开始日
+			}
+		};
+
+		var end = {
+			format : 'YYYY-MM-DD hh:mm:ss',
+
+			max : '2099-06-16 23:59:59',
+			istoday : false,
+			choose : function(datas) {
+				start.max = datas; //结束日选好后，重置开始日的最大日期
+			}
+		};
+
+		$('#time1').on('click', function() {
+			start.elem = this;
+			laydate(start);
+		});
+		$('#time2').on('click', function() {
+			end.elem = this
+			laydate(end);
+		});
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>
+				新增提现记录 <small class="text-danger"> 注意！负数为扣款</small>
+			</h5>
+		</div>
+		<div class="ibox-content">
+			<form class="form-horizontal ajax-post" name="form1" id="form1"
+				method="post" action="__URL__/adminCurrencyAdd">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">用户编号：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="username" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">手续费：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="shouxu" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">金额：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="money" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">日期：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input id="time2" name="time" type="text" value=""
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">银行：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="bank_name" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">银行卡：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="bank_card" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label">姓名：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input name="name" type="text" value="" class="form-control"
+							required="">
+					</div>
+				</div>
+
+				<!-- <div class="hr-line-dashed"></div>
+				<div class="form-group  ">
+					<label class="col-sm-2 control-label">备注： <i
+						class="text-danger">*</i></label>
+
+					<div class="col-sm-10">
+
+						<textarea type="text" name="memo" class="form-control"> </textarea>
+					</div>
+				</div> -->
+
+				<div class="hr-line-dashed hidden"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<button class="btn btn-primary submit" type="button"
+							onclick="ExePostBack(this,'确定添加?','#form1')">提交</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</block>

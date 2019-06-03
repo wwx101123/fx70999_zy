@@ -1,0 +1,1381 @@
+@charset "UTF-8";
+/*通用样式*/
+html,body{
+    font-family:PingFangSC-Regular;
+    background-color: #ffffff;
+}
+
+html, body, .wrap, .container, .pricemodel-page.box{
+    /* height: 100%; */
+}
+
+@font-face{
+    font-family:DINAlternate-Bold;
+    src: url('../font/DIN Alternate Bold.ttf');
+}
+
+.noborB{
+    border-bottom: none !important;
+}
+
+.nopadB{
+    padding-bottom: 0 !important;
+}
+
+.mb-block{
+    position: relative;
+    width: 100%;
+    height: 3.1rem;
+    display: block;
+    background: transparent;
+}
+
+/*noticeBoard page style*/
+.noticeBoard{
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    background-color: #D93644;
+    font-size: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.noticeBoard img{
+    width: 100%;
+}
+
+
+/*join page style*/
+/*public style*/
+.join{
+    
+}
+
+.join .buy-origin input,.join .brand input{
+    width: 35%;
+}
+
+.join section{
+    position: relative;
+    background-color: #fff;
+    padding: 0 0.8rem;
+    overflow: hidden;
+    /*border-bottom: 1px solid rgba(0,0,0,0.05);*/
+}
+
+.join section.medium{
+    height: 2.613rem;
+    line-height: 2.5rem;
+}
+
+.join section.medium .medium-content{
+    position: relative;
+}
+
+.join section.small{
+    height: 1.92rem;
+    line-height: 1.92rem;
+}
+
+.join section.small p{
+    height: 100%;
+    line-height: 1.92rem;
+    font-family: PingFangSC-Regular;
+    font-weight: normal;
+}
+
+.join section .title{
+    position: relative;
+}
+
+.join section .content{
+    font-size: 0.64rem;
+    color: #666666;
+    letter-spacing: 0;
+    line-height: 1em;
+}
+
+.join section .warn-icon{
+    font-size: 0.693rem;
+    color: #D93644;
+    letter-spacing: 0;
+    position: absolute;
+    left: 0.4rem;
+    top: 7%;
+}
+
+.join section input{
+    font-size: 0.8rem;
+    vertical-align: top;
+    color: #7b7b7b;
+}
+
+.join section .unit{
+    position: absolute;
+    left: 57.5%;
+    top: 0.2rem;
+    font-size: 0.693rem;
+    display: inline;
+}
+
+.join section textarea,.content input{
+    width: 100%;
+    font-size:0.8rem;
+    font-family:PingFangSC-Light;
+    line-height: 1.12rem;
+    background: transparent;
+    resize: none;
+    color: #7B7B7B;
+}
+
+.content.textContent{
+    padding-bottom: 0.96rem;
+    text-align: justify;
+    /* border-bottom: 1px solid #FAF7F7 ; */
+}
+
+.content.textContent .textareaWrap{
+    position: relative;
+}
+
+.textContent .textInfo{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events:none;
+    color:#CCCCCC;
+    font-family:PingFangSC-Light;
+    font-size: 0.8rem;
+    text-align: justify;
+    line-height: 1.173rem;
+}
+
+.textContent.smallPB{
+    padding-bottom: 0.8rem;
+}
+
+.textContent.afters {
+    position: relative;
+}
+
+.textContent.afters .textInfo {
+    top: 1.44rem;
+}
+/*product imgs header style*/
+.join{
+    color: #333333;
+}
+
+.join .title{
+    height: 100%;
+    line-height: 1.28rem;
+    font-size: 0.907rem;
+    font-weight: normal;
+    font-family:PingFangSC-Medium;
+}
+
+.join .select-box{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+}
+
+.join .select-box input {
+    position: initial;
+    vertical-align: top;
+    width: 0;
+    margin: 0;
+    height: 0;
+    display: none;
+}
+
+.select-box .typeLabel{
+    width: 8.8rem;
+    height: 50px;
+    color: #999999;
+    background-color: #F7F7F7;
+    font-size: 0.8rem;
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    border-radius:0.533rem;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+.select-box .typeLabel.center{
+    justify-content: center;
+}
+
+.select-box .typeLabel img{
+    width: 2.347rem;
+    height: 2.347rem;
+    margin-left: 0.64rem;
+}
+
+.select-box .typeLabel span{
+    width: 4.747rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.select-box .typeLabel.active{
+    background: #FFF2F3;
+    color: #D93644;
+    font-weight: bold;
+    background-image: url(http://img.cdn.aplum.com/o_1ctrvdcb7q8816pp1n6u1dum3v6m.png);
+    background-size: 1.067rem;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+
+}
+
+.select-box .typeLabel + .typeLabel{
+    margin-left: 0.8rem;
+}
+
+.select-box .typeLabel:nth-of-type(2n-1){
+    margin-left: 0;
+}
+
+.select-box .typeLabel:nth-last-of-type(-n+2){
+    margin-bottom: 0;
+}
+
+
+/* .join .kinds .select-box select{
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    background:green;
+    border: none;
+    position: absolute;
+    top: 0.15rem;
+    right: 0;
+    height: 82%;
+    width: 75%;
+    font-size: 0.64rem;
+    text-align: center;
+    background-color: transparent;
+} */
+
+/*upload img area style*/
+.join .upload-img {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding-bottom: 0.48rem;
+}
+
+.join .upload-img .img{
+    width: 5.6rem;
+    float: left;
+    position: relative;
+}
+
+.join .upload-img .img > div{
+    width: 5.6rem;
+    height: 5.6rem;
+    background-color:rgba(245,242,242,1);
+    background-image: url(http://img.cdn.aplum.com/o_1cijhoocdlf24hmr7c13vhfskr.png);
+    background-size: 1.28rem 1.28rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 0.533rem;
+    overflow: hidden;
+}
+
+.join .upload-img .addIcon{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 0.96rem;
+    height: 0.96rem;
+    background-image: url(http://img.cdn.aplum.com/o_1cts2m3sn1es25ve1b5b2a91uf2m.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 9999;
+}
+
+.join .upload-img .img:nth-child(3n+3){
+    margin-right: 0;
+}
+
+.upload-img .img img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    border: none;
+}
+
+/*look brand style*/
+.join .look-brand img{
+    width: auto;
+    height: 0.693rem;
+}
+
+/*platform style*/
+.join .platform-warn{
+    font-size: 0.693rem;
+    color: #333;
+}
+
+/*intro style*/
+.join .intro{
+    border-bottom: none;
+    margin-top: 0.48rem;
+}
+
+.join .intro::after{
+    display: none;
+}
+
+.join .intro .warn-icon{
+    top: 1%;
+}
+
+.join .intro .title{
+    height: 2.48rem;
+    line-height: 2.48rem;
+}
+
+.join .intro p.title{
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.join .intro textarea{
+    padding-top: 0.48rem;
+}
+
+/*foot button style*/
+.join .mb-block{
+    height: 4.213rem;
+}
+.join .btn-box{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 4.213rem;
+    padding-top: 0.96rem;
+    text-align: center;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.join .btn-box .cm-btn{
+    position: relative;
+    margin: 0 auto;
+    z-index: 10000;
+}
+
+.left{
+    font-size: 0.64rem;
+    display: inline-block;
+    position: absolute;
+    right: 0.533rem;
+    bottom: 0;
+    color: #999999;
+}
+
+
+.addrinfos{
+    position:relative;
+    width:100%;
+    height:3.734rem;
+    border-top:1px solid #ffffff;
+    border-bottom:1px solid #f3f3f3;
+    background-color: #ffffff;
+}
+
+.addrinfos .napho{
+    position:absolute;
+    margin-top:0.854rem;
+    margin-left:0.543rem;
+    font-size: 0.747rem;
+}
+
+.name{
+    margin-right: 2.213rem;
+}
+
+.addrinfos .address{
+    position: absolute;
+    bottom:0.747rem;
+    height:0.747rem;
+    width:14.933rem;
+    overflow: hidden;
+    margin-left:0.543rem;
+    font-size:0.64rem;
+}
+
+.addrinfos .noaddr{
+    text-align: center;
+    line-height: 3.714rem;
+    font-size: 0.747rem;
+}
+.infos{
+    font-size: 0.533rem;
+    padding: 0.533rem;
+    color: #999999;
+    border-bottom: 0.533rem solid #fafafa;
+    background: #ffffff;
+}
+
+/*success page style*/
+.container > div, .container > div > div{
+    height: 100%;
+}
+
+.success{
+    width: 100%;
+    background-color: #fff;
+    text-align: center;
+    height: 100%;
+    overflow: hidden;
+    font-family: PingFangSC-Regular;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: -100%;
+    transition: 0.3s;
+}
+
+.success.active{
+    right: 0;
+}
+
+/*success main style*/
+.success .content{
+    text-align: center;
+    width: 100%;
+    background-image: url(http://img.cdn.aplum.com/o_1ctuif4qk1qu51ff71hvg1lav19u2m.png);
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    background-position: top left;
+    padding: 0 0.8rem;
+    padding-top: 8.267rem;
+    color: #333333;
+}
+
+.success .content .card{
+    margin-top: 0;
+    padding: 0;
+    padding-top: 2.56rem;
+}
+
+.success .content .code{
+    display: inline-block;
+    vertical-align: top;
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: 0.907rem;
+    font-size: 0;
+}
+
+.success .content .intros{
+    padding-bottom: 1.44rem;
+}
+
+.success .content p{
+    font-size: 0.693rem;
+    letter-spacing: 0;
+    line-height: 1.067rem;
+}
+
+/*success footer style*/
+.success footer{
+    width: 100%;
+    padding:0 0.8rem;
+    padding-top: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-size: 0.853rem;
+}
+
+.success footer .topBtn{
+    width: 100%;
+    height: 2.347rem;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 2.347rem;
+    font-family:PingFangSC-Medium;
+}
+
+.success footer .bottomBtn{
+    width: 100%;
+    height: 2.347rem;
+    margin-top: 0.8rem;
+    border: 0.5px solid #d93644;
+    color: #d93644;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 2.347rem;
+    font-family:PingFangSC-Medium;
+}
+
+.seeprofit{
+    margin-left: -37.5%;
+}
+
+.seepros{
+    margin-left: 7.5%;
+}
+.btncontainer{
+    width: 100%;
+    height: 2.64rem;
+    margin-top: 2.9rem;
+    position: fixed;
+    bottom: 0;
+    background: #ffffff;
+    padding-top: 0.24rem;
+
+    margin-bottom: 2.7rem;
+}
+
+.btncontainer button{
+    width: 94.4%;
+    margin-left: 2.8%;
+    background: #111111;
+    color: #ffffff;
+    height: 2.133rem;
+    text-align: center;
+    line-height: 2.133rem;
+    font-size: 0.747rem;
+}
+
+.notwx{
+    font-size: 0.747rem;
+    line-height: 1.2rem;
+    text-align: center;
+    padding: 4rem 1.6rem;
+    text-align: justify;
+}
+.notwx p{
+    margin-bottom: 2rem;
+}
+
+.info, .prices{
+    margin: 0.267rem 0;
+}
+
+.warning{
+    width: 100%;
+    position: relative;
+    padding: 0.533rem;
+    background: #ffffff;
+}
+
+.warning p{
+    font-size: 0.64rem;
+    line-height: 1.2rem;
+    color: #999999;
+}
+
+.warning p span.bold{
+    color: #D93644;
+}
+
+img.moreInfo{
+    display: inline-block;
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-bottom: -2px;
+}
+
+.btnbar .btnname{
+    font-size: 0.747rem;
+}
+
+.hide{
+    display: none;
+}
+
+.grey{
+    position: absolute;
+    padding-bottom: 5rem;
+}
+
+.grey .close{
+    position :absolute;
+    bottom: 2rem;
+}
+
+.qr{
+    position: relative;
+    width: 40%;
+    height: 8rem;
+    margin-left: 30%;
+    margin-top: 11rem;
+}
+
+.qr img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.success .qr-words{
+    top: 0rem;
+}
+
+.support-shunfeng{
+    border-bottom: none;
+    border-top: 1px solid #f2f2f2;
+}
+
+.support-shunfeng span{
+    font-size: 0.64rem;
+}
+
+.join .upload-img .img > .infoText{
+    position: relative;
+    background-image: url(http://img.cdn.aplum.com/o_1cbjcvp5n1i3ruoe6un7h81v78m.png);
+}
+
+.infoLT{
+    position: absolute;
+    left: .32rem;
+    top: .32rem;
+    color: #D93644;
+    font-size: 0.427rem;
+    line-height: 0.427rem;
+    height: 0.427rem;
+}
+
+.infoLT.change{
+    color: #666666 ;
+}
+
+.infoLT span{
+    position: relative;
+    top: 25%;
+}
+
+.infoB{
+    display: block;
+    width: 100% ;
+    font-style: normal;
+    height: auto;
+    padding-top: 0.64rem;
+    padding-bottom: 0.96rem;
+}
+
+.infoB .mainText{
+    text-align: center;
+    font-size: 0.8rem;
+    line-height: 1.067rem;
+    transition: 0.3s;
+}
+
+.showNull .allImg.noImg{
+    color: #D93644;
+}
+
+.infoB .psText{
+    text-align: center;
+    font-size: 0.64rem;
+    height: 0.96rem;
+    color: #999999;
+    white-space: nowrap;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-family:PingFangSC-Regular;
+}
+
+.moreInfonew{
+    width: 6.400rem;
+    display: inline-block;
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.brandInput{
+    background-color: #FFF2F3;
+    height: 2.347rem;
+    border-radius:0.533rem;
+    font-size: 0.8rem;
+    vertical-align: top;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: 100%;
+    transition: 0.3s;
+    font-weight: bold;
+    background-image: url(http://img.cdn.aplum.com/o_1ctrvfht91oml57brfc204kber.png);
+    background-size: 0.64rem;
+    background-repeat: no-repeat;
+    background-position:calc(100% - 0.853rem) center ;
+}
+
+.noBrand{
+    font-weight: normal;
+    background: #fff;
+    border:0.5px solid rgba(151,151,151,1);
+    color: #333333;
+}
+
+.noBrand i{
+    width: 0.373rem;
+    height: 0.587rem;
+    background-image: url(http://img.cdn.aplum.com/o_1ctsad99u1susaj91jvh44gfm.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 0.213rem;
+    margin-top: 0.053rem;
+}
+
+.showNull .noBrand{
+    background: #D93644;
+}
+
+.join .sectionWrap{
+    padding-top: 1.44rem;
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid #f2f0f0;
+}
+
+.join .sectionWrap.phonto{
+    padding-bottom: 0.8rem;
+}
+
+.join .sectionWrap .title.active .fr{
+    opacity: 0;
+}
+
+.join .sectionWrap .title .fr{
+    font-size:0.747rem;
+    font-family:PingFangSC-Light;
+    font-weight: normal;
+    color:#7B7B7B;
+    padding-right: 0.907rem;
+    background-color: transparent;
+    opacity: 1;
+    transition: 0.3s
+}
+
+.join .sectionWrap .title.hasInfo:after{
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(-180deg);
+    width: 0.747rem;
+    height: 0.747rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url(http://img.cdn.aplum.com/o_1cijf1lb41ebv1nea1chm1ae3je9m.png);
+    transition: 0.3s;
+}
+
+.join .sectionWrap .title.hasInfo.active:after{
+    transform:translateY(-50%) rotate(0);
+}
+
+.join .sectionWrap .title .logocolor{
+    float: right; 
+    font-size:0.747rem;
+    font-family:PingFangSC-Light;
+    font-weight: normal;
+}
+
+.join .sectionWrap .psInfo{
+    display: none;
+    padding-top: 0.16rem;
+    font-size: 0.747rem;
+    font-family:PingFangSC-Light;
+    color:#7f7f7f;
+    line-height: 1.12rem;
+    text-align: justify;
+}
+
+.join .sectionWrap .content{
+    padding-top: 1.44rem;
+    width: 100%;
+}
+
+.join .inputWrap{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    height: 1.12rem;
+}
+
+.inputWrap.textContent{
+    height: 1.92rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid#FAF7F7;
+    margin-bottom: 0.8rem;
+    text-align: justify;
+}
+
+.inputWrap .inputTitle{
+    font-size: 0.8rem;
+    color: #333333;
+    margin-right: 1.6rem;
+    font-family:PingFangSC-Light;
+}
+
+.join .inputWrap input {
+    flex:1;
+    font-family:PingFangSC-Light;
+}
+
+.bottomTitle{
+    margin: 0 auto;
+}
+
+.bottomTitle.smallTitle{
+    width: 100%;
+}
+
+.nob{
+    border-bottom: none !important;
+}
+
+.modelBg{
+    background:rgba(0,0,0,0.7);
+    z-index: 99999999;
+}
+
+.modelBtns .modelCancel.red{
+    color: #D93644;
+    border-color: #D93644;
+}
+
+.modelWrap.textWrap{
+    width: 16.8rem;
+    height: 23.893rem;
+    padding-top: 1.28rem;
+    padding-bottom: 1.28rem;
+    border-radius: 0.533rem;
+    position: relative;
+    transform: translate(-50%,calc(-50% - 1.76rem))
+}
+
+.modelWrap.textWrap.price{
+    width: 16.8rem;
+    height: 17.4rem;
+    padding-top: 1.28rem;
+}
+
+.textTitle{
+    padding-top: 1.333rem;
+    padding-bottom: 0.693rem;
+    font-size: 0.8rem;
+    font-family:PingFangSC-Medium;
+    text-align: justify;
+    color:rgba(77,61,62,1);
+    line-height: 1em;
+}
+
+.modelWrap .modelText.changeText{
+    padding-bottom: 0.8rem;
+} 
+
+.textContent{
+    font-size: 0.693rem;
+    font-family:PingFangSC-Light;
+    text-align: justify;
+    color:#7B7B7B;
+    line-height: 1.12rem;
+}
+
+.textContent + .textContent{
+    margin-top: 0.693rem;
+}
+
+.textContent ~ .textTitle{
+    padding-top: 0.747rem;
+}
+
+.price .modelText{
+    padding-top: 1.12rem;
+}
+
+.modelWrap.textWrap .modelBtns{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.closeIcon{
+    width: 1.92rem;
+    height: 1.92rem;
+    position: absolute;
+    left: 50%;
+    bottom: -3.52rem;
+    transform: translateX(-50%);
+    background-image: url(http://img.cdn.aplum.com/o_1ctugcpji1a301ekdbl31eojt9um.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bottomTitleWrap{
+    padding:0 1.28rem;
+}
+
+textarea::-webkit-input-placeholder{
+    color:#CCCCCC;
+    transition: 0.3s;
+    font-family:PingFangSC-Light;
+    text-align: justify;
+    font-size: 0.8rem;
+}
+input::-webkit-input-placeholder{
+    color:#CCCCCC;
+    transition: 0.3s;
+    font-family:PingFangSC-Light;
+    text-align: justify;
+    font-size: 0.8rem;
+}
+.showNull input::-webkit-input-placeholder{
+    color:#D93644;
+}
+
+.showNull textarea::-webkit-input-placeholder{
+    color:#D93644;
+}
+
+.showNull .bottomTitle.black.noCop:after{
+    border-color: #D93644;
+    color: #D93644;
+}
+
+.cm-btn{
+    transition: 0.3s;
+}
+
+section.bottom-btn-wrap{
+    overflow: visible
+}
+
+/* 非卖家显示顶部直接注册提示 */
+
+.noSeller{
+    background: #FFF2DB;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+    padding: 0.587rem 0.8rem;
+}
+
+.noSeller .toregiste {
+    display: inline-flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 4.693rem;
+    height: 1.707rem;
+    border-radius: 1.707rem;
+    font-size: 0.693rem;
+    font-family:PingFangSC-Semibold;
+    margin: 0;
+}
+
+.noSeller .text{
+    line-height: 1.12rem;
+    font-size: 0.747rem;
+    color: #0D0E15;
+}
+
+
+/* 11.10新选择定价模式 */
+
+.cooperate-content{
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
+    padding: 0.8rem;
+    flex-wrap: wrap;
+    border-radius: 0.267rem;
+    background-color: #FAF7F7;
+    color: #333333;
+}
+
+.cooperate-content.active{
+    background-color: #594748;
+    color: #ffffff;
+}
+
+.cooperate-content + .cooperate-content{
+    margin-top: 0.48rem;
+}
+
+.cooperate-content .cooperate-title{
+    width: 100%;
+    font-size: 0.8rem;
+    line-height: 1.12rem;
+    font-weight: bold;
+}
+
+.cooperate-content .cooperate-text{
+    width: 100%;
+    font-size: 0.64rem;
+    line-height: 0.907rem;
+    color: #807374;
+}
+
+.cooperate-content .cooperate-select{
+    position: absolute;
+    top: 50%;
+    right: 0.693rem;
+    transform: translateY(-50%);
+    width: 1.28rem;
+    height: 1.28rem;
+    background-image: url(http://img.cdn.aplum.com/o_1cruf2h46u0n1qtr2k81sfl5dbm.png);
+    background-size: contain;
+    background-position: center ;
+    background-repeat: no-repeat;
+}
+
+.cooperate-content.active .cooperate-select{
+    background-image: url(http://img.cdn.aplum.com/o_1cruf302ma5v1q9n1vdguti124hr.png);
+}
+
+.price-text{
+    padding-top: 0.693rem;
+    font-size: 0.747rem;
+    line-height: 1.12rem;
+    font-family:PingFangSC-Light;
+}
+
+/* 价格相关卡片 */
+
+.card{
+    width:100%;
+    margin-top: 0.747rem;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0.533rem 1.067rem 0px rgba(0,0,0,0.1);
+    border-radius: 0.533rem;
+    padding: 1.44rem 0.96rem;
+}
+
+.card .card-title{
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    font-size:0.8rem;
+    height: 1.12rem;
+    font-family:PingFangSC-Medium;
+}
+
+.card .card-title i{
+    width: 0.96rem;
+    height: 0.96rem;
+    background-image: url(http://img.cdn.aplum.com/o_1cts6vma1nbs105jjiitra14mem.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 0.16rem;
+}
+
+.card .want-price{
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+    align-content: flex-end;
+    align-items: flex-end;
+    line-height: 1.813rem;
+    padding-top: 1.6rem;
+    color: #CCCCCC;
+    font-size: 1.493rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 0.5px solid #F5F2F2;
+}
+
+.card .want-price span{
+    line-height: 1em;
+    margin-bottom: 0.213rem;
+    font-family: DINAlternate-Bold;
+}
+
+.card .want-price input{
+    height: 1.813rem;
+    margin-left: 0.213rem;
+    line-height: 1.813rem;
+    font-size: 1.493rem;
+    font-weight: normal;
+    font-family: DINAlternate-Bold;
+    color: #333333;
+}
+
+.card .want-price input::-webkit-input-placeholder{
+    color:#CCCCCC;
+    font-family:DINAlternate-Bold;
+    font-size: 1.493rem;
+    line-height: 1.813rem;
+}
+
+.card .buy-price{
+    padding-top: 1.44rem;
+    display: flex;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    color: #7F7F7F;
+    font-size: 0.8rem;
+}
+
+.card .buy-price input{
+    height: 1.12rem;
+    margin-left: 0.533rem;
+    line-height: 1.12rem;
+    font-size: 0.8rem;
+    font-weight: normal;
+    color: #333333;
+    flex: 1;
+    width: 1px;
+    font-family: DINAlternate-Bold;
+}
+
+.card .buy-price input::-webkit-input-placeholder{
+    color:#CCCCCC;
+    font-size: 0.8rem;
+    line-height: 1.12rem;
+}
+
+.otherInfo{
+    font-size:0.693rem;
+    font-family:PingFangSC-Light;
+    color: #D93644;
+    border-bottom: none !important;
+    line-height: 1em;
+    overflow: visible !important;
+    padding: 1.6rem 0.8rem !important;
+    padding-bottom: 0 !important;
+}
+
+
+/* 模态框只有标题的样式 */
+.onlyTitle{
+    line-height: 1.6rem;
+    font-size:0.907rem;
+    font-weight: bold;
+    text-align: center;
+    padding-top: 0.427rem;
+    padding-bottom: 1.493rem;
+}
+
+.button-title-wrap{
+    padding: 0 1.333rem;
+}
+
+.button-title-wrap .button-title{
+    width: 100%;
+    height: 2.347rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    color: #D93644;
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3.893rem;
+    /* border: 0.5px solid #d93644; */
+}
+
+.button-title-wrap .title-button{
+    width: 50%;
+    position: relative;
+    background-color: transparent;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center; 
+    color: inherit;
+    z-index: 1;
+    border: 1px solid #d93644;
+}
+
+.button-title-wrap .title-button:nth-child(1){
+    border-radius: 3.893rem 0 0 3.983rem;
+    border-right: none;
+}
+
+.button-title-wrap .title-button:nth-last-child(1){
+    border-radius: 0 3.893rem 3.983rem 0;
+    border-left: none;
+}
+
+.button-title-wrap .title-button.active{
+    background-color: #d93644;
+    border: none;
+    color: #ffffff;
+}
+
+/* 弹窗样式 */
+.dialog-wrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background-color: rgba(18, 19, 21, 0.8);
+    -webkit-backdrop-filter: blur(0.1rem);
+    backdrop-filter: blur(0.5rem);
+    z-index: 99999;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  .dialog-show {
+    visibility: visible;
+    opacity: 1;
+  }
+  .dialog-wrap.transparent {
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+  .dialog-vm {
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+  }
+  .dialog {
+    position: relative;
+    display: inline-block;
+    padding-top: 1.33rem;
+    min-width: 15rem;
+    width: 85%;
+    color: #5D626E;
+    border-radius: 0.6rem;
+    background-color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+  .dialog > .dialog-close {
+    position: absolute;
+    right: 0.9rem;
+    top: 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1;
+    color: #A6B3D1;
+  }
+  .dialog-body {
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
+    padding-bottom: 1.7rem;
+  }
+  .dialog-body > .dialog-title {
+    font-size: 0.9rem;
+    /* line-height: 1.3rem; */
+    color: #333333;
+  }
+  .dialog-body > .dialog-add {
+    margin-top: 0.26rem;
+    color: #5D626E;
+  }
+  .dialog-body p {
+    /* width: 12rem; */
+    font-size:0.7rem;
+    line-height: 1.12rem;
+    color: #7F7F7F;
+    text-align: left;
+    margin: 0 auto;
+  }
+  .dialog-body .dialog-tips {
+    font-size: 0.59rem;
+    margin-top: 1.7rem;
+    line-height: 1;
+  }
+  .dialog > .btn-wrap {
+    font-size: 0;
+  }
+  .dialog > .btn-wrap > .g-btn {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    padding: 0;
+    border: 0;
+    font-size: 0.91rem;
+    color: #fff;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    vertical-align: top;
+    width:14.13rem;
+    height:2.35rem;
+    line-height: 2.35rem;
+    background:linear-gradient(90deg,rgba(216,33,47,1) 0%,rgba(255,65,80,1) 100%);
+    border-radius:1.18rem;
+}
+.smedia {
+    font-size: 0.75rem;
+    padding-top: 0.6rem;
+}
+.fades-enter-active, .fades-leave-active {
+    transition: opacity .5s;
+}
+.fades-enter, .fades-leave-to {
+    opacity: 0;
+}
+.sell-word {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+    width: 0.96rem;
+    height: 0.96rem;
+    background-image: url(http://img.cdn.aplum.com/o_1cts6vma1nbs105jjiitra14mem.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-left: 0.16rem;
+}

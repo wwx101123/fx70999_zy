@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<script src="js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/index.min_e69bc1e2.css" />
+		<script src="js/common.js"></script>
+		<script src="js/jquery/jquery-1.11.2.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.title {
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+				padding-bottom: 51px;
+			}
+			
+			.mui-bar-tab img {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<div class="mod_alert_mask show" style="display: none;"></div>
+		<nav class="mui-bar mui-bar-tab" style="background-color: #FFFFFF;">
+			<a data-id="main" id="defaultTab" class="mui-tab-item mui-active" href="main.html">
+				<span class="mui-icon "><img src="images/app_assets_images_tab_home_active.png" alt=""></span>
+				<span class="mui-tab-label" style="COLOR: #4c2664;;">首页</span>
+			</a>
+			<a data-id="usermoney" id="usermoney" class="mui-tab-item" href="cate.html">
+				<span class="mui-icon"><img src="images/app_assets_images_tab_ally.png" alt=""></span>
+				<span class="mui-tab-label">兑换</span>
+			</a>
+			<!--<a data-id="test5" id="test5" class="mui-tab-item" href="test5.html">
+				<span class="mui-icon"><img src="images/ic_nav_chat_normal.png" alt=""><span class="mui-badge">9</span></span>
+				<span class="mui-tab-label">消息</span>
+			</a>-->
+			<a data-id="test2" id="test2" class="mui-tab-item" href="usermoney.html">
+				<span class="mui-icon "><img src="images/app_assets_images_tab_earnings.png" alt=""></span>
+				<span class="mui-tab-label">购物车</span>
+			</a>
+			<a data-id="usercenter" id="user" class="mui-tab-item" href="user.html">
+				<span class="mui-icon "><img src="images/app_assets_images_tab_account.png" alt=""></span>
+				<span class="mui-tab-label">我的</span>
+			</a>
+		</nav>
+		<!--<script src="js/util.js"></script>-->
+		<script type="text/javascript">
+			mui.plusReady(function() {
+
+				localStorage.setItem('StatusbarHeight', plus.navigator.getStatusbarHeight())
+				localStorage.setItem('autoBackButton', true)
+				localStorage.setItem('is_login', 0);
+				var activeTab = '';
+				mui.init({
+					swipeBack: true //启用右滑关闭功能
+				});
+				var subStyles = {
+					top: '0px',
+					bottom: '50px'
+				};
+				// 根据id查询子页面的信息
+				var getSubInfoById = function(infoList, id) {
+					var result = null;
+					for(var i = 0, len = infoList.length; i < len; i++) {
+						var _info = infoList[i];
+						if(_info.id === id) {
+							result = _info;
+							break;
+						}
+					}
+					return result;
+				};
+				var mainWv;
+				var subInfos = [{
+						url: 'main/main.html',
+						index: 0,
+						id: 'main'
+					},
+					{
+						url: 'main/tab-vertical-scroll.html',
+						index: 1,
+						id: 'usermoney'
+					},
+					{
+						url: 'main/cart.html',
+						index: 1,
+						id: 'test2'
+					}, {
+						url: 'main/user.html',
+						index: 2,
+						id: 'usercenter'
+					}
+				];
+				var top = plus.navigator.getStatusbarHeight() + 'px';
+				var bottom = '51px';
+				var subStyles = [{
+					top: 0,
+					bottom: bottom,
+					background: "transparent",
+					zindex: 10
+				}, {
+					top: 0,
+					bottom: bottom
+				}, {
+					top: 0,
+					bottom: bottom
+				}, {
+					top: 0,
+					bottom: bottom
+				}];
+				if(mui.os.ios) {
+					//mui.toast(plus.device.model) 
+					//				var web = plus.webview.currentWebview();
+					//				var titleView = web.getNavigationbar();
+					//				 mui.toast(titleView.top) 
+					//				top = (plus.navigator.getStatusbarHeight()+40)+'px';
+					if(plus.device.model == 'iPhoneX') {
+						//						subStyles = {
+						//							top: '88px',
+						//							bottom: '51px'
+						//						};
+					} else {
+
+						//						subStyles = {
+						//							top: (plus.navigator.getStatusbarHeight()) + 'px',
+						//							bottom: '51px'
+						//						};
+					}
+				}
+//				plus.navigator.setStatusBarStyle('light');
+//				plus.navigator.setStatusBarBackground('#000000');
+
+				var self = plus.webview.currentWebview(),
+					leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
+
+				//自定义监听图标点击事件
+				var active_color = '#fff';
+				//					 
+				// 中间凸起图标绘制及监听点击完毕
+
+				// 创建子webview窗口 并初始化
+				var aniShow = {};
+
+				mainWv = plus.webview.currentWebview();
+				mainWv.setStyle({
+					'popGesture': 'none'
+				});
+				var titleEL = document.querySelector('.mui-title');
+				var homeWv = plus.webview.create(subInfos[0].url, subInfos[0].id, subStyles[0]);
+				mainWv.append(homeWv);
+				activeTab = subInfos[0].id;
+
+				var defaultTab = document.getElementById("defaultTab");
+				mui.trigger(defaultTab, 'tap');
+
+				if(mui.os.android) {
+					plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+
+						wgtVer = inf.version;
+
+						update();
+
+					});
+				}
+				localStorage.setItem('WebviewId', 'main');
+
+				// 点击切换，动态创建其它webview；
+				mui('.mui-bar-tab').on('tap', 'a.mui-tab-item', function(e) {
+
+					var _self = this;
+					var targetTab = _self.getAttribute('data-id');
+					var wv = plus.webview.currentWebview();
+
+					if(targetTab === activeTab) {
+						return;
+					}
+
+					//				titleEL.innerText = _self.querySelector('.mui-tab-label').innerText;
+					var _subWv = plus.webview.getWebviewById(targetTab);
+					// 若webview不存在，则创建；
+					var history_url = localStorage.getItem('history_url');
+					var user_id = localStorage.getItem('user_id');
+					if((user_id == null || user_id == 0) && history_url != 'main.html') {
+
+						//						init_tab_txt()
+						if(history_url == 'test2.html') {
+							$('.mui-tab-item:eq(2)').css('color', '#03a9f4')
+
+						} else if(history_url == 'test5.html') {
+							$('.mui-tab-item:eq(2)').css('color', '#03a9f4')
+
+						} else if(history_url == 'user.html') {
+							$('.mui-tab-item:eq(2)').css('color', '#03a9f4')
+
+						} else if(history_url == 'usermoney.html') {
+							$('.mui-tab-item:eq(1)').css('color', '#03a9f4')
+						}
+
+						//						mui.toast('请先登录')
+						//						return;
+					}
+					if(!_subWv) {
+						var _subInfo = getSubInfoById(subInfos, targetTab);
+
+						_subWv = plus.webview.create(_subInfo.url, _subInfo.id, subStyles[_subInfo.index]);
+						mainWv.append(_subWv);
+					}
+					_subWv.show();
+					// 隐藏之前的webview 
+					plus.webview.getWebviewById(activeTab).hide('none');
+					activeTab = targetTab;
+					localStorage.setItem('notice_type', 'index');
+
+					if(targetTab != 'main' && targetTab != 'usercenter') {
+						var titleNView = { //配置原生标题
+							'backgroundColor': '#4c2664',
+							titleText: this.querySelector('.mui-tab-label').innerHTML,
+							'titleColor': '#FFFFFF',
+							type: 'transparent', //透明渐变样式
+							autoBackButton: false,
+							splitLine: {
+								color: '#FFFFFF',
+								height: '0px'
+							}
+						};
+						if(window.plus) {
+
+						}
+						//									wv.setStyle({
+						//
+						//										titleNView: titleNView
+						//									});
+					}
+					if(targetTab == 'main') {
+						if(mui.os.ios) {
+							plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+
+								wgtVer = inf.version;
+
+								update();
+
+							});
+						}
+						localStorage.setItem('history_url', 'main.html');
+						localStorage.setItem('WebviewId', 'main');
+						init_tab()
+
+						$('.mui-bar-tab img:eq(0)').attr('src', 'images/app_assets_images_tab_home_active.png')
+						$('.mui-tab-label:eq(0)').css('color', '#4c2664')
+						var webview = plus.webview.getWebviewById('main');
+						webview.evalJS('init_exit_view();')
+
+					} else if(targetTab == 'test2') {
+						localStorage.setItem('notice_type', 'index');
+						localStorage.setItem('history_url', 'test2.html');
+						localStorage.setItem('WebviewId', 'test2');
+						init_tab()
+						$('.mui-bar-tab img:eq(2)').attr('src', 'images/app_assets_images_tab_earnings_active.png')
+						$('.mui-tab-label:eq(2)').css('color', '#4c2664')
+
+						var webview = plus.webview.getWebviewById('test2');
+
+						webview.evalJS('init_exit_view();')
+						//						webview.evalJS('check_login();')
+						//					webview.evalJS('check_login();')
+						//					webview.evalJS('get_project_list();')
+						//					webview.evalJS('init();')
+
+					} else if(targetTab == 'usercenter') {
+						//						wv.setStyle({
+						//
+						//							titleNView: {
+						//								backgroundColor: '#f7f7f7', //导航栏背景色
+						//								type: 'transparent',
+						//								titleText: ' '
+						//							}
+						//						});
+						localStorage.setItem('history_url', 'user.html');
+						localStorage.setItem('WebviewId', 'usercenter');
+						init_tab()
+						$('.mui-bar-tab img:eq(3)').attr('src', 'images/app_assets_images_tab_account_active.png')
+						$('.mui-tab-label:eq(3)').css('color', '#4c2664')
+
+						var webview = plus.webview.getWebviewById('usercenter');
+						webview.evalJS('init_exit_view();')
+
+						//						webview.hide('pop-out');
+						//						webview.evalJS('check_login();')
+						//					webview.evalJS('flush();')
+
+					} else if(targetTab == 'usermoney') {
+						localStorage.setItem('tel_type', 0)
+						localStorage.setItem('history_url', 'usermoney.html');
+						localStorage.setItem('WebviewId', 'usermoney');
+						init_tab()
+						$('.mui-bar-tab img:eq(1)').attr('src', 'images/app_assets_images_tab_ally_active.png')
+						$('.mui-tab-label:eq(1)').css('color', '#4c2664')
+						var webview = plus.webview.getWebviewById('usermoney');
+						webview.evalJS('init_exit_view();')
+
+					}
+
+					window.addEventListener('update_project', function(e) {
+						var webview = plus.webview.getWebviewById('main');
+
+						webview.hide('pop-out');
+						webview.evalJS('get_main_project_list();')
+					});
+
+					window.addEventListener('is_cart_shopping', function(e) {
+						var is_cart_shopping = localStorage.getItem('is_cart_shopping');
+						console.log(is_cart_shopping)
+						if(is_cart_shopping == 1) {
+							localStorage.setItem('is_cart_shopping', 0)
+							var defaultTab = document.getElementById("test2");
+							mui.trigger(defaultTab, 'tap');
+						}
+					});
+
+				});
+			})();
+
+			function init_tab() {
+				$('.mui-bar-tab img:eq(0)').attr('src', 'images/app_assets_images_tab_home.png')
+				$('.mui-bar-tab img:eq(1)').attr('src', 'images/app_assets_images_tab_ally.png')
+				$('.mui-bar-tab img:eq(2)').attr('src', 'images/app_assets_images_tab_earnings.png')
+				$('.mui-bar-tab img:eq(3)').attr('src', 'images/app_assets_images_tab_account.png')
+				$('.mui-tab-label').css('color', '#929292')
+
+			}
+
+			function cart_shopping() {
+
+				localStorage.setItem('is_cart_shopping', 0)
+				var defaultTab = document.getElementById("test2");
+				mui.trigger(defaultTab, 'tap');
+				var webview = plus.webview.getWebviewById('test2');
+
+				webview.evalJS('cart_list();')
+			}
+		</script>
+
+		<script>
+			var wgtVer = null;
+
+			function plusReady() { // 获取本地应用资源版本号
+				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+					wgtVer = inf.version;
+					//					version.innerHTML = '当前应用版本：' + wgtVer;
+				});
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+
+			var ver;
+			//休眠方法
+			function sleep(numberMillis) {
+				var now = new Date();
+				var exitTime = now.getTime() + numberMillis;
+				while(true) {
+					now = new Date();
+					if(now.getTime() > exitTime)
+						return;
+				}
+			}
+			var wgtVer = null;
+			var IP = localStorage.getItem('IP');
+
+			function checkUpdate() {
+				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+					var IP = localStorage.getItem('IP');
+					var PreUrl = localStorage.getItem('PreUrl');
+					var UploadUrl = localStorage.getItem('UploadUrl');
+					var checkUrl = PreUrl + 'Index/updateVersion';
+					plus.nativeUI.showWaiting("检测更新...");
+					var appid = plus.runtime.appid
+					var version = inf.version;
+					var apk_version = plus.runtime.version;
+					console.log(checkUrl)
+					console.log(localStorage.getItem('user_id'))
+					mui.ajax(checkUrl, {
+						data: {
+							version: version,
+							appid: appid,
+							apk_version: apk_version,
+							user_id: localStorage.getItem('user_id')
+						},
+						dataType: 'json',
+						type: 'POST',
+						timeout: 10000,
+						success: function(data) {
+							plus.nativeUI.closeWaiting();
+							if(data.status == 0) {
+								console.log("检测更新成功：" + data.responseText);
+								var newVer = data.responseText;
+
+								plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+									wgtVer = plus.runtime.version;
+									console.log(plus.runtime.version)
+									if(wgtVer && newVer && (wgtVer != newVer)) {
+										console.log('需要更新' + newVer)
+										downWgt(); // 下载升级包
+									} else {
+										console.log('不需要更新' + newVer.responseText)
+										//									plus.nativeUI.alert("无新版本可更新！");
+									}
+								});
+							} else {
+								//mui.toast(data.msg);
+							}
+						},
+						error: function(xhr, type, errerThrown) {
+							console.log('错了')
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+				});
+
+			}
+			var wgtVer = null;
+			// 下载wgt文件
+			var wgtUrl = IP + '/app/com.lv.pos.wgt';
+
+			function downWgt() {
+				plus.nativeUI.showWaiting("下载安装文件...");
+				plus.downloader.createDownload(wgtUrl, {
+					filename: "_doc/update/"
+				}, function(d, status) {
+					if(status == 200) {
+						console.log("下载wgt成功：" + d.filename);
+						installWgt(d.filename); // 安装wgt包
+					} else {
+						console.log("下载wgt失败！");
+						plus.nativeUI.alert("下载wgt失败！");
+					}
+					plus.nativeUI.closeWaiting();
+				}).start();
+			}
+			// 更新应用资源
+			function installWgt(path) {
+				plus.nativeUI.showWaiting("安装wgt文件...");
+				plus.runtime.install(path, {}, function() {
+					plus.nativeUI.closeWaiting();
+					console.log("安装wgt文件成功！");
+					plus.nativeUI.alert("应用资源更新完成！", function() {
+						plus.runtime.restart();
+					});
+				}, function(e) {
+					plus.nativeUI.closeWaiting();
+					console.log("安装wgt文件失败[" + e.code + "]：" + e.message);
+					plus.nativeUI.alert("安装wgt文件失败[" + e.code + "]：" + e.message);
+				});
+			}
+
+			//app更新
+			function update() {
+
+				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+
+					//					if(plus.runtime.appid != 'HBuilder') {
+					ver = inf.version;
+
+					console.log(ver)
+					var version = inf.version;
+					console.log(version)
+					var ServerIP = "";
+					var IP = localStorage.getItem('IP');
+					var PreUrl = localStorage.getItem('PreUrl');
+					var UploadUrl = localStorage.getItem('UploadUrl');
+					var checkUrl = PreUrl + '/Index/version';
+					var client;
+					if(mui.os.ios) {
+						client = 'ios';
+					} else {
+						client = 'android';
+					}
+
+					var types = {};
+					types[plus.networkinfo.CONNECTION_UNKNOW] = "Unknown connection";
+					types[plus.networkinfo.CONNECTION_NONE] = "None connection";
+					types[plus.networkinfo.CONNECTION_ETHERNET] = "Ethernet connection";
+					types[plus.networkinfo.CONNECTION_WIFI] = "WiFi connection";
+					types[plus.networkinfo.CONNECTION_CELL2G] = "Cellular 2G connection";
+					types[plus.networkinfo.CONNECTION_CELL3G] = "Cellular 3G connection";
+					types[plus.networkinfo.CONNECTION_CELL4G] = "Cellular 4G connection";
+
+					console.log(plus.device.model);
+					mui.ajax(checkUrl, {
+						data: {
+
+							device_model: plus.device.model,
+							device_connection_type: types[plus.networkinfo.getCurrentType()],
+							device_vendor: plus.device.vendor,
+							device_version: mui.os.version,
+							version: ver,
+							apk_version: version,
+							client: client,
+							user_id: localStorage.getItem('user_id'),
+							IP: IP
+						},
+						dataType: 'json',
+						type: 'POST',
+						timeout: 10000,
+						success: function(data) {
+
+							if(data.status == 1) {
+//								if(plus.runtime.appid != 'HBuilder') {
+									var webview = plus.webview.getWebviewById('main');
+									var update_data = encodeURI(JSON.stringify(data));
+									webview.evalJS('update_version("' + update_data + '");')
+
+									$('.mod_alert_mask').css('display', 'block');
+//								}
+								var btnArray = ['是', '否'];
+							} else {
+								console.log('无需更新');
+								console.log(plus.runtime.appid)
+								if(plus.runtime.appid != 'HBuilder') {
+									//									checkUpdate()
+								}
+							}
+						},
+						error: function(xhr, type, errerThrown) {
+							mui.toast('网络异常,请稍候再试');
+						}
+					});
+					//					}
+				});
+
+			}
+
+			//监听消息开始
+			document.addEventListener("plusready", function() {
+
+				// 监听在线消息事件  推送通知的
+				plus.push.addEventListener("receive", function(msg) {
+					var vData = JSON.parse(msg.payload);
+					//			 				alert(JSON.stringify(msg))
+					//				mui.toast(vData)
+					if(vData.type == 'tiqu') {
+						//					mui.toast(vData.tixian_money)
+						// 					mui.toast(JSON.stringify(vData.content));
+
+						//					localStorage.setItem('tiqu', JSON.stringify(vData.content))
+						//					localStorage.setItem('tixian_money', vData.tixian_money)
+						//					localStorage.setItem('tixian_user_name', vData.tixian_user_name)
+						var webview = plus.webview.getWebviewById('main');
+
+						webview.evalJS('update_tixian_money();')
+
+					}
+
+					if(vData.type == 'project') {
+						//					mui.toast(vData.tixian_money)
+						localStorage.setItem('project_count', vData.tixian_money)
+						var webview = plus.webview.getWebviewById('main');
+
+						webview.evalJS('update_project_count();')
+
+					}
+
+					//				alert(msg);
+					//				var vData = JSON.stringify(msg);
+					//				alert(vData);
+					var vInfo = plus.push.getClientInfo();
+					localStorage.setItem('ClientInfo', JSON.stringify(vInfo))
+					//				alert(vInfo);
+					//				var vInfoData = JSON.stringify(vInfo);
+					//				alert(vInfoData);
+					//				if(msg.aps) { // Apple APNS message
+					//					alert("接收到在线APNS消息：");
+					//				} else {
+					//					alert("接收到在线透传消息：");
+					//				}
+				}, false);
+			}, false);
+			mui.back = function() {
+
+				plus.runtime.getProperty(plus.runtime.appid, function(wgtInfo) {
+
+					console.log("[APP] name: " +
+						wgtInfo.name);
+					if(mui.os.ios) {
+						mui.toast('home键退出APP')
+
+					} else {
+						var btn = ["确定", "取消"];
+						//						mui.confirm('确认关闭app？', wgtInfo.name, btn, function(e) {
+						//							if(e.index == 0) {
+						//								if(mui.os.ios) {
+						//									mui.currentWebview.close();
+						//								} else {
+						//									plus.runtime.quit();
+						//								}
+						//							}
+						//						});
+						$('.exit .btn').css("background", 'transparent');
+						$('.mod_alert_mask').css('display', 'block');
+						$('.exit ').css('display', 'block');
+						var WebviewId = localStorage.getItem('WebviewId')
+						var webview = plus.webview.getWebviewById(WebviewId);
+
+						webview.evalJS('exit_btn();')
+
+					}
+
+				});
+
+			}
+		</script>
+
+		<script src='//kefu.easemob.com/webim/easemob.js'></script>
+		<script type="text/javascript">
+			function plusReady() {
+
+				var user = localStorage.getItem('user');
+				var info = JSON.parse(user);
+
+				window.easemobim = window.easemobim || {};
+				easemobim.config = {
+					configId: info.configId,
+					// 用户所在的 appKey 需要与 configId 中指定的关联的 appKey 一致
+					user: {
+						// username 必填，password 和 token 任选一项填写
+						username: info.user_id,
+						password: info.pwd1
+					},
+					// 访客信息（可选）
+					visitor: {
+						trueName: info.user_name,
+						qq: info.user_id,
+						phone: info.user_id,
+						companyName: info.user_id,
+						userNickname: info.nickname,
+						description: info.user_id,
+						email: info.user_id
+					}
+				}
+
+			}
+			if(window.plus) {
+				plusReady();
+			} else {
+				document.addEventListener('plusready', plusReady, false);
+			}
+
+			// 检测更新
+		</script>
+
+	</body>
+
+	<script src="js/socket.io.js"></script>
+
+	<script>
+		$(document).ready(function() {
+			var IP = localStorage.getItem('IP');
+			var user = localStorage.getItem('user');
+			var user_id = localStorage.getItem('user_id');
+			console.log(user)
+			var info = JSON.parse(user);
+			var uid = info.id;
+
+			// 连接服务端
+			var socket = io(IP + ':2120');
+			// 连接后登录
+			socket.on('connect', function() {
+				socket.emit('login', user_id);
+				console.log("登录成功吧");
+			});
+			socket.on('connect_failed', function(data) {
+				console.log("connect_failed to Server");
+			});
+			socket.on('error', function(data) {
+				console.log("error");
+			});
+			socket.on('reconnecting', function(data) {
+
+				//				global.reconnectFailCount++; 
+				//				if(global.reconnectFailCount >= 6) {
+				//
+				//		 		}
+			});
+			socket.on('reconnect', function(data) {
+				console.log("reconnect");
+			});
+			socket.on('disconnect', function(data) {
+				console.log("disconnect");
+			});
+			// 后端推送来消息时
+			socket.on('new_msg',
+				function(msg) {
+					console.log(msg)
+					var info = JSON.parse(msg);
+					//					createLocalPushMsg(info.msg);
+					//					mui.toast(info.msg)
+					// 订单数量
+					if(info.type == 'update_order_num') {
+						var webview = plus.webview.getWebviewById('usercenter');
+						if(webview != null) {
+							webview.evalJS('init_user_order_num("' + encodeURI(JSON.stringify(info.order_num)) + '");')
+						}
+					}
+					if(info.type == 'update_user_money') {
+						var webview = plus.webview.getWebviewById('usercenter');
+						if(webview != null) {
+							webview.evalJS('init_user_money("' + encodeURI(JSON.stringify(info.user)) + '");')
+						}
+					}
+					if(info.type == 'update_chat_list') {
+						var webview = plus.webview.getWebviewById('chat_list.html');
+						if(webview != null) {
+							webview.evalJS('init_chat_list();')
+						}
+						var webview = plus.webview.getWebviewById('im-chat.html');
+						if(webview != null) {
+							console.log('我进去更新')
+							webview.evalJS('get_user_message_list();')
+						}
+					}
+					if(info.is_push == 1) {
+						createLocalPushMsg(info.push_msg)
+					}
+					console.log(msg);
+
+				});
+			// 后端推送来在线数据时
+			socket.on('update_online_count', function(online_stat) {
+				$('#online_box').html(online_stat);
+				//				mui.toast(online_stat)
+			});
+		});
+
+		/**
+		 * 本地创建一条推动消息 
+		 */
+		function createLocalPushMsg(str) {
+			var options = {
+				cover: false
+			};
+
+			var audioPlay = plus.audio.createPlayer("audio/audio.wav")
+			audioPlay.play(
+				function() {
+					console.log("音频播放成功")
+				},
+				function(e) {
+					console.log("音频播放失败");
+				}
+			)
+
+			plus.push.createMessage(str, "LocalMSG", options);
+
+			if(plus.os.name == "iOS") {
+
+			}
+		}
+	</script>
+
+</html>

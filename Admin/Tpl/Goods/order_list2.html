@@ -1,0 +1,154 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>订单管理管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>订单管理管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.goods').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #goods').css('display','block')
+		$('.sidebar #order_list2').addClass('current')
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<script src="__PUBLIC__/Adm/js/laymain.js"></script> <script
+	type="text/javascript">
+	
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>订单列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<!-- <a href="{:U('Goods/orderDaoChu_MM')}" class="btn btn-primary">导出Excel</a> -->
+			<div class="table-container">
+				 
+					<table width="100%" border="0" cellspacing="0" cellpadding="0"
+						class="ltable table table-hover tablesaw-stack">
+						 <thead><tr>
+							 
+							<th >订单号</th>
+							<th >会员账号</th>  
+							<th >订单状态</th>
+							<th >投诉金额</th>
+							<th >投诉时间</th>
+							<th >投诉照片</th>
+							<th >操作</th>
+						</tr>  </thead>
+                   <tbody>
+					<foreach name="list" item="vo">
+						<tr>
+						 
+							<td>{$vo.order_no}</td>
+							<td>{$vo.user_name} </td>
+							 
+						 
+							<td >{$vo.order_status}</td>
+							<td >{$vo.order_amount}</td>
+							<td>{$vo.addtime_str}</td>
+							
+							
+							
+							
+							<td> <eq name="vo.tousu_img_url"
+										value=""> <font color="green"> 未上传</font></span> <else /><a href="javascript:void(0)"
+							onclick="openImg1('{$vo.tousu_img_url}')">查看</a> </eq></td>
+							<td ><a class="btn btn-xs btn-outline  ajax-a"
+								href="__URL__/Tousu/action/buy/id/{$vo.id}"
+										info="确定买家赢？">买家赢</a>
+								<a class="btn btn-xs btn-outline  ajax-b"
+								href="__URL__/Tousu/action/sell/id/{$vo.id}"
+										info="确定卖家赢？">卖家赢</a></td>
+						</tr>
+					  
+					</foreach> </tbody>
+					</table>
+					 
+			</div>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+					$('.ajax-b').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

@@ -1,0 +1,486 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Adm/css/main.css">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		/* $("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		}); */
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form name="form1" id="form1" method="post" class="ajax-form"
+		action="{:U('Shop/seller_edit')}">
+
+		<input type="hidden" name="seller_no" id="seller_no"
+			value="{$vo.seller_no}"> <input type="hidden" name="id"
+			id="id" value="{$vo.id}">
+		<!--导航栏-->
+		<div class="location"></div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+						<li><a href="javascript:;">地图选择</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+
+			<dl>
+				<dt>商户名称</dt>
+				<dd>
+					<input name="title" type="text" value="{$vo.title}"
+						class="input normal">
+				</dd>
+			</dl>
+
+			<dl style="display: none">
+				<dt>所属类别</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="ddlParentId" id="ddlParentId" class="input normal">
+							<volist name="category" id="vvo" key="i"> <eq
+								name="vo.category_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+
+					</div>
+				</dd>
+			</dl>
+			<dl style="display: none">
+				<dt>商户简介</dt>
+				<dd>
+					<input name="content" type="text" value="{$vo.content}"
+						class="input normal">
+				</dd>
+			</dl>
+			<dl style="display: none">
+				<dt>价格</dt>
+				<dd>
+					<input name="price" type="text" value="{$vo.price}"
+						class="input normal">
+				</dd>
+			</dl>
+			<dl style="display: none">
+				<dt>标签</dt>
+				<dd>
+					<input name="remark" type="text" value="{$vo.remark}"
+						class="  input normal" class="input normal">
+				</dd>
+			</dl>
+			<dl>
+				<dt>封面</dt>
+
+				<dd class="opt">
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$vo.img}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$vo.img}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext" name="img" value="{$vo.img}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="点击上传" class="type-file-button">
+							<input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt>滚动图</dt>
+
+				<dd class="opt">
+					<!-- 商品相册-->
+
+					<div class="ncap-form-default tab_div_2">
+						<dl class="row">
+							<div class="tab-pane" id="tab_goods_images">
+								<table class="table table-bordered">
+									<tbody>
+										<tr>
+											<td><volist name="vo.seller_albums" id="image">
+												<div
+													style="width: 100px; text-align: center; margin: 5px; display: inline-block;"
+													class="goods_xc1">
+													<input type="hidden" value="{$image['image_url']}"
+														name="goods_images[]"> <a
+														href="javacript:void(0);"><img width="100"
+														height="100" src="{$image['image_url']}"></a> <br>
+													<a href="javascript:void(0)"
+														onClick="ClearPicArr2(this,'{$image.image_url}')">删除</a>
+												</div>
+												</volist>
+
+												<div class="goods_xc1"
+													style="width: 100px; text-align: center; margin: 5px; display: inline-block;">
+													<input type="hidden" name="goods_images[]" value="" /> <a
+														href="javascript:void(0);"
+														onClick="GetUploadify(10,'1','goods','call_back');"><img
+														src="__PUBLIC__/Images/add-button.jpg" width="100"
+														height="100" /></a> <br /> <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+												</div></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</dl>
+					</div>
+					<!-- 商品相册-->
+				</dd>
+			</dl>
+
+
+			<dl>
+				<dt>内容</dt>
+				<dd>
+					<input type="hidden" name="cate_detail" id="cate_detail">
+					<textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea>
+				</dd>
+			</dl>
+
+		</div>
+		<div class="tab-content" style="display: none">
+			<dl>
+				<dt>经纬度</dt>
+				<dd>
+					<input class="lat" name="lat" type="text" value="{$vo.lat}"
+						readonly class="input normal"> <input class="lng"
+						name="lng" type="text" value="{$vo.lng}" readonly
+						class="input normal"> <input class="lnglat" id="lnglat"
+						value="{$vo.lng},{$vo.lat}" type="hidden" class="input normal">
+				</dd>
+			</dl>
+			<dl>
+				<dt>详细地址</dt>
+				<dd>
+					<input name="address" type="text" value="{$vo.address}"
+						class="address input normal" class="input normal">
+				</dd>
+			</dl>
+			<dl>
+				<dt>选择地区</dt>
+				<dd>
+					<div id="container"></div>
+
+				</dd>
+			</dl>
+
+
+		</div>
+
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="sumbit" value="提交保存" class="btn edit" />
+				<input name="btnReturn" type="button" value="返回上一页"
+					class="btn yellow" onclick="javascript:history.back(-1);" />
+			
+			<EQ name="vo.status" value="1">
+			
+				<input name="" type="button" value="审核通过" class="btn   check" />
+				<input name="btnReturn" type="button" value="审核不通过"
+					class="btn nocheck"   /></EQ>
+			</div>
+		</div>
+		<!--/工具栏-->
+
+
+		<style>
+#container {
+	position: relative;
+	width: 80%;
+	height: 500px;
+}
+</style>
+
+
+		<script type="text/javascript"
+			src="https://webapi.amap.com/maps?v=1.4.13&key=12e112ed914077e56c9952451ca7d4fd&plugin=AMap.Geocoder"></script>
+		<script type="text/javascript"
+			src="https://cache.amap.com/lbs/static/addToolbar.js">
+				</script>
+
+		<script type="text/javascript">
+    var map = new AMap.Map("container", {
+    	center: [{$vo.lng}, {$vo.lat}],
+        resizeEnable: true , zoom: 13
+    });
+    map.plugin(["AMap.ToolBar"], function() {
+    	            map.addControl(new AMap.ToolBar());
+    	        });
+    var marker;
+            var icon = new AMap.Icon({
+                image: 'http://vdata.amap.com/icons/b18/1/2.png',
+                size: new AMap.Size(24, 24)
+            });
+            marker = new AMap.Marker({
+                offset: new AMap.Pixel(-12, -12),
+                zIndex: 101,
+                map: map
+            });
+    var geocoder,marker;
+    function regeoCode() {
+        if(!geocoder){
+            geocoder = new AMap.Geocoder({
+                city: "010", //城市设为北京，默认：“全国”
+                radius: 1000 //范围，默认：500
+            });
+        }
+        var lnglat  = document.getElementById('lnglat').value.split(',');
+         if(!marker){
+            marker = new AMap.Marker();
+            map.add(marker);
+        }
+        marker.setPosition(lnglat);
+        
+        geocoder.getAddress(lnglat, function(status, result) {
+            if (status === 'complete'&&result.regeocode) {
+                var address = result.regeocode.formattedAddress;
+                $('.address').val(address); 
+            }else{alert(JSON.stringify(result))}
+        });
+    }
+    
+    map.on('click',function(e){ 
+        $('.lat').val(e.lnglat.lat);
+        $('.lng').val(e.lnglat.lng);
+        $('.lnglat').val(e.lnglat );
+     
+        regeoCode();
+    })
+    document.getElementById('lnglat').onkeydown = function(e) {
+        if (e.keyCode === 13) {
+            regeoCode();
+            return false;
+        }
+        return true;
+    };
+    
+     
+</script>
+		<script>
+		$(function() {
+			$("#checkbox").change(function() {
+				if ($('#checkbox').is(':checked')) {
+					$('#type').val(1);
+				} else {
+					$('#type').val(0);
+				}
+			});
+		});
+
+		layui.use([ 'layedit', 'upload', 'layer', 'laydate' ], function() {
+			var layedit = layui.layedit;
+			var layer = layui.layer;
+			layedit.set({
+				uploadImage : {
+					url : '__APP__/Gouwu/upload_layedit_pp'
+				}
+			});
+			edit = layedit.build('demo'); //建立编辑器
+			
+			$('.edit').on('click', function() {
+				$('#cate_detail').val(layedit.getContent(edit));
+				form = $('.ajax-form');
+				$.post(form.attr('action'), form.serialize(), function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+			$('.check').on('click', function() {
+				$('#cate_detail').val(layedit.getContent(edit));
+				form = $('.ajax-form');
+				$.post("{:U('Shop/menberOpenShop')}",{
+					id:$('#id').val(),
+					auth_status:0
+				}, function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+			$('.nocheck').on('click', function() {
+				$('#cate_detail').val(layedit.getContent(edit));
+				form = $('.ajax-form');
+				$.post("{:U('Shop/menberOpenShop')}",{
+					id:$('#id').val(),
+					auth_status:2
+				}, function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+		});
+		//上传图片回调事件
+		function img_call_back(fileurl_tmp) {
+			$("#imagetext").val(fileurl_tmp);
+			$("#img_a").attr('href', fileurl_tmp);
+			$("#img_i")
+					.attr('onmouseover',
+							"layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+		}
+		// 上传商品图片成功回调函数
+		function call_back(paths,index) {
+			var last_div = $(".goods_xc"+index+":last").prop("outerHTML");
+			for (var i = 0; i < paths.length; i++) {
+				$(".goods_xc"+index+":eq(0)").before(last_div); // 插入一个 新图片
+				$(".goods_xc"+index+":eq(0)").find('a:eq(0)').attr('href', paths[i]).attr(
+						'onclick', '').attr('target', "_blank");// 修改他的链接地址
+				$(".goods_xc"+index+":eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+				$(".goods_xc"+index+":eq(0)").find('a:eq(1)').attr('onclick',
+						"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+				$(".goods_xc"+index+":eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+			}
+		}
+		// 上传商品图片成功回调函数
+		function call_back3(paths) {
+			var last_div = $(".goods_xc2:last").prop("outerHTML");
+			for (var i = 0; i < paths.length; i++) {
+				$(".goods_xc2:eq(0)").before(last_div); // 插入一个 新图片
+				$(".goods_xc2:eq(0)").find('a:eq(0)').attr('href', paths[i])
+						.attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+				$(".goods_xc2:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+				$(".goods_xc2:eq(0)").find('a:eq(1)').attr('onclick',
+						"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+				$(".goods_xc2:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+			}
+		}
+		//上传之后删除组图
+		function ClearPicArr2(obj, path) {
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/delupload')}",
+				data : {
+					action : "del",
+					filename : path
+				},
+				success : function() {
+					$(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+				}
+			});
+			// 删除数据库记录
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/del_goods_images')}",
+				data : {
+					filename : path
+				},
+				success : function() {
+				}
+			});
+		}
+		
+	
+	</script>
+	</form>
+</body>
+</html>
+

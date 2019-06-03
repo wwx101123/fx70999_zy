@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>直推列表 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/agent.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+				get_myteam();
+			});
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="display: none;" >
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>我的团队</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="index.html">
+						<i class="iconfont icon-home"></i>
+					</a>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+					<div class="weui-panel__hd title">
+						<p>直推人数：<span class="label label-primary recommend_count">0</span></p>
+					</div>
+					<div class="weui-panel__hd title">
+						<p>团队人数：<span class="label label-primary tree_count">0</span></p>
+					</div>
+				</div>
+				<!--订单列表-->
+				<div class="detail-list nodata" style="display: none;">
+
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata">暂无记录...</div>
+
+					</ul>
+				</div>
+				<div class="detail-list detail">
+
+					<!--/订单列表-->
+				</div>
+				<!--分页页码-->
+				<div class="page-list">
+
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<div class="footer" id="footer"></div>
+
+				<div class="js" id="js">
+
+				</div>
+				<script type="text/javascript" charset="utf-8">
+					//mui初始化
+
+					$(function() {
+
+						load_footer('_footer.html', '#footer', '#js', 1000)
+
+					});
+				</script>-->
+				<!--/底部导航-->
+			</div>
+	</body>
+
+</html>

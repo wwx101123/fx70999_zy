@@ -1,0 +1,40 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>卖出记录</h2>
+      <ol class="breadcrumb">
+        <li> <a href="{:U('Index/index')}">首页</a> </li>
+        <li> <a>积分交易</a> </li>
+        <li class="active"> <strong>卖出记录</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>查看凭证</h5>
+          </div>
+          <div class="ibox-content p-xl">
+            <div class="row">
+              <div class="col-sm-6 text-right">
+                <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                  <form method='post' id="form1" action="__URL__/changepingzhengSave" >
+                    <tr>
+                      <td align="right">凭证预览：</td>
+                      <td class="center"><img style="height:225px;width:330px;" id="imageShow" alt="商品图像" src="{$crs['sellbz']}"></td>
+                    </tr>
+                  </form>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</block>

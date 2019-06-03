@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>
+			移动端商家自入驻-商家详情
+		</title>
+		<meta name="applicable-device" content="mobile">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+		<style>
+			.page-current header {}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+
+		<style type="text/css">
+			.step-info-li {
+				line-height: 2rem;
+				text-align: center;
+				font-size: .65rem;
+				color: #909090;
+				border-bottom: 1px solid #f0f0f0
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:2) {
+				.step-info-li {
+					border-bottom: .5px solid #f0f0f0
+				}
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:3) {
+				.step-info-li {
+					border-bottom: .333333px solid #f0f0f0
+				}
+			}
+			
+			.mt-right:after {
+				content: "";
+				background-image: url(../images/copyright.png);
+				display: block;
+				width: 3rem;
+				height: .725rem;
+				z-index: 1;
+				margin: 1.5rem auto;
+				background-size: 3rem .725rem;
+				text-align: center
+			}
+			
+			.task-details .color-success {
+				color: #94d77d
+			}
+			
+			.task-details .color-primary {
+				color: #999
+			}
+			
+			.task-details .status-warning {
+				color: #ff5a5a
+			}
+			
+			.task-details .status-waiting {
+				color: #fdb463
+			}
+			
+			.list-block .item-link .item-inner.no-toright {
+				background-image: none
+			}
+		</style>
+		<style type="text/css">
+			.task-introduction {
+				background: #fff
+			}
+			
+			.task-introduction .icon-shop {
+				width: 2rem;
+				height: 2rem;
+				background: url(../images/shop.png) no-repeat;
+				background-size: 100% 100%;
+				border-radius: 50%;
+			}
+			
+			.task-introduction .list-block .item-inner {
+				display: block
+			}
+			
+			.task-introduction .item-inner .shop-name {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				font-size: 0.8rem;
+				width: 100px;
+				margin-top: 8px;
+				margin-left: 10px;
+			}
+			
+			.task-introduction .item-inner .tags {
+				color: #9b9b9b;
+				font-size: .65rem
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<link href="../css/common.32e41245.css?source=11" rel="stylesheet">
+		<link href="../css/details.32e41245.css?source=11" rel="stylesheet">
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+	</head>
+	<script type="text/javascript">
+		var mescroll;
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_saoma_info');
+
+			}
+		});
+		$(function() {
+
+			init()
+		})
+
+		function init() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(seller_id, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_seller_info(seller_id, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var seller_id = localStorage.getItem('seller_id');
+
+				getListDataFromNet(seller_id, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				var seller_type = localStorage.getItem('seller_type');
+
+				var images = JSON.parse(data).images;
+				console.log(images[0].img )
+				if(seller_type == 0) {
+					$('.images').css('background', 'url(' +IP+ images[0].img + ')');
+					$('.images').css('background-size', '100% 100%');
+				}
+				if(seller_type == 1) {
+					$('.images').css('background', 'url('  +IP+ images[1].img + ')');
+					$('.images').css('background-size', '100% 100%');
+				}
+				var seller_id = localStorage.getItem('seller_id');
+				if(seller_id > 0) {
+					console.log(data)
+					data = JSON.parse(data)
+					var seller = data.data;
+					var images = data.images;
+
+					localStorage.setItem('seller', JSON.stringify(seller));
+					console.log(images)
+
+					if(seller != null && seller != '') {
+
+						user = seller;
+						$('.shop-name').html(user.title);
+						$('#bank_card').val(user.bank_card);
+						$('#bank_user_name').val(user.bank_user_name);
+						$('#bank_name').val(user.bank_name);
+						$('.icon').addClass('i-error')
+						$('.item-link span').addClass('status-warning')
+						$('.item-link span').html('待录入')
+
+						$('.icon-shop').css('margin-top', '8px;')
+						if(user.img != null && user.img != '') {
+							console.log(user.img)
+							$('.icon-shop').css('background', 'url(' + UploadUrl + user.img + ')')
+							$('.icon-shop').css('background-size', '100% 100%')
+						}
+						//
+
+						if(user.title != null) {
+
+							$('.step1 .icon').removeClass('i-error')
+							$('.step1 .icon').addClass('i-ok')
+							$('.step1 span').removeClass('status-warning')
+							$('.step1 span').addClass('color-success')
+							$('.step1 span').html('已录入')
+						}
+						if(user.sn != null) {
+							$('.step2 .icon').removeClass('i-error')
+							$('.step2 .icon').addClass('i-ok')
+							$('.step2 span').removeClass('status-warning')
+							$('.step2 span').addClass('color-success')
+							$('.step2 span').html('已录入')
+						}
+						if(user.card_img8 != null) {
+							$('.step3 .icon').removeClass('i-error')
+							$('.step3 .icon').addClass('i-ok')
+							$('.step3 span').removeClass('status-warning')
+							$('.step3 span').addClass('color-success')
+							$('.step3 span').html('已录入')
+						}
+
+						if(user.bank_user_name != null) {
+							$('.step4 .icon').removeClass('i-error')
+							$('.step4 .icon').addClass('i-ok')
+							$('.step4 span').removeClass('status-warning')
+							$('.step4 span').addClass('color-success')
+							$('.step4 span').html('已录入')
+						}
+						$('.error').css('display', 'none')
+						$('.pos_error').css('display', 'none')
+
+						if(user.reason != null && user.status == 4) {
+							console.log(user.reason)
+							$('.pos_error').css('display', 'block')
+							$('.pos_error').html('改进意见:' + user.reason);
+
+						}
+
+						if(user.auth_error != '' && user.auth_error != null) {
+
+							$('.error').css('display', 'block')
+							//							$('.error').html(user.auth_error);
+
+							if(user.auth_error.indexOf("商户名称") >= 0) {
+								$('.step1 .icon').addClass('i-error')
+								$('.step1 .icon').removeClass('i-ok')
+								$('.step1 span').addClass('status-warning')
+								$('.step1 span').removeClass('color-success')
+								$('.step1 span').html('重新编辑')
+							}
+							if(user.auth_error.indexOf("身份证号") >= 0 || user.auth_error.indexOf("所在省市区") >= 0 || user.auth_error.indexOf("真实姓名") >= 0 || user.auth_error.indexOf("手机号码") >= 0 || user.auth_error.indexOf("sn") >= 0) {
+								$('.step2 .icon').addClass('i-error')
+								$('.step2 .icon').removeClass('i-ok')
+								$('.step2 span').addClass('status-warning')
+								$('.step2 span').removeClass('color-success')
+								$('.step2 span').html('重新编辑')
+							}
+							if(user.auth_error.indexOf("信用卡预留电话") >= 0 || user.auth_error.indexOf("信用卡图片") >= 0 || user.auth_error.indexOf("身份证正面图片") >= 0 || user.auth_error.indexOf("身份证背面图片") >= 0 || user.auth_error.indexOf("手持身份证正面图片") >= 0 || user.auth_error.indexOf("手持身份证反面图片") >= 0 || user.auth_error.indexOf("银行卡正面图片") >= 0 || user.auth_error.indexOf("银行卡反面图片") >= 0 || user.auth_error.indexOf("手持银行卡正面图片") >= 0 || user.auth_error.indexOf("手持银行卡反面图片") >= 0) {
+								$('.step3 .icon').addClass('i-error')
+								$('.step3 .icon').removeClass('i-ok')
+								$('.step3 span').addClass('status-warning')
+								$('.step3 span').removeClass('color-success')
+								$('.step3 span').html('重新编辑')
+							}
+							if(user.auth_error.indexOf("支行") >= 0 || user.auth_error.indexOf("银行卡号") >= 0 || user.auth_error.indexOf("开户姓名") >= 0 || user.auth_error.indexOf("开户银行") >= 0 || user.auth_error.indexOf("开户地址") >= 0) {
+								$('.step4 .icon').addClass('i-error')
+								$('.step4 .icon').removeClass('i-ok')
+								$('.step4 span').addClass('status-warning')
+								$('.step4 span').removeClass('color-success')
+								$('.step4 span').html('重新编辑')
+							}
+						}
+					}
+				}
+				localStorage.setItem('history_url', 'shop_details')
+				$('.task-introduction').click(function() {
+					openWindowWithTitle('1/4 商户介绍', 'shop_introduction.html')
+				});
+				$('.step2').click(function() {
+
+					var PreUrl = localStorage.getItem('PreUrl');
+					var get_user_info_val = PreUrl + "User/userInfo";
+					console.log(get_user_info_val)
+					$.ajax({
+						url: get_user_info_val,
+						data: {
+							is_mobile: 1,
+							id: localStorage.getItem('user_id')
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							console.log(data)
+							var status = data.status;
+							if(status == 1) {
+								localStorage.setItem('user', JSON.stringify(data.data));
+								localStorage.setItem('user_terminal', JSON.stringify(data.data.user_terminal));
+							}
+							var user = localStorage.getItem('user');
+							user = JSON.parse(user);
+
+							openWindowWithTitle('2/4 基本信息', 'shop_base.html')
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(xhr.responseText);
+						}
+					});
+
+				});
+				$('.step3').click(function() {
+					openWindowWithTitle('4/4 证件信息', 'shop_card.html')
+				});
+				$('.step4').click(function() {
+					openWindowWithTitle('3/4 收款信息', 'shop_account.html')
+				})
+			}
+
+		}
+		window.addEventListener('update_user_auth_info',
+			function(e) {
+				init();
+
+			});
+	</script>
+	<script>
+		mui.plusReady(function() {
+
+			var huikui_id = localStorage.getItem('huikui_id')
+			if(huikui_id == 0) {
+				var wv = plus.webview.currentWebview();
+				wv.setStyle({
+
+					titleNView: {
+
+						buttons: [{
+
+							"fontSrc": "_www/fonts/mui.ttf", //wap2app内置字体文件
+							"text": "完善",
+							"onclick": "javascript:test()",
+							"fontSize": '15px'
+						}]
+					}
+				});
+			}
+		});
+
+		function test() {
+
+			openWindowWithTitle('待完善', 'shop_list.html')
+		}
+	</script>
+
+	<body class="mescroll" id="mescroll">
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<div id=" " class=" page__bd ">
+			<div id="my-home" class="page page-current no-animate">
+
+				<div class="">
+					<div class="task-introduction">
+						<div class="list-block task-details">
+							<a class="item-link item-content step1" href="javascript:void(0);">
+								<div class="icon-shop" style="float: left;
+    margin-top: 8px;"></div>
+								<div class="item-inner" style="margin-left: 20px; width:auto; ">
+									<div style=" float:LEFT">
+										<div class="shop-name">商户名称</div>
+										<!--<div class="tags">鲜花绿植-绿植</div>-->
+									</div>
+									<div style="
+    float: right;
+    margin-top: 8px;" class="item-after"><i class="icon i-ok"></i> <span class="status-warning">待录入</span></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="task-details list-block mt-right">
+						<ul>
+							<li class="step-info-li  error" style="color: red;text-align: left; margin-left: 20px;">
+
+							</li>
+							<li class="step-info-li  pos_error" style="color: red;text-align: left; margin-left: 20px;">
+
+							</li>
+							<li class="step-info-li">
+								如果未完成可前去商户管理继续完善信息
+
+							</li>
+							<li>
+								<a class="item-link item-content step2" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">基本信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="status-warning" style="">待录入</span></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a class="item-link item-content step4" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">收款信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="status-warning">待录入</span></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a class="item-link item-content step3" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">证件信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="status-warning">待录入</span></div>
+									</div>
+								</a>
+							</li>
+
+						</ul>
+						<div class="images" style="
+							background-size:100% 100%;margin: 40px;width: 80%; height: 250px;" />
+					</div>
+					<!---->
+				</div>
+			</div>
+
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,71 @@
+
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>购买列表</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>股票市场</a>
+                </li>
+                <li class="active">
+                    <strong>购买列表</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>购买列表 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        
+                    <div class="row">
+
+                        <table class="table table-hover table-" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                    <th>用户账号</th>
+                                    <th>求购时间</th>
+                                    <th>求购总额</th>
+                                    <th>剩余总额</th>
+                                    <th>已成交量</th>
+                                    <th>成交总额</th> 
+                                    <th>状态</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td>{$vo.member_id}</td>
+                                    <td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+                                    <td>{$vo.trade_total}</td>
+                                    <td>{$vo.shengyu_trade_total}</td>
+                                    <td>{$vo.trade_total_num}</td>
+                                    <td>{$vo.trade_total_money}</td>
+                                    <td><eq name="vo.status" value="0">挂单中</eq> <eq
+											name="vo.status" value="1">已成交</eq></td>
+									 
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    </block>

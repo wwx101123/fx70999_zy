@@ -1,0 +1,193 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>类别管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>类别管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.shop').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #shop').css('display', 'block')
+		$('.sidebar #category_list').addClass('current')
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<style type="text/css">
+.tree-list .col-1 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-2 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-3 {
+	width: 52%;
+}
+
+.tree-list .col-4 {
+	width: 12%;
+}
+
+.tree-list .col-5 {
+	width: 12%;
+}
+
+.tree-list .col-6 {
+	width: 12%;
+	text-align: center;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<script src="__PUBLIC__/Adm/js/laymain.js"></script> <script
+	type="text/javascript">
+	$(function() {
+		initCategoryHtml('.tree-list', 1); //初始化分类的结构
+		$('.tree-list').initCategoryTree(true); //初始化分类的事件
+	});
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>类别列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<a href="category_edit.html?action=add&id=0"
+				class="btn btn-success pull-right">新增类别</a>
+			<div class="tablesaw-bar mode-stack"></div>
+
+			<div class="table-container">
+				<div class="tree-list">
+					<div class="thead">
+						<div class="col col-2">编号</div>
+						<div class="col col-2">图标</div>
+						<div class="col col-6">首页推荐</div>
+						<!-- <div class="col col-2">所属合伙人</div> -->
+						<div class="col col-3">类别名称</div>
+						<div class="col col-5">排序</div>
+						<div class="col col-6">操作</div>
+					</div>
+					<ul>
+						<foreach name="list" item="vo">
+						<li class="layer-{$vo.class_layer}">
+							<div class="tbody">
+
+								<div class="col col-2">{$vo.id}</div>
+								 <div class="col col-2">
+<img src="{$vo.user_img_url}" width="20px">
+</div>  
+								<div class="col col-6">
+									<a  href="{:U('Goods/Category_hot')}?id={$vo.user_category_id}&is_hot={$vo.is_hot}"
+								class="ajax-a"  info="确定推荐到首页？"
+								<eq name="vo.is_hot" value="1"> style="color:red" </eq>
+								
+								>{$vo.is_hot_str}</a> 
+								</div>
+								
+								
+								<!-- <div class="col col-2">{$vo.user_name}</div> -->
+								<div class="col index col-3">
+									<a href="category_edit.html?action=edit&id={$vo.user_category_id}&user_cate_id={$vo.id}">{$vo.category_title}</a>
+								</div>
+								
+								<div class="col col-5">
+									<input ID="{$vo.user_category_id}" value="{$vo.user_category_sort_id}" Class="sort"
+										onkeydown="return checkNumber(event);"
+										onchange="ajaxUpdateField(this,'sort_id');">
+
+
+								</div>
+								 
+								<div class="col col-6">
+									<a href="category_edit.html?action=edit&id={$vo.user_category_id}&user_cate_id={$vo.id}">修改</a> <a
+										class=" ajax-a"
+										href="__URL__/category_del/action/lock/id/{$vo.user_category_id}/user_category_id/{$vo.id}"
+										info="本操作会删除本类别及下属子类别，是否继续？">删除</a>
+								</div>
+							</div>
+						</li>
+						</foreach>
+					</ul>
+				</div>
+			</div>
+
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+				function ajaxUpdateField(obj, field) {
+
+					var id = $(obj).attr('id');
+
+					var value = $(obj).val();
+
+					$.ajax({
+						type : 'POST',
+						data : {
+							id : id,
+							field : field,
+							value : value
+						},
+						url : "{:U('Goods/UpdateCategoryField')}",
+						success : function(data) {
+							layer.msg('修改成功', {
+								icon : 1,
+								time : 1000
+							});
+						}
+					});
+				}
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

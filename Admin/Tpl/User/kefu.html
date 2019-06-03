@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+
+<body>
+	<script src="//kefu.easemob.com/webim/easemob.js?configId={$configId}"></script>
+	<script>
+		window.easemobim = window.easemobim || {};
+		easemobim.config = {
+			configId : "{$configId}",
+			//环信移动客服域，固定值，请按照示例配置
+			domain : '//kefu.easemob.com',
+			//您网站上im.html文件的完整路径
+			path : '//{$url}/adm.php/User/kefu',
+			//访客插件static的路径
+			staticPath : '//{$url}/kefu/static',
+			user : {
+				// username 必填，password 和 token 任选一项填写
+				username : '{$user.user_id}',
+				password : '{$user.pwd1}' 
+			},
+			visitor : {
+				trueName : "{$user.user_name}",
+				qq : "{$user.user_name}",
+				phone : "{$user.user_id}",
+				companyName : "{$user.user_name}",
+				userNickname : "{$user.nickname}",
+				description : "{$user.user_name}",
+				email : "{$user.user_name}",
+			}
+		};
+	</script>
+</body>
+
+</html>

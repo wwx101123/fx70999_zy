@@ -1,0 +1,80 @@
+<extend name="Public:adminheader" />
+<block name="menu">
+<div class="row wrapper border-bottom white-bg page-heading" class="clearfix">
+        <div class="col-sm-12">
+            <div class="title-action pull-left">
+                <a href="{:U('Gouwu/imgAdd')}?action=addpro" class="btn btn-primary">添加图片</a>
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>轮播图片列表</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content" style="display: block;">
+            <div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-6872">
+
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>标题</th>
+                    <th>图片</th>
+                    <th>类型</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="vertical-align:middle;"><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                     <td style="vertical-align:middle;"><b class="tablesaw-cell-label">标题</b><span class="tablesaw-cell-content">{$vo.title}</span></td>
+                    <td><b class="tablesaw-cell-label">图片</b><span class="tablesaw-cell-content">
+                        <a href="{$vo.img_url}" target="_blank">
+                            <img src="{$vo.img_url}" class="tableimg"></a></span></td>
+                    <td style="vertical-align:middle;"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content"><eq name="vo.is_index" value='0'>外部<else/>内部</eq></eq></span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                <a class="btn btn-xs btn-outline btn-info" href="{:U('Gouwu/img_edit')}?proid={$vo.id}">修改</a>
+                                <a class="btn btn-xs btn-outline btn-danger ajax-a" href="{:U('Gouwu/imgOperation')}?action=del&proid={$vo.id}" info="确定删除吗？">删除</a>
+                            </span></td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+                <script type="text/javascript">
+                    layui.use(['layer', 'form','laydate'], function(){
+                  $('.ajax-a').on('click',function() {
+                        var self=$(this);
+                        layer.confirm(self.attr('info'),{icon: 3, title:'警告'},function(index) {
+                          $url=self.attr('href');
+                          $.get($url,function(data) {
+                            if (data.status) {
+                              layer.msg(data.info,{time:1000,end:function() {
+                                if (data.url) {
+                                  location.href=data.url;
+                                }else{
+                                  location.reload();
+                                }
+                              }});
+                            }else{
+                              layer.msg(data.info);
+                            }
+                          });
+                        });
+                        return false;
+                      });
+                    });
+                </script>
+                <div class="row grey-bg">
+                {$page}
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</block>

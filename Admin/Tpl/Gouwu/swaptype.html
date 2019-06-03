@@ -1,0 +1,84 @@
+<extend name="Public:adminheader" />
+<block name="breadcrumb">
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2>二手互易商品分类</h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="{:U('Index/index')}">首页</a>
+				</li>
+				<li>
+					<a>后台管理</a>
+				</li>
+				<li>
+					<a>二手互易商品管理</a>
+				</li>
+				<li class="active">
+					<strong>二手互易商品分类</strong>
+				</li>
+			</ol>
+		</div>
+	</div>
+</block>
+
+<block name="menu">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>产品分类</h5>
+			</div>
+			<div class="ibox-content">
+				<a href="{:U('Gouwu/swaptypeadd')}" class="btn btn-primary">添加分类</a>
+				<div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-9771">
+
+				<thead>
+					<tr>
+						<th width="100">编号</th>
+						<th>分类名称</th>
+						<th width="200">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<volist name="list" id="vo">
+				<tr class="odd-box">
+					<td><b class="tablesaw-cell-label">编号</b><span class="tablesaw-cell-content">{$vo['id']}</span></td>
+					<td><b class="tablesaw-cell-label">分类名称</b><span class="tablesaw-cell-content">
+						<b>{$vo['tpname']}</b></span>
+					</td>
+					<td><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+						<a href="__URL__/swaptypeedit/EDid/{$vo['id']}">修改</a> |
+						<a href="{:U('Gouwu/swapopear')}?action=del&id={$vo.id}" class="ajax-a" info="确定删除该分类？">删除</a></span>
+					</td>
+				</tr>
+				</volist>
+					</tbody>
+				</table>
+				{$page}
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		layui.use('layer',function() {
+			  $('.ajax-a').on('click',function() {
+			    var self=$(this);
+			    layer.confirm(self.attr('info'),{icon: 3, title:'警告'},function(index) {
+			      $url=self.attr('href');
+			      $.get($url,function(data) {
+			        if (data.status) {
+			          layer.msg(data.info,{time:1000,end:function() {
+			            if (data.url) {
+			              location.href=data.url;
+			            }else{
+			              location.reload();
+			            }
+			          }});
+			        }else{
+			          layer.msg(data.info);
+			        }
+			      });
+			    });
+			    return false;
+			  });
+		});
+	</script>
+</block>

@@ -1,0 +1,557 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<link href="../css/intro.css" rel="stylesheet" type="text/css">
+		<link href="../css/_form.css" rel="stylesheet" type="text/css">
+		<link href="../css/sellbase.css" rel="stylesheet" type="text/css">
+		<link href="../css/bottomFixButton.css" rel="stylesheet" type="text/css">
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/swiper-3.4.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/vue.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/sellbase.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/intro.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/upload.js"></script>
+		<style>
+			.z_photo {
+				/* width: 5rem; */
+				/* height: 5rem; */
+				/* padding: 0.3rem; */
+				overflow: auto;
+				clear: both;
+				margin: 1rem auto;
+				/* border: 1px solid #555; */
+			}
+			
+			.z_photo img {
+				width: 1rem;
+				height: 1rem;
+			}
+			
+			.z_addImg {
+				float: left;
+				margin-right: 0.2rem;
+			}
+			
+			.z_file {
+				width: 100px;
+				height: 100px;
+				background: url(../images/icon_upload_photo.png) no-repeat;
+				background-size: 100% 100%;
+				float: left;
+				margin-right: 0.2rem;
+			}
+			
+			.z_file input::-webkit-file-upload-button {
+				width: 1rem;
+				height: 1rem;
+				border: none;
+				position: absolute;
+				outline: 0;
+				opacity: 0;
+			}
+			
+			.z_file input#file {
+				display: block;
+				width: auto;
+				border: 0;
+				vertical-align: middle;
+			}
+			/*遮罩层*/
+			
+			.z_mask {
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, .5);
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 999;
+				display: none;
+			}
+			
+			.z_alert {
+				width: 3rem;
+				height: 2rem;
+				border-radius: .2rem;
+				background: #fff;
+				font-size: .24rem;
+				text-align: center;
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-left: -1.5rem;
+				margin-top: -2rem;
+			}
+			
+			.z_alert p:nth-child(1) {
+				line-height: 1.5rem;
+			}
+			
+			.z_alert p:nth-child(2) span {
+				display: inline-block;
+				width: 49%;
+				height: .5rem;
+				line-height: .5rem;
+				float: left;
+				border-top: 1px solid #ddd;
+			}
+			
+			.z_cancel {
+				border-right: 1px solid #ddd;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="wrap ">
+			<div class="container" id="vue-app">
+
+				<div>
+					<div>
+						<div class="topShadow"></div>
+
+						<div class="join">
+							<!-- <div :class="['join',showNull?'showNull':'']"> -->
+							<!-- 定价模式 -->
+							<section class="sectionWrap ">
+								<div class="medium">
+									<h3 class="title">标题</h3>
+								</div>
+
+								<div class="card">
+									<div class="card-title">填写一个标题</div>
+									<div class="want-price"><span></span><input value="" style="border:0;padding:0" type="text" id="title"></div>
+
+								</div>
+							</section>
+
+							<!-- 类别 -->
+							<section class="sectionWrap">
+								<div class="medium kinds">
+									<h3 class="title">品类<span class="logocolor" style="color: #D93644!important" >请正确选择，以免影响商品上架。</span></h3>
+								</div>
+								<div class="content">
+									<input type="hidden" id="category_id">
+									<div class="select-box">
+
+									</div>
+								</div>
+							</section>
+
+							<!-- 商品描述( 上传图片 & 描述)-->
+							<section class="sectionWrap photo">
+								<div class="medium brand">
+									<h3 class="title hasInfo">上传实物图片<span class="fr"> 请上传您需要销售的产品图片</span></h3>
+									<div class="psInfo" style="display: none;">上传完备的细节图和瑕疵图有助于提高您的商品审核速度以及线下审核通过率。单张大小请勿超过2M。</div>
+								</div>
+								<div class="content">
+									<div class="upload-img">
+										<div class="img"  >
+											<div>
+												<img id="img" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png"   onclick="set_upload(this)">
+												<input type="hidden" class="input_img">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            <p class="mainText allImg noImg">封面图</p>
+                            
+                            
+                            <p class="psText logocolor">（必选）</p>
+                            
+                        </dfn>
+										</div>
+										<div class="img"  >
+											<div>
+												<img id="img1" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png"   onclick="set_upload(this)">
+												<input type="hidden" class="input_img1">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            
+                            <p class="mainText">滚动图</p>
+                            
+                            <p class="psText">（必选）</p>
+                            
+                        </dfn>
+										</div>
+										<div class="img"  >
+											<div>
+												<img id="content_img1" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png"   onclick="set_upload(this)">
+												<input type="hidden" class="input_content_img1">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            
+                            <p class="mainText">内容图</p>
+                            
+                            <p class="psText">（必选）</p>
+                            
+                        </dfn>
+										</div>
+
+									</div>
+									<!-- 描述 -->
+
+								</div>
+							</section>
+
+							<!-- 定价模式 -->
+							<section class="sectionWrap ">
+								<div class="medium">
+									<h3 class="title">定价<span class="logocolor" style="color: #D93644!important" >销售总额:<span class="agent_use" >0</span></span></h3>
+
+								</div>
+								<DIV>
+
+									<div class="card" style="width: 45%;float: left;margin-right: 10px;">
+										<div class="card-title">每件价格</div>
+										<div class="want-price"><span>¥</span><input style="border:0;padding:0" type="number" placeholder="0" id="price" size="10"></div>
+
+									</div>
+									<div class="card" style="width: 45%;float: left;">
+										<div class="card-title">销售数量</div>
+										<div class="want-price"><span></span><input value="" style="border:0;padding:0" type="number" placeholder="0" id="stock" size="10"></div>
+
+									</div>
+								</DIV>
+							</section>
+
+							<!--<section class="sectionWrap ">
+								<div class="medium">
+									<h3 class="title">内容</h3>
+								</div>
+
+								 
+								<div class="z_photo">
+									<div class="z_file">
+										<input type="file" name="file" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+
+									</div>
+
+								</div>
+
+								 
+								<div class="z_mask">
+									 
+									<div class="z_alert">
+										<p>确定要删除这张图片吗？</p>
+										<p>
+											<span class="z_cancel">取消</span>
+											<span class="z_sure">确定</span>
+										</p>
+									</div>
+								</div>
+-->
+							<!--<div class="content">
+									<div class="upload-img">
+										<div class="img" onclick="init_upload(this,'content_img1','上传图片',0)">
+											<div>
+												<img id="content_img1" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png">
+												<input type="hidden" class="input_content_img1">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            <p class="mainText allImg noImg">内容图1</p>
+                            
+                            
+                            <p class="psText logocolor">（必选）</p>
+                            
+                        </dfn>
+										</div>
+										<div class="img" onclick="init_upload(this,'content_img2','上传图片',0)">
+											<div>
+												<img id="content_img2" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png">
+												<input type="hidden" class="input_content_img2">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            
+                            <p class="mainText">内容图2</p>
+                            
+                            <p class="psText">（必选）</p>
+                            
+                        </dfn>
+										</div>
+										<div class="img" onclick="init_upload(this,'content_img3','上传图片',0)">
+											<div>
+												<img id="content_img3" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png">
+												<input type="hidden" class="input_content_img3">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            
+                            <p class="mainText">内容图3</p>
+                            
+                            <p class="psText">（必选）</p>
+                            
+                        </dfn>
+										</div>
+										<div class="img" onclick="init_upload(this,'content_img4','上传图片',0)">
+											<div>
+												<img id="content_img4" src="../images/o_1cu3scb50ht417261kf1fkcomcm.png">
+												<input type="hidden" class="input_content_img4">
+												<i class="addIcon"></i>
+											</div>
+
+											<dfn class="infoB">
+                            
+                            <p class="mainText">内容图4</p>
+                            
+                            <p class="psText">（必选）</p>
+                            
+                        </dfn>
+										</div>
+
+									</div>
+									
+
+								</div>
+							</section>-->
+
+							<section style="margin-bottom:10%;" class="sectionWrap otherInfo">*认真填写信息将有助于您的寄卖商品通过审核和卖出</section>
+
+							<!-- 卖家寄语 -->
+
+						</div>
+						<!--join-->
+
+					</div>
+					<!--?//php endif;?-->
+				</div>
+				<div style="display: none;" class="contentimg"></div>
+				<!--v-cloak-->
+
+			</div>
+		</div>
+		<section class="bottom-fix-button-wrap">
+			<div class="bottom-fix-button-bg" style="width: 100%;">
+				<div onclick="create_goods()" class="bottom-fix-button redGradient" style="width: 80%;  left:50%; float: left;">提交</div>
+
+				<!--<div class="bottom-fix-button redGradient" style="width: 40%;  left:75%;float: left;">预览</div>-->
+			</div>
+
+		</section>
+	</body>
+	<script type="text/javascript">
+		//px转换为rem
+
+		function imgChange(obj1, obj2) {
+			console.log(2222)
+			//获取点击的文本框
+			var file = document.getElementById("file");
+			//存放图片的父级元素
+			var imgContainer = document.getElementsByClassName(obj1)[0];
+			//获取的图片文件
+			var fileList = file.files;
+			//文本框的父级元素
+			var input = document.getElementsByClassName(obj2)[0];
+			var imgArr = [];
+			//遍历获取到得图片文件
+			for(var i = 0; i < fileList.length; i++) {
+				var imgUrl = window.URL.createObjectURL(file.files[i]);
+				imgArr.push(imgUrl);
+				var img = document.createElement("img");
+				img.setAttribute("src", imgArr[i]);
+				var imgAdd = document.createElement("div");
+				imgAdd.setAttribute("class", "z_addImg");
+				imgAdd.appendChild(img);
+				imgContainer.appendChild(imgAdd);
+			};
+			imgRemove();
+		};
+
+		function imgRemove() {
+			var imgList = document.getElementsByClassName("z_addImg");
+			var mask = document.getElementsByClassName("z_mask")[0];
+			var cancel = document.getElementsByClassName("z_cancel")[0];
+			var sure = document.getElementsByClassName("z_sure")[0];
+			for(var j = 0; j < imgList.length; j++) {
+				imgList[j].index = j;
+				imgList[j].onclick = function() {
+					var t = this;
+					mask.style.display = "block";
+					cancel.onclick = function() {
+						mask.style.display = "none";
+					};
+					sure.onclick = function() {
+						mask.style.display = "none";
+						t.style.display = "none";
+					};
+
+				}
+			};
+		};
+	</script>
+	<script>
+		$(function() {
+			$("#checkbox").change(function() {
+				if($('#checkbox').is(':checked')) {
+					$('#type').val(1);
+				} else {
+					$('#type').val(0);
+				}
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		var mescroll;
+
+		$(function() {
+
+			$(".bg").css('height', $('body').height() / 1.3)
+			$(".copy").click(function() {
+				copyShareUrl($(this).parent().find('span').html());
+
+			});
+
+			var user_id = localStorage.getItem('user_id');
+			get_goods_show(init_view);
+
+			/*上拉加载的回调 */
+
+			function init_view(data) {
+				console.log(22333)
+				var goods_detail = localStorage.getItem('goods_detail');
+				var category_list = data.category_list;
+
+				var info = category_list;
+				var goods_detail = data.data;
+
+				var goods_id = localStorage.getItem('goods_id');
+				console.log(goods_id)
+
+				$('#price').val(goods_detail.price)
+				if(goods_id > 0) {
+					$('#stock').val(goods_detail.stock)
+					$('#title').val(goods_detail.title)
+					var content1 = HtmlUtil.htmlDecode(goods_detail.content)
+					var reg = /,/g;
+					content1 = content1.replace(reg, '"');
+					console.log(content1)
+					$('.contentimg').html(content1)
+
+					$('.contentimg img').each(function(index, element) {
+						var url = $(this).attr('src')
+						//						var reg = /\/\//g;
+						//						url = url.replace(reg, '');
+						console.log(index)
+						$('.input_content_img' + (index + 1)).val(url)
+						$('#content_img' + (index + 1)).attr('src', IP + url)
+
+					});
+
+					//					$('#price').val(goods_detail.price)
+
+					$('.input_img').val(goods_detail.img)
+					console.log(goods_detail.content)
+					$('.input_content_img1').val(goods_detail.content)
+					$('#content_img1').attr('src', IP + '/' + goods_detail.content)
+
+					$('#img').attr('src', IP + '/'+ goods_detail.img)
+					console.log(goods_detail.img)
+					$('.input_img1').val(goods_detail.img1)
+					$('#img1').attr('src', IP + '/'+ goods_detail.img1)
+
+					if(goods_detail.img2 != '' && goods_detail.img2 != null) {
+
+						$('.input_img2').val(goods_detail.img2)
+						$('#img2').attr('src', IP + '/'+ goods_detail.img2)
+					}
+					if(goods_detail.img3 != '' && goods_detail.img3 != null) {
+
+						$('.input_img3').val(goods_detail.img3)
+						$('#img3').attr('src', IP + '/'+ goods_detail.img3)
+					}
+					$('.redGradient').html('修改')
+					if(goods_detail.check_status == 0) {
+						$('.redGradient').html('正在销售,不可编辑')
+						$('.redGradient').removeAttr('onclick')
+					}
+				}
+
+				var category_list = info;
+				console.log(category_list)
+				$('.select-box .typeLabel').remove();
+				$.each(info, function(index, content) {
+					var active = ''
+					if(index == 0) {
+						active = 'active'
+						$('#category_id').val(content.id)
+					}
+
+					var item = '  <div category_id="' + content.id + '" style="margin-left:0" class="typeLabel ' + active + '" for="cloth">';
+					item += '			<img alt="" src="' + IP + content.img_url + '"><span>' + content.title + '</span></div>';
+
+					$('.select-box').append(item);
+				});
+
+				$(".select-box .typeLabel").click(function() {
+					var cate_id = $(this).attr('category_id')
+					$('.typeLabel').removeClass('active')
+					$(this).addClass('active')
+					$('#category_id').val(cate_id)
+				});
+
+				if(goods_id > 0) {
+					$('.select-box .typeLabel').each(function() {
+						var cate_id = $(this).attr('category_id')
+						console.log(goods_id)
+						if(cate_id == goods_detail.category_id) {
+							$(this).trigger('click')
+						}
+
+					});
+				}
+			}
+
+		});
+
+		window.addEventListener('update_trade_upload_img', function(e) {
+			console.log(223343)
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var upload_obj = $('.input_' + upload_obj_id);
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+			console.log(upload_obj.val())
+			if(avatar != null && avatar != "") {
+				$('#' + upload_obj_id).attr('src', IP + '/' + avatar)
+			} else {
+				if(upload_obj.val() == "") {
+					$('#' + upload_obj_id).attr('src', '../images/o_1cu3scb50ht417261kf1fkcomcm.png')
+				}
+			}
+			if(upload_obj.val() == "") {
+				$('.input_' + upload_obj_id).val(avatar);
+			}
+			console.log($('.input_' + upload_obj_id).val())
+		});
+	</script>
+
+</html>

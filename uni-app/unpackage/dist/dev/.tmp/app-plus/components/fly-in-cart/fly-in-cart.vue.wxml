@@ -1,0 +1,1 @@
+<template name="2ceab282"><view class="_view M2ceab282 container"><view class="_view M2ceab282 good_box" wx:if="{{!hide_good_box}}" style=" {{'left:' + bus_x + 'px;top:' + bus_y + 'px;'}}"><image src="{{imgUrl}}" class="_image M2ceab282"></image></view></view></template>

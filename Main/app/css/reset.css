@@ -1,0 +1,281 @@
+@charset "UTF-8";
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+  -ms-tap-highlight-color: rgba(0, 0, 0, 0);
+  -o-tap-highlight-color: rgba(0, 0, 0, 0);
+  tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+  height: 100%;
+  font-size: 17.07px;
+  line-height: 1;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+body {
+  margin: 0 auto !important;
+  background: #f4f5f6;
+  -webkit-text-size-adjust: 100% !important;  
+  text-size-adjust: 100% !important;  
+  -moz-text-size-adjust: 100% !important;
+}
+body,
+div,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+form,
+input,
+textarea,
+p,
+th,
+td,
+fieldset,
+pre,
+code {
+  margin: 0;
+  padding: 0;
+}
+input {
+  border: 0;
+}
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+}
+ul,
+ol,
+dl,
+dd,
+dt {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+em,
+i,
+s {
+  font-style: normal;
+  text-decoration: none;
+}
+img {
+  border: 0px;
+  margin: 0;
+  display: block;
+}
+sup {
+  vertical-align: text-top;
+}
+sub {
+  vertical-align: text-bottom;
+}
+a {
+  color: #333;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+fieldset,
+img {
+  border: 0;
+}
+address,
+caption,
+cite,
+code,
+em,
+strong,
+th,
+var {
+  font-style: normal;
+  font-weight: normal;
+}
+ol,
+ul {
+  list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-size: 100%;
+  font-weight: normal;
+}
+a,
+a:active,
+a:focus,
+button,
+button:active,
+input,
+input:focus,
+select,
+select:focus,
+textarea,
+textarea:focus {
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+}
+/* 禁用iPhone中Safari的字号自动调整 */
+html {
+  -webkit-text-size-adjust: none;
+}
+/* 设置HTML5元素为块 */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+/* 设置图片视频等自适应调整 */
+img {
+  max-width: 100%;
+  height: auto;
+  width: auto \9;
+  /* ie8 */
+}
+.video embed,
+.video object,
+.video iframe {
+  width: 100%;
+  height: auto;
+}
+/* 自动换行 */
+.etc {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/*多行自动换行*/
+.etcmore {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-all;
+}
+/* 行为箭头 */
+.arrow:after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #7C7C81;
+  border-top: 2px solid #7C7C81;
+  -mo-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  margin-top: -4px;
+  display: block;
+}
+/*清空*/
+.clearfix:after {
+  clear: both;
+  display: block;
+  height: 0;
+  visibility: hidden;
+  content: ".";
+}
+::-webkit-input-placeholder {
+  /* WebKit browsers */
+  color: #e5e5e5;
+  font-weight: normal;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #e5e5e5;
+  font-weight: normal;
+}
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #e5e5e5;
+  font-weight: normal;
+}
+::-ms-input-placeholder {
+  /* Internet Explorer 10+ */
+  color: #e5e5e5;
+  font-weight: normal;
+}

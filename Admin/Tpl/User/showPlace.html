@@ -1,0 +1,139 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>本轮位置</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">首页</a>
+            </li>
+            <li>
+                <a>团队管理</a>
+            </li>
+            <li class="active">
+                <strong>本轮位置</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                   
+                    <div class="ibox-content">
+                        <div class="row">
+                           
+                            <table class="table table-hover" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>序号</th>
+                                        <th>手机编号</th>
+                                        <th>会员姓名</th>
+                                        
+                                        <th>开通时间</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <volist name='list' id='item'>
+                                    <tr>
+                                        
+                                        <th>
+                                        <eq name="item.is_out" value="1">创业成功
+                                        <else/>
+                                        	<eq name="item.is_yinc" value="1">组长</eq>
+                                        	<eq name="item.is_yinc" value="0">组员</eq>
+                                        </eq>
+                                        </th>
+                                        <th>
+                                        
+                                        <eq name="item.is_out" value="1"><span style="color:gray;">{$item['user_id']}</span>
+                                        <else/>
+                                        	<eq name="item.is_yinc" value="1"><span style="color:red;">{$item['user_id']}</span></eq>
+                                        	<eq name="item.is_yinc" value="0"><span style="color:orange;">{$item['user_id']}</span></eq>
+                                        </eq>
+                                        <if condition="$item.fck_id eq $uid">(自己)</if>
+
+                                        </th>
+                                        <th>{$item['user_name']}</th>
+                                        
+                                        <th>{$item['pdt']|date="Y-m-d H:i:s",###}</th>
+                                        
+                                    </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                            
+                            <script type="text/javascript">
+                                layui.use(['layer'],function() {
+                                    $('.confirm').on('click',function() {
+                                        console.log(1);
+                                        var self=$(this);
+                                        var money=self.attr('money');
+                                        layer.confirm('您确认选择该会员吗？',
+                                            {title:'提示',icon:3},
+                                            function(index) {
+                                                $.get(self.attr('url'),function (data) {
+                                                    console.log(data);
+                                                    if (data.status) {
+                                                        layer.msg(data.info,{end:function() {
+                                                            location.reload();
+                                                        }});
+                                                    }else{
+                                                        layer.msg(data.info);
+                                                    }
+                                                })
+                                            layer.close(index);
+                                        });
+                                    return false;
+                                    }); 
+                                    $('.del').on('click',function() {
+                                        console.log(1);
+                                        var self=$(this);
+                                        layer.confirm('您确认删除该会员吗？',
+                                            {title:'提示',icon:3},
+                                            function(index) {
+                                                $.get(self.attr('url'),function (data) {
+                                                    console.log(data);
+                                                    if (data.status) {
+                                                        layer.msg(data.info,{end:function() {
+                                                            location.reload();
+                                                        }});
+                                                    }else{
+                                                        layer.msg(data.info);
+                                                    }
+                                                })
+                                            layer.close(index);
+                                        });
+                                    return false;
+                                    });   
+                                });                                      
+                                    
+                                </script>
+                            <!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <title>Title</title>
+                            </head>
+                            <body>
+                                <eq name="res.cengshu" value="1">
+                                <div class="row grey-bg">
+                                {$page}
+                                </div>
+                                </eq>
+                            </body>
+                            </html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>

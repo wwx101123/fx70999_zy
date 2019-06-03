@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>支付中心</title>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css">
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+
+			});
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'back_shopping');
+
+				}
+			});
+		</script>
+	</head>
+
+	<body ontouchstart="">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<!--支付成功-->
+				<div class="weui-msg msg-box">
+					<div class="weui-msg__icon-area">
+						<i class="weui-icon-success weui-icon_msg"></i>
+					</div>
+					<div class="weui-msg__text-area">
+						<h2 class="weui-msg__title">支付成功</h2>
+						<p class="weui-msg__desc">
+							支付已经成功，可以点击下方按钮进入会员中心查看订单。
+						</p>
+					</div>
+					<div class="weui-msg__opr-area" style="display: none;">
+						<p class="weui-btn-area">
+							<a class="weui-btn weui-btn_primary" href="/user/center/index.html">会员中心</a>
+							<a class="weui-btn weui-btn_default" href="/index.html">返回首页</a>
+						</p>
+					</div>
+
+				</div>
+				<!--/支付成功-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+
+	</body>
+
+</html>

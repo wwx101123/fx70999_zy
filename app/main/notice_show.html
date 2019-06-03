@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>积分明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			$(function() {
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+				//				moneyflows_list();
+			});
+			window.onload = function() {
+				//璁剧疆瀛椾綋澶у皬
+				var hTML = document.documentElement;
+				var dWidth = hTML.getBoundingClientRect().width;
+				hTML.style.fontSize = dWidth / 15 + "px";
+			}
+		</script>
+		<style>
+			.weui-panel:before {
+				top: 0;
+				border-top: 0px solid #e5e5e5;
+				-webkit-transform-origin: 0 0;
+				transform-origin: 0 0;
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+			}
+		</style>
+
+	</head>
+
+	<body ontouchstart>
+		<div class="page__bd mescroll" id="mescroll">
+			<!--资讯介绍-->
+			<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+				<div class="weui-panel__bd">
+					<div class="meta">
+						<h1 class="meta-tit title" style="text-align: center;"></h1>
+						<p class="meta-info">
+							<span><i class="iconfont icon-date"></i>发布时间 : <span class="time_str"></span></span>
+
+							<span style="display:none"><i class="iconfont icon-view"></i> <span class="read_count"></span>次浏览</span>
+						</p>
+					</div>
+					<div class="entry">
+
+					</div>
+				</div>
+			</div>
+			<!--/资讯介绍-->
+
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_notice_list');
+
+			}
+		});
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = new MeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					use: false
+				}
+			});
+
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				get_notice_show(init_view);
+			}
+
+			function init_view() {
+
+				var data = localStorage.getItem('notice_detail');
+				console.log(data)
+				var info = JSON.parse(data);
+				info = info.data;
+				$('.title').html(info.title);
+				$('.time_str').html(info.time_str);
+				$('.read_count').html(info.read_count);
+
+				var content1 = HtmlUtil.htmlDecode(info.content)
+				var str = content1;
+
+				var reg = /src="/g;
+
+				str = str.replace(reg, 'src="' + IP);
+
+				$('.entry').html(str)
+				mescroll.endSuccess();
+			}
+		});
+	</script>
+
+</html>

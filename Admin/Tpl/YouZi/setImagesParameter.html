@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>会员管理</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/style_inspina.css"
+	rel="stylesheet">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/bootstrap.min14ed.css"
+	rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Adm/css/main.css">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+
+
+
+<style type="text/css">
+b {
+	display: none
+}
+</style>
+
+</head>
+
+<body class="mainbody">
+	<form class="form-inline title-form" name="form2" method="post"
+		action="__URL__/setImagesParameter">
+		<!--导航栏-->
+
+		<!--/导航栏-->
+
+		<!--工具栏-->
+		<div id="floatHead" class="toolbar-wrap">
+			<div class="toolbar">
+				<div class="box-wrap">
+					<a class="menu-btn"><i class="iconfont icon-more"></i></a>
+					<div class="l-list">
+
+
+
+						<button type="submit" class="btn btn-primary">保存</button>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<!--/工具栏-->
+
+		<!--列表-->
+		<div class="table-container">
+			<!-- 分享相册-->
+			<div class="explanation" id="explanation">
+				<div class="title" id="checkZoom">
+					<i class="fa fa-lightbulb-o"></i>
+					<h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+					<span id="explanationZoom" title="收起提示"></span>
+				</div>
+				<ul>
+					<li>上传分享图片,按次序显示</li>
+				</ul>
+			</div>
+			<div class="ncap-form-default tab_div_2">
+				<dl class="row">
+					<div class="tab-pane" id="tab_goods_images">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td><volist name="recommend_list" id="image" key="k">
+										<div
+											style="width: 100px; text-align: center; margin: 5px; display: block; float: left"
+											class="goods_xc3">
+											<input type="hidden" value="{$image['image_url']}"
+												name="goods_images3[]"> <a href="javacript:void(0);"><img
+												width="100" height="100" src="{$image['image_url']}">
+											</a> <br> <a href="javascript:void(0)"
+												onClick="ClearPicArr2(this,'{$image.image_url}')">删除</a>
+
+										</div>
+										</volist>
+
+										<div class="goods_xc3"
+											style="width: 100px; text-align: center; margin: 5px; display: block; float: left">
+											<input type="hidden" name="goods_images3[]" value="" /> <a
+												href="javascript:void(0);"
+												onClick="GetUploadify(10,'','goods','call_back4');"><img
+												src="__PUBLIC__/Images/add-button.jpg" width="100"
+												height="100" /></a><br /> <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+										</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</dl>
+			</div>
+			<!-- 分享相册-->
+			<!-- 商品相册-->
+			<div class="explanation" id="explanation">
+				<div class="title" id="checkZoom">
+					<i class="fa fa-lightbulb-o"></i>
+					<h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+					<span id="explanationZoom" title="收起提示"></span>
+				</div>
+				<ul>
+					<li>上传APP首页滚动图,按次序显示</li>
+				</ul>
+			</div>
+			<div class="ncap-form-default tab_div_2">
+				<dl class="row">
+					<div class="tab-pane" id="tab_goods_images">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td><volist name="slide_list" id="image">
+										<div
+											style="width: 100px; text-align: center; margin: 5px; display: inline-block;"
+											class="goods_xc2">
+											<input type="hidden" value="{$image['image_url']}"
+												name="goods_images2[]"> <a onClick=""
+												href="{$image['image_url']}" target="_blank"><img
+												width="100" height="100" src="{$image['image_url']}"></a>
+											<br> <a href="javascript:void(0)"
+												onClick="ClearPicArr2(this,'{$image.image_url}')">删除</a>
+										</div>
+										</volist>
+
+										<div class="goods_xc2"
+											style="width: 100px; text-align: center; margin: 5px; display: inline-block;">
+											<input type="hidden" name="goods_images2[]" value="" /> <a
+												href="javascript:void(0);"
+												onClick="GetUploadify(2,'','goods','call_back3');"><img
+												src="__PUBLIC__/images/add-button.jpg" width="100"
+												height="100" /></a> <br /> <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+										</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</dl>
+				
+			</div>
+			<div class="ncap-form-default tab_div_2">
+			<!-- 商品相册-->
+			<dl class="row">
+				<dt class="tit"></dt>
+				<dd class="opt">
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$str30}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$str30}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext" name="str30" value="{$str30}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="首页直播的图"
+							class="type-file-button"> <input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			</div>
+		</div>
+		<!--/列表-->
+
+
+	</form>
+</body>
+</html>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script>
+<script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+	$(function() {
+		//创建商品规格
+
+		//绑定品牌按钮
+		$("#itemAddButton1").click(function() {
+			addVarTr()
+		});
+		$("#itemAddButton2").click(function() {
+			addVarTr2()
+		});
+		$("#itemAddButton3").click(function() {
+			addVarTr3()
+		});
+		$("#itemAddButton4").click(function() {
+			addVarTr4()
+		});
+
+	});
+	//创建URL变量HTML
+	function createVarHtml() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="bank[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td>  '
+				+ '<input type="text" name="bankcard[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td>  '
+				+ '<input type="text" name="bankusername[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml2() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="userbank[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml3() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="u_level[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="trade_money[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_num[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_money[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="user_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="jq_shui[]" class="td-input" style="width:25%;" /></td>'
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	function createVarHtml4() {
+		varHtml = '<tr class="td_c">'
+				+ '<td> '
+				+ '<input type="text" name="s1[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s2[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s3[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s4[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s5[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s6[]" class="td-input" style="width:50%;" /></td>'
+				+ '<td> '
+				+ '<input type="text" name="s7[]" class="td-input" style="width:50%;" /></td>'
+
+				+ '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+				+ '</tr>'
+		return varHtml;
+	}
+	//删除一行变量
+	function delVarTr(obj) {
+		$(obj).parent().parent().remove();
+	}
+	//添加一行变量
+	function addVarTr() {
+		varHtml = createVarHtml();
+		$(".bank").append(varHtml);
+	}
+	function addVarTr2() {
+		varHtml = createVarHtml2();
+		$(".userbank").append(varHtml);
+	}
+	function addVarTr3() {
+		varHtml = createVarHtml3();
+		$(".userlevel").append(varHtml);
+	}
+	function addVarTr4() {
+		varHtml = createVarHtml4();
+		$(".terminal").append(varHtml);
+	}
+	//上传图片回调事件
+	function img_call_back(fileurl_tmp) {
+		$("#imagetext").val(fileurl_tmp);
+		$("#img_a").attr('href', fileurl_tmp);
+		$("#img_i")
+				.attr('onmouseover',
+						"layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+	}
+	//上传图片回调事件
+	function img_call_back2(fileurl_tmp) {
+		$("#imagetext2").val(fileurl_tmp);
+		$("#img_a2").attr('href', fileurl_tmp);
+		$("#img_i2")
+				.attr('onmouseover',
+						"layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+	}
+
+	// 上传商品图片成功回调函数
+	function call_back(fileurl_tmp) {
+		$("#original_img").val(fileurl_tmp);
+		$("#original_img2").attr('href', fileurl_tmp);
+	}
+	// 上传商品图片成功回调函数
+	function call_back3(paths) {
+		var last_div = $(".goods_xc2:last").prop("outerHTML");
+		for (var i = 0; i < paths.length; i++) {
+			$(".goods_xc2:eq(0)").before(last_div); // 插入一个 新图片
+			$(".goods_xc2:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr(
+					'onclick', '').attr('target', "_blank");// 修改他的链接地址
+			$(".goods_xc2:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+			$(".goods_xc2:eq(0)").find('a:eq(1)').attr('onclick',
+					"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+			$(".goods_xc2:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+		}
+	}
+	// 上传商品图片成功回调函数
+	function call_back4(paths) {
+		var last_div = $(".goods_xc3:last").prop("outerHTML");
+		for (var i = 0; i < paths.length; i++) {
+			$(".goods_xc3:eq(0)").before(last_div); // 插入一个 新图片
+			$(".goods_xc3:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr(
+					'onclick', '').attr('target', "_blank");// 修改他的链接地址
+			$(".goods_xc3:eq(0)").find('input').css('display', 'block');
+			$(".goods_xc3:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+			$(".goods_xc3:eq(0)").find('a:eq(1)').attr('onclick',
+					"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+			$(".goods_xc3:eq(0)").find('input').val(paths[i]);
+			$(".goods_xc3:eq(0)").find('input[type="text"]').val(''); // 设置隐藏域 要提交的值
+		}
+	}
+	// 上传商品相册回调函数
+	function call_back2(paths) {
+		var last_div = $(".goods_xc:last").prop("outerHTML");
+		for (var i = 0; i < paths.length; i++) {
+			$(".goods_xc:eq(0)").before(last_div); // 插入一个 新图片
+			$(".goods_xc:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr(
+					'onclick', '').attr('target', "_blank");// 修改他的链接地址
+			$(".goods_xc:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+			$(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick',
+					"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+			$(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+		}
+	}
+	//上传之后删除组图
+	function ClearPicArr2(obj, path) {
+		$.ajax({
+			type : 'GET',
+			url : "{:U('Uploadify/delupload')}",
+			data : {
+				action : "del",
+				filename : path
+			},
+			success : function() {
+				$(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+			}
+		});
+		// 删除数据库记录
+		$.ajax({
+			type : 'GET',
+			url : "{:U('Uploadify/del_goods_images')}",
+			data : {
+				filename : path
+			},
+			success : function() {
+			}
+		});
+	}
+</script>

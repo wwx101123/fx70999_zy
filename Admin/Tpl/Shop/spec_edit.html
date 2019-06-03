@@ -1,0 +1,255 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>类别管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>类别管理</a></li>
+			<li class="active"><strong>编辑类别</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+
+
+
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证 
+		//添加按钮(点击绑定)
+		$("#itemAddButton").click(function() {
+			showSpecDialog();
+		});
+	});
+	//创建窗口
+	function showSpecDialog(obj) {
+		var objNum = arguments.length;
+		var d = dialog({
+			width : 500,
+			height : 180,
+			title : '商品规格',
+			url : 'dialog_spec.html',
+			onclose : function() {
+				var trHtml = this.returnValue;
+				if (trHtml.length > 0) {
+					$("#item_box").append(trHtml);
+				}
+			}
+		}).showModal();
+		//检查是否修改状态
+		if (objNum == 1) {
+			d.data = obj;
+		}
+	}
+
+	//删除节点
+	function delItemTr(obj) {
+		$(obj).parent().parent().remove();
+	}
+</script>
+
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.goods').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #goods').css('display','block')
+		$('.sidebar #spec_list').addClass('current')
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" style="min-height: 600px">
+			<form class="form-horizontal ajax-form" name="form1" id="form1"
+				method="post" action="__ACTION__">
+
+				<input type="hidden" name="spec_id" value="{$vo.id}" />
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">规格名称：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="title" type="text" value="{$vo.title}"
+							class="form-control" required="">
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">排序数字：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="sort_id" type="text" value="{$vo.sort_id}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">规格：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+
+						<a id="itemAddButton" class="icon-btn"><i
+							class="iconfont icon-add"></i><span>添加选项</span></a> <input
+							type="hidden" name="id" id="id" value="{$vo.id}">
+
+						<div class="table-container" style="padding-top: 10px;">
+							<table border="0" cellspacing="0" cellpadding="0"
+								class="border-table" width="82%">
+								<thead>
+									<tr>
+										<th width="12%">文字</th>
+										<!-- <th width="16%">图片</th> -->
+										<th width="12%">排序</th>
+										<th width="10%">操作</th>
+									</tr>
+								</thead>
+								<tbody id="item_box">
+
+									<foreach name="vo.spec" item="vo">
+
+
+									<tr class="td_c">
+										<td><input type="hidden" name="item_id[]" id="item_id" value="{$vo.id}" />
+											<input type="hidden" name="item_title[]" id="item_title" value="{$vo.title}" />
+											<span class="item_title">{$vo.title}</span></td>
+
+
+										<td><input type="hidden" name="item_sortid[]"id="item_sortid" 
+											value="{$vo.sort_id}" /> <span class="item_sortid">{$vo.sort_id}</span></td>
+										<td><a title="编辑" class="img-btn"
+											onclick="showSpecDialog(this);"><i
+												class="iconfont icon-edit"></i></a> <a title="删除"
+											class="img-btn" onclick="delItemTr(this);"><i
+												class="iconfont icon-delete"></i></a></td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</div>
+
+
+
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">内容：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input type="hidden" name="detail" id="detail">
+						<textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<input type="hidden" name="id" value="{$vo.id}">
+						<button class="btn btn-primary ajax-submit" type="submit">编辑发布</button>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$("#checkbox").change(function() {
+							if ($('#checkbox').is(':checked')) {
+								$('#type').val(1);
+							} else {
+								$('#type').val(0);
+							}
+						});
+					});
+
+					layui
+							.use(
+									[ 'layedit', 'upload', 'layer', 'laydate' ],
+									function() {
+										var layedit = layui.layedit;
+										var layer = layui.layer;
+										layedit
+												.set({
+													uploadImage : {
+														url : '__APP__/Gouwu/upload_layedit_pp'
+													}
+												});
+										edit = layedit.build('demo'); //建立编辑器
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+														});
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+															form = $('.ajax-form');
+															$
+																	.post(
+																			form
+																					.attr('action'),
+																			form
+																					.serialize(),
+																			function(
+																					data) {
+																				// console.log(data);
+																				if (data.status) {
+																					layer
+																							.msg(
+																									data.info,
+																									{
+																										offset : '100px',
+																										end : function() {
+																											if (data.url) {
+																												location.href = data.url;
+																											} else {
+																												location
+																														.reload();
+																											}
+																										}
+																									});
+																				} else {
+
+																					layer
+																							.msg(data.info);
+																				}
+																			});
+															return false;
+														});
+									});
+				</script>
+			</form>
+		</div>
+	</div>
+</div>
+</block>

@@ -1,0 +1,147 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>批量转换管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>后台管理</a>
+                </li>
+                <li class="active">
+                    <strong>批量转换</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>批量转换 
+                </h5>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal ajax-post" name="form1" id="form1" method="post" action="__URL__/adminChange">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户编号：<i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+                            <input name="user_number" type="text" value="" class="form-control"  >
+                       <span class="help-block m-b-none">例如：10|100【含义:编号从10到100】</span> 
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">股票拥有： <i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+                            <input name="live_gupiao" type="text" value="" class="form-control"  >
+                       <span class="help-block m-b-none">例如：500|1000</span> 
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">转换比例：<i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+                            <input name="percent" type="text" value="" class="form-control" required="">
+                        </div>
+                    </div>
+                    
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group hidden">
+                        <label class="col-sm-2 control-label">备注： <i class="text-danger">*</i></label>
+
+                        <div class="col-sm-10">
+
+                            <textarea type="text" name="memo" class="form-control"> </textarea>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed hidden"></div>
+
+                    <div class="form-group hidden">
+                        <label class="col-sm-2 control-label">是否显示： </label>
+
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline"> <input type="radio" name="is_show" value="0" checked=""> 否 </label>
+                            <label class="checkbox-inline"> <input type="radio" name="is_show" value="1"> 是 </label>
+
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed hidden"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary submit" type="submit" >提交</button>
+                            <button class="btn btn-white" type="button" onclick="history.go(-1)">取消</button>
+                        </div>
+                    </div>
+                </form>
+            
+            
+            <div class="tablesaw-bar mode-stack"></div>
+                <table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-7689">
+
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户账号</th>
+                            <th>相关会员</th>
+                            <!-- <th>摘要</th> -->
+                            <th>说明</th>
+                            <th>金额</th>
+                            <th>时间</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <volist name="list" id="vo">
+                        <tr>
+                            <td><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                            <td><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content">{$vo['uid']|user_id}</span></td>
+                            <td><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo['user_id']}</span></td>
+                            <!-- <td><b class="tablesaw-cell-label">摘要</b><span class="tablesaw-cell-content">奖金</span></td> -->
+                            <td><b class="tablesaw-cell-label">说明</b><span class="tablesaw-cell-content">
+                            <switch name="vo.action_type">
+                                <case value="1">{$fee_s7[0]}</case>
+                                <case value="2">{$fee_s7[1]}</case>
+                                <case value="3">{$fee_s7[2]}</case>
+                                <case value="4">{$fee_s7[3]}</case>
+                                <case value="5">{$fee_s7[4]}</case>
+                                <case value="6">{$fee_s7[5]}</case>
+                                <case value="7">{$fee_s7[6]}</case>
+                                <case value="8">{$fee_s7[7]}</case>
+                                <case value="9">{$fee_s7[8]}</case>
+                                <case value="19">{$vo.bz}</case>
+                                <case value="21">会员充值-<eq name="vo.type" value="0">奖金积分<else/>注册积分</eq></case>
+                                <case value="22">激活积分转出</case>
+                                <case value="23">注册积分转出</case>
+                                <case value="30">售出股票税收</case>
+                                <case value="31">售出股票奖金收入</case>
+                                <case value="32">售出股票进入复投账户</case>
+                                <case value="33">售出股票进入幸运积分</case>
+                                <case value="34">售出股票平台收入</case>
+                                <case value="100">{$vo.bz}</case>
+                                <default />其他
+                            </switch>
+
+                            </span></td>
+                            <td><b class="tablesaw-cell-label">金额</b><span class="tablesaw-cell-content"><i>{$vo['epoints']}</i> </span></td>
+                            <td><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p title="{$vo.e_date|date="Y-m-d",###}">{$vo.pdt|date="Y-m-d",###}</p></span></td>
+                        </tr>
+                        </volist>
+                    </tbody>
+
+                </table>
+                {$page}
+            </div>
+            </div>
+       
+        </div>
+        
+    </div>
+</block>

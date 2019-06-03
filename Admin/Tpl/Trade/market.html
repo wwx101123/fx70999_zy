@@ -1,0 +1,86 @@
+<extend name="Public:header" />
+
+ 
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.trade').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #trade').css('display', 'block')
+		$('.sidebar #market').addClass('current')
+	});
+</script><link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/Resource/module.css">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>市场列表</h5>
+			<div class="ibox-tools">
+				<a style="display: none" href="{:U('Reg/userReg')}"
+					class="btn btn-primary">新增会员</a>
+				<!--<a href="../excel/5.php" class="btn btn-primary">导出Excel</a>-->
+			</div>
+		</div>
+		<div class="ibox-content data-table table-striped" style="display: block;">
+
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="">
+				<thead>
+					<tr>
+						<th class="row-selected row-selected"><input
+							class="check-all" type="checkbox" /></th>
+						<th class="">ID</th>
+						<th class="">市场名称</th> 
+						<th class="">交易时间</th>
+						<th class="">买入手续费</th>
+						<th class="">卖出手续费</th>
+						<th class="">买入最小交易价</th>
+						<th class="">买入最大交易价</th>
+						<th class="">卖出最小交易价</th>
+						<th class="">卖出最大交易价</th>
+						<th class="">开启交易</th>
+						<th class="">状态</th>
+						<th class="">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<notempty name="list"> <volist name="list" id="vo">
+					<tr>
+						<td><input class="ids" type="checkbox" name="id[]"
+							value="{$vo.id}" /></td>
+						<td>{$vo.id}</td>
+						<td>{$vo.title}</td>
+						<td>{$vo.tradetimeqq3479015851}</td>
+						<td>{$vo.fee_buy}</td>
+						<td>{$vo.fee_sell}</td>
+						<td>{$vo.buy_min}</td>
+						<td>{$vo.buy_max}</td>
+						<td>{$vo.sell_min}</td>
+						<td>{$vo.sell_max}</td>
+
+
+						<td><eq name="vo.trade" value="1">开启交易 <else /> 禁止交易 </eq></td>
+						<td><eq name="vo.status" value="1">可用 <else /> 禁用 </eq></td>
+
+						<td><neq name="vo.name" value="cny">
+							<a href="{:U('Trade/marketEdit?id='.$vo['id'])}"
+								class="btn btn-primary btn-xs">编辑</a></neq></td>
+					</tr>
+					</volist> <else />
+					<td colspan="12" class="text-center">Oh! 暂时还没有内容!</td>
+					</notempty>
+				</tbody>
+			</table>
+			<div class="page">
+				<div>{$page}</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> </block>

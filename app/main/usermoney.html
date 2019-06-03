@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>我的优惠券</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+     maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no" />
+		<meta http-equiv="x-rim-auto-match" content="none">
+		<link href="../css/style(2).css" rel="stylesheet" type="text/css" />
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/tab.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<style>
+			.price {
+				width: 30%;
+			}
+			
+			#sliderSegmentedControl a {
+				width: 33%;
+			}
+		</style>
+	</head>
+
+	<body style="">
+
+		<div class=" page__bd mescroll" id="mescroll">
+
+			
+			<div class="search-box" style="margin:0px;    width:100%; ;">
+				<div class="input-box">
+					<input id="keywords" name="keywords" type="text" placeholder="输入商户号或者SN号快速搜索" onkeydown="if(event.keyCode==13){SiteSearch('#keywords');return false};">
+					<a href="javascript:;" onclick="SiteSearch('#keywords');">
+						<i class="mui-icon mui-icon-search"></i>
+					</a>
+				</div>
+			</div>
+			<div class="aui-palace aui-palace-one b-line" style="padding-top: 10px;">
+				<a href="javascript:;" class="aui-palace-grid1" style="width: 33%;">
+					<div class="aui-palace-grid-icon1">
+						<span class="active_count">0</span>
+					</div>
+					<div class="aui-palace-grid-text">
+						<h2>已审核</h2>
+					</div>
+				</a>
+				<a onclick="open_nocheck()" href="javascript:;" class="aui-palace-grid1" style="width: 33%;">
+					<div class="aui-palace-grid-icon1">
+						<span class="no_active_count">0</span>
+					</div>
+					<div class="aui-palace-grid-text">
+						<h2>未审核</h2>
+					</div>
+				</a>
+				<a href="javascript:;" class="aui-palace-grid1" style="width: 33%;">
+					<div class="aui-palace-grid-icon1">
+						<span class="over_count">0</span>
+					</div>
+					<div class="aui-palace-grid-text">
+						<h2>已流失</h2>
+					</div>
+				</a>
+			</div>
+			<div>
+				<div class="aui-tab" data-ydui-tab>
+
+					<div class="tab-panel">
+
+						<div class="tab-panel-item tab-active">
+							<div class="tab-item item1 detail-list">
+								<ul>
+									<div class="nodata" style="display: none;margin-top:  5%;">
+										<img src="../images/app_assets_images_home_card_nodate.png" width="150" height="150" />
+										<br />
+										<span class="txt open_shop_details">没有此类商户,去拓展吧</span>
+
+									</div>
+								</ul>
+
+							</div>
+						</div>
+
+						<!--<div class="tab-panel-item">
+							<div class="tab-item">
+
+								<div class="tab-item-list tab-item-list-default">
+									<div class="aui-flex">
+										<div class="aui-left-change">
+											<h2>
+                                                <em>￥</em>
+                                                6
+                                            
+                                            </h2>
+											<p>部分商品除外</p>
+											<div class="aui-icon-circle"></div>
+										</div>
+										<div class="aui-flex-box aui-flex-box-two">
+											<h3>
+                                                <em>盟友</em>
+                                                仅限购买阿迪达斯旗舰店商品
+                                            
+                                            </h3>
+											<div class="aui-flex aui-flex-bor-bom">
+												<div class="aui-flex-box aui-flex-box-flow"></div>
+											</div>
+											<div class="aui-flex aui-flex-show">
+												<div class="aui-flex-box">详细信息</div>
+												<div class="aui-show-btn">
+													<i class="icon fa fa-angle-right"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="aui-show-box">
+										<p>默认隐藏内容</p>
+									</div>
+								</div>
+							</div>
+						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var user_id = localStorage.getItem('user_id');
+
+		function open_nocheck() {
+
+			openWindowWithTitle('待审核', 'check_shop_list.html')
+		}
+
+		var mescroll;
+		$(function() {
+
+			//			localStorage.setItem('category_id', 0)
+			//			$('.mescroll').css('top', $('#sliderSegmentedControl').height() + 44);
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					var category_id = localStorage.getItem('category_id');
+					//					console.log(category_id)
+					my_seller_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				localStorage.setItem('huikui_sn', '');
+
+				var IP = localStorage.getItem('IP');
+				var user_id = localStorage.getItem('user_id')
+				console.log(data)
+				var IP = localStorage.getItem('IP');
+				info = JSON.parse(data);
+
+				var info1 = info.data1;
+
+				$('.nodata').css('display', 'none');
+
+				var page_index = localStorage.getItem('page_index');
+				if(page_index == 1 || page_index == 0) {
+					$('.item1 .tab-item-list').remove()
+					$('.item1 .mui-card').remove()
+					$('.item1 .nodata').css('display', 'none')
+				}
+
+				if(info1 != null) {
+					$.each(info1, function(index, content) {
+						var title = content.title;
+						if(content.user_id != user_id) {
+							title = content.user_name;
+						}
+
+						var img = '../images/logo.png';
+						if(content.img != '' && content.img != null) {
+							img = content.img;
+						}
+
+						var item = '<div class="mui-card">';
+						item += '<div class="mui-card-header mui-card-media" style="MARGIN: 3PX;" >';
+						item += '<img src="' + img + '" />';
+						item += '<div class="mui-media-body">';
+						item += '	' + title + '<span style="color: #8f8f94; border-radius: 3px; border: 1px solid #8f8f94;text-align:center;FLOAT: right;padding:2px">' + content.user_name + '</span>';
+						item += '	<p>创建于 ' + content.add_time_str + '</p>';
+						item += '</div>';
+
+						item += '</div>';
+						item += '<div class="mui-card-content" >';
+						item += '	<div class="weui-panel weui-panel_access item-list">';
+						item += '	<a class="weui-cell weui-cell_access" href="javacript:void(0)"style="WIDTH: 50%;';
+						item += ' FLOAT: LEFT;">';
+						item += '<div class="weui-cell__hd">';
+						item += '	<i class="iconfont icon-amount"></i>';
+						item += '</div>';
+						item += '<div class="weui-cell__bd">';
+						item += '		<p>总交易额</p>';
+						item += '</div>';
+						item += '<div class="weui-cell__bd price">¥' + content.trade_money + '</div>';
+						item += '	</a>';
+						item += '	<a class="weui-cell weui-cell_access" href="javacript:void(0)" style="WIDTH: 50%;';
+						item += ' FLOAT: LEFT;">';
+						item += '<div class="weui-cell__hd">';
+						item += '	<i class="iconfont icon-amount"></i>';
+						item += '</div>';
+						item += '<div class="weui-cell__bd">';
+						item += '	<p>月交易额</p>';
+						item += '</div>';
+						item += '	<div class="weui-cell__bd price">¥' + content.month_trade_money + '</div>';
+						item += '</a>';
+						item += '	<a class="weui-cell weui-cell_access" href="javacript:void(0)" style="WIDTH: 50%;';
+						item += ' FLOAT: LEFT;">';
+						item += '	<div class="weui-cell__hd">';
+						item += '	<i class="iconfont icon-amount"></i>';
+						item += '	</div>';
+						item += '<div class="weui-cell__bd">';
+						item += '	<p>周交易额</p>';
+						item += '	</div>';
+						item += '	<div class="weui-cell__bd price">¥' + content.week_trade_money + '</div>';
+						item += '</a>';
+						item += '	<a class="weui-cell weui-cell_access" href="javacript:void(0)" style="WIDTH: 50%;';
+						item += 'FLOAT: LEFT;">';
+						item += '<div class="weui-cell__hd">';
+						item += '	<i class="iconfont icon-amount"></i>';
+						item += '</div>';
+						item += '<div class="weui-cell__bd">';
+						item += '	<p>日交易额</p>';
+						item += '</div>';
+						item += '	<div class="weui-cell__bd price">¥' + content.day_trade_money + '</div>';
+						item += '</a>';
+						item += '</div>';
+						item += '</div>';
+						item += '<div class="mui-card-footer">';
+						item += '	<a class="mui-card-link tab-item-list trade_detail" seller_no="' + content.seller_no + '" href="javacript:void(0)">交易详情</a>';
+						item += '	<a class="mui-card-link"></a>';
+
+						if(content.user_id == user_id) {
+
+							item += '<img class="mobile" mobile="' + content.mobile + '"  src="../images/phone.png" width="20px" >	 ';
+						}
+
+						item += '	</div>';
+						item += '	</div>';
+						//					var item = '<a href="javascript:; " class="aui-flex b-line tab-item-list" seller_no="' + content.seller_no + '">';
+						//					item += '	<div class="aui-skill-img"> ';
+						//					item += '	<img src="../images/logo.png" alt="">';
+						//					item += '</div>';
+						//					item += '<div class="aui-flex-box">';
+						//					item += '	<h3> ' + content.title + ' <em> <i class="icon icon-vip"></i> 盟友</em></h3>';
+						//					item += '	<p>总交易量:' + content.all_money + ' | 月交易量:' + content.all_month_money + '</p>';
+						//					item += '	<p>创建时间:' + content.add_time_str + ' </p>';
+						//					item += '</div>';
+						//					item += '<div class="aui-skill-button">';
+						//					item += '	<span>立即联系</span>';
+						//					item += '	</div>';
+						//					item += '</a>'; 
+						$('.item1 ').append(item);
+						//					console.log(content.phone)
+
+					});
+					if(mui.os.ios) {
+
+						new NoClickDelay(document.querySelector(".mobile"));
+						new NoClickDelay(document.querySelector(".trade_detail"));
+					}
+					$(".mobile").on('click', function() {
+						if($(this).attr('mobile') == '') {
+							mui.toast('商户电话为空')
+						}
+						console.log($(this).attr('mobile'))
+						window.location.href = 'tel:' + $(this).attr('mobile')
+						if(mui.os.ios) {
+							//							window.location.href ='wtai://wp//mc;' + $(this).attr('mobile')
+						}
+
+					})
+				}else{
+					$('.item1 .nodata').css('display', 'block')
+				}
+
+				var IP = localStorage.getItem('IP');
+
+				var IP = localStorage.getItem('IP')
+
+				var user_id = localStorage.getItem('user_id')
+				console.log(data)
+				data = JSON.parse(data)
+				var info1 = data.data1;
+				var info2 = data.data2;
+				var info3 = data.data3;
+				var info4 = data.data4;
+				$('.active_count').html(data.active_count);
+				$('.no_active_count').html(data.no_active_count);
+				$('.over_count').html(data.over_count);
+				$('.data1_count').html(data.data1_count)
+				$('.data2_count').html('待审核(' + data.data2_count + ')')
+				$('.data3_count').html('审核失败(' + data.data3_count + ')')
+				$('.data4_count').html('待完善(' + data.data4_count + ')')
+				 
+				$(".tab-item-list").on('click', function() {
+					localStorage.setItem('seller_no', $(this).attr('seller_no'));
+
+					openWindowWithTitle('商户订单列表', 'shop_order.html')
+				});
+				$(".open_shop_details").on('click', function() {
+
+					openWindowWithTitle('商户拓展', 'shop_details.html')
+				});
+
+				$("#sliderSegmentedControl a").on('click', function() {
+					$('#sliderSegmentedControl a').removeClass('mui-active')
+					$(this).addClass('mui-active');
+
+					localStorage.setItem('my_seller_list_type', $(this).attr('type'))
+
+					mui('.page__bd').pullRefresh().pulldownLoading();
+
+				});
+			}
+
+		});
+
+		/*搜索查询*/
+		function SiteSearch(divTgs) {
+			var str = $(divTgs).val();
+			//				mui.toast(str)
+			if(str == '') {
+				//		weui.alert('请输入关键字');
+				//		return;
+			}
+			console.log(str)
+			localStorage.setItem('keywords', str)
+			localStorage.setItem('page_index', 1)
+			mescroll.resetUpScroll();
+
+		}
+		$('#keywords').bind('input propertychange', function() {
+			var keywords = $(this).val();
+			localStorage.setItem('keywords', keywords)
+			if(keywords == '') {
+				localStorage.setItem('page_index', 1)
+
+				mescroll.resetUpScroll();
+
+			}
+
+		});
+	</script>
+
+</html>

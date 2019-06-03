@@ -1,0 +1,154 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>申述管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>申述管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>申述列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<!-- <a href="{:U('Project/project_edit')}"
+				class="btn btn-success pull-right">新增申述</a> -->
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-7205">
+				<thead>
+					<tr>
+						<th width="5%">任务编号</th>
+						<th width="5%">申述任务</th>
+						<th width="5%">所属类别</th>
+						<th class="center" width="5%">申述人</th> 
+						<th class="center" width="8%">任务样图1</th>
+						<th class="center" width="8%">任务样图2</th>
+						<th class="center" width="8%">投手样图1</th>
+						<th class="center" width="15%">投手样图2</th> 
+						<th class="center" width="15%">任务详情</th> 
+						<th class="center" width="10%">申述时间</th>  
+						<th width="15%">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr>
+						<td><span class="tablesaw-cell-content">{$vo.project_id}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.title}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.category}</span></td>
+						<td class="center">{$vo.name}</td> 
+						
+						<td><span class="rankcolor_1"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.project_albums1}')">查看</a>
+							</span></td>
+						 	<td><span class="rankcolor_1"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.project_albums2}')">查看</a>
+							</span></td>				
+							<td><span class="rankcolor_1"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.project_user_albums1}')">查看</a>
+							</span></td> <td><span class="rankcolor_1"> <a
+									class="btn btn-xs btn-outline btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.project_user_albums2}')">查看</a>
+							</span></td>  
+						<td><span class="tablesaw-cell-content">{$vo.content}</span></td>
+						<td class="center">{$vo.check_time|date="Y-m-d H:i:s",###}</td>  
+						<td><span class="tablesaw-cell-content"> <a
+									href="javascript:void(0)"url="{:U('Project/complain_func')}"  id="{$vo.id}"class="win1" info="确定投手赢？">投手赢</a> | <a
+								href="javascript:void(0)" url="{:U('Project/complain_func')}" id="{$vo.id}"
+								 class="win2" info="确定发布者赢？">发布者赢</a></span></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			{$page}
+			<script type="text/javascript">
+			     function view_content(url){
+			    	 window.open(url) ;
+			     }
+			
+			
+				layui.use('layer', function() {
+					$('.win1').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('url');
+							var id = self.attr('id');
+							$.post($url,{ type:'win1',id:id}, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+					
+					
+					
+					$('.win2').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('url');
+							 var id = self.attr('id');
+							$.post($url,{ type:'win2',id:id}, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

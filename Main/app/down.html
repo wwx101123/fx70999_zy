@@ -1,0 +1,173 @@
+<html>
+<head>
+<title>卓异商城</title>
+<meta charset="utf-8">
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="shortcut icon" href="img/favicon.ico">
+<link href="css/down.css" rel="stylesheet">
+<link href="css/index_6e7b938.css" rel="stylesheet">
+<script>!function(){function e(e){return this.config=e,this}e.prototype={reset:function(){var e=this.config&&this.config.baseline&&!isNaN(this.config.baseline)?this.config.baseline:750,n=Math.min(document.documentElement.clientWidth,e)/e*100;document.documentElement.style.fontSize=n+"px";var t=parseFloat(window.getComputedStyle(document.documentElement).fontSize),o=n/t;1!=o&&(document.documentElement.style.fontSize=n*o+"px")}},window.Adapter=new e(window.ADAPTER_CONF||{}),window.Adapter.reset(),window.onload=function(){window.Adapter.reset()},window.onresize=function(){window.Adapter.reset()}}();</script>
+</head>
+
+<body>
+	<a id="container" href="javascript:;"
+		data-app-download-position="home-site">
+		<div class="cellphone-warpper">
+			<!-- <img
+				src="//s3.bytecdn.cn/huoshan/resource/newwap/static/image/index/iphone@2x_0c3a658.png"
+				alt="cellphone"> -->
+		</div> 
+		<div class="button-warpper">
+			<span class="button center_download">立即打开</span>
+		</div></a>
+	 <div class="projectile">
+		<img src="img/download_guide.png" class="download_guide" style="    width: 100%;" >
+	</div>
+	<!--<div class="logo" style="display: none">
+		<div class="logo_img">
+			<a href="https://pos联盟.com"> <img src="img/H5_logo.png"
+				class="logo_icon">
+			</a>
+		</div>
+		<div class="select_icon"></div>
+	</div>
+	<img class="center_logo" src="img/logo.png">
+	<div class="center_title">乐联盟</div>
+	<button class="center_download">立即下载</button>
+
+	<div class="version">版本: V1.3.2</div>
+	<div class="center_tips ios" style="display: none"></div>
+	<div id="showtext ios" style="display: none">正在安装，请按 Home 键在桌面查看</div>
+	<div class="center_line"></div>
+	<div class="detail_title">Android 安装教程</div>
+	<div class="detail_title_line"></div>
+	<div class="step android" style="display: none">
+		<div class="step_num">STEP 1</div>
+		<div class="step_title">点击"立即下载"按钮下载安装文件：</div>
+		<img class="step_img" src="img/a1.png">
+	</div>
+		<div class="step android" style="display: none">
+		<div class="step_num">STEP 2</div>
+		<div class="step_title">在授权页面点击"同意并安装"按钮安装，开始使用pos联盟：</div>
+		<img class="step_img" src="img/a2.png">
+	</div>
+	<div class="step ios" style="display: none">
+		<div class="step_num">STEP 1</div>
+		<div class="step_title">第一次打开pos联盟会弹出如下框：</div>
+		<img class="step_img" src="img/11.png">
+	</div>
+	<div class="step ios" style="display: none">
+		<div class="step_num">STEP 2</div>
+		<div class="step_title">在手机的「设置」→ 「通用」→「设备管理」中，找到pos联盟证书：</div>
+		<img class="step_img" src="img/22.png">
+	</div>
+	<div class="step ios" style="display: none">
+		<div class="step_num">STEP 3</div>
+		<div class="step_title">点击信任这个证书就可以开始使用pos联盟了：</div>
+		<img class="step_img" src="img/33.png">
+	</div>
+	<div class="footer" style="display: none">
+		<div class="officialNetwork">pos联盟</div>
+		<div class="title">您的赚钱专家</div>
+	</div> -->
+
+	<script src="js/base.js"></script>
+	<script type="text/javascript">
+		$('.center_download')
+				.click(
+						function() {
+							var u = navigator.userAgent.toLowerCase();
+							var isAndroid = u.indexOf('android') > -1
+									|| u.indexOf('adr') > -1; //android终端
+							var isiOS = u.indexOf('iphone') > -1;
+							$('.projectile').click(function() {
+								$('.projectile').css("display", "none");
+								$("body").css({
+									overflow : "visible"
+								});
+							});
+							var isWx = u.match(/MicroMessenger/i) == "micromessenger";
+							if (isAndroid && isWx) {
+								$('.projectile').css("display", "block");
+								$("body").css({
+									overflow : "hidden"
+								});
+
+								return false;
+							}
+							if (u.indexOf("MicroMessenger") >= 0) {
+								showTips();
+							} else {
+								if (isiOS) {
+									u = window.navigator.userAgent;
+									if (u.indexOf("iPhone") >= 0
+											&& u.indexOf("QQ") >= 0) {
+										$('.download_guide').attr('src',
+												'img/ios.png')
+										showTips();
+
+									} else {
+										location.href = 'itms-services://?action=download-manifest&url=https://das4admin.super-nba.com/app/IOS/ios.plist';
+										setTimeout("showInstallingText()", 3000);
+									}
+								} else {
+									window.location.href = 'Android/Android.apk';
+								}
+							}
+						})
+		function showInstallingText() {
+			$('#showtext').css('display', 'block');
+		}
+		function changeLanguage(language) {
+			var postObj = {
+				language : language
+			}
+			$.ajax({
+				url : '/language',
+				type : 'POST',
+				dataType : 'JSON',
+				data : postObj,
+				success : function(res) {
+					window.location.href = window.location.href;
+				},
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					return;
+				},
+				timeout : 10000
+			});
+		}
+		var isIos = (function() {
+			var explorer = window.navigator.userAgent;
+			return (explorer.indexOf("iPhone") >= 0 || explorer.indexOf("iPad") >= 0);
+		})();
+		var busID;
+
+		$(document).ready(function() {
+			var ua = navigator.userAgent.toLowerCase();
+			if (/iphone|ipad|ipod/.test(ua)) {
+				//alert("iphone");
+				$('.ios').css('display', 'block')
+				$('.android').css('display', 'none')
+				$('.detail_title').html('IOS 安装教程');
+			} else if (/android/.test(ua)) {
+				$('.ios').css('display', 'none')
+				$('.android').css('display', 'block')
+				$('.detail_title').html('Android 安装教程');
+
+			} else {
+				$("#body").removeClass("hid");
+				showPage2();
+
+			}
+		});
+
+		function showTips() {
+			$('.projectile').css('display', 'block');
+		}
+	</script>
+
+</body>
+</html>

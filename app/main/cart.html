@@ -1,0 +1,413 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>我的团队</title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/shopcar.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />
+		<link rel="stylesheet" href="../css/layout.css">
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/auto-size.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/product_cart.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//初始化表单
+				var ServerIP = "";
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var IndexUrl = localStorage.getItem('IndexUrl');
+				var user_id = localStorage.getItem('user_id');
+
+				$('#user_id').val(user_id);
+
+				//初始化发表留言表单
+				//				AjaxInitForm('#feedbackForm', '#btnSubmit', 0);
+			});
+		</script>
+		<style>
+			input {
+				line-height: 0px;
+			}
+		</style>
+		<style type="text/css">
+			.mui-bar {
+				background: #4c2664;
+			}
+			
+			.mui-title {
+				color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+
+			<h1 class="mui-title">购物车</h1>
+		</header>
+		<div class="mescroll" id="mescroll">
+
+			<div class="cart_data" style="display: none;">
+				<div class="cart_list"></div>
+				<div class="fix_bottom">
+					<div id="qx" data="0"></div><span style="float:left;line-height:0.8rem;">全选</span>
+					<div class="zjq">
+						<p class="p1" style="margin-bottom:0px;">合计:￥
+							<span id="zj">0</span>
+						</p>
+						<p>含运费</p>
+					</div>
+					<a id="js" href="javascript:void();">结算(<span id="zsl">0</span>)</a>
+				</div>
+			</div>
+			<div class="weui-msg msg-box">
+				<div class="weui-msg__icon-area">
+					<i class="weui-icon-info weui-icon_msg"></i>
+				</div>
+				<div class="weui-msg__text-area">
+					<h2 class="weui-msg__title">暂无商品</h2>
+					<p class="weui-msg__desc">
+						购物车暂无任何商品，马上去选一件吧！
+					</p>
+				</div>
+				<div class="weui-msg__opr-area">
+					<p class="weui-btn-area">
+						<a class="weui-btn weui-btn_primary buy" onclick="buy()" href="javascript:void();">立即选购</a>
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		<div id="blink">可进货:<span id="all_money"></span>
+			<div class="arrow-bottom arrow-box">
+				<b class="bottom"><i class="bottom-arrow1"></i><i class="bottom-arrow2"></i></b>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			var head_height = localStorage.getItem('head_height')
+			head_height = parseFloat(plus.navigator.getStatusbarHeight()) + parseFloat(head_height);
+			console.log(head_height);
+			$('header').css('height', head_height);
+			$('header').css('padding-top', plus.navigator.getStatusbarHeight());
+			$('.mescroll').css('padding-top', head_height);
+
+		});
+
+		function init() {
+			$('.goods_list a').remove()
+			var page_index = 1;
+			localStorage.setItem('page_index', page_index);
+			//			localStorage.setItem('category_id', 0)
+			//			mescroll.resetUpScroll();
+
+		}
+
+		function init_cart() {
+
+			mescroll.resetUpScroll();
+
+		}
+
+		function buy() {
+
+			var webview = plus.webview.getWebviewById('index.html');
+
+			webview.evalJS('click_shop();')
+
+		}
+
+		var mescroll;
+		$(function() {
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = new MeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size
+				}
+			});
+
+			function getListDataFromNet(type, successCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_cart_items(type, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 1;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet('', function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.resetUpScroll();
+					console.log(2222)
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet('', function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				console.log(data);
+				data = JSON.parse(data)
+				$('.cart_data').css('display', 'block');
+				$('.cart_list div').remove();
+				var info = data.data;
+				if(info != null) {
+					$('.cart_data').css('display', 'block');
+					$.each(info, function(index, content) {
+						var item = '<li><div class="lb"><input  name="hideArticleId" type="hidden" value="' + content.article_id + '" >';
+						item += '<input  class="cart_input" type="hidden" cart_id="' + content.id + '" >	<div class="check">';
+						item += '	<input  name="hideGoodsId" type="hidden" value="' + content.goods_id + '" >	<div class="xz" data="0"></div>';
+						item += '	</div>';
+						item += '	<img src="' + content.img_url + '" class="spt">';
+						item += '	<div class="mid">';
+						item += '		<p class="name">' + content.title + '</p>';
+						//					item += '		<p class="color">颜色:白色</p>';
+						item += '		<div class="jj">';
+						item += '		<span class="jia">-</span>';
+						item += '		<input class="num" value="' + content.quantity + '">';
+						item += '		<span class="jian">+</span>';
+						item += '	</div>';
+						item += '	</div>';
+						item += '	<div class="jgq">';
+						item += '		<div class="price">';
+						item += '			<p>￥<span class="pri">' + content.price + '</span></p>';
+						item += '	</div>';
+						item += '	<div class="price_de">';
+						//					item += '		<p><del>￥30.00</del></p>';
+						item += '	</div>';
+						item += '	<img src="../images/del.png" class="del">';
+						item += '	</div>';
+						item += '		</div></li>';
+						$('.cart_list').append(item);
+
+					});
+				} else {
+
+					$('.msg-box').css('display', 'block')
+					$('.cart_data').css('display', 'none');
+				}
+				$(".del").click(function() {
+					console.log(22233344444)
+					deleteCart(this, '')
+
+					//					$(this).parent().parent().remove();
+					//					js();
+				})
+				$(".xz").click(function() {
+					var a = $(this).attr("data");
+					if(a == 0) {
+						$(this).css("background-image", "url(../images/check_on.png)");
+						$(this).attr("data", 1)
+					} else {
+						$(this).css("background-image", "url(../images/check.png)");
+						$(this).attr("data", 0)
+						$("#qx").attr("data", 0);
+						$("#qx").css("background-image", "url(../images/check.png)");
+					}
+					js();
+
+				})
+
+				$(".jian").click(function() {
+					var a = $(this).prev().val();
+					a++;
+					$(this).prev().val(a);
+					js();
+					updateCart($(this).prev(), 1);
+
+				})
+				$(".jia").click(function() {
+					var a = $(this).next().val();
+					a--;
+					if(a > 0) {
+						$(this).next().val(a);
+						var a = $(".xz").attr("data");
+						if(a == 1) {
+
+						}
+					}
+					js();
+					updateCart($(this).next(), 1);
+				})
+				$("#js").click(function() {
+					openWindowWithTitle('结算', 'shopping.html')
+
+				})
+
+				function js() {
+
+					var num = 0;
+					var conut = 0;
+
+					$(".num").each(function() {
+
+						var b = $(this).val()
+						var jg = $(this).parent().parent().next().find(".pri").text();
+
+						conut += parseInt(b);
+						num += b * jg;
+
+					});
+					$('#zj').html(num)
+
+				}
+				init_trade_money(data.all_money);
+				mescroll.endSuccess();
+			}
+
+		});
+
+		function js() {
+
+			var num = 0;
+			var conut = 0;
+			$(".xz").each(function() {
+				if($(this).attr("data") == 1) {
+					var b = $(this).parent().next().next().find(".num").val();
+					var jg = $(this).parent().next().next().next().find(".pri").text();
+					conut += parseInt(b);
+					num += b * jg;
+				}
+			})
+
+			$('#zj').html(num);
+			$('#zsl').html(conut);
+		}
+		$("#qx").click(function() {
+			var a = $(this).attr("data");
+
+			if(a == 0) {
+				console.log(a)
+				$(".xz").attr("data", 1);
+				$(this).css("background-image", "url(../images/check_on.png)");
+				$(".xz").css("background-image", "url(../images/check_on.png)");
+				$(this).attr("data", 1);
+			} else {
+				$(".xz").attr("data", 0);
+				$(this).css("background-image", "url(../images/check.png)");
+				$(".xz").css("background-image", "url(../images/check.png)");
+				$(this).attr("data", 0);
+			}
+			js();
+		})
+		window.addEventListener('order_succeed', function(e) {
+
+			console.log('下单成功')
+			location.reload()
+
+		});
+
+		function cart_list() {
+
+			location.reload()
+
+		}
+
+		function init_trade_money(all_money) {
+
+			$('#blink').css('display', 'none')
+			all_money = parseFloat(all_money)
+			if(all_money > 0) {
+
+				$('#blink').css('display', 'block')
+				$('#all_money').html(all_money)
+
+			}
+			localStorage.setItem('all_money', all_money)
+
+		}
+	</script>
+
+</html>

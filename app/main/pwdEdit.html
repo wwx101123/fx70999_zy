@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>修改密码 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../scripts/jquery/PCASClass.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//初始化表单
+				AjaxInitForm('#editForm1', '#btnSubmit1', 1, '#turl');
+				AjaxInitForm('#editForm2', '#btnSubmit2', 1, '#turl');
+				var ServerIP = "";
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var IndexUrl = localStorage.getItem('IndexUrl');
+				var user = localStorage.getItem('user');
+				user = JSON.parse(user);
+
+				$('#user_id').val(user.id);
+				$('#user_id1').val(user.id);
+				$('#username').val(user.user_id);
+				$('#daan').val(user.wenti_dan);
+				$('#wenti').val(user.wenti);
+				$('#editForm1').attr('url', IndexUrl + "User/pwdEdit");
+				$('#editForm2').attr('url', IndexUrl + "User/pwdEdit2");
+
+			}); 
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="display: none;" >
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>修改密码</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="usercenter.html">
+						<i class="iconfont icon-user"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<!--编辑地址-->
+
+				<form id="editForm1" name="editForm" class="form-box">
+					<input id="user_id" name="user_id" type="hidden" />
+					<input id="username" name="username" type="hidden" />
+					<input id="wenti" name="wenti" type="hidden" />
+					<input id="daan" name="daan" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input id="is_edit" name="is_edit" type="hidden" value="1" />
+					<input id="id" name="id" type="hidden" />
+					<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+						<!--<div class="weui-panel__hd title">修改密码</div>-->
+						<div class="weui-panel__bd">
+							<div class="weui-cells_form form-box">
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label" style="width: 100PX;">登录新密码</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="pwd" name="pwd" class="weui-input" type="password" placeholder="登录新密码" data-validate="s" />
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label" style="width: 100PX;">确认登录密码</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="repwd" name="repwd" class="weui-input" type="password" placeholder="确认登录新密码" data-validate="s" />
+									</div>
+								</div>
+								 
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit1" name="btnSubmit" type="submit" class="weui-btn weui-btn_primary" value="确认提交" />
+					</div>
+				</form>
+				
+				
+				
+				
+				<form id="editForm2" name="editForm" class="form-box" style="display: none;">
+					<input id="user_id1" name="user_id" type="hidden" />
+					<input id="username" name="username" type="hidden" />
+					<input id="wenti" name="wenti" type="hidden" />
+					<input id="daan" name="daan" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input id="is_edit" name="is_edit" type="hidden" value="1" />
+					<input id="id" name="id" type="hidden" />
+					<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+						<!--<div class="weui-panel__hd title">修改密码</div>-->
+						<div class="weui-panel__bd">
+							<div class="weui-cells_form form-box">
+								 
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label" style="width: 100PX;">交易新密码</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="pwd1" name="pwd1" class="weui-input" type="password" placeholder="交易新密码" data-validate="s" />
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label" style="width: 100PX;">确认交易密码</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="repwd1" name="repwd1" class="weui-input" type="password" value="" placeholder="确认交易新密码" data-validate="s" />
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit2" name="btnSubmit" type="submit" class="weui-btn weui-btn_primary" value="确认提交" />
+					</div>
+				</form>
+				
+				<!--/编辑地址-->
+
+				<input id="turl" type="hidden" value="user.html" />
+
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+
+</html>

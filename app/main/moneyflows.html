@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>积分明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/transfer.js"></script>
+		<script type="text/javascript">
+			
+			mui.plusReady(function() {
+				mui.init()
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+				 moneyflows_list();
+			});
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="display: none;" >
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>积分明细</h3>
+				<!--<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="recharge_edit.html">
+						<i class="iconfont icon-edit"></i>
+					</a>
+					</a>
+				</div>-->
+			</div>
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<!--订单列表-->
+				<div class="detail-list nodata" style="display: none;">
+
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata">暂无记录...</div>
+
+					</ul>
+				</div>
+				<div class="detail-list detail">
+					
+					<!--/订单列表-->
+				</div>
+				<!--分页页码-->
+				<div class="page-list">
+
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+			</div>
+	</body>
+
+</html>

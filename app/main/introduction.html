@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>
+			移动端商家自入驻-1/4 店铺介绍
+		</title>
+		<!-- META禁止缓存,解决浏览器后退不刷新问题(1/4) -->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/user.js"></script>
+		<script src="../JS/promise.auto.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script>
+			mui.plusReady(function() {
+				var user = localStorage.getItem('user');
+				user = JSON.parse(user);
+				$('#user_id').val(user.id);
+				$('#shop_title').val(user.shop_title);
+
+				$('#userResult').html('请选择类别');
+				if(typeof(user.category_title) != "undefined") {
+
+					$('#userResult').html(user.category_title);
+				}
+
+				//				$('.page').css('margin-top', $('.header').height())
+				$('.button-success').click(function() {
+					open_shop_step1();
+				})
+
+				var history_url = localStorage.getItem('history_url')
+				if(history_url != '') {
+
+					$('#history_url').val(history_url);
+				}
+				if(user.avatar != null) {
+
+					$('.avatar_class').attr('src', '' + UploadUrl + '/' + user.avatar);
+					$('#avatar').val(user.avatar);
+				}
+			});
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					var user = localStorage.getItem('user');
+
+					user = JSON.parse(user);
+					var article_category = localStorage.getItem('article_category');
+					var category0 = localStorage.getItem('category0');
+					var category1 = localStorage.getItem('category1');
+
+					article_category = JSON.parse(article_category);
+					//普通示例
+					var userPicker = new $.PopPicker({
+						layer: 2
+					});
+					userPicker.setData(article_category);
+
+					var showUserPickerButton = doc.getElementById('category');
+					var userResult = doc.getElementById('userResult');
+					if(typeof(user.category_title) != "undefined") {
+
+						userResult.innerHTML = user.category_title;
+					}
+
+					var category_ids = doc.getElementById('category_ids');
+					category_ids.value = user.category_ids;
+					if(user.category_ids != null) {
+						category0 = JSON.parse(category0);
+						category1 = JSON.parse(category1);
+
+						var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+						var index1;
+						var index2; //用index来记住给你的那个默认值的下标
+						var List = article_category;
+						for(var i = 0; i < List.length; i++) {
+
+							if(List[i].id == category0.id) {
+								index1 = i
+							}
+							for(var j = 0; j < List[i].children.length; j++) {
+								if(List[i].children[j].id == category1.id) {
+									index2 = j
+								}
+							}
+						}
+						userPicker.pickers[0].setSelectedIndex(index1, 0, function() {
+							setTimeout(function() {
+								userPicker.pickers[1].setSelectedIndex(index2);
+							}, 100);
+
+						});
+					}
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+
+							category_ids.value = items[0].id + "," + items[1].id
+							userResult.innerHTML = items[0].text + " " + items[1].text
+						});
+					}, false);
+
+				});
+			})(mui, document);
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_auth_info');
+
+				}
+			});
+		</script>
+
+		<style>
+			.page-current header {}
+			
+			.contentInner {
+				position: relative;
+			}
+			
+			.readonly_layout {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0);
+				z-index: 100;
+			}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+		<input type="hidden" id="SERVER_TIME" value="1533390113191" />
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link href="../css/common.32e41245.css?source=11" rel="stylesheet">
+		<link href="../css/introduction.32e41245.css?source=11" rel="stylesheet">
+		<script type="text/javascript" src="../js/upload.js"></script>
+	</head>
+
+	<body>
+		<div id="introduction-page" class="page-group" v-cloak>
+			<!--页面头部-->
+			<div class="header" style="display: none;">
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>1/4 自我介绍</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="../usercenter.html">
+						<i class="iconfont icon-user"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+			<div class="page page-current no-animate" id="introduction-home">
+
+				<form id="editForm" name="editForm" class="form-box">
+					<input id="history_url" name="history_url" type="hidden" value="" />
+					<input id="user_id" name="user_id" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<div class="content page-content content-bg intro-content" v-cloak>
+						<div class="contentInner">
+
+							<div class="mt-info">
+
+								<img src="../images/emptyImg.png" class="avatar_class" onclick="init_upload(this,'.avatar')" />
+								<input type="hidden" id="avatar" class="avatar" name="avatar" />
+								<h3>先简单介绍下你自己吧</h3>
+							</div>
+							<input type="" name="" value="" class="hidden">
+							<div class="list-block">
+								<ul id="base-info">
+									<li class="item-content">
+										<div class="item-inner">
+											<div class="item-input">
+												<input type="text" id="shop_title" name="shop_title" class="input-placeholder" :style="fontStyle" placeholder="请输入你的昵称" validate="notEmpty, minLen=2, maxLen=15, noEmojiCode, noAllNumber, noSpace, isBracket" v-model="shopName">
+											</div>
+										</div>
+									</li>
+									<li style="display: none;">
+										<a id="category" class="item-link item-content J-tags" @click="selectTag">
+											<div class="item-inner">
+												<div class="item-after" style="width: 100%;">
+													<input id="category_ids" name="category_ids" type="hidden" />
+													<div key="tag" class="J-tag-detail t-left" id="userResult"></div>
+												</div>
+											</div>
+										</a>
+									</li>
+									<li></li>
+								</ul>
+							</div>
+							<div v-if="query.status == 'needImprove' || query.status == 'needModify'" class="list-block block-btn mt-right">
+								<div class="btns">
+									<a class="button button-fill button-success" href="javacript:void(0);">下一步</a>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</form>
+				<!-- 品类选择 start-->
+				<vui-popup v-model="popupVisible" class="width-fill padding-top22">
+					<vui-cascade :options="options" :props="props" :title="selectedTitle" v-model="selectTagIds" @selectdone="handleDone" @cancelselected="cancelSelected"></vui-cascade>
+				</vui-popup>
+				<!-- 品类选择 end-->
+			</div>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,118 @@
+<extend name="Public:header" />
+
+
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>直推列表</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>团队管理</a></li>
+			<li class="active"><strong>直推列表</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu">
+<script type="text/javascript">
+	$(function() {
+		
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #user').css('display','block')
+		$('.sidebar #myTeam').addClass('current')
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>直推列表</h5>
+			<div class="ibox-tools">
+				<a style="display:none" href="{:U('Reg/userReg')}" class="btn btn-primary">新增会员</a>
+				<!--<a href="../excel/5.php" class="btn btn-primary">导出Excel</a>-->
+			</div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-12">
+					<form class="form-inline title-form" name="qfrm" method="post"
+						action="__ACTION__">
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="username" name="username"
+								placeholder="用户账号查询" value="{$user_id}">
+						</div>
+						<div class="form-group">
+							<label for="rank"></label> <select name="rank" id="rank"
+								class="form-control">
+								<option value="">请选择</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">查询</button>
+					</form>
+				</div>
+			</div>
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-1166">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>用户账号</th>
+						<th>会员姓名</th>
+						<th>消费等级</th>
+						<!--<th>提现类型</th>-->
+						<th>联系电话</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<volist name="list" id="vo">
+					<tr>
+						<td><b class="tablesaw-cell-label"> 序号 </b><span
+							class="tablesaw-cell-content">{$key+1}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b>  <span
+									class="rankcolor_1">{$vo.user_id}</span>
+									 </td>
+						<td><b class="tablesaw-cell-label">会员姓名</b><span
+							class="tablesaw-cell-content">{$vo.user_name}</span></td>
+						<td><b class="tablesaw-cell-label">消费等级</b><span
+							class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.level_str}</i></span></td>
+						<!--<td><b class="tablesaw-cell-label">提现类型</b><span class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.get_level}个月</i></span></td>-->
+						<td><b class="tablesaw-cell-label">联系电话</b><span
+							class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.user_tel}</i></span></td>
+						<td><b class="tablesaw-cell-label">账号状态</b><span
+							class="tablesaw-cell-content"><font color="green"><i
+									class="fa fa-check"></i>激活</font></span></td>
+						<td class="hidden"><b class="tablesaw-cell-label">操作</b> <span
+							class="tablesaw-cell-content"> <eq name="vo.is_lock"
+									value='0'> <a
+									class="btn btn-xs btn-outline btn-danger ajax-a"
+									href="__URL__/adminMenberAC/action/lock/id/{$vo.id}"
+									info="确定封号？"> 封号</a> </eq> <eq name="vo.is_lock" value='1'> <a
+									class="btn btn-xs btn-outline btn-danger ajax-a"
+									href="__URL__/adminMenberAC/action/open/id/{$vo.id}"
+									info="确定解封？"> 解封</a> </eq> <a
+								class="btn btn-xs btn-outline btn-info"
+								href="userview.php?id=82&amp;pageno=1&amp;page=users">查看</a> <a
+								class="btn btn-xs btn-outline btn-primary"
+								href="useredit.php?id=82&amp;pageno=1">修改</a> <a
+								class="btn btn-xs btn-outline btn-info"
+								href="loginusrdo.php?username=fc10222230" target="_blank"
+								title="登录会员账号">登入</a>
+						</span></td>
+					</tr>
+					</volist>
+				</tbody>
+			</table>
+			{$page}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> </block>

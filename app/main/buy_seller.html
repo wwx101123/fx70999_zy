@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" class="">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="keywords" content="">
+		<meta name="description" content="">
+		<meta name="x5-orientation" content="portrait">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="screen-orientation" content="portrait">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<link rel="stylesheet" href="../css/common.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+
+		<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/user.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/transfer.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			.mui-input-group .mui-input-row:after {
+				height: 0
+			}
+		</style>
+		<script>
+			window.onload = function() {
+				document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+
+			}
+
+			/**
+			 * 关闭当前窗口
+			 */
+			function back_window() {
+				plus.webview.currentWebview().close();
+			}
+			/**
+			 * 是否激活
+			 */
+			function isValidCert() {
+				var isFlag = 1;
+				var hasCode = app.getAccountInfo().HAS_CODE;
+				if(hasCode != 0) {
+					isFlag = 2; // 未激活，去激活
+					return isFlag;
+				}
+				var isRealname = app.getAccountInfo().IS_REALNAME;
+				if(isRealname != 1) {
+					isFlag = 3; // 未实名，去实名认证
+					return isFlag;
+				}
+				var hasPayPwd = app.getAccountInfo().HAS_PAY_PWD;
+				if(hasPayPwd != 1) {
+					isFlag = 4; // 未设置支付密码，去设置
+					return isFlag; // 
+				}
+				return isFlag;
+			}
+
+			/**
+			 * 去激活
+			 */
+			function goActive() {
+				var btnArray = ['取消', '去激活'];
+				mui.confirm('您还未激活，请先去激活', '温馨提示', btnArray, function(e) {
+					if(e.index == 1) {
+						app.openWindow('activation.html', 'activation.html'); //未激活
+					}
+				});
+			}
+
+			/**
+			 * 去实名
+			 */
+			function goCert() {
+				var btnArray = ['取消', '去认证'];
+				mui.confirm('您还未进行身份认证，请先去认证', '温馨提示', btnArray, function(e) {
+					if(e.index == 1) {
+						app.openWindow('realnameNo.html', 'realnameNo.html'); //未实名
+					}
+				});
+			}
+
+			/**
+			 * 设置支付密码
+			 */
+			function goSetPayPwd() {
+				var btnArray = ['取消', '去设置'];
+				mui.confirm('您还未设置支付密码，请先去设置', '温馨提示', btnArray, function(e) {
+					if(e.index == 1) {
+						app.openWindow('setpaypassword.html', 'setpaypassword.html'); //未设置支付密码
+					}
+				});
+			}
+		</script>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<div class="mui-input-group" id="">
+				<div class="mui-input-row">
+					<label for="">商家名称:</label>
+					<div style='height: 50px;line-height: 50px;text-indent: -15px;'>
+
+						<span class="seller_name"></span>
+						<input type="hidden" class="user_id" />
+					</div>
+				</div>
+			</div>
+			<div class="mui-input-group" id="">
+				<div class="mui-input-row">
+					<label for="">折扣:</label>
+					<div style='height: 50px;line-height: 50px;text-indent: -15px;'>
+
+						<span class="price"></span>
+						<input type="hidden" class="user_id" />
+					</div>
+				</div>
+			</div>
+			<p class='paddinglf' style="margin:5px 0;padding-left: 15px;font-size: 15PX;"></p>
+			<div class="mui-input-group marginbtm">
+				<div class="mui-input-row">
+					<label for="">请输入价格:</label>
+					<div style='height: 50px;line-height: 50px;'>
+						<span><span id="gathmoney">0.00</span></span>
+					</div>
+				</div>
+			</div>
+			<div class="mui-input-group marginbtm">
+				<div class="mui-input-row">
+					<label for="">实际金额:</label>
+					<div style='height: 50px;line-height: 50px;'>
+						<span><span id="money">0.00</span></span>
+					</div>
+				</div>
+			</div>
+			<!--数量输入键盘-->
+			<div id="calculator" class="mui-hidde">
+				<table>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td class='del'><img src="../images/btn_del_compute.png" alt="" /></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td rowspan="3" class='makesure'>确认<br/>收款</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>8</td>
+							<td>9</td>
+						</tr>
+						<tr>
+							<td>00</td>
+							<td>0</td>
+							<td>.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<!-- 支付密码输入框 -->
+			<div id="paypassword" class="mui-hidden">
+				<div style=''>
+					<p style='border:none'>输入支付密码</p>
+					<p style='font-size:0.24rem;color:#999;padding-top:0'>到账银行卡：<span>平安银行储蓄卡</span><span style='padding:0 0.2rem'>(5683)</span>手续费2券/笔</p>
+					<div class="pwd-box" style='position:relative;'>
+						<div class="pwd-input" id="pwd-input"></div>
+						<div class="fake-box">
+							<input type="password" readonly="" value="" />
+							<input type="password" readonly="" value="" />
+							<input type="password" readonly="" value="" />
+							<input type="password" readonly="" value="" />
+							<input type="password" readonly="" value="" />
+							<input type="password" readonly="" value="" />
+						</div>
+					</div>
+					<a href='forgetpassword.html' id="forgetpwd" style="color:#309bdf;text-align:right;padding:0.2rem 1rem 0.2rem 0">忘记密码？</a>
+					<table id='pswnum'>
+						<tbody>
+							<tr>
+								<td class='numb'>1</td>
+								<td class='numb'>2</td>
+								<td class='numb'>3</td>
+							</tr>
+							<tr>
+								<td class='numb'>4</td>
+								<td class='numb'>5</td>
+								<td class='numb'>6</td>
+							</tr>
+							<tr>
+								<td class='numb'>7</td>
+								<td class='numb'>8</td>
+								<td class='numb'>9</td>
+							</tr>
+							<tr>
+								<td class='empty'></td>
+								<td class='numb'>0</td>
+								<td class='delt'><img src="image/btn_del_code.png" alt="" /></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="choosecard mui-scroll-wrapper" style='display: none;'>
+				<div class="mui-scroll">
+					<p class="aligncenter"><span class="abvt">取消</span>选择银行卡</p>
+					<div class="formbox">
+						<!--<div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                 <div>
+	                      <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                      <label for="999">
+	                         <span>平安银行<span class="cardtype">(信用卡)</span></span>
+	                         <span>尾号2333</span>
+	                      </label>
+	                     <input type="radio" value="233" name="2233" checked="checked" />
+	                </div>
+	                <div>
+		                <img src="image/icon_bank_logo_pa.png" width="28 alt=" />
+		                <label for="3344">
+		                   <span>平安银行<span class="cardtype">(信用卡)</span></span>
+		                   <span>尾号2333</span>
+		                </label>
+		                <input type="radio" value="22" name="2233" />
+	                </div>
+	                  <div>
+	                     <img src="image/icon_bank_logo_pa.png" alt="" width="28" />
+	                     <label for="2233">
+	                       <span>中国银行<span class="cardtype">(储蓄卡)</span></span>
+	                       <span>尾号5511</span>
+	                     </label>
+	                     <input type="radio" value="2233"  name="2233" />
+	                </div>-->
+						<div id="addCard">
+							<a href="addCreditcard.html"><img src="image/icon_add.png" alt="" width="28" />添加信用卡</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src='../js/jquery/jquery-1.11.2.min.js'></script>
+	<script type="text/javascript " src="../js/mui.min.js "></script>
+	<script type="text/javascript" src="../js/app.js"></script>
+	<script type="text/javascript" src="../js/security.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('td').on('touchstart', function() {
+				$(this).css('background', '#b4e7ff');
+			});
+
+			$('td').on('touchend', function() {
+				$(this).css('background', ''); //去除背景色
+			});
+		});
+
+		mui("body").on("tap", "button.mui-action-back-mui-btn", backWin);
+
+		function backWin() {
+			plus.webview.currentWebview().close();
+		}
+
+		mui.plusReady(function() {
+			initCardList();
+		});
+
+		$("#forgetpwd").on('touchend', function(e) {
+			app.openWindow("setupdatepaypassword.html", "setupdatepaypassword.html");
+		});
+
+		$('.choosecard>p .abslt').on('touchend', function(e) {
+			initKeyboard();
+			e.stopPropagation();
+			return false;
+		});
+
+		window.addEventListener("getCreditCard", function(e) {
+			initCardList();
+		});
+
+		var cardSN = null;
+
+		function initCardList() {
+			var para = {
+				"CARD_TYPE": 1
+			};
+			app.getData("/account/get_card_list.do", para, function(data) {
+				console.log(JSON.stringify(data));
+				var list = data.RESULT_OBJECT;
+				if(list && list.length > 0) {
+					var html = [];
+					for(var i = 0; i < data.RESULT_OBJECT.length; i++) {
+						var bankMap = data.RESULT_OBJECT[i];
+						if(bankMap.CHANNEL_ID == 1) {
+							html.push("<div>");
+							html.push("	<img src='" + bankMap.BANK_ICON + "' alt=''  width='28' />");
+							html.push("	<label for='BANK_ID" + bankMap.BANK_ID + "'>");
+							html.push("		<span>" + bankMap.BANK_NAME + "<span class='cardtype'>(" + bankMap.CARD_TYPE_DESC + ")</span></span>");
+							html.push("		<span>尾号" + bankMap.CARD_NO.match(/\d{4}$/) + "</span>");
+							html.push("	</label>");
+							html.push("	<input type='radio' name='bankna' id='BANK_ID" + bankMap.BANK_ID + "' value='" + bankMap.CARD_SN + "' />");
+							html.push("</div>");
+						}
+
+					}
+
+					var container = $(".choosecard .formbox");
+					$("div:last", container).siblings().remove();
+					container.prepend(html.join(""));
+
+					mui(".choosecard .formbox").on('tap', 'div:not(:last-of-type)', function(e) {
+						$(".choosecard .formbox input:checked").prop("checked", false);
+						var input = $("input", this);
+						input.prop("checked", true);
+
+						var src = input.siblings("img").attr("src");
+						var html = input.siblings('label').html();
+
+						$("#selectCardArea img").attr("src", src).siblings("span").html(html);
+						cardSN = input.val();
+						console.log(cardSN);
+
+						initKeyboard();
+					});
+					//$(".choosecard .formbox div:first").trigger("touchend");
+				}
+			});
+		}
+
+		function get_money(price, money) {
+			var amount = parseFloat(price * (money / 10));
+			return amount.toFixed(2);
+		}
+
+		function initKeyboard() {
+			$('.choosecard').slideUp(500); //隐藏银行卡列表
+			$("#calculator").slideDown(500);
+
+			hidePaymentPassword();
+		}
+
+		function hidePaymentPassword() {
+			$('#paypassword').fadeOut(100);
+			$('.fake-box input').val('');
+			$('#pwd-input').text('');
+		}
+
+		$('#paypassword > div').on('touchend', function(e) {
+			e.stopPropagation();
+		});
+
+		//$("body").on("touchend", function(e) {
+		//	initKeyboard();
+		//	e.stopPropagation();
+		//	return false;
+		//});
+
+		/**
+		 * 选择银行卡列表界面，取消按钮事件绑定
+		 */
+		$(".choosecard .abvt").on('touchend', function(e) {
+			initKeyboard();
+		});
+
+		$('#paypassword .arrow').on('touchend', function(e) {});
+
+		//调出选择卡列表
+		$('#selectCardArea').on('touchend', function(e) {
+
+			var height2 = $('.choosecard').height();
+
+			$('.choosecard').slideToggle(500);
+			$("#calculator").slideToggle(500);
+			var height1 = $('.formbox').height();
+
+			if(height1 - height2 > 20) {
+				$('.choosecard .mui-scroll').css('bottom', 'initial');
+				console.log('hello world')
+			}
+
+			e.stopPropagation();
+			return false;
+		});
+
+		/*$(".choosecard").on("touchend", function(e) {
+			e.stopPropagation();
+			return false;
+		});*/
+
+		$("#calculator td").on("touchend", function(e) {
+			var _self = $(this);
+			var index = _self.index();
+			var text = _self.text();
+			var amount = $('#gathmoney');
+			var money = $('#money');
+			if(_self.hasClass("del")) {
+				var tmp = amount.html();
+
+				if(tmp != "0.00") {
+					amount.html(tmp.substring(0, tmp.length - 1));
+
+					var price = get_money(amount.html(), $('.price').html())
+					money.html(price);
+					if(amount.html() == "") amount.html("0.00");
+				}
+			} else if(_self.hasClass("makesure")) {
+
+				if(amount.html() == "0.00") {
+					mui.toast("请输入付款金额");
+					e.stopPropagation();
+					return false;
+				} else if(isNaN(amount.text())) {
+					mui.toast("无效的付款金额");
+					e.stopPropagation();
+					return false;
+				}
+				if(parseInt(amount.text()) < 1 || parseInt(amount.text()) > 20000) {
+//					mui.toast("付款金额在1-20000券之间");
+//					e.stopPropagation();
+//					return false;
+				}
+				var user_id = $('.user_id').val();
+				var amount = amount.html();
+				console.log(user_id)
+				console.log(amount)
+				var money = $('#money');
+				add_trade_order(money.html())
+				//				transferMoneyAC(user_id, amount, 2);
+
+				//$("#calculator").slideToggle(500);
+				//$('#paypassword').slideToggle(500);  //调出密码键盘
+
+			} else {
+				if(amount.html() == "0.00") {
+					if(text == "0" || text == "00" || text == ".") {
+						e.stopPropagation();
+						return false;
+					}
+					amount.html("");
+				}
+
+				var arr = amount.html().split(".");
+				if(arr.length == 2 && arr[1].length >= 2) {
+					text = "";
+				}
+				amount.html(amount.html() + text);
+
+				var price = get_money(amount.html(), $('.price').html())
+				money.html(price);
+
+			}
+
+			e.stopPropagation();
+			return false;
+		});
+
+		$("#addCard").on("touchend", function(e) {
+			var url = $("a", this).attr('href');
+			mui.openWindow({
+				id: url,
+				url: url,
+				show: {
+					aniShow: 'slide-in-right',
+					duration: 250,
+				},
+				waiting: {
+					autoShow: false,
+					title: '正在加载。。。'
+				},
+				extras: {}
+			});
+
+			e.stopPropagation();
+			return false;
+		});
+
+		$('#pswnum').on('touchend', '.delt', function(e) {
+			var passwordBox = $('#pwd-input');
+			var tmp = passwordBox.text().trim();
+			passwordBox.html(tmp.substring(0, tmp.length - 1));
+			for(var i = 0; i < 6; i++) {
+				$('.fake-box input').eq(i).val(passwordBox.text().length > i ? "0" : "");
+			}
+		});
+
+		$('#pswnum').on('touchend', '.numb', function(e) {
+			var _self = $(this);
+			var text = _self.text();
+			var passwordBox = $('#pwd-input');
+			if(passwordBox.text().trim().length < 6) {
+				passwordBox.html(passwordBox.html() + text);
+				for(var i = 0; i < passwordBox.text().trim().length; i++) {
+					$('.fake-box input').eq(i).val(i);
+				}
+
+				if(passwordBox.text().trim().length == 6) {
+					//plus.device.vibrate(500);
+					callPay(cardSN, passwordBox.html(), $('#gathmoney').html());
+					hidePaymentPassword();
+				}
+			}
+			e.stopPropagation();
+			return false;
+		});
+
+		function callPay(cardSN, payPwd, amount) {
+			plus.nativeUI.showWaiting();
+			var para = {
+				CARD_SN: cardSN,
+				PAY_PWD: RSAUtils.encryptedString(payPwd),
+				AMOUNT: amount
+			};
+
+			app.getData("/account/receivables.do", para, function(data) {
+				plus.nativeUI.closeWaiting();
+				if(data.RESULT_CODE == 0) {
+					plus.nativeUI.alert("收款成功", function(e) {
+						//$('#gathmoney').html("0.00");
+						plus.webview.currentWebview().close();
+					});
+					//mui.toast("收款成功");
+				}
+			});
+		}
+
+		mui('.mui-scroll-wrapper').scroll();
+		if($('.formbox').height() - $('.choosecard').height() > 20) {
+			$('.choosecard .mui-scroll').css('bottom', 'initial');
+		}
+	</script>
+
+	<script type="text/javascript">
+		$(function() {
+			var user_id = localStorage.getItem('zz_user_id');
+
+			var seller_name = localStorage.getItem('seller_name');
+			console.log(seller_name)
+
+			$('.seller_name').html(seller_name);
+			var price = localStorage.getItem('price');
+
+			$('.price').html(price);
+
+		});
+	</script>
+
+</html>

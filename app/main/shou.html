@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- meta标签设置-->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+     maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- app标题 -->
+		<title>拨打电话</title>
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/my-app.css">
+		<link rel="stylesheet" href="../css/user.css">
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery.qrcode.min.js"></script>
+	</head>
+
+	<body style="background: #4c2664;">
+		<div class="prompt mescroll" id="mescroll" style="width:90%;height: 80%;">
+			<!--<h1><img src="images/h1.png"></h1>-->
+			<p class="tip" style="background:#419816; height: 30px; line-height: 30px; color: white;padding: 0;width: 100%">你敢收 我敢赔</p>
+			<p class="tip" style="height: 50px; line-height: 50px;padding: 0;width: 100%">扫一扫,向我付款</p>
+			<div class="p1">
+				<div class="content-block padding0 marginT0 height100f">
+					<div class="row no-gutter marginT20 my-c-borderT">
+						<div class="my-c-img" id="code" style="position: relative;">
+							<img id="qrCodeIco" src="../images/logo.png" style="position: absolute;width: 30px; height: 30px;" /></div>
+					</div>
+				</div>
+
+				<br>
+				<div class="btn">
+					<!--<span class="set_money mybtn">设置金额</span>
+					<span class="save_img mybtn">保存二维码</span>-->
+				</div>
+				<div class="bottom_detail aui-icon-box" style="padding-left: 5%;" >
+					<a href="javascript:;" class="aui-flex-box" url="tiqu.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/shou_detail.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name detail" style="text-align: left;">收款明细
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+				</div>
+			</div>
+			</p>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		$(function() {
+			var user_id = localStorage.getItem('user_id')
+			get_user_info(user_id, setListData)
+
+			function setListData(data) {
+				var user = localStorage.getItem('user');
+
+				console.log(user)
+				var info = JSON.parse(user);
+				var phone = info.user_id.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+				$('.phone').html(phone);
+				$('.user_name').html(info.user_name);
+				if(info.id > 1) {
+					$('#user_id').val(info.user_id);
+				}
+				$('#code canvas').remove()
+				var url = PreUrl + 'Reg/register/rid/' + info.id
+				console.log(url)
+
+				var json = {
+					"uid": info.id,
+					"type": "money"
+				};
+				json = JSON.stringify(json)
+				$('#code').qrcode(encodeURI(json));
+				var margin = ($("#code").height() - $("#qrCodeIco").height()) / 2;
+				$("#qrCodeIco").css("margin", margin);
+				
+				
+				$(".detail").click(function() {
+
+					openWindowWithTitle('转账明细', 'transforflows.html')
+				});
+			}
+		});
+	</script>
+
+</html>

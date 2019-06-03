@@ -1,0 +1,635 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<script type="text/javascript">
+layui.use('layer', function() {
+
+});
+</script>
+
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+
+<script type="text/javascript">
+				$(function() { 
+					 //创建商品规格
+			        $(".spec-btn").click(function () {
+			            showSpecDialog();
+			        });
+					//绑定品牌按钮
+			        $("#itemAddButton1").click(function () {
+			        	addVarTr()
+			        });
+			        //赋值规格市场价格
+			        $("#field_control_market_price").blur(function () {
+			            $("#div_spec_container").find("input[id='spec_market_price']").val($(this).val());
+			        });
+			        //赋值规格销售价格
+			        $("#field_control_sell_price").blur(function () {
+			            $("#div_spec_container").find("input[id='spec_sell_price']").val($(this).val());
+			        });
+			        $("#specAddButton").click(function () {
+			            var liObj = $(this).parent();
+			            var d = dialog({
+			                id: 'specDialogId',
+			                padding: 0,
+			                title: "规格关联",
+			                url: '{:U('Goods/dialog_category_spec')}'
+			            }).showModal();
+			            //将容器对象传进去
+			            d.data = liObj;
+			        });
+				});
+
+				//创建窗口
+				 //初始化规格窗口
+    function showSpecDialog() {
+		var hide_spec_id=	'';		 
+		 $(".hide_spec_id").each(function(){
+			 hide_spec_id+=$(this).val()+','
+			  });	
+		 hide_spec_id+=0;
+		 
+		 if(hide_spec_id==0)
+		 {
+			 dialog({
+	                title: '提示',
+	                content: '请先关联规格！',
+	                okValue: '确定',
+	                ok: function () { },
+	                onclose: function () {
+	                    $("#txtTitle", currDocument).focus();
+	                }
+	            }).showModal( );
+	            return false;
+		 }
+		 
+        var d = dialog({
+            id: 'specDialogId',
+            padding: 0,
+            title: "商品规格",
+            url:'{:U('Goods/dialog_article_spec')}?hide_spec_id='+hide_spec_id
+        }).showModal();
+        //将容器对象传进去
+        d.data = $("#item_box");
+    }
+				 //删除附件节点
+			    function delNode(obj) {
+			        $(obj).parent().remove();
+			    }
+				//删除节点
+				function delUrlNode(obj) {
+					$(obj).parent().parent().remove();
+				}
+				 //计算出最小的市场价格
+			    function countMarketPrice(obj) {
+			        var objName = $(obj).attr("name");
+			        var minValue = parseFloat($(obj).val());
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                if (parseFloat($(this).val()) < minValue) {
+			                    minValue = parseFloat($(this).val());
+			                }
+			            }
+			        });
+			        $("#field_control_market_price").val(minValue);
+			    }
+			    //计算最小的销售价格
+			    function countSellPrice(obj) {
+			        var objName = $(obj).attr("name");
+			        var minValue = parseFloat($(obj).val());
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                if (parseFloat($(this).val()) < minValue) {
+			                    minValue = parseFloat($(this).val());
+			                }
+			            }
+			        });
+			        $("#field_control_sell_price").val(minValue);
+			    }
+			    //计算库存总数量
+			    function countStockQuantity(obj) {
+			        var objName = $(obj).attr("name");
+			        var countValue = 0;
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                countValue += parseFloat($(this).val());
+			            }
+			        });
+			        $("#field_control_stock_quantity").val(countValue);
+			    }
+
+			    //创建URL变量HTML
+			    function createVarHtml() {
+			        varHtml = '<tr class="td_c">'
+			        + '<td> '
+			        + '<input type="text" name="min[]" class="td-input" style="width:50%;" /></td>'
+			        + '<td>  '
+			        + '<input type="text" name="max[]" class="td-input" style="width:50%;" /></td>'
+			        + '<td>   '
+			        + '<input type="text" name="gupiao_award[]" class="td-input" style="width:50%;" /></td>'
+			        + '<td><a title="删除" class="img-btn" onclick="delVarTr(this);"><i class="iconfont icon-delete"></i></a></td>'
+			        + '</tr>'
+			        return varHtml;
+			    }
+			    //删除一行变量
+			    function delVarTr(obj) {
+			        $(obj).parent().parent().remove(); 
+			    }
+			    //添加一行变量
+			    function addVarTr() {
+			        varHtml = createVarHtml();
+			        $("#tr_box").append(varHtml); 
+			    }
+			</script>
+</head>
+
+<body class="mainbody">
+	<form id="form1" method="post" action="__ACTION__">
+		<input type="hidden" name="id" id="id" value="{$vo.id}">
+		<input type="hidden" name="type" id="type" value="{$type}">
+		<!--导航栏-->
+		<div class="location">
+			<a href="nav_list.aspx" class="back"><i class="iconfont icon-up"></i><span>返回列表页</span></a>
+			<a href="../center.aspx"><i class="iconfont icon-home"></i><span>首页</span></a>
+			<i class="arrow iconfont icon-arrow-right"></i> <a
+				href="nav_list.aspx"><span>后台导航</span></a> <i
+				class="arrow iconfont icon-arrow-right"></i> <span>编辑会员资料</span>
+		</div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+						<li><a href="javascript:;">编辑规格</a></li>
+						<li><a href="javascript:;">图片上传</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+
+			<dl>
+				<dt>货号</dt>
+				<dd>
+					<input name="goods_no" type="text" value="{$vo.goods_no}" readonly
+						class="input normal" required="">
+				</dd>
+			</dl>
+			<dl>
+				<dt>标题</dt>
+				<dd>
+					<input name="title" type="text" value="{$vo.title}"
+						class="input normal" required="">
+				</dd>
+			</dl>
+			<dl>
+				<dt>所属类别</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="ddlParentId" id="ddlParentId" class="input normal">
+							<volist name="category" id="vvo" key="i"> <eq
+								name="vo.category_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>所属供应商</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="ddlSupplierId" id="ddlSupplierId" class="input normal">
+							<option value="0">不指定供应商属于平台商品</option>
+							<volist name="supplier" id="vvo" key="i"> <eq
+								name="vo.supplier_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>所属商家</dt>
+				<dd>
+					<div class="rule-single-select">
+
+						<select name="ddlShopId" id="ddlShopId" class="input normal">
+							<option value="0">不指定商家属于平台商品</option>
+							<volist name="shop" id="vvo" key="i"> <eq
+								name="vo.shop_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>尊享价</dt>
+				<dd>
+					<input name="price" ID="field_control_sell_price" type="text"
+						value="{$vo.price}" class="input normal" required="">
+				</dd>
+			</dl>
+			<dl style="display:NONE" >
+				<dt>供货价</dt>
+				<dd>
+					<input name="agent_use" ID="agent_use" type="text"
+						value="{$vo.agent_use}" class="input normal" required="">
+				</dd>
+			</dl>
+			 <dl>
+				<dt>市场价</dt>
+				<dd>
+					<input name="market_price" ID="field_control_market_price"
+						type="text" value="{$vo.market_price}" class="input normal"
+						required="">
+				</dd>
+			</dl>
+			<dl style="display:none" >
+				<dt>赠送{$bi.agent_use}</dt>
+				<dd>
+					<input name="agent_use" ID="agent_use" type="text"
+						value="{$vo.agent_use}" class="input normal"  >
+				</dd>
+			</dl>
+			<dl>
+				<dt>库存</dt>
+				<dd>
+					<input name="stock" ID="field_control_stock_quantity" type="text"
+						value="{$vo.stock}" class="input normal" required="">
+				</dd>
+			</dl>
+
+
+		</div>
+		<!--/内容-->
+		<div class="tab-content" style="display: none;">
+
+			<dl>
+				<dt>关联规格</dt>
+				<dd>
+					<ul>
+						<foreach name="spec" item="vo2">
+						<li><input name="hide_spec_id" class="hide_spec_id"
+							type="hidden" value="{$vo2.spec_id}"> <a
+							href="javascript:;" class="del" title="删除"
+							onclick="delNode(this);"><i class="iconfont icon-remove"></i></a><span>{$vo2.title}</span></li>
+						</foreach>
+
+						<li class="icon-btn"><a id="specAddButton"><i
+								class="iconfont icon-close"></i></a></li>
+					</ul>
+				</dd>
+			</dl>
+			<dl>
+				<dt>规格</dt>
+				<dd>
+					<a id="itemAddButton" class="icon-btn spec-btn"><i
+						class="iconfont icon-add"></i><span>编辑规格</span></a>
+
+					<div class="table-container" id="div_spec_container"
+						style="padding-top: 10px;">
+						<input id="hide_goods_spec_list" name="hide_goods_spec_list"
+							type="hidden" value="{$vo.hide_goods_spec_list}" />
+						<table border="0" cellspacing="0" cellpadding="0"
+							class="border-table" width="82%">
+							<thead>
+								<tr>
+									<th align="center" width="15%">货号</th>
+									<th width="8%" style="display: none">市场价(元)</th>
+									<th width="8%">销售价(元)</th>
+									<th width="8%">库存(件)</th>
+									<th width="35%">规格</th>
+								</tr>
+							</thead>
+							<tbody id="item_box">
+								<foreach name="list" item="vo1">
+								<tr>
+									<td align="center"><input type="hidden"
+										name="hide_goods_id[]" id="hide_goods_id" value="{$vo1.id}" />
+										<input type="text" name="spec_goods_no[]" id="spec_goods_no"
+										class="td-input" value="{$vo1.goods_no}" /></td>
+									<td align="center" style="display: none"><input
+										type="text" name="spec_market_price[]" id="spec_market_price"
+										maxlength="10" class="td-input" value="{$vo1.market_price}"
+										onkeydown="return
+												checkForFloat(this,event);"
+										onblur="countMarketPrice(this);" /></td>
+									<td align="center"><input type="text"
+										name="spec_sell_price[]" id="spec_sell_price" maxlength="10"
+										class="td-input" value="{$vo1.sell_price}"
+										onkeydown="return
+												checkForFloat(this,event);"
+										onblur="countSellPrice(this);" /></td>
+									<td align="center"><input type="text"
+										name="spec_stock_quantity[]" id="spec_stock_quantity"
+										maxlength="10" class="td-input" value="{$vo1.stock_quantity}"
+										onkeydown="return checkNumber(event);"
+										onblur="countStockQuantity(this);" /></td>
+									
+									<td style="white-space: inherit; word-break: break-all;">
+										<input type="hidden" name="hide_spec_ids[]" id="hide_spec_ids"
+										value="{$vo1.spec_ids}" /> <input type="hidden"
+										name="hide_spec_text[]" id="hide_spec_text"
+										value="{$vo1.spec_text}" />
+										<p>{$vo1.spec_text}</p>
+									</td>
+
+								</tr>
+								</foreach>
+							</tbody>
+						</table>
+					</div>
+				</dd>
+			</dl>
+
+
+		</div>
+		<div class="tab-content" style="display: none;">
+			<dl>
+				<dt>封面图片</dt>
+				<dd>
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$vo.img}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$vo.img}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext" name="img" value="{$vo.img}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="点击上传" class="type-file-button">
+							<input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt>图片1</dt>
+				<dd>
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$vo.img1}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$vo.img1}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext1" name="img1" value="{$vo.img1}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="点击上传" class="type-file-button">
+							<input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img1_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt>图片2</dt>
+				<dd>
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$vo.img2}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$vo.img2}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext2" name="img2" value="{$vo.img2}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="点击上传" class="type-file-button">
+							<input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img2_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			<dl>
+				<dt>图片3</dt>
+				<dd>
+					<div class="input-file-show">
+						<span class="show"> <a id="img_a" target="_blank"
+							class="nyroModal" rel="gal" href="{$vo.img3}"> <i id="img_i"
+								class="fa fa-picture-o"
+								onMouseOver="layer.tips('<img src={$vo.img3}>',this,{tips: [1, '#fff']});"
+								onMouseOut="layer.closeAll();"></i>
+						</a>
+						</span> <span class="type-file-box"> <input type="text"
+							id="imagetext3" name="img3" value="{$vo.img3}"
+							class="type-file-text"> <input type="button"
+							name="button" id="button1" value="点击上传" class="type-file-button">
+							<input class="type-file-file"
+							onClick="GetUploadify(1,'','goods','img3_call_back')" size="30"
+							title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+						</span>
+					</div>
+					<span class="err"></span>
+
+					<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl> 
+				<dl class="row"><dt>商品详情</dt>
+				<dd>
+					<div class="tab-pane" id="tab_goods_images">
+						<table class="table table-bordered">
+							<tbody>
+								<tr>
+									<td><volist name="img_list" id="image" key="k">
+										<div
+											style="width: 100px; text-align: center; margin: 5px; display: block; float: left"
+											class="goods_xc3">
+											<input type="hidden" value="{$image['image_url']}"
+												name="detail_content[]"> <a href="javacript:void(0);"><img
+												width="100" height="100" src="{$image['image_url']}">
+											</a> <br> <a href="javascript:void(0)"
+												onClick="ClearPicArr2(this,'{$image.image_url}')">删除</a>
+
+										</div>
+										</volist>
+
+										<div class="goods_xc3"
+											style="width: 100px; text-align: center; margin: 5px; display: block; float: left">
+											<input type="hidden" name="detail_content[]" value="" /> <a
+												href="javascript:void(0);"
+												onClick="GetUploadify(10,'','goods','call_back4');"><img
+												src="__PUBLIC__/Images/add-button.jpg" width="100"
+												height="100" /></a><br /> <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+										</div></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					</dd>
+				</dl> 
+				<dl>
+				<dt>内容编辑</dt>
+				<dd class="col-sm-10">
+					<input type="hidden" name="pc_content" id="pc_content">
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__//Resource/plugins/ueditor/ueditor.config.js"></script>
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__//Resource/plugins/ueditor/ueditor.all.min.js">
+						
+					</script>
+					<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+					<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__/Resource/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+					<script id="editor" type="text/plain" style="height: 500px;">{$vo.pc_content|htmlspecialchars_decode}</script>
+					<!-- <textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea> -->
+				</dd>
+			</dl>
+		</div>
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="button" value="提交保存" class="btn "
+					onclick="btnSubmit_Click()" /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+</body>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+		 var ue = UE.getEditor('editor');
+
+	});
+</script>
+<script> 
+// 上传商品图片成功回调函数
+function call_back4(paths) {
+	var last_div = $(".goods_xc3:last").prop("outerHTML");
+	for (var i = 0; i < paths.length; i++) {
+		$(".goods_xc3:eq(0)").before(last_div); // 插入一个 新图片
+		$(".goods_xc3:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr(
+				'onclick', '').attr('target', "_blank");// 修改他的链接地址
+		$(".goods_xc3:eq(0)").find('input').css('display', 'block');
+		$(".goods_xc3:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+		$(".goods_xc3:eq(0)").find('a:eq(1)').attr('onclick',
+				"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+		$(".goods_xc3:eq(0)").find('input').val(paths[i]);
+		$(".goods_xc3:eq(0)").find('input[type="text"]').val(''); // 设置隐藏域 要提交的值
+	}
+}
+						function img_call_back(fileurl_tmp) {
+					        $("#imagetext").val(fileurl_tmp);
+					        $("#img_a").attr('href', fileurl_tmp);
+					        $("#img_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+					    }
+						function img1_call_back(fileurl_tmp) {
+					        $("#imagetext1").val(fileurl_tmp);
+					        $("#img1_a").attr('href', fileurl_tmp);
+					        $("#img1_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+					    }
+						function img2_call_back(fileurl_tmp) {
+					        $("#imagetext2").val(fileurl_tmp);
+					        $("#img2_a").attr('href', fileurl_tmp);
+					        $("#img2_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+					    }
+						function img3_call_back(fileurl_tmp) {
+					        $("#imagetext3").val(fileurl_tmp);
+					        $("#img3_a").attr('href', fileurl_tmp);
+					        $("#img3_i").attr('onmouseover', "layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+					    }
+						function btnSubmit_Click() {
+							$('#pc_content')
+							.val(
+									UE.getEditor('editor').getContent());
+
+							$.ajax({
+								url : $("#form1").attr('action'),
+								data : $("#form1").serialize(),
+								dataType : 'json', //服务器返回json格式数据
+								type : 'POST', //HTTP请求类型
+								timeout : 10000, //超时时间设置为10秒；
+
+								success : function(data) {
+									layer.msg(data.msg, {
+										icon : 1,
+										time : 1000
+									});
+
+									if (data.status == 1) {
+										location.reload()
+									}
+								},
+								error : function(xhr, type, errorThrown) {
+
+									mui.toast('提交失败');
+									//异常处理；
+									console.log(type);
+								}
+							});
+
+						}
+					</script>
+</html>

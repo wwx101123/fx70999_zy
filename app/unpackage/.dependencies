@@ -1,0 +1,201 @@
+{
+  "main/tx_success.html": {
+    "href": "main/tx_success.html",
+    "resources": [
+      "images/mescroll-ball.svg",
+      "img/mescroll-totop.png"
+    ],
+    "priority": 0
+  },
+  "main/register.html": {
+    "href": "main/register.html",
+    "resources": [
+      "css/validate.css",
+      "css/style.css",
+      "css/icon/iconfont.css",
+      "css/icon/iconfont.eot",
+      "css/icon/iconfont.ttf",
+      "css/icon/iconfont.svg",
+      "css/weui.min.css",
+      "images/cart.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/common.js",
+      "js/base.js",
+      "js/user.js",
+      "css/mui.picker.css",
+      "css/mui.poppicker.css",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js"
+    ],
+    "priority": 1
+  },
+  "main/useraddress_edit.html": {
+    "href": "main/useraddress_edit.html",
+    "resources": [],
+    "refer": [
+      "main/tx_success.html",
+      "main/register.html",
+      "main/useraddress_edit.html"
+    ],
+    "priority": 0
+  },
+  "main/cart.html": {
+    "href": "main/cart.html",
+    "resources": [
+      "images/check.png",
+      "css/layout.css",
+      "images/check.png",
+      "images/check_on.png"
+    ],
+    "refer": [],
+    "priority": 2
+  },
+  "main/goods_show.html": {
+    "href": "main/goods_show.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/cart.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/search.html": {
+    "href": "main/search.html",
+    "resources": [
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "css/style.css",
+      "css/icon/iconfont.css",
+      "css/icon/iconfont.eot",
+      "css/icon/iconfont.ttf",
+      "css/icon/iconfont.svg",
+      "css/weui.min.css",
+      "images/cart.png",
+      "css/app.min.css",
+      "js/mescroll.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js"
+    ],
+    "priority": 1
+  },
+  "main/index.html": {
+    "href": "main/index.html",
+    "resources": [
+      "main/img/num_l.png",
+      "main/img/shop_cart02.png",
+      "main/img/num_r.png"
+    ],
+    "refer": [
+      "main/search.html"
+    ],
+    "priority": 0
+  },
+  "main/recommend_list.html": {
+    "href": "main/recommend_list.html",
+    "resources": [
+      "img/mescroll-totop.png",
+      "images/icon-vip.png",
+      "css/style.css",
+      "css/icon/iconfont.css",
+      "css/icon/iconfont.eot",
+      "css/icon/iconfont.ttf",
+      "css/icon/iconfont.svg",
+      "css/weui.min.css",
+      "images/cart.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_card_nodate.png"
+    ],
+    "priority": 1
+  },
+  "main/pointflows.html": {
+    "href": "main/pointflows.html",
+    "resources": [
+      "images/logo.png",
+      "fonts/mui.ttf",
+      "img/mescroll-totop.png",
+      "css/style.css",
+      "css/icon/iconfont.css",
+      "css/icon/iconfont.eot",
+      "css/icon/iconfont.ttf",
+      "css/icon/iconfont.svg",
+      "css/weui.min.css",
+      "images/cart.png",
+      "js/mui.min.js",
+      "js/zepto.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_card_nodate.png"
+    ],
+    "priority": 2
+  },
+  "main/user.html": {
+    "href": "main/user.html",
+    "resources": [
+      "css/user.css",
+      "images/king.png",
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "aui/css/aui.css",
+      "aui/css/aui-iconfont.ttf",
+      "js/order.js",
+      "images/ad-cn-001.png",
+      "images/icon-item-01.png",
+      "images/icon-item-02.png",
+      "images/icon-item-03.png",
+      "images/icon-item-04.png",
+      "images/icon-mo-001.png",
+      "images/icon-mo-002.png",
+      "images/icon-mo-003.png",
+      "images/icon-mo-004.png"
+    ],
+    "refer": [
+      "main/index.html"
+    ],
+    "priority": 0
+  },
+  "main/goods.html": {
+    "href": "main/goods.html",
+    "resources": [
+      "css/app.min.css"
+    ],
+    "refer": [],
+    "priority": 2
+  },
+  "main/main.html": {
+    "href": "main/main.html",
+    "resources": [
+      "css/mui.min.css",
+      "fonts/mui.ttf",
+      "js/h.min.js",
+      "js/goods.js"
+    ],
+    "refer": [],
+    "priority": 2
+  }
+}

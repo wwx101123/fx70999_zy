@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>会员注册 </title>
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/new_file.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jquery-weui.css" />
+
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<style type="text/css">
+			.TPL:before {
+				border-top: 0px solid #e5e5e5;
+			}
+			
+			input[type=text],
+			input[type=password] {
+				border: 0;
+			}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+				var ServerIP = "";
+				var FID = localStorage.getItem('FID');
+				$('#FID').val(FID);
+				var user_id = localStorage.getItem('user_id');
+				$('#register_id').val(user_id);
+
+				var TPL = localStorage.getItem('TPL');
+
+				if(TPL == '' || TPL == null) {
+					TPL = 0;
+				}
+
+				if(TPL == 0) {
+					$('#TPL0').prop("checked", true);
+					$('#TPL1').prop("checked", false);
+					$('#TPL').val(0);
+				}
+				if(TPL == 1) {
+
+					$('#TPL1').prop("checked", true);
+					$('#TPL0').prop("checked", false);
+					$('#TPL').val(1);
+				}
+
+//				get_Parameter();
+				var user = localStorage.getItem('user');
+				var info = JSON.parse(user);
+
+				$('#user_id').val(info.user_id);
+			});
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'ready_login');
+
+				}
+			});
+		</script> 
+
+	</head>
+
+	<body style="background-color:white">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<form id="regForm" name="regForm" method="post"><input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input name="shopid" type="hidden" id="shopid" value="admin" readonly="readonly" class="form-control" required="">
+					<input id="passopen" name="pwd1" type="hidden" value="222222" />
+					<input id="register_id" name="register_id" type="hidden" />
+					<input id="register_type" name="register_type" type="hidden" value="1" />
+					<input id="u_level" name="u_level" type="hidden" value="0" />
+					<input id="regcp" name="regcp" type="hidden" value="0" />
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>手机号</span></div>
+							<div class="div_c_r"><input readonly="readonly" type="text" name="user_id" id="user_id" placeholder="请输入手机号">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f is_yzm " style="display: none;">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">验证码</span>
+							</div>
+							<div class="div_c_r">
+								<input type="text" style="width: 55%; float: left;" name="sjyzm" id="sjyzm" placeholder="请输入验证码">
+
+								<span style="line-height: 50px;height: 50px;color: #E44864;font-size: 15px;" class="sms-btn default-bg-color" onclick="sendSMS(this,'#user_id')" tapmode id="sendmsg2">获取验证码</span>
+								<!--<input class="yuying" id="dynamic" value="46s" type="button" disabled="disabled">-->
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">旧密码</span>
+							</div>
+							<div class="div_c_r"><input type="password" name="old_pwd" id="old_pwd" value="" placeholder="请输入旧密码">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">新密码</span>
+							</div>
+							<div class="div_c_r"><input type="password" name="pwd" id="pwd" value="" placeholder="请输入新密码">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>确认密码</span></div>
+							<div class="div_c_r"><input type="password" name="repwd" id="repwd" value="" placeholder="请再次输入新密码">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<!--<a class="login_go_div" id="btnSubmit" name="btnSubmit"style="background: #E44864;color: #fff;margin-top: 3rem;">注册</a>-->
+					<button id="btnSubmit" name="btnSubmit" type="button" onclick="pwdEdit()" class="login_go_div">确认修改</button>
+				</form>
+				<!--会员注册-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+
+</html>

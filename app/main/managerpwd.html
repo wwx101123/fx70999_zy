@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<link href="../css/user.css" rel="stylesheet" type="text/css" />
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+	</head>
+
+	<body style="background: white;">
+
+		<section style="margin-top: 0px;" class="page__bd">
+
+			<section class="aui-scrollView ">
+				<div class="aui-flex b-line aui-flex-two" onclick="open_modifypwd1()" style="border: 0;">
+					<div class="aui-flex-box">修改登录密码</div>
+					<div class="aui-flex-fr"></div>
+				</div>
+				<div class="aui-flex b-line aui-flex-two" onclick="open_modifypwd2()"  style="border: 0;">
+					<div class="aui-flex-box">修改支付密码</div>
+					<div class="aui-flex-fr"></div>
+				</div>
+
+			</section>
+
+		</section>
+
+	</body>
+	<script type="text/javascript">
+		function open_modifypwd1() {
+			 
+			openWindowWithTitle('修改登录密码', 'modifypwd.html');
+
+		}
+		function open_modifypwd2() {
+			 
+			openWindowWithTitle('修改支付密码', 'modifypwd2.html');
+
+		}
+	</script>
+
+</html>

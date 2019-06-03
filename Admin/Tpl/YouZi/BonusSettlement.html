@@ -1,0 +1,41 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>积分结算</h2>
+            <ol class="breadcrumb">
+                <li>
+                <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>后台管理</a>
+                </li>
+                <li class="active">
+                    <strong>积分结算</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>结算积分</h5>
+            </div>
+            <div class="ibox-content" style="display: block;">
+                <form name="form1" method="post" action="?action=set" class="form-horizontal">
+
+                    <div class="form-group">
+                        <h5 class="" style="text-align:center;">请结算积分前备份数据，结算积分时不要中断操作，以免造成数据丢失！</h5>
+                        <div class="col-sm-12" style="text-align:center;">
+                        <h2><a href="__URL__/adminClearingSave" class="ajax-a label label-danger" info="确定要结算积分吗？">确定</a></h2>
+                        <!-- <input class="btn btn-primary" type="submit" id="send" value="确定"> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+    </div>
+</block>

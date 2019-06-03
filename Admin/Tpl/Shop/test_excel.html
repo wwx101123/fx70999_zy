@@ -1,0 +1,228 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>留言反馈管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>留言反馈管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu">
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script> <script
+	type="text/javascript">
+		$(function() {
+
+			$('.sidebar').css('display', 'block')
+			$('.navbar-nav li').removeClass('active')
+			$('.navbar-nav li.adminTerminal').addClass('active')
+			$('.subnav').css('display', 'none')
+			$('.sidebar #adminTerminal').css('display', 'block')
+			$('.sidebar #adminTerminal').addClass('current')
+		});
+
+		function test_fenhong(id, obj) {
+
+			var time = $(obj).parent().parent().parent().parent().find('#time')
+					.val()
+			if (confirm('确定分红?')) {
+				var postData = {
+					"id" : id,
+					"time" : time
+				};
+				//发送AJAX请求
+				sendAjaxUrl(postData, "{:U('User/test_fenhong')}");
+
+			}
+
+		}
+		function view_content(content) {
+			var winDialog = dialog({
+				title : '留言内容',
+				content : content,
+				okValue : '确定',
+				ok : function() {
+
+					return true;
+				},
+				cancelValue : '取消',
+				cancel : function() {
+				}
+			}).showModal();
+		}
+
+		function reply(id) {
+			var winDialog = dialog(
+					{
+						title : '回复',
+						content : '<textarea id="content" name="content" rows="3" cols="50" class="input"> </textarea>',
+						okValue : '确定',
+						ok : function() {
+
+							var remark = $("#content").val();
+							if (remark == "") {
+								dialog({
+									title : '提示',
+									content : '对不起，请输入回复内容！',
+									okValue : '确定',
+									ok : function() {
+									}
+								}).showModal();
+								return false;
+							}
+							var postData = {
+								"id" : id,
+								"reply_content" : remark
+							};
+							//发送AJAX请求
+							sendAjaxUrl(postData, "{:U('User/reply')}");
+							return false;
+						},
+						cancelValue : '取消',
+						cancel : function() {
+						}
+					}).showModal();
+		}
+		//发送AJAX请求
+		function sendAjaxUrl(postData, sendUrl) {
+			$.ajax({
+				type : "post",
+				url : sendUrl,
+				data : postData,
+				dataType : "json",
+				error : function(XMLHttpRequest, textStatus, errorThrown) {
+					dialog({
+						title : '提示',
+						content : '尝试发送失败，错误信息：' + errorThrown,
+						okValue : '确定',
+						ok : function() {
+						}
+					}).showModal();
+				},
+				success : function(data, textStatus) {
+					if (data.status == 1) {
+
+						var d = dialog({
+							content : data.msg
+						}).show();
+						setTimeout(function() {
+							d.close().remove();
+							location.reload(); //刷新页面
+						}, 2000);
+					} else {
+						dialog({
+							title : '提示',
+							content : '错误提示：' + data.msg,
+							okValue : '确定',
+							ok : function() {
+							}
+						}).showModal();
+					}
+				}
+			});
+		}
+	</script>
+
+
+
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+	<!-- <div class="alert alert-success">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            点击用户账号可<strong>登录留言反馈前台</strong>
+        </div> -->
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>终端下发</h5>
+			<div class="ibox-tools">
+
+				<!--<a href="{:U('Reg/Topuser')}" class="btn btn-primary">新增顶点</a>-->
+			</div>
+		</div>
+
+		<div class="ibox-content" style="display: block;">
+			<form method="post" action="{:U('Shop/test_excel')}"
+				enctype="multipart/form-data">
+				<input type="file" name="filexls" /> <br> <input type="submit" class="btn btn-primary"
+					value="上传sn" />
+			<a href="{:U('Shop/add_pos')}" class="btn btn-primary">确认下发</a>
+			<a href="{:U('Shop/del_pos',array('terminal_type'=>$terminal_type))}" class="btn btn-primary">全部删除</a>
+			<span style="color:red" >*红色表示已存在</span>
+			<input id="terminal_type" name="terminal_type" type="hidden" value="{$terminal_type}" >
+			</form>
+			<div class="tablesaw-bar mode-stack"></div>
+			<form name="form3" method="post" action="{:U('YouZi/adminMenberAC')}">
+				<table class="table table-hover tablesaw-stack"
+					data-tablesaw-mode="stack" id="table-1166">
+					<thead>
+						<tr>
+							<!--<th></th>--> 
+							
+							<th>盟友</th>
+							<th>订单编号</th>
+							<th>SN编号</th>
+							<th>SN型号</th> 
+							<th>到期时间</th>
+							<th>返现金额</th> 
+							<th>奖励金额</th>  
+							<th>操作</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="list" id="vo">
+						<tr style="color:{$vo['color']}" > 
+							<td><span class="tablesaw-cell-content">{$vo['user_id']}</span></td>
+							<td><span class="tablesaw-cell-content">{$vo['order_no']}</span></td>
+							<td><span class="tablesaw-cell-content">{$vo['sn']}</span></td>
+							<td><span class="tablesaw-cell-content">{$vo['sn_type']}</span></td>  
+							<td>{$vo['expire_time_str']}</td>
+<td>{$vo['fan_money']}</td>
+<td>{$vo['award_money']}</td>
+<td> <a class="btn btn-xs btn-outline  btn-info ajax-a"
+											href="{:U('Shop/excel_terminal_del',array('id'=>$vo['id']))}"
+											info="确定删除？"
+									 >删除</a></td>
+ 
+						</tr>
+						</volist>
+						<!--<tr> 
+                        <td colspan="18">
+                            <span class="tablesaw-cell-content">
+                            <input name="全选" type="button" class="btn btn-xs" id="全选" onclick="CheckAll(this.form)" value="全选" />
+                            <input type="submit" class="btn btn-xs btn-outline btn-danger" name="action"  value="配股" onclick="{if(confirm('确定为选中的留言反馈配股?')){return true;}return false;}">
+                        </span></td>
+                    </tr>-->
+					</tbody>
+				</table>
+			</form>
+			{$page}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> <script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+</script> </block>

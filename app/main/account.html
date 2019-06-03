@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+
+		<style>
+			.mui-btn {
+				font-size: 16px;
+				padding: 8px;
+				margin: 3px;
+			}
+			
+			h5.mui-content-padded {
+				margin-left: 3px;
+				margin-top: 20px !important;
+			}
+			
+			h5.mui-content-padded:first-child {
+				margin-top: 12px !important;
+			}
+			
+			 
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<!--<script src="../js/mui.picker.min.js"></script>-->
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.plusReady(function() {
+				var IP = localStorage.getItem('IP');
+				var user = localStorage.getItem('user');
+
+				user = JSON.parse(user);
+				$('#user_id').val(user.id);
+				$('#bank_card').val(user.bank_card);
+				$('#bank_user_name').val(user.bank_user_name);
+				$('#bank_name').val(user.bank_name);
+
+				$('#userResult').html(user.bank_name);
+				if(user.bank_province != null&&user.bank_province != '') { 
+					console.log(user.bank_province)
+					$('#txtProvince').val(user.bank_province);
+					$('#txtCity').val(user.bank_city);
+					$('#txtArea').val(user.bank_area);
+					$('.J-area').html(user.bank_province + user.bank_city + user.bank_area);
+					var $target = $('#J_Address2');
+					$target.citySelect({
+						provance: user.province,
+						city: user.city,
+						area: user.area
+					});
+
+				}
+				$('.button-success').click(function() {
+					$('#bank_name').val($('#userResult').html())
+					open_shop_step4();
+				})
+
+				var history_url = localStorage.getItem('history_url')
+				if(history_url != '') {
+
+					$('#history_url').val(history_url);
+				}
+				$('#history_url').val('');
+
+			});
+			(function($, doc) {
+
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					var user = localStorage.getItem('user');
+
+					user = JSON.parse(user);
+					var userbank = localStorage.getItem('userbank');
+					console.log(userbank);
+					userbank = JSON.parse(userbank);
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+					var index; //用index来记住给你的那个默认值的下标
+					var List = userbank;
+					for(var i = 0; i < List.length; i++) {
+						shopList1.push({
+
+							value: List[i].label, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+							text: List[i].label,
+							phone: List[i].value,
+							saddress: List[i].value, //地址                     
+
+						})
+
+											
+						if(List[i].label == user.bank_name) {
+							index = i;
+							console.log(List[i].label) 
+						}
+
+					}
+					userPicker.setData(shopList1);
+					var showUserPickerButton = doc.getElementById('bank_name_select');
+					var userResult = doc.getElementById('userResult');
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.innerText = (items[0].text); 
+						});
+					}, false);
+
+				});
+			})(mui, document);
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_auth_info');
+
+				}
+			});
+		</script>
+	</head>
+
+	<body>
+
+		<div class="mui-content">
+			<form id="editForm" name="editForm" class="form-box">
+				<input id="history_url" name="history_url" type="hidden" value="" />
+				<input id="user_id" name="user_id" type="hidden" />
+				<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+				<link href="../css/common.32e41245.css?source=11" rel="stylesheet">
+
+				<div id="account-page" class="page-group">
+					<!--页面头部-->
+
+					<!--/页面头部-->
+					<link rel="stylesheet" href="../css/ydui.css?rev=@@hash" />
+					<link rel="stylesheet" href="../css/demo.css" />
+					<script type="text/javascript" src="../js/ydui.citys.js"></script>
+					<script type="text/javascript" src="../js/ydui.js"></script>
+					<div class="page no-animate page-current" style="margin-top: 00px;">
+						<div class="content page-content native-scroll mt-right">
+							<div class="contentInner">
+								<div class="navbar">最后1步，即将完成</div>
+								<div class="sub-nav"></div>
+								<div class="list-block mt0">
+									<script type="text/javascript">
+										mui.plusReady(function() {
+											//初始化地区
+
+											var $target = $('#J_Address2');
+											$target.citySelect();
+											$target.on('click', function(event) {
+
+												event.stopPropagation();
+												$target.citySelect('open');
+												//												$('.cityselect-nav > a').css('font-size','15px')
+												//												$('.cityselect-item-box > a').css('font-size','15px')
+												//												$('.cityselect-title').css('font-size','15px')
+												//												$('.cityselect-item-box > a span').css('font-size','15px')
+												//												$('.cityselect-item-box > a span').css('font-size','15px')
+												$('.cityselect-content').css('padding-top', $('.cityselect-header').height())
+
+											});
+
+											$target.on('done.ydui.cityselect', function(ret) {
+												$('.J-area').html(ret.provance + ' ' + ret.city + ' ' + ret.area);
+												$('#txtProvince').val(ret.provance);
+												$('#txtCity').val(ret.city);
+												$('#txtArea').val(ret.area);
+											});
+										});
+									</script>
+									<ul id="account-info"><input type="hidden" value="private">
+										<li class="item-content">
+											<div class="item-inner">
+												<div class="item-title label">银行卡号</div>
+													<input type="hidden" name="bank_name" id="bank_name">
+												<div class="item-input"><input type="text" id="bank_card" name="bank_card" placeholder="请输入银行卡号"><span class="validate"></span></div>
+											</div>
+										</li>
+										<li>
+											<a href="javascript:void(0);" external="" id="bank_name_select" class="item-link item-content">
+												<div class="item-inner">
+													<div class="item-title label">开户银行</div>
+													<div class="item-after" style="width:100%;" ><div style="float: left;" id='userResult' class="ui-alert"></div><span class="validate"></span></div>
+												</div>
+											</a>
+										</li>
+										<li class="item-content">
+											<div class="item-inner">
+												<div class="item-title label">开户地址</div>
+												<div class="item-input">
+													<a style="padding-left: 0" class="item-link item-content J-province no-animate" id="J_Address2" href="javascript:void(0);">
+														<div class="item-inner" style="padding-right:20px">
+															<div class="item-after" style="text-align: left;margin-left: 0;"><input id="txtProvince" name="txtProvince" type="hidden" />
+																<input id="txtCity" name="txtCity" type="hidden" />
+																<input id="txtArea" name="txtArea" type="hidden" />
+																<div class="J-area t-left"> </div>
+															</div>
+														</div>
+													</a>
+												</div>
+											</div>
+
+										</li>
+
+										<li class="item-content">
+											<div class="item-inner">
+												<div class="item-title label">开户姓名</div>
+												<div class="item-input">
+
+													<div><input id="bank_user_name" type="text" name="bank_user_name" id="bank_user_name" placeholder="请输入开户人姓名"><span class="validate"></span></div>
+												</div>
+											</div>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+							<footer class="bar bar-standard bar-footer">
+								<div class="btns">
+									<a external="" class="button button-fill button-success J-next">下一步</a>
+								</div>
+							</footer>
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+
+	</body>
+
+</html>

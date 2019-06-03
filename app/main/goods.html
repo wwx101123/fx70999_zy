@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>购物商城 </title>
+		<link rel="stylesheet" type="text/css" href="../css/style.css">
+		<link rel="stylesheet" type="text/css" href="../css/home.css">
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/app.min.css">
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+		</script>
+		<style>
+			.biao {
+				width: 12PX;
+			}
+			.inform-list li {
+				width: 50%;
+			}
+			
+			.product-div img {
+				height: 200px;
+			}
+		</style>
+
+		<style type="text/css">
+			.search {
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				z-index: 11000000000;
+				position: fixed;
+				top: 0px;
+				padding: 0;
+			}
+			
+			.search header {
+				left: 0;
+				right: 0;
+				padding: 30px 10px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important
+			}
+			
+			.search a {
+				color: #fff;
+				text-align: left;
+				font-size: 15px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				display: flex;
+				display: -webkit-flex;
+				-ms-flex-align: center;
+				align-items: center;
+				-ms-flex-pack: center;
+				justify-content: center
+			}
+			
+			.search a span {
+				margin-left: 10px
+			}
+			
+			.search a.message {
+				position: relative;
+				text-align: right
+			}
+			
+			.message span {
+				background: red;
+				display: block;
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				top: .3rem;
+				right: -.2rem;
+				border-radius: 9999px;
+				border: 1px solid hsla(0, 0%, 100%, .8)
+			}
+			
+			.search .iconfont {
+				font-size: 1.7rem
+			}
+			
+			.search .icon-down-arrow {
+				font-size: .9rem;
+				margin-left: .18rem;
+				font-weight: 700
+			}
+			
+			.search .input {
+				font-size: 15px;
+				height: 30px;
+				line-height: 30px;
+				padding: 0 1rem;
+				margin: 0 10px;
+				border-radius: 1.43rem;
+				color: #fff;
+				position: relative;
+				background: hsla(0, 0%, 100%, .4);
+				box-flex: 1;
+				-ms-flex: 1!important;
+				flex: 1!important;
+				-webkit-flex: 1!important;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				display: flex;
+				display: -webkit-flex;
+				-ms-flex-align: center;
+				align-items: center;
+				-ms-flex-pack: start;
+				justify-content: flex-start;
+			}
+			
+			.search .input .icon-search {
+				font-size: 20px;
+				margin-right: 10px;
+			}
+			
+			.search .input a,
+			.search .mask {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0
+			}
+			
+			.search .mask {
+				z-index: -1;
+				background: linear-gradient(180deg, rgba(0, 0, 0, .8) 0, transparent)
+			}
+			
+			body {
+				padding-top: 0px;
+				background: transparent;
+				position: relative;
+			}
+			
+			.update_progress {
+				display: block;
+				position: relative;
+				/* 进度条背景颜色 */
+				color: #333333;
+				height: 40px;
+				/* 高度 */
+				line-height: 40px;
+				/* 必须和高度一致，文本才能垂直居中 */
+			}
+			
+			.progress_div {
+				display: block;
+				position: fixed;
+				/* 进度条背景颜色 */
+				color: #333333;
+				height: 40px;
+				/* 高度 */
+				line-height: 40px;
+				width: 0px;
+				bottom: 0px;
+				background: #bb808b
+			}
+			
+			.mod_alert .btn_1 {
+				color: black;
+			}
+			
+			.mui-popover .mui-scroll-wrapper {
+				margin: 0;
+			}
+			
+			.position img {
+				width: 25px;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f1f0f0!important;">
+		<div class="page mescroll" id="mescroll">
+			<!--页面头部-->
+			
+			<!--/页面头部-->
+			
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<!--最新商品-->
+				<div class="category">
+
+					<!--	<section class="product-sequence dis-box" style="position: fixed;top: 0px;z-index: 10000;">
+						<a class="box-flex active" order="is_hot" href="javacript:void(0);">新品<i class="iconfont icon-xiajiantou"></i></a>
+						<a class="box-flex " order="click" href="javacript:void(0);">热门<i class="iconfont icon-xiajiantou"></i></a>
+						<a class="box-flex" order="price" href="javacript:void(0);">价格<i class="iconfont icon-xiajiantou"></i></a>
+
+					</section>-->
+					<!-- 内容 -->
+					<section class="product-list j-product-list  product-list-medium img-list goods_list" style="padding-top: 0px;">
+						
+						<div class="no-div-message" style="display: none;">
+							<i class="iconfont icon-biaoqingleiben"></i>
+							<p>亲，此处没有内容～！</p>
+						</div>
+					</section>
+				</div>
+				<!--/最新商品-->
+
+			</div>
+			<!--/页面内容-->
+		</div>
+
+	</body>
+
+	<!--<script type="text/javascript">
+		mui.init({
+			pullRefresh: {
+				container: '.page__bd',
+				down: {
+					style: 'circle',
+					color: localStorage.getItem('color'),
+					auto: true,
+					callback: down
+				}
+			}
+		});
+
+		function down() {
+			get_new_goods();
+			mui('.page__bd').pullRefresh().endPulldown();
+		}
+	</script>-->
+	<script type="text/javascript">
+		mui.init({
+			beforeback: function() {　　　
+				localStorage.setItem('category_id', 0);
+				localStorage.setItem('is_login', 0);
+				localStorage.setItem('is_hot', 1)
+				localStorage.setItem('keywords', '')
+
+			}
+		});
+
+		function init() {
+			localStorage.setItem('tel_type', 0)
+			$('.goods_list a').remove()
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			var keywords = localStorage.getItem('keyword')
+			console.log(keywords)
+			if(keywords != '') {
+				$('.search').css('display', 'none')
+			}
+
+		}
+		init()
+		var mescroll;
+		$(function() {
+			localStorage.setItem('is_login', 0)
+			var is_cate = localStorage.getItem('is_cate')
+			if(is_cate == 1) {
+				$('.search').css('display', 'none')
+			}
+			//			localStorage.setItem('category_id', 0)
+			//			$('.mescroll').css('top', $('#sliderSegmentedControl').height() + 44);
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					localStorage.setItem('goods_type',1)
+					localStorage.setItem('is_hot',0)
+					//					console.log(category_id)
+					get_new_goods(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+
+					var curPageData = localStorage.getItem('ListData');
+					var data = JSON.parse(curPageData);
+					mescroll.endSuccess(data.current_count);
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				data = JSON.parse(data)
+				remove_toast()
+				var status = data.status;
+				if(status == 1) {
+					var info = data.data;
+					if(info == null) {
+						$('.no-div-message').css('display', 'block');
+
+					}
+					var page_index = localStorage.getItem('page_index');
+					if(page_index == 1 || page_index == 0) {
+
+						$('.img-list ul li').remove();
+					}
+					console.log(info)
+					if(info != null) {
+						$.each(info, function(index, content) {
+
+							var item = '<a href="javascript:;" class="aui-list-theme-item goods_item"  id="' + content.id + '" name="' + content.title + '" >';
+							item += '<div class="aui-list-img"> <img class="img" src="' + IP + content.img + '" alt=""> </div>';
+							item += '<div class="aui-list-title">';
+							item += '	<h3>' + content.title + '</h3>';
+							item += '<!--<div class="aui-flex">';
+							item += '	<div class="aui-flex-box"> <span>￥56.00</span></div>';
+							item += '	<div class="aui-list-right"> <span>  </span></div>';
+							item += '</div>-->';
+							item += '<div class="aui-flex aui-flex-pic" style="margin-top:10px" >';
+							item += '	<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_zun.png" /> <span style="color:#ffb909">' + content.price + '</span><span style="color:#ab9b72;opacity: 0.5;"></span> </div>';
+							item += '<div class="aui-list-right">';
+//							item += '	<span>￥' + content.agent_bi + '</span>';
+							item += '</div>';
+							item += '</div>';
+							item += '<div class="aui-flex aui-flex-pic">';
+							item += '<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_market.png" /> <span >' + content.market_price + '</span><span style="color:#de614f;opacity: 0.5;"></span> </div>';
+							item += '<div class="aui-list-right">';
+							item += '	<p>月销:' + content.sell_count + '</p>';
+							item += '</div>';
+							item += '</div>';
+							item += '</div>';
+							item += '	</a>';
+
+							$('.goods_list').append(item);
+						});
+						$(".goods_item").on('click', function() {
+							localStorage.setItem('goods_id', $(this).attr('id'));
+							localStorage.setItem('hot_id', $(this).attr('hot_id'));
+							localStorage.setItem('title', $(this).attr('name'));
+
+							openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+						});
+
+					}
+					var info = data.category;
+					if($('.inform-list ul li').length == 0) {
+						$('.inform-list ul li').remove();
+						$.each(info, function(index, content) {
+							var acti = '';
+							if(index == 0) {
+
+								acti = 'acti';
+							}
+							var item = ' <li class="' + acti + '" category_id="' + content.id + '"  >' + content.title + '</li>';
+							$('.inform-list ul').append(item);
+
+						});
+						$('.inform-list li').click(function() {
+							$('.inform-list li').removeClass('acti')
+							$(this).addClass('acti');
+							localStorage.setItem('category_id', $(this).attr('category_id'))
+							mescroll.resetUpScroll();
+						});
+						$('.inform-list li:eq(0)').trigger("click");
+					}
+					$(".search_section").click(function() {
+
+						openWindowWithTitle('搜索', 'search.html')
+					});
+					$(".back").click(function() {
+
+						mui.back()
+					});
+
+					$(".dis-box a").on('click', function() {
+						$(".dis-box a").removeClass('active')
+						$(this).addClass('active');
+						localStorage.setItem('order', $(this).attr('order'))
+						mescroll.resetUpScroll();
+					});
+					info = data.cate_slider;
+
+					$('.swiper-wrapper .swiper-slide').remove();
+					var height = $('.swiper-container').height();
+					var goods_albums = info;
+					console.log(goods_albums)
+					if(goods_albums != null && goods_albums != '' && goods_albums != 0) {
+						if(goods_albums.length >= 1) {
+							$.each(goods_albums, function(index, content) {
+								//							console.log(IP + content.img)
+								var item = '	 <div class="swiper-slide"> ';
+								item += '<a href="javacript:void(0);">	<img src="' + IP + content + '"  style="height:200px"/></a> </div>';
+
+								$('.swiper-wrapper').append(item);
+
+							});
+						}
+						var mySwiper = new Swiper('.swiper-container', {
+							calculateHeight: true,
+							resizeReInit: true,
+							pagination: ".pagination",
+							autoplay: 5000,
+							paginationClickable: true,
+							autoplayDisableOnInteraction: false
+						});
+					}
+
+					mescroll.endSuccess();
+				}
+
+			}
+
+		});
+
+		function SiteSearch(divTgs) {
+			var str = $(divTgs).val();
+
+			if(str == '') {
+				//		weui.alert('请输入关键字');
+				//		return;
+			}
+
+			localStorage.setItem('keywords', str)
+			localStorage.setItem('page_index', 1)
+			mescroll.resetUpScroll();
+
+		}
+
+		function open_no_tel() {
+
+			openWindowWithTitle('未实名列表', 'no_name_tel.html');
+
+		}
+	</script>
+
+</html>

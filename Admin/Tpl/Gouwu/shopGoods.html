@@ -1,0 +1,150 @@
+<extend name="Gouwu:shopheader" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>产品详情</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="#">首页</a>
+            </li>
+            <li>
+                <a>产品订购</a>
+            </li>
+            <li class="active">
+                <strong>产品详情</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox product-detail">
+                    <div class="ibox-title">
+                        <h5>产品详情</h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="product-images">
+                                    <div>
+                                        <div class="image-imitation" style="padding: 0px"><img src="{$pro.img}" width="100%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <h2 class="font-bold m-b-xs">{$pro.name}</h2>
+                                <!--<small>数码电器</small>-->
+                                <div class="m-t-md">
+                                    <h2 class="product-main-price"><b class="text-danger" style="font-size: 24px;font-weight: 100;"><i class="fa fa fa-cny "></i>{$pro.money|bcmul=1,###,2}</b> <small class="text-muted">市场价 <i class="fa fa fa-cny "></i>{$pro.a_money|bcmul=1,###,2}</small> </h2>
+                                </div>
+                                <hr>
+                                <!-- <h3 class="product-main-price">
+                                    <b class="text-success" style="font-size: 14px;font-weight: 100;">颜色</b>
+                                    <small class="text-muted"> <b>白色</b></small>
+                                </h3> -->
+                                <h3 class="product-main-price">
+                                    <b class="text-warning" style="font-size: 14px;font-weight: 100;">尺寸</b>
+                                    <small class="text-muted"> {$pro.ccname}</small>
+                                </h3>
+                                <h3 class="product-main-price">
+                                    <b class="text-info" style="font-size: 14px;font-weight: 100;">库存</b>
+                                    <small class="text-muted">{$pro.num}</small>
+                                </h3>
+                                <hr>
+                                <form class="form-horizontal" name="form1" action="order.php?action=cart" id="orderForm" method="post">
+                                    <div class="form-group">
+                                        <!--<label class="col-sm-2 control-label">数量：</label>-->
+                                        <div class="col-sm-3">
+                                            <div class="input-group bootstrap-touchspin">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-white bootstrap-touchspin-down" type="button" onclick="numOperate(0,$(this));">-</button>
+                                                    </span>
+                                                    <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                                                    <input class="touchspin1 form-control" id="{$pro.id}" type="text" value="1" name="num" style="display: block;text-align: center;">
+                                                    <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                                                    <span class="input-group-btn">
+                                                    <button class="btn btn-white bootstrap-touchspin-up" type="button" onclick="numOperate(1,$(this));">+</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="btn-group">
+                                            <input type="hidden" name="id" value="59">
+                                            <input type="hidden" name="action" value="cart_ajax">
+                                            <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="add_to_cart" type="button" onclick="ajaxfunction({$pro.id},1);"><i class="fa fa-cart-plus"></i> 加入购物车</button>
+                                            <a class="btn btn-white" href="{:U('Gouwu/shopCar')}"> 查看购物车</a>
+                                        </div>
+                                    </div>
+
+                                </form>
+                                <div>
+                                    <div class="btn-group pull-right">
+                                        <a class="btn btn-white btn-sm" onclick="history.go(-1);"><i class="fa fa-reply"></i> 返回</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h4>产品描述</h4>
+
+                                <div class="small text-muted text-center">
+                                    {$pro.content|htmlspecialchars_decode=###}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    // function ajaxfunction(argument,sa) {
+    //     alert(2);
+    // }
+    
+        // console.log(1);
+        // var layer=layui.layer;
+        function ajaxfunction(id,type) {
+            layui.use(['layer'], function(){
+            var bnum=$('#'+id).val();
+            console.log(bnum);
+            $.get("__APP__/Fck/gTotle/GID/"+id+"/bnum/"+bnum,
+                function(data) {
+                    if (data.status) {
+                        console.log(data);
+                        layer.msg(data.info);
+                    }else{
+                        layer.msg(data.info);
+                    }
+                });
+             });
+        }
+        
+        function numOperate(type,self) {
+            var input = self.parent().siblings('input');
+            console.log(input);
+            var id=input.attr('id');
+            console.log(id);
+            var num=input.val();
+            // console.log(num);
+            if (type==1) {
+                input.val(parseInt(num)+1);
+            }else{
+                if (num>=1) {
+                    input.val(parseInt(num)-1);
+                }                            
+            }
+            
+            // ajaxfunction(id);
+        }
+        
+   
+    </script>
+</block>

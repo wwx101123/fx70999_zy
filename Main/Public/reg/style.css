@@ -1,0 +1,368 @@
+/* 通用样式
+ * by 张志志
+ * update 2016-11-25
+ **/
+/*======通用css======*/
+html, body {
+	-webkit-appearance: none;
+	font-size: 16px;
+	-webkit-tap-highlight-color: transparent;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	height: 100%;
+    font-family: "黑体";
+	background-color: transparent !important;
+}
+ul, li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+i {
+	font-style: normal;
+}
+
+input {
+	outline: none !important;
+	font-size: 16px;
+}
+/* ======placeholder属性 颜色 兼容性设置 ======*/
+:-moz-placeholder {/* Mozilla Firefox 4 to 18 */
+	color: #bfbfbf;
+}
+
+::-moz-placeholder {/* Mozilla Firefox 19+ */
+	color: #bfbfbf;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+	color: #bfbfbf;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+	color: #bfbfbf;
+}
+/*====== placeholder属性 颜色 兼容性设置====== */
+
+/*====== 流式布局 start====== */
+/* 子元素-平均分栏 */
+.flex1 {
+	-webkit-box-flex: 1; /* OLD - iOS 6-, Safari 3.1-6 */
+	-moz-box-flex: 1; /* OLD - Firefox 19- */
+	/*width: 20%; *//* For old syntax, otherwise collapses. */
+	-webkit-flex: 1; /* Chrome */
+	-ms-flex: 1; /* IE 10 */
+	flex: 1; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+.flex2 {
+	-webkit-box-flex: 2; /* OLD - iOS 6-, Safari 3.1-6 */
+	-moz-box-flex: 2; /* OLD - Firefox 19- */
+	/* 	width: 40%; For old syntax, otherwise collapses. */
+	-webkit-flex: 2; /* Chrome */
+	-ms-flex: 2; /* IE 10 */
+	flex: 2; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+
+/* 父元素-横向排列（主轴） */
+.flex-h {
+	display: box; /* OLD - Android 4.4- */
+	display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox; /* TWEENER - IE 10 */
+	display: -webkit-flex; /* NEW - Chrome */
+	display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	/* 09版 */
+	-webkit-box-orient: horizontal;
+	/* 12版 */
+	-webkit-flex-direction: row;
+	-moz-flex-direction: row;
+	-ms-flex-direction: row;
+	-o-flex-direction: row;
+	flex-direction: row;
+}
+/* 父元素-横向换行 */
+.flex-hw {
+	/* 09版 */
+	/*-webkit-box-lines: multiple;*/
+	/* 12版 */
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+/* 父元素-水平居中（主轴是横向才生效） */
+.flex-hc {
+	/* 09版 */
+	-webkit-box-pack: center;
+	/* 12版 */
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	-o-justify-content: center;
+	justify-content: center;
+	/* 其它取值如下：
+	 align-items     主轴原点方向对齐
+	 flex-end        主轴延伸方向对齐
+	 space-between   等间距排列，首尾不留白
+	 space-around    等间距排列，首尾留白
+	 */
+}
+/* 父元素-纵向排列（主轴） */
+.flex-v {
+	display: box; /* OLD - Android 4.4- */
+	display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+	display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+	display: -ms-flexbox; /* TWEENER - IE 10 */
+	display: -webkit-flex; /* NEW - Chrome */
+	display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+	/* 09版 */
+	-webkit-box-orient: vertical;
+	/* 12版 */
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	flex-direction: column;
+}
+/* 父元素-纵向换行 */
+.flex-vw {
+	/* 09版 */
+	/*-webkit-box-lines: multiple;*/
+	/* 12版 */
+	-webkit-flex-wrap: wrap;
+	-moz-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	-o-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+/* 父元素-竖直居中（主轴是横向才生效） */
+.flex-vc {
+	/* 09版 */
+	-webkit-box-align: center;
+	/* 12版 */
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+	align-items: center;
+}
+/* 子元素-显示在从左向右（从上向下）第1个位置，用于改变源文档顺序显示 */
+.flex-1 {
+	-webkit-box-ordinal-group: 1; /* OLD - iOS 6-, Safari 3.1-6 */
+	-moz-box-ordinal-group: 1; /* OLD - Firefox 19- */
+	-ms-flex-order: 1; /* TWEENER - IE 10 */
+	-webkit-order: 1; /* NEW - Chrome */
+	order: 1; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+/* 子元素-显示在从左向右（从上向下）第2个位置，用于改变源文档顺序显示 */
+.flex-2 {
+	-webkit-box-ordinal-group: 2; /* OLD - iOS 6-, Safari 3.1-6 */
+	-moz-box-ordinal-group: 2; /* OLD - Firefox 19- */
+	-ms-flex-order: 2; /* TWEENER - IE 10 */
+	-webkit-order: 2; /* NEW - Chrome */
+	order: 2; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+}
+/*====== 流式布局 end ======*/
+
+/* ======box-sizing兼容性写法====== start */
+.borderbox {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box; /* Firefox */
+	-webkit-box-sizing: border-box; /* Safari */
+}
+/* ======box-sizing兼容性写法====== end */
+
+/* ======浮动布局====== start*/
+.flt-lft {
+	float: left;
+}
+.flt-rgt {
+	float: right;
+}
+/* ======浮动布局====== end*/
+
+/* ======常用宽度比例====== start */
+.width-100 {
+	width: 100%;
+}.width-40 {
+	width: 40%;
+}.width-45 {
+	width: 45%;
+}
+.width-50 {
+	width: 50%;
+}.width-55 {
+	width: 55%;
+}
+.width-60 {
+	width: 60%;
+}
+.width-33 {
+	width: 33.3%;
+}
+.width-25 {
+	width: 25%;
+}
+.width-20 {
+	width: 20%;
+}
+.height-100 {
+	height: 100%;
+}
+.height-50 {
+	height: 50%;
+}
+.height-33 {
+	height: 33.3%;
+}
+.height-25 {
+	height: 25%;
+}
+.height-20 {
+	height: 20%;
+}
+.clear-both{
+clear: both;
+}
+/*====== 常用宽度比例 ======end */
+
+/*======默认颜色 start======*/
+.default-bg-color {
+	background-color: rgb(82,53,176) !important;
+}
+.defalut-color {
+	color:  rgb(82,53,176) !important;
+}
+/*======默认字体颜色 end======*/
+
+/* 灰色区域 */
+.grey-block{
+	background: #eee;
+	width: 100%;
+	height: 0.5em;
+}
+/* 单行显示 溢出省略号 */
+.row-one{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+/* ======元素不可见======start */
+.hid {
+	display: none !important;
+}
+/* 占位 */
+.em{
+    width: 1em;
+    height: 100%;
+    display: inline-block;
+}
+/* 溢出 */
+.of-hid{
+	overflow: hidden;
+}
+/* 固定区域 */
+.fiexed{
+	position: fixed!important;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: auto;
+}
+/* ======元素不可见======end */
+
+/* ======清除左侧浮动====== end*/
+
+/* ======空页面默认背景======start*/
+.empty-wrap {
+	height: 100%;
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+.empty-wrap .img {
+	display: block;
+	position: absolute;
+	width: 4em;
+	height: 4em;
+	top: 50%;
+	left: 50%;
+	margin: -4em 0 0 -2em;
+}
+.empty-wrap .txt {
+
+	position: absolute;
+	top: 50%;
+	margin-top: 1em;
+	text-align: center;
+	width: 100%;
+	color: #808080;
+	font-size: 15px;
+}
+/* ======空页面默认背景======end*/
+
+/* ======通用头部======start*/
+.header {
+	position: relative;
+	font-size: 16px;
+	color: white;
+	height: 44px;
+	line-height: 44px;
+	text-align: center;
+	z-index: 9999;
+}
+.header .left {
+	z-index: 9999;
+    padding-left: 6px;
+}
+.header .left .txt {
+	height: 44px;
+	line-height: 44px;
+	float: left;
+	display: block;
+	margin: 0 0 0 6px;
+	display: block;
+}
+.header .left  img {
+	height: 20px;
+    margin: 12px 4px;
+	float: left;
+	display: block;
+}
+.header .middle {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 18px;
+}
+.header .right {
+	min-width: 3em;
+	position: absolute;
+	right: 0;
+	z-index: 9999;
+    padding-right: 6px;
+}
+.header .right img {
+	    height: 20px;
+    margin: 12px 4px;
+    float: right;
+    display: block;
+}
+/* ======通用头部======end*/
+/* 遮罩层 */
+.mask{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	z-index: 10000;
+	background: rgba(0, 0, 0, 0.27);
+}
+.mask .blank

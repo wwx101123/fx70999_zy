@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+	
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+	<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<script type="text/javascript">
+layui.use('layer', function() {
+
+});
+</script>
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		/* $("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		}); */
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form class="form-horizontal ajax-post" name="form1" id="form1"
+		method="post" action="__ACTION__">
+
+		<input type="hidden" name="goods_id" id="goods_id" value="{$vo.id}">
+		<input type="hidden" name="is_mobile" id="is_mobile" value="1">
+		<!--导航栏-->
+		<div class="location"></div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+
+			<dl>
+				<dt>用户账号</dt>
+				<dd>
+					<input name="user_name" type="text" value=""
+						class="input normal" required="">
+				</dd>
+			</dl> 
+
+			<dl>
+				<dt>选择商品</dt>
+				<dd>
+				<input name="goods_title" type="text" value="{$vo.title}"
+						class="input normal" readonly="readonly">
+				</dd>
+			</dl>
+			<dl>
+				<dt>数量：</dt>
+				<dd>
+					<input name="num" type="text" value="0"
+						class="input normal" required="">
+				</dd>
+			</dl>
+			 
+
+		</div>
+
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="button" value="提交保存" class="btn add_post"
+					  /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+	 
+	<script type="text/javascript">
+	$(function() {
+
+		  
+		$(".add_post").click(function() {
+			var winDialog = top
+			.dialog(
+					{
+						title : '创建订单',
+						content : '创建订单，确认要继续吗？',
+						button : [
+								{
+									value : '确定',
+									callback : function() {
+										var postData = $('#form1').serialize();
+										//发送AJAX请求
+										sendAjaxUrl(winDialog, postData,
+												'{:U('Goods/order_add')}');
+										return false;
+									},
+									autofocus : true
+								}, {
+									value : '取消',
+									callback : function() {
+									}
+								} ]
+					}).showModal();
+		});
+		
+		
+	});
+	//发送AJAX请求
+	function sendAjaxUrl(winObj, postData, sendUrl) {
+		$.ajax({
+			type : "post",
+			url : sendUrl,
+			data : postData,
+			dataType : "json",
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				top.dialog({
+					title : '提示',
+					content : '尝试发送失败，错误信息：' + errorThrown,
+					okValue : '确定',
+					ok : function() {
+					}
+				}).showModal(winObj);
+			},
+			success : function(data, textStatus) {
+				if (data.status == 1) {
+					winObj.close().remove();
+					var d = dialog({
+						content : data.msg
+					}).show();
+					setTimeout(function() {
+						d.close().remove();
+						location.reload(); //刷新页面
+					}, 2000);
+				} else {
+					top.dialog({
+						title : '提示',
+						content : '错误提示：' + data.msg,
+						okValue : '确定',
+						ok : function() {
+						}
+					}).showModal(winObj);
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>
+

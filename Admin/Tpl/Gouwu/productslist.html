@@ -1,0 +1,184 @@
+<extend name="Public:adminheader" />
+<block name="menu">
+<div class="row wrapper border-bottom white-bg page-heading" class="clearfix">
+        <div class="col-sm-12">
+            <div class="title-action pull-left">
+                <a href="{:U('Gouwu/productAdd')}?action=addpro" class="btn btn-primary">添加产品</a>
+                <a href="{:U('Gouwu/cptypelist')}" class="btn btn-primary">分类管理</a>
+                <!--<a href="{:U('Gouwu/swapManage')}" class="btn btn-primary">二手互易商品管理</a>
+                <a href="{:U('Gouwu/swaptype')}" class="btn btn-primary">二手互易商品分类管理</a>-->
+            </div>
+        </div>
+    </div>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <form method="post" action="" name="formq">
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="topid">所属分类</label>
+                            <select name="topid" id="topid" class="form-control">
+                                <option value="">请选择</option>
+                                <foreach name="typelist" item="vo">
+                                <option name="{vo.id}">{$vo.tpname}</option>
+                                </foreach>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="categoryid">产品类别</label>
+                            <select name="categoryid" id="categoryid" class="form-control">
+                                <option>请选择</option>
+                                <option value="">二手互易</option>
+                                <option value="">商城商品</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="control-label" for="key_t">产品名称</label>
+                            <input type="text" id="key_t" name="key_t" value="" placeholder="产品名称" class="form-control">
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-1">
+                        <div class="form-group">
+                            <label class="control-label" for="show_index">首页显示</label>
+                            <select name="show_index" id="show_index" class="form-control">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <!-- <div class="col-sm-1">
+                        <div class="form-group">
+                            <label class="control-label" for="show_new">新品分享</label>
+                            <select name="show_new" id="show_new" class="form-control">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                        </div>
+                    </div>
+ -->                    <div class="col-sm-3">
+                        <div class="form-group" id="data_5">
+                            <label class="control-label">价格</label>
+                            <div class="input-daterange input-group" id="datepicker">
+                                <input type="text" class=" form-control" name="price1" id="price1" placeholder="最小价格">
+                                <span class="input-group-addon">到</span>
+                                <input type="text" class="form-control" name="price2" id="price2" placeholder="最大价格">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-1">
+                        <div class="form-group">
+                            <label class="control-label" for="show_new">点击查询</label>
+                            <button type="submit" class="btn btn-primary">查询</button>
+                        </div>
+                    </div>
+                <!--<div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="control-label" for="status">Status</label>
+                        <select name="status" id="status" class="form-control">
+                            <option value="1" selected="">Enabled</option>
+                            <option value="0">Disabled</option>
+                        </select>
+                    </div>
+                </div>-->
+            </form>
+        </div>
+
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>产品列表</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content" style="display: block;">
+            <div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-6872">
+
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>图片</th>
+                    <th>分类</th>
+                    <th>类别</th>
+                    <th>名称</th>
+                    <th>尺寸</th>
+                    <!-- <th>首页显示</th> -->
+                    <th>市场价</th>
+                    <th>会员价</th>
+                    <th>库存</th>
+                    <th>是否为报单产品</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="vertical-align:middle;"><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                    <td><b class="tablesaw-cell-label">图片</b><span class="tablesaw-cell-content">
+                        <a href="{$vo.img}" target="_blank">
+                            <img src="{$vo.img}" class="tableimg"></a></span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">分类</b><span class="tablesaw-cell-content">{$vo.cptype|getProType=###}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">类别</b><span class="tablesaw-cell-content">{$vo.cptype|getProType=###}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">名称</b><span class="tablesaw-cell-content"><a style="max-width:200px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="LG手机" href="productview.php?id=59&amp;pageno=">{$vo.name}</a></span></td>
+                            <!-- <td style="vertical-align:middle;"><b class="tablesaw-cell-label">颜色</b><span class="tablesaw-cell-content">白色</span></td> -->
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">尺寸</b><span class="tablesaw-cell-content">{$vo.ccname}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">市场价</b><span class="tablesaw-cell-content">{$vo.a_money}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">会员价</b><span class="tablesaw-cell-content">{$vo.money}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">库存</b><span class="tablesaw-cell-content">{$vo.num}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">是否为报单产品</b><span class="tablesaw-cell-content"><eq name="vo.is_reg" value="0">否<else/>是</eq></span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">添加时间</b><span class="tablesaw-cell-content">{$vo.create_time|date='Y-m-d',###}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                <!--<a href="productview.php?id=59&pageno=">查看</a> -->
+                                <a class="btn btn-xs btn-outline btn-info" href="{:U('Gouwu/pro_edit')}?proid={$vo.id}">修改</a>
+                                <a class="btn btn-xs btn-outline btn-danger ajax-a" href="{:U('Gouwu/proOperation')}?action=del&proid={$vo.id}" info="确定删除该商品吗？">删除</a>
+                                <!-- <a class="btn btn-xs btn-outline btn-primary" href="?action=show_index&amp;id=59&amp;pageno=">设为首页显示</a> -->
+                                <!-- <br> -->
+                                <!-- <a class="btn btn-xs btn-outline btn-primary" href="?action=show_new&amp;id=59&amp;pageno=">设为新品分享</a>  -->
+                                <eq name="vo.yc_cp" value="0">
+                                <a class="btn btn-xs btn-outline btn-danger ajax-a" href="{:U('Gouwu/proOperation')}?action=state&proid={$vo.id}" info="确定下架该商品吗？">商品下架</a>
+                                <else/>
+                                <a class="btn btn-xs btn-outline btn-primary ajax-a" href="{:U('Gouwu/proOperation')}?action=stateo&proid={$vo.id}" info="确定上架该商品吗？">商品上架</a>
+                                </eq>
+                            </span></td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+                <script type="text/javascript">
+                    layui.use(['layer', 'form','laydate'], function(){
+                  $('.ajax-a').on('click',function() {
+                        var self=$(this);
+                        layer.confirm(self.attr('info'),{icon: 3, title:'警告'},function(index) {
+                          $url=self.attr('href');
+                          $.get($url,function(data) {
+                            if (data.status) {
+                              layer.msg(data.info,{time:1000,end:function() {
+                                if (data.url) {
+                                  location.href=data.url;
+                                }else{
+                                  location.reload();
+                                }
+                              }});
+                            }else{
+                              layer.msg(data.info);
+                            }
+                          });
+                        });
+                        return false;
+                      });
+                    });
+                </script>
+                <div class="row grey-bg">
+                {$page}
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</block>

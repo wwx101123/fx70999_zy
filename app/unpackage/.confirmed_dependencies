@@ -1,0 +1,605 @@
+{
+  "index.html": {
+    "resources": [
+      "main/main.html",
+      "images/app_assets_images_tab_ally_active.png",
+      "images/app_assets_images_tab_home.png",
+      "js/socket.io.js",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/mui.min.css",
+      "images/app_assets_images_tab_home_active.png",
+      "images/app_assets_images_tab_account.png",
+      "images/app_assets_images_tab_account_active.png",
+      "images/app_assets_images_tab_earnings_active.png",
+      "images/app_assets_images_tab_earnings.png"
+    ],
+    "refer": [
+      "main/main.html",
+      "main/cate.html",
+      "main/cart.html",
+      "main/user.html",
+      "main/tab-vertical-scroll.html"
+    ]
+  },
+  "login.html": {
+    "refer": [
+      "index.html",
+      "main/register.html",
+      "main/forget_password.html"
+    ],
+    "resources": [
+      "css/mui.min.css",
+      "css/login.css",
+      "js/zepto.min.js",
+      "js/mvalidate.js",
+      "js/mvalidate-extend.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "js/base.js",
+      "images/head-title.png",
+      "images/icon-user.png",
+      "images/icon-psd.png"
+    ]
+  },
+  "main/main.html": {
+    "refer": [
+      "main/search.html",
+      "main/goods_show.html",
+      "main/goods.html",
+      "main/item1.html",
+      "main/shou.html",
+      "main/seller_list.html",
+      "main/barcode_scan.html",
+      "main/buy_seller.html"
+    ],
+    "resources": [
+      "css/style.css",
+      "css/mui.min.css",
+      "css/modify.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/h.min.js",
+      "js/common.js",
+      "js/goods.js",
+      "js/idangerous.swiper-2.1.min.js",
+      "css/idangerous.swiper.css",
+      "css/my.min_fbd6649a.css",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_notice.png"
+    ]
+  },
+  "main/cate.html": {
+    "refer": [
+      "main/goods_show.html"
+    ],
+    "resources": []
+  },
+  "main/goods_show.html": {
+    "resources": [
+      "img/mescroll-totop.png",
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/idangerous.swiper.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/idangerous.swiper-2.1.min.js",
+      "js/common.js",
+      "js/goods.js",
+      "js/cart.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "js/mui.min.js"
+    ],
+    "refer": [
+      "main/shopping.html",
+      "main/useraddress_edit.html",
+      "main/shop_detail.html"
+    ]
+  },
+  "main/shopping.html": {
+    "resources": [
+      "images/59af98d4Nb287ee5f.png",
+      "js/weui.min.js",
+      "css/validate.css",
+      "css/style.css",
+      "css/jquery-weui.css",
+      "css/mui.min.css",
+      "js/zepto.min.js",
+      "js/mui.min.js",
+      "js/mvalidate.js",
+      "js/mvalidate-extend.js",
+      "js/common.js",
+      "js/product_cart.js",
+      "images/logo.png",
+      "js/pay/common.js"
+    ],
+    "refer": [
+      "main/succeed.html",
+      "main/cart.html",
+      "main/useraddress_edit.html",
+      "main/useraddress.html",
+      "main/shopping.html",
+      "main/index.html"
+    ]
+  },
+  "main/user.html": {
+    "refer": [
+      "main/pointflows.html",
+      "main/index.html",
+      "main/recommend_list.html",
+      "main/userorder.html",
+      "main/upload.html",
+      "main/bank.html",
+      "main/feedback.html",
+      "main/tiqu.html",
+      "main/checkpwd2.html",
+      "main/recommend.html",
+      "main/shop_list.html",
+      "login.html",
+      "main/useraddress.html",
+      "main/mygoods.html",
+      "main/recommend_images.html",
+      "main/apply_seller.html",
+      "main/sell.html",
+      "main/create.html",
+      "main/usergoodslist.html"
+    ],
+    "resources": [
+      "css/style.css",
+      "css/user.css",
+      "css/mui.min.css",
+      "aui/css/aui.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "js/order.js",
+      "js/upload.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/ad-cn-001.png",
+      "images/user.png",
+      "images/icon-item-01.png",
+      "images/icon-item-02.png",
+      "images/icon-item-03.png",
+      "images/icon-item-04.png",
+      "images/icon-mo-001.png",
+      "images/icon-mo-002.png",
+      "images/icon-mo-003.png",
+      "images/icon-mo-004.png"
+    ]
+  },
+  "main/tx_success.html": {
+    "href": "main/tx_success.html",
+    "resources": [
+      "css/tiqu.css",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "images/mescroll-ball.svg",
+      "img/mescroll-totop.png",
+      "js/mescroll.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/register.html": {
+    "href": "main/register.html",
+    "resources": [
+      "css/validate.css",
+      "css/style.css",
+      "css/new_file.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/common.js",
+      "js/base.js",
+      "js/user.js",
+      "js/register-validate.js",
+      "css/mui.picker.css",
+      "css/mui.poppicker.css",
+      "js/mui.picker.js",
+      "js/mui.poppicker.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/useraddress.html": {
+    "href": "main/useraddress.html",
+    "resources": [
+      "css/style.css",
+      "css/mui.min.css",
+      "js/zepto.min.js",
+      "js/common.js",
+      "js/mui.min.js",
+      "js/weui.min.js",
+      "js/user.js"
+    ],
+    "refer": [
+      "main/useraddress_edit.html",
+      "main/useraddress.html"
+    ],
+    "priority": 0
+  },
+  "main/useraddress_edit.html": {
+    "href": "main/useraddress_edit.html",
+    "resources": [
+      "css/style.css",
+      "css/mui.min.css",
+      "css/validate.css",
+      "css/jquery-weui.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/demo.css",
+      "js/ydui.citys.js",
+      "js/ydui.js"
+    ],
+    "refer": [
+      "main/tx_success.html",
+      "main/register.html",
+      "main/useraddress_edit.html",
+      "main/useraddress.html"
+    ],
+    "priority": 0
+  },
+  "main/succeed.html": {
+    "href": "main/succeed.html",
+    "resources": [
+      "css/style.css",
+      "js/zepto.min.js",
+      "js/weui.min.js",
+      "js/common.js"
+    ],
+    "refer": [
+      "index.html"
+    ],
+    "priority": 0
+  },
+  "main/cart.html": {
+    "href": "main/cart.html",
+    "resources": [
+      "images/del.png",
+      "img/mescroll-totop.png",
+      "css/style.css",
+      "css/shopcar.css",
+      "css/mui.min.css",
+      "css/layout.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/auto-size.js",
+      "js/common.js",
+      "js/product_cart.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "js/mui.min.js",
+      "images/check.png",
+      "images/check_on.png"
+    ],
+    "refer": [
+      "main/shopping.html",
+      "main/index.html"
+    ],
+    "priority": 0
+  },
+  "main/search.html": {
+    "href": "main/search.html",
+    "resources": [
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/app.min.css",
+      "js/mescroll.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js"
+    ],
+    "refer": [
+      "main/goods.html"
+    ],
+    "priority": 0
+  },
+  "main/pin_show.html": {
+    "href": "main/pin_show.html",
+    "resources": [
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/idangerous.swiper.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/zepto.min.js",
+      "js/mui.min.js",
+      "js/weui.min.js",
+      "js/idangerous.swiper-2.1.min.js",
+      "js/common.js",
+      "js/base.js",
+      "js/goods.js",
+      "js/product_cart.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/product_show.html": {
+    "href": "main/product_show.html",
+    "resources": [
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/idangerous.swiper.css",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/zepto.min.js",
+      "js/weui.min.js",
+      "js/idangerous.swiper-2.1.min.js",
+      "js/common.js",
+      "js/base.js",
+      "js/goods.js",
+      "js/product_cart.js",
+      "js/mui.min.js"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/index.html": {
+    "href": "main/index.html",
+    "resources": [
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/style.css",
+      "css/public.css",
+      "css/index_7_2_3.css",
+      "css/index.other.css",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/base.js",
+      "js/goods.js",
+      "main/img/num_l.png",
+      "main/img/shop_cart02.png",
+      "main/img/num_r.png",
+      "js/cart.js",
+      "js/user.js"
+    ],
+    "refer": [
+      "main/goods_show.html",
+      "main/search.html",
+      "main/pin_show.html",
+      "main/product_show.html"
+    ],
+    "priority": 0
+  },
+  "main/recommend_list.html": {
+    "href": "main/recommend_list.html",
+    "resources": [
+      "img/mescroll-totop.png",
+      "images/icon-vip.png",
+      "css/style.css",
+      "css/mui.min.css",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_card_nodate.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/pointflows.html": {
+    "href": "main/pointflows.html",
+    "resources": [
+      "images/logo.png",
+      "fonts/mui.ttf",
+      "img/mescroll-totop.png",
+      "css/style.css",
+      "js/mui.min.js",
+      "js/zepto.min.js",
+      "js/common.js",
+      "js/user.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_card_nodate.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/userorder.html": {
+    "href": "main/userorder.html",
+    "resources": [
+      "img/mescroll-totop.png",
+      "css/style.css",
+      "css/mui.min.css",
+      "css/weui.min.css",
+      "js/weui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/order.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "js/pay/common.js"
+    ],
+    "refer": [
+      "main/useraddress.html"
+    ],
+    "priority": 0
+  },
+  "main/upload.html": {
+    "href": "main/upload.html",
+    "resources": [
+      "css/mui.min.css",
+      "js/plugins/cropper/css/cropper.min.css",
+      "js/plugins/cropper/images/bg.png",
+      "js/mui.min.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/plugins/cropper/js/cropper.min.js",
+      "js/plugins/cropper/images/icon_upload_photo.png"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/moneys.html": {
+    "href": "main/moneys.html",
+    "resources": [
+      "css/style.css",
+      "css/usermoney.css",
+      "css/flows.css",
+      "js/zepto.min.js",
+      "js/mui.min.js",
+      "js/weui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "js/adscorll.js",
+      "js/jquery/jquery-1.11.2.min.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js"
+    ],
+    "refer": [
+      "main/useraddress.html"
+    ],
+    "priority": 0
+  },
+  "main/no_name_tel.html": {
+    "href": "main/no_name_tel.html",
+    "resources": [
+      "img/mescroll-totop.png",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/fontSize.js",
+      "js/user.js",
+      "css/mui.min.css",
+      "css/reset1.css",
+      "css/layout.css",
+      "css/wcPop.css",
+      "css/style.css",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js",
+      "images/app_assets_images_home_card_nodate.png"
+    ],
+    "refer": [
+      "main/moneys.html"
+    ],
+    "priority": 0
+  },
+  "main/goods.html": {
+    "href": "main/goods.html",
+    "resources": [
+      "images/loading.png",
+      "img/mescroll-totop.png",
+      "css/style.css",
+      "css/mui.min.css",
+      "css/app.min.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/goods.js",
+      "css/mescroll.min.css",
+      "css/mescroll-option.css",
+      "js/mescroll-option.js",
+      "js/mescroll.min.js"
+    ],
+    "refer": [
+      "main/no_name_tel.html",
+      "main/goods_show.html",
+      "main/search.html"
+    ],
+    "priority": 0
+  },
+  "main/forget_password.html": {
+    "href": "main/forget_password.html",
+    "resources": [
+      "css/mui.min.css",
+      "css/register.css",
+      "js/jquery/jquery-1.11.2.min.js",
+      "js/mui.min.js",
+      "js/common.js",
+      "js/user.js",
+      "images/zc-1.jpg",
+      "images/zc-2.jpg",
+      "images/zc-3.jpg"
+    ],
+    "refer": [],
+    "priority": 0
+  },
+  "main/seller_list.html": {
+    "resources": [
+      "css/style5.css",
+      "css/introduction.32e41245.css"
+    ],
+    "refer": [
+      "main/city.html",
+      "main/buy_seller.html"
+    ]
+  },
+  "main/item1.html": {
+    "refer": [
+      "main/news_show.html",
+      "main/createShow.html"
+    ],
+    "resources": []
+  },
+  "main/bank.html": {
+    "refer": [
+      "main/add_bank.html",
+      "main/modifypwd2.html",
+      "main/modifypwd.html"
+    ],
+    "resources": []
+  },
+  "main/shou.html": {
+    "refer": [
+      "main/transforflows.html"
+    ],
+    "resources": []
+  },
+  "main/tiqu.html": {
+    "refer": [
+      "main/tiqu_list.html"
+    ],
+    "resources": []
+  },
+  "main/create.html": {
+    "refer": [
+      "main/upload.html"
+    ],
+    "resources": []
+  },
+  "main/usergoodslist.html": {
+    "refer": [
+      "main/create.html"
+    ],
+    "resources": []
+  },
+  "main/tab-vertical-scroll.html": {
+    "refer": [
+      "main/goods_show.html",
+      "main/goods.html"
+    ],
+    "resources": []
+  }
+}

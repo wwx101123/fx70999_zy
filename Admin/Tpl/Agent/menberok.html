@@ -1,0 +1,87 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>已激活会员</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li>
+                <a>团队管理</a>
+            </li>
+            <li class="active">
+                <strong>已激活会员</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>已激活会员 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <table class="table table-hover" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th>用户账号</th>
+                                        <th>会员姓名</th>
+                                        <th>推荐人</th>
+                                        <th>联系电话</th>
+                                        <th>消费级别</th>
+                                        <th>注册时间</th>
+                                        <th>开通时间</th>
+                                        <th>投资金额</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <volist name='list' id='item'>
+                                    <tr>
+                                        <th>{$item['user_id']}</th>
+                                        <th>{$item['user_name']}</th>
+                                        <th>{$item['re_name']}</th>
+                                        <th>{$item['user_tel']}</th>
+                                        <th>{$item['get_level']|getUserLevel=###}</th>
+                                        <th>{$item['rdt']|date="Y-m-d H:i:s",###}</th>
+                                        <th>{$item['pdt']|date="Y-m-d H:i:s",###}</th>
+                                        <th>{$item['cpzj']}</th>
+                                        <th>
+                                            <b class="tablesaw-cell-label">状态</b>
+                                            <eq name="vo.is_pay" value="0">
+											  <font color="red"><i class="fa fa-close"></i>未激活</font></span>
+											  <else/>
+											  <font color="green"><i class="fa fa-check"></i>激活</font></span>
+											  </eq>
+                                        </th>
+                                    </tr>
+                                    </volist>
+                                </tbody>
+                            </table>
+                            <!DOCTYPE html>
+                            <html lang="en">
+                            <head>
+                                <meta charset="UTF-8">
+                                <title>Title</title>
+                            </head>
+                            <body>
+                                <div class="row grey-bg">
+                                {$page}
+                                </div>
+                            </body>
+                            </html>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>

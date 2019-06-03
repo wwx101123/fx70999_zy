@@ -1,0 +1,186 @@
+<extend name="Public:header" />
+
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.caiwu').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #caiwu').css('display', 'block')
+		$('.sidebar #te_profitflows').addClass('current')
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>财务明细</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-12">
+					<form class="form-inline title-form" name="form2" method="get"
+						action="__ACTION__">
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="username" name="username"
+								placeholder="输入用户账号查询" value="{$UserID}">
+						</div>
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="shop_id" name="shop_id"
+								placeholder="输入商户号查询" value="{$ShopID}">
+						</div>
+						<div class="form-group">
+							 
+						</div>
+						<div class="form-group" id="data_5">
+							<label class="font-noraml"></label>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="form-control" name="time1" id="time1"
+									placeholder="开始日期" value="{$S_Date}"> <span
+									class="input-group-addon">到</span> <input type="text"
+									class="form-control" name="time2" id="time2" placeholder="截止日期"
+									value="{$E_Date}">
+							</div>
+						</div>
+						<div class="form-group" style="display: none">
+							<label class="font-noraml"></label> <select name="memo"
+								class="form-control">
+								<option value="">请选择</option>
+								<option value="1"<eq name="ry" value="1">selected</eq>>{$fee_s7[0]}
+								</option>
+								<option value="2"<eq name="ry" value="2">selected</eq>>{$fee_s7[1]}
+								</option>
+								<option value="3"<eq name="ry" value="3">selected</eq>>{$fee_s7[2]}
+								</option>
+								<option value="4"<eq name="ry" value="4">selected</eq>>{$fee_s7[3]}
+								</option>
+								<option value="5"<eq name="ry" value="5">selected</eq>>{$fee_s7[4]}
+								</option>
+								<option value="21"<eq name="ry" value="21">selected</eq>>会员充值
+								</option>
+								<option value="22"<eq name="ry" value="22">selected</eq>>激活积分转出
+								</option>
+								<option value="23"<eq name="ry" value="23">selected</eq>>注册积分转出
+								</option>
+								<option value="20"<eq name="ry" value="20">selected</eq>>转换
+								</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">查询</button>
+						<a style="margin-left:10px"
+					href="{:U('Excel/profitflowsDaoChu_MM')}" class="btn btn-primary">excel下载</a>
+
+						<eq name="myid" value='2'> <a href="{:U('YouZi/adminFlows')}"
+							class="btn btn-primary pull-right"> 新增流向</a> </eq>
+							<a style="margin-right: 20px" href="javascript:void(0)"
+				class="btn btn-primary pull-right">合计分润:{$all_profit}</a> 
+				
+					</form>
+					<script type="text/javascript">
+						layui.use('laydate', function() {
+							var laydate = layui.laydate;
+							var start = {
+								// min: laydate.now(-2)
+								max : '2099-06-16 23:59:59',
+								istoday : false,
+								choose : function(datas) {
+									end.min = datas; //开始日选好后，重置结束日的最小日期
+									end.start = datas //将结束日的初始值设定为开始日
+								}
+							};
+
+							var end = { 
+								max : '2099-06-16 23:59:59',
+								istoday : false,
+								choose : function(datas) {
+									start.max = datas; //结束日选好后，重置开始日的最大日期
+								}
+							};
+
+							$('#time1').on('click', function() {
+								start.elem = this;
+								laydate(start);
+							});
+							$('#time2').on('click', function() {
+								end.elem = this
+								laydate(end);
+							});
+						});
+					</script>
+				</div>
+			</div>
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-7689">
+
+				<thead>
+					<tr>
+						<th style="width:5%" >序号</th>
+						<th style="width:10%">订单号</th>
+						<th style="width:10%">商户号</th>
+						<th style="width:15%">所属商户</th>
+						<th style="width:10%">用户账号</th>
+						<th style="width:5%">实时等级</th>
+						<th style="width:8%">盟友交易量</th>
+						<th style="width:8%">分润交易量</th>
+						<th style="width:5%">比例</th>
+						<th style="width:5%">分润金额</th>
+						<th style="width:8%">创建时间</th>
+						<th style="width:8%">交易时间</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<volist name="list" id="vo">
+					<tr>
+						<td><b class="tablesaw-cell-label">序号</b><span
+							class="tablesaw-cell-content">{$vo.id}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['order_no']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['shop_id']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['shop_title']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['user_name']}</span></td>
+						<!-- <td><b class="tablesaw-cell-label">摘要</b><span class="tablesaw-cell-content">奖金</span></td> -->
+						
+						<td> V{$vo['u_level']} </td>
+						<td><b class="tablesaw-cell-label">金额</b><span
+							class="tablesaw-cell-content"><i>{$vo['all_trade_money']}</i></span></td>
+						<td><b class="tablesaw-cell-label">金额</b><span
+							class="tablesaw-cell-content"><i>{$vo['trade_money']}</i></span></td>
+						<td><b class="tablesaw-cell-label">金额</b><span
+							class="tablesaw-cell-content"><i>{$vo['user_money']}</i></span></td>
+						<td><b class="tablesaw-cell-label">金额</b><span
+							class="tablesaw-cell-content"><i>{$vo['epoints']}</i></span></td>
+						<td><b class="tablesaw-cell-label">时间</b><span
+							class="tablesaw-cell-content"><p title="{$vo.e_date|date="
+									Y-m-dH:i:s",###}">{$vo.pdt|date="Y-m-d H:i:s",###}</p></span></td>
+						<td><b class="tablesaw-cell-label">时间</b><span
+							class="tablesaw-cell-content"><p title="{$vo.e_date|date="
+									Y-m-dH:i:s",###}">{$vo.trade_time|date="Y-m-d H:i:s",###}</p></span></td>
+					</tr>
+					</volist>
+				</tbody>
+
+			</table>
+			{$page}
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(".Inquire-table2 tbody tr").addClass("odd");
+		// console.log($('.page a').attr('href'));
+		$(document).ready(function() {
+			$('.page a').each(function(eml) {
+				$(this).attr('href', $(this).attr('href') + "&memo={$ry}");
+			});
+		});
+	</script>
+</div>
+</block>

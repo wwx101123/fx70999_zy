@@ -1,0 +1,156 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>卖出积分</h2>
+            <ol class="breadcrumb">
+                <li>
+                <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>积分交易</a>
+                </li>
+                <li class="active">
+                    <strong>卖出积分</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>卖出积分</h5>
+                        </div>
+                        <div class="ibox-content p-xl">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5>挂出须知：</h5>
+                                    <address>
+                                        <!--<strong></strong><br>-->
+                                        确认提交卖出后，请仔细确认自己银行卡号信息的正确性，以免交易过程中钱包信息不正确而导致买家无法汇款交易。<br>
+                                        如有请到资料修改栏中修改并完善 &nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('User/userEdit')}" title="点击完善银行信息" style="color:#1ab394"><i class="fa fa-hand-o-right"  id="editTips"></i> 完善信息</a>
+                                        
+                                        <script>
+                                            (function ($) {
+                                                var my_blink_plug_name = "myblink";
+
+                                                $.fn[my_blink_plug_name] = function( options ) {
+                                                    var defaults = {
+                                                        delay: 500,
+                                                        max_count: 5,
+                                                        before_blink: function (obj){},
+                                                        after_blink: function (obj){}
+                                                    };
+                                                    this.settings = $.extend( {}, defaults, options );
+                                                    var _this = this;
+                                                    var c = 0;
+                                                    _this.settings.before_blink(_this);
+                                                    var myVar = setInterval(function() {
+                                                        if (_this.css("visibility") == "visible") {
+                                                            _this.css('visibility', 'hidden');
+                                                        } else {
+                                                            _this.css('visibility', 'visible');
+                                                            if(_this.settings.max_count > 0) {
+                                                                c ++;
+                                                                if(c == _this.settings.max_count){
+                                                                    clearInterval(myVar);
+                                                                    _this.settings.after_blink(_this);
+                                                                }
+                                                            }
+                                                        }
+                                                    }, _this.settings.delay);
+                                                    return this;
+                                                };
+                                            }( jQuery ));
+                                            $("#editTips").myblink({
+                                                interval: 1500,     //闪动间隔时间，默认为100
+                                                blink_count: 3,     //最大闪动次数，0表示无限
+                                                before_blink: function (obj){   //闪动前回调方法
+                                                    $(obj).css({color: "#1ab394"});
+                                                },
+                                                after_blink: function (obj){    
+                                                    //闪动结束回调方法
+                                                   // $(obj).css({color: "black"});
+                                                }
+                                            });
+                                        </script>
+                                    </address>
+                                </div>
+
+                                <div class="col-sm-6 text-right">
+                                    <!-- <h4>No.</h4> -->
+                                    <!-- <h4 class="text-navy">INV-000567F7-00</h4> -->
+                                    <span>申请方： <strong>{$rs.user_id}</strong></span>
+                                    <address>
+                                        {$rs.name}<br>
+                                        {$rs.bank_name}<br>
+                                        {$rs.bank_card}<br>
+                                    </address>
+                                    <p>
+                                        <span><strong>卖出日期：</strong>{:date("Y-m-d")}</span><br/>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <table class="table invoice-total">
+                                <tbody>
+                                <tr>
+                                    <td><strong>提示 :</strong></td>
+                                    <td><span class="text-info">100</span> 整数挂卖</td>
+                                </tr>
+                                <tr style="display: none">
+                                    <td><strong>手续费 :</strong></td>
+                                    <td>{$str2*100}%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>现金点值余额 :</strong></td>
+                                    <td>{$rs.agent_use}</td>
+                                </tr>
+                                <form id="sendForm" action="__URL__/eb_sell_AC" method="post">
+                                <tr>
+                                    <td><strong>售出金额 :</strong></td>
+                                    <td>
+                                            <input name="price" type="text" value="" id="price" placeholder="在此填写售出金额">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>二级密码 :</strong></td>
+                                    <td>
+                                        <input name="password" type="password" value="" id="password" placeholder="在此填写二级密码">
+                                    </td>
+                                </tr>
+                                </form>
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="sendTx">提交申请</button>
+                            <button class="btn btn-white" type="button"  onclick="location.href='__URL__/eb_sell'">返回</button>
+                            </div>
+                            <script type="text/javascript">
+                            layui.use('layer',function() {
+                                $('#sendTx').on('click',function() {
+                                    var form=$('#sendForm');
+                                     $.post(form.attr('action'),form.serialize(),function(data) {
+                                         console.log(data);
+                                        if (data.status) {
+                                            layer.msg(data.info,{end:function() {
+                                                location.reload();
+                                            }})
+                                        }else{
+                                            layer.msg(data.info);
+                                        }
+                                     });
+                                });
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</block>

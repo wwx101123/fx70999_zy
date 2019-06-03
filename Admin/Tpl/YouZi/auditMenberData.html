@@ -1,0 +1,684 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>会员资料修改</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li><a>会员管理</a></li>
+			<li class="active"><strong>会员资料修改</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user_list').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #user_list').css('display', 'block')
+		$('.sidebar #auditMenber').addClass('current')
+	});
+</script>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>  
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script>  
+<STYLE>
+.multi-radio a {
+	height: 30px;
+}
+
+.multi-radio {
+	padding-LEFT: 5PX
+}
+.error{
+	display:none;
+	margin-left:20px;
+	color:red
+}
+</STYLE>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>
+						查看认证资料 <small style="color:red" >(默认全部通过)
+						</small>
+					</h5>
+				</div>
+				<div class="ibox-content div-content">
+					<form class="form-horizontal ajax-post ajax-form" name="form1" id="form1"
+						method="post" action="{:U('Agent/menberOpenShop')}">
+						<input name="id" type="hidden" id="id" value="{$user.id}">
+						<input name="auth_status" type="hidden" id="auth_status" value="0">
+						<input name="auth_error" type="hidden" id="auth_error" value="{$user.auth_error}">
+						<input id="auth_check_status" type="hidden"
+							name="auth_check_status" value="0"> <input
+							id="auth_check_label" type="hidden" name="auth_check_label"
+							value=""> <input style="margin-top: 7px;" name="page"
+							type="hidden" id="page" value="" class="dfinput">
+						<!-- <div class="form-group">
+							<label class="col-sm-2 control-label">昵称：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="shop_title" type="text" value="{$user['shop_title']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="昵称">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+							</dd>
+						</dl> -->
+						<div class="hr-line-dashed" style="display:none" ></div>
+						<div class="form-group" style="display:none">
+							<label class="col-sm-2 control-label">类别：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="category_title" type="text"
+									value="{$user['category_title']}" class="form-control"
+									required="" readonly />
+							</div>
+						</div>
+						<dl type="类别" style="display:none">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed" style="display:none"></div>
+						<div class="form-group" style="display:none">
+							<label class="col-sm-2 control-label">类型： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<select name="shop_type" class="form-control" disabled>
+
+
+									<option value="1"<eq name="user.shop_type" value="1">selected</eq>
+										>个人
+									</option>
+
+									<option value="2"<eq name="user.shop_type" value="2">selected</eq>
+										>企业
+									</option>
+
+								</select>
+							</div>
+						</div>
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">所在省市区： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text"
+									value="{$user['province']}{$user['city']}{$user['area']}{$user['address']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="所在省市区">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">真实姓名： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['user_name']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="真实姓名">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">手机号码： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['user_tel']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+
+						<dl type="手机号码">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证正面照：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+								<img id="img" name="img" width="200" height="200"
+									src="__UPIMGS__/{$user.card_img1}">
+
+
+
+							</div>
+						</div>
+						<dl type="身份证正面照">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证反面照：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+								<img id="img" name="img" width="200" height="200"
+									src="__UPIMGS__/{$user.card_img2}">
+
+
+
+							</div>
+						</div>
+						<dl type="身份证反面照">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">手持身份证照片：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+								<img id="img" name="img" width="200" height="200"
+									src="__UPIMGS__/{$user.card_img3}">
+
+
+
+							</div>
+						</div>
+						<dl type="手持身份证照片">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">银行卡正面照：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<!--  <img id="img" name="img" width="1000" height="200" style="display:none"   > -->
+
+
+								<img id="img" name="img" width="200" height="200"
+									src="__UPIMGS__/{$user.card_img4}">
+
+
+
+							</div>
+						</div>
+						<dl type="银行卡正面照">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<!-- <div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开户姓名： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['user_name']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="姓名">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+							</dd>
+						</dl> -->
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">身份证号： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['card_no']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="身份证号">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">银行卡号： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['bank_card']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="银行卡号">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+								<span class="error">不可以</span>
+							</dd>
+						</dl>
+						<!-- <div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开户姓名： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text"
+									value="{$user['bank_user_name']}" class="form-control"
+									required="" readonly />
+							</div>
+						</div>
+						<dl type="开户姓名">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开户银行： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['bank_name']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="开户银行">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+							</dd>
+						</dl>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开户地址： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-10">
+								<input name="user_id" type="text" value="{$user['bank_province']}{$user['bank_city']}{$user['bank_area']}{$user['bank_address']}"
+									class="form-control" required="" readonly />
+							</div>
+						</div>
+						<dl type="开户地址">
+							<label class="col-sm-2 control-label"><i
+								class="text-danger"></i></label>
+							<dd class="back_check_status">
+								<div class="rule-multi-radio multi-radio">
+									<div class="boxwrap ">
+										<a href="javascript:;" class="">可以</a><a href="javascript:;"
+											class="">不可以</a>
+
+									</div>
+									<span style="display: none;"><input
+										id="back_check_status_0" type="radio" value="0"
+										checked="checked"><label for="back_check_status_0">可以</label><input
+										id="back_check_status_1" type="radio" value="1"><label
+										for="back_check_status_1">不可以</label> </span>
+								</div>
+							</dd>
+						</dl> -->
+						<div class="hr-line-dashed" style="display: none"></div>
+						<EQ name="user.auth_status" value="1">
+						
+						
+						<div class="form-group">
+							<div class="col-sm-4 col-sm-offset-2" style="width:100%;margin-left:0">
+								<button class="btn btn-warning yes" type="button" style="float: right;margin-right:50px" >审核通过</button>
+								<button class="btn btn-warning no" style="display:none;float: right;margin-right:50px" type="button" >审核不通过</button>
+
+							</div>
+						</div></EQ>
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	//页面加载完成执行
+	$(function() {
+		 
+		//设置按钮及事件
+$('dl').each(
+							function() {
+								var auth_error=$('#auth_error').val();
+								if(auth_error.indexOf($(this).attr('type')) >= 0){
+
+									//$(this).find('a:eq(1)').trigger('click');;
+									$('.no').css('display', 'block')
+									$('.yes').css('display', 'none')
+									$(this).find('.multi-radio').css('display', 'NONE')
+									$(this).find('.error').css('display', 'block')
+									
+								}
+								
+								
+								
+							});
+$('.select_dl dl input').click(
+		function() {
+				
+					var type = ($(this).parent().parent().parent().parent()
+							.attr('type'))
+
+					var auth_check_label = '';
+					var auth_check_status = '';
+
+					$('.yes').css('display','block')
+				 
+					$('.no').css('display','none')
+					$('#auth_status').val(0)
+
+					$('dl').each(
+							function() {
+								auth_check_label = auth_check_label
+										+ $(this).attr('type') + '|';
+								auth_check_status = auth_check_status
+								+ $(this).find('a.selected').index() + '|';
+								if($(this).find('a.selected').index()==1){
+									$('.no').css('display','block')  
+									$('.yes').css('display','none')
+									$('#auth_status').val(2)
+									
+									
+									
+								}
+								
+								
+								
+							});
+					
+					$('#auth_check_label').val(auth_check_label)
+					$('#auth_check_status').val(auth_check_status)
+
+				});
+		layui
+		.use(
+				[ 'layedit', 'upload', 'layer', 'laydate' ],
+				function() {
+					 
+					$('.btn')
+							.on(
+									'click',
+									function() {
+										var auth_check_label = '';
+										var auth_check_status = '';
+										var ret=true;
+										$('#auth_status').val(0)
+
+										$('dl').each(
+												function() {
+													auth_check_label = auth_check_label
+															+ $(this).attr('type') + '|';
+													auth_check_status = auth_check_status
+													+ $(this).find('a.selected').index() + '|';
+													if($(this).find('a.selected').index()==1){
+														$('.no').css('display','block')  
+														$('.yes').css('display','none')
+														$('#auth_status').val(2)
+														
+														
+														
+													}
+													
+													
+													
+												});
+										
+										$('#auth_check_label').val(auth_check_label)
+										$('#auth_check_status').val(auth_check_status)
+									
+									if(ret){
+										 
+										form = $('.ajax-form');
+										$
+												.post(
+														form
+																.attr('action'),
+														form
+																.serialize(),
+														function(
+																data) {
+															// console.log(data);
+															if (data.status) {
+																layer
+																		.msg(
+																				data.info,
+																				{
+																					offset : '100px',
+																					end : function() {
+																						if (data.url) {
+																							location.href = data.url;
+																						} else {
+																							location
+																									.reload();
+																						}
+																					}
+																				});
+															} else {
+
+																layer
+																		.msg(data.info);
+															}
+														});
+										return false;}
+									});
+				});
+
+	});
+</script>
+</block>

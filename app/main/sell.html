@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<meta name="format-detection" content="telephone=no" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-touch-fullscreen" content="yes" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/swiper.min.css" />
+		<link href="../css/base2.css" rel="stylesheet" type="text/css">
+		<link href="../css/intro.css" rel="stylesheet" type="text/css">
+		<link href="../css/bottomFixButton.css" rel="stylesheet" type="text/css">
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/swiper-3.4.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/vue.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/intro.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/fontSize.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<div style="margin-top: 40PX;">
+			<div id="main" class="content ">
+
+				<div>
+					<div class="swiper-container top-bgs swiper-container-horizontal">
+						<div class="swiper-wrapper">
+							<div href="/seller/prize" class="swiper-slide swiper-slide-active" style="width: 100%;"><img src="../images/1547471248090.jpg" alt=""></div>
+						</div>
+						<div class="half-circle"></div>
+					</div>
+					<div class="new-intro">
+						<div class="to-sell-line"><img src="../images/1547471268556.jpg" alt=""></div>
+						<div class="swiper-container infos-swiper swiper-container-vertical">
+							<div class="swiper-wrapper" style="transform: translate3d(0px, -396px, 0px); transition-duration: 0ms;">
+
+							</div>
+						</div>
+					</div>
+					<!--<div href="/seller/guide" class="to-my-sell"></div>-->
+					<section class="bottom-fix-button-wrap">
+						<div class="bottom-fix-button-bg">
+							<div class="bottom-fix-button redGradient">我要寄卖
+								<!--<span href="/seller/rules?isNew=1" class="need-know"></span>--></div>
+						</div>
+					</section>
+					<!---->
+				</div>
+			</div>
+		</div>
+		<!--<div id="blink">可进货:<span id="all_money"></span>
+			<div class="arrow-bottom arrow-box">
+				<b class="bottom"><i class="bottom-arrow1"></i><i class="bottom-arrow2"></i></b>
+			</div>
+		</div>-->
+	</body>
+
+	<script type="text/javascript">
+		var mescroll;
+
+		$(function() {
+
+			$(".bg").css('height', $('body').height() / 1.3)
+			$(".copy").click(function() {
+				copyShareUrl($(this).parent().find('span').html());
+
+			});
+			$(".redGradient").click(function() {
+
+				localStorage.setItem('goods_id', 0);
+				openWindowWithTitle('提交商品', 'create.html')
+			});
+
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			//			mescroll = initMeScroll("mescroll", {
+			//				down: {
+			//					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+			//					callback: downCallback //下拉刷新的回调
+			//				},
+			//				up: {
+			//					use: false
+			//				}
+			//			});
+
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var user_id = localStorage.getItem('user_id');
+				get_user_info(user_id, init_view);
+
+			}
+
+			/*上拉加载的回调 */
+
+			function init_view() {
+
+				var agent_data = localStorage.getItem('user');
+				console.log(agent_data)
+				var info = JSON.parse(agent_data);
+
+				$('.active_money').html(info.active_money);
+				$('.active_bank').html(info.active_bank);
+				$('.active_bank_card').html(info.active_bank_card);
+				$('.active_bank_username').html(info.active_bank_username);
+				$(".pru-btn").click(function() {
+					user_active('#active_img')
+					//					mui.back();
+					//
+					//					return;
+				});
+				if(info.active_img != '' && info.active_img != null) {
+					console.log(info.active_status_str)
+					$('.pru-btn').html(info.active_status_str);
+					$('.pru-btn').removeAttr('onclick');
+					$('.pru-btn').unbind('click');
+
+				}
+				init_trade_money(info.all_money);
+
+				mescroll.endSuccess();
+			}
+
+		});
+		window.addEventListener('update_trade_upload_img', function(e) {
+
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+
+			$('#active_img').val('')
+			if(avatar != null && avatar != "") {
+				$('.upload_img').attr('src', IP + '/' + avatar)
+				$('#active_img').val(avatar)
+			} else {
+
+				$('.upload_img').attr('src', '../images/icon_upload_photo.png')
+			}
+		});
+
+		function init_trade_money(all_money) {
+
+
+			$('#blink').css('display', 'none')
+			all_money = parseFloat(all_money)
+			if(all_money > 0) {
+
+				$('#blink').css('display', 'block')
+				$('#all_money').html(all_money)
+
+			}
+			localStorage.setItem('all_money', all_money)
+
+		}
+	</script>
+
+</html>

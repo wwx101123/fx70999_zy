@@ -1,0 +1,73 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>公告详情</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>信息管理</a>
+                </li>
+                <li class="active">
+                    <strong>公告详情</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+  <style>
+img {
+	width: 100%;
+    height: 100%;
+}
+ 
+</style>
+    <div class="wrapper wrapper-content  animated fadeInRight article">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="pull-right">
+                            <!-- <button class="ladda-button ladda-button-demo btn btn-primary btn-xs" onclick="zanAjax('zan','announceview.php?action=zan&amp;id=1')" data-style="zoom-in" id="zan"> <i class="fa fa-thumbs-o-up"></i> 赞一个</button> -->
+
+                                   <!-- <button class="btn btn-white btn-xs" type="button">Model</button>
+                                    <button class="btn btn-white btn-xs" type="button">Publishing</button>
+                                    <button class="btn btn-white btn-xs" type="button">Modern</button>-->
+                                </div>
+                                <div class="text-center article-title">
+                                    <span class="text-muted"><i class="fa fa-clock-o"></i>{$vo.create_time|date="Y-m-d H:i:s",###}</span>
+                                    <h1>{$vo.title}</h1>
+                                </div>
+                                {$vo.content|htmlspecialchars_decode=###}
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                       <!-- <h5>Tags:</h5>
+                                        <button class="btn btn-primary btn-xs" type="button">Model</button>
+                                        <button class="btn btn-white btn-xs" type="button">Publishing</button>-->
+                                        <button class="btn btn-white btn" type="button" onclick="history.go(-1)">返回</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="small text-right">
+                                            <h5>相关:</h5>
+                                            <div>
+
+                                                <i class="fa fa-user"></i>{$vo.user_id}</div>
+                                                <!-- <i class="fa fa-eye"></i> --></div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </block>

@@ -1,0 +1,226 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>订单管理管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>订单管理管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.adminTerminal').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #adminTerminal').css('display', 'block')
+		$('.sidebar #adminTerminal{$terminal_type}').addClass('current')
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<script src="__PUBLIC__/Adm/js/laymain.js"></script> <script
+	type="text/javascript">
+	
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>终端列表</h5>
+			<div class="ibox-tools">
+
+				<!--<a href="{:U('Reg/Topuser')}" class="btn btn-primary">新增顶点</a>-->
+				<a href="{:U('Shop/test_excel',array('terminal_type'=>$terminal_type))}" class="btn btn-primary">终端下发</a> 
+				<a href="{:U('Shop/init_trade_money')}" class="btn btn-primary">交易量初始化</a>
+				<a href="{:U('Shop/init_terminal')}" class="btn btn-primary">盟友终端初始化</a><a
+					href="{:U('Excel/terminalDaoChu_MM')}" class="btn btn-primary">excel下载</a>
+
+			</div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-12">
+					<form class="form-inline title-form" name="qfrm" method="get"
+						action="?action=query">
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="username" name="username"
+								placeholder="用户账号或姓名查询" value="{$username}">
+						</div>
+<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="sn" name="sn"
+								placeholder="SN查询" value="{$sn}">
+						</div>
+						<div class="form-group" id="data_5">
+							<label class="font-noraml"></label>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="form-control" name="time1"
+									placeholder="入库日期" value="{$S_Date}" id="time1">
+							</div>
+						</div>
+						<label for="username">机器状态</label> <select name="status"
+							id="status" class="form-control">
+							<option value="0"    >请选择</option>
+
+
+
+							<option value="2"   <eq
+									name="status" value="2">selected</eq>     >未登记</option>
+
+							<option value="1"  <eq
+									name="status" value="1">selected</eq>>已登记</option>
+							</volist>
+						</select>
+						<button type="submit" class="btn btn-primary">查询</button>
+					</form>
+				</div>
+			</div>
+			<script type="text/javascript">
+				layui.use('laydate', function() {
+					var laydate = layui.laydate;
+					var start = {
+						// min: laydate.now(-2)
+						max : '2099-06-16 23:59:59',
+						istoday : false,
+						choose : function(datas) {
+							end.min = datas; //开始日选好后，重置结束日的最小日期
+							end.start = datas //将结束日的初始值设定为开始日
+						}
+					};
+
+					var end = {
+						min : laydate.now(),
+						max : '2099-06-16 23:59:59',
+						istoday : false,
+						choose : function(datas) {
+							start.max = datas; //结束日选好后，重置开始日的最大日期
+						}
+					};
+
+					$('#time1').on('click', function() {
+						start.elem = this;
+						laydate(start);
+					});
+					$('#time2').on('click', function() {
+						end.elem = this
+						laydate(end);
+					});
+				});
+			</script>
+			<!-- <a href="{:U('Goods/orderDaoChu_MM')}" class="btn btn-primary">导出Excel</a> -->
+			<div class="table-container">
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					class="ltable table table-hover tablesaw-stack">
+					<thead>
+						<tr>
+
+							<th style="width: 8%">SN</th>
+							<th>购买者</th>
+							<th>所属盟友</th>
+							<th>商户号</th>
+							<th style="width: 5%">终端类型</th>
+							<th style="width: 5%">机器类型</th>
+							<th style="width: 5%">激活状态</th>
+							<!-- <th>激活期限</th> -->
+							<th style="width: 8%">机器状态</th>
+							<th style="width: 8%">入库时间</th>
+							<!-- <th>最低激活天数</th> -->
+							<th style="width: 5%">返现金额</th>
+							<th style="width: 5%">奖励金额</th>
+							<th style="width: 5%">返现状态</th>
+							<!-- <th>商户达标天数</th> -->
+							<th>交易量</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="vo">
+						<tr>
+
+							<td>{$vo.sn}</td>
+							<td>{$vo.buy_user_name}</td>
+							<td>{$vo.user_name}</td>
+							<td>{$vo.seller_no}</td>
+							<td>{$vo.terminal_type}</td>
+							<td>{$vo.sn_type}</td>
+
+							<td>{$vo.expire_status_str}</td>
+							<!-- <td>{$vo.expire_time_str}</td> -->
+
+							<td>{$vo.status_str}</td>
+							<td>{$vo.addtime_str}</td>
+							<!-- <td>{$vo.expire_day}</td> -->
+							<td>{$vo.fan_money}</td>
+							<td>{$vo.award_money}</td>
+							<td>{$vo.is_fan_status_str}</td>
+							<!-- <td>{$vo.shop_expire_day}</td> -->
+							<td>{$vo.trade_money}</td>
+							<td><b class="tablesaw-cell-label">操作</b> <span
+								class="tablesaw-cell-content"> <a
+									class="btn  btn-primary confirm"
+									href="{:U('YouZi/adminTerminalData')}?id={$vo.id}">修改</a>
+<a
+									class="btn  btn-primary confirm ajax-a"
+									href="{:U('YouZi/adminTerminalDel')}?id={$vo.id}"
+											 
+											info="确认删除？">删除</a>
+
+							</span></td>
+						</tr>
+
+						</foreach>
+					</tbody>
+				</table>
+
+			</div>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

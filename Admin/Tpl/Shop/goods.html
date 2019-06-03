@@ -1,0 +1,161 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>商品管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>商品管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.shop').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #shop').css('display', 'block')
+		$('.sidebar #{$page_type}').addClass('current')
+		
+		
+		$('#lbtnSearch').on('click', function() {
+			var txtKeywords=$('#txtKeywords').val();
+			if(txtKeywords=='')
+			{
+				/* layer.msg('请输入内容')
+				return; */
+			}
+			var href=window.location.href.split('?')[0]
+				 location.href= href+'?keywords='+txtKeywords
+			 
+		})
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+			<script src="__PUBLIC__/Adm/Resource/plugins/js/common.js"></script>
+<link href="__PUBLIC__/Adm/Resource/plugins/hplus/icon/iconfont.css"
+	rel="stylesheet">
+<link href="__PUBLIC__/Adm/Resource/index.min_e69bc1e2.css"
+	rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>商品列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+		<div class="toolbar">
+    <div class="box-wrap">
+      <a class="menu-btn"><i class="iconfont icon-more"></i></a>
+      <div class="l-list">
+        <ul class="icon-list">
+          <li>
+         
+			<a href="{:U('Shop/goods_edit')}" ><i class="iconfont icon-close"></i><span>新增商品</span></a>  
+          </li>
+          <li><a href="javascript:;" onclick="checkAll(this);"><i class="iconfont icon-check"></i><span>全选</span></a></li>
+          <li><a onclick="return ExePostBack('btnDelete','删除记录后不可恢复，您确定吗？','{:U('Goods/GoodsDel')}?action=del');" id="btnDelete" href="javacript:void(0);"><i class="iconfont icon-delete"></i><span>删除</span></a></li>
+        </ul>
+      </div>
+      <div class="r-list" >
+        <input name="txtKeywords" type="text" id="txtKeywords" class="keyword" value="{$keywords}">
+        <a id="lbtnSearch" class="btn-search" href="javascript:void(0)"><i class="iconfont icon-search"></i></a>
+      </div>
+    </div>
+  </div>
+			
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-7205">
+				<thead>
+					<tr>
+						<th width="5%" style="text-align:center">选择</th>
+						<th width="8%">编号</th>
+						<th width="18%">商品名称</th>
+						<!-- <th>类型</th> -->
+						<th>所属类别</th>
+						<th>所属商家</th>
+						<th>销售价格</th>
+						<!-- <th>市场价格</th> -->
+						<th>是否拼团</th>
+						<th>拼团人数</th>
+						<!-- <th>众筹单价</th> -->
+						<th>库存</th>
+						<th>发布时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<foreach name="list" item="vo">
+					<tr><td  style="text-align:center"><span class="checkall"><input
+								id="chkId" type="checkbox" name="chkId"  goods_id="{$vo.id}" <eq
+										name="vo.publish_status" value="1">  disabled="true"  </eq>        ></span></td>
+						<td><span class="tablesaw-cell-content">{$vo.id}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.title}</span></td>
+						<!-- <td><span class="tablesaw-cell-content">{$vo.type_str}</span></td> -->
+						<td><span class="tablesaw-cell-content">{$vo.category}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.shop_name}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.price}</span></td>
+						<!-- <td><span class="tablesaw-cell-content">{$vo.market_price}</span></td> -->
+						<td><span class="tablesaw-cell-content">{$vo.is_pin_str}</span></td>
+						<td><span class="tablesaw-cell-content">{$vo.max_num}</span></td>
+						<!-- <td><span class="tablesaw-cell-content">{$vo.crowd_price}</span></td> -->
+						<td><span class="tablesaw-cell-content">{$vo.stock}</span></td>
+						<td><span class="tablesaw-cell-content"><p
+									title="2016-10-15">{$vo.addtime|date="Y-m-d H:i:s",###}</p></span></td>
+						<td><span class="tablesaw-cell-content"> <a
+								href="__URL__/goods_edit/id/{$vo.id}">修改</a> | <a
+								href="{:U('Shop/GoodsDel')}?action=del&id={$vo.id}"
+								class="ajax-a" info="确定删除商品？">删除</a></span></td>
+					</tr>
+					</foreach>
+				</tbody>
+			</table>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

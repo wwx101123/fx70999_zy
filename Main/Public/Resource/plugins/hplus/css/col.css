@@ -1,0 +1,105 @@
+/* CSS Document */
+.rowbox {
+    overflow: hidden;
+   /*  margin-left: -15px;
+    margin-right: -15px; */
+    margin-bottom: 20px;
+}
+
+.mt_5 {
+    margin: 0 5px;
+}
+
+.mt_10 {
+    margin: 0 10px;
+}
+
+.mt_15 {
+    margin: 0 15px;
+}
+
+.colmd_1, .colmd_2, .colmd_3, .colmd_4, .colmd_5, .colmd_6, .colmd_7, .colmd_8, .colmd_9, .colmd_10, .colmd_11, .colmd_12 {
+    float: left;
+}
+
+.collg_6 {
+    float: left;
+}
+
+.colmd_2 {
+    width: 20%;
+}
+
+.colmd_3 {
+    width: 25%;
+}
+
+.colmd_4 {
+    width: 33.33333%;
+}
+
+.colmd_5 {
+    width: 41.66667%;
+}
+
+.colmd_6, .collg_6 {
+    width: 50%;
+}
+
+.colmd_7 {
+    width: 58.33333%;
+}
+
+.colmd_8 {
+    width: 66.66667%;
+}
+
+.colmd_9 {
+    width: 75%;
+}
+
+.colmd_12 {
+    width: 100%;
+}
+
+@media (min-width: 1200px) {
+    .collg_6 {
+        width: 50%;
+    }
+}
+
+@media (max-width: 1600px) {
+    .collg_6 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 980px) {
+    .rowbox {
+      /*   margin-right: -6px;
+        margin-left: -6px; */
+        margin-bottom: 5px;
+    }
+
+    .mt_5 {
+        margin: 5px;
+    }
+
+    .colmd_2 {
+        width: 100%;
+    }
+
+    .colmd_3 {
+        width: 100%;
+    }
+
+    .colmd_9 {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .colmd_6 {
+        width: 100%;
+    }
+}

@@ -1,0 +1,69 @@
+<extend name="Public:header" />
+<block name="menu">
+<div class="row wrapper border-bottom white-bg page-heading" class="clearfix">
+        <div class="col-sm-12">
+            <div class="title-action pull-left">
+                <a href="{:U('Swap/swapAdd')}?action=addpro" class="btn btn-primary">添加产品</a>
+            </div>
+        </div>
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>产品列表</h5>
+            <div class="ibox-tools">
+            </div>
+        </div>
+        <div class="ibox-content" style="display: block;">
+            <div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-6872">
+
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>图片</th>
+                    <th>分类</th>
+                    <!-- <th>类别</th> -->
+                    <th>名称</th>
+                    <th>尺寸</th>
+                    <!-- <th>首页显示</th> -->
+                    <th>市场价</th>
+                    <th>会员价</th>
+                    <th>库存</th>
+                    <!-- <th>是否为报单产品</th> -->
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="list" id="vo">
+                <tr>
+                    <td style="vertical-align:middle;"><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                    <td><b class="tablesaw-cell-label">图片</b><span class="tablesaw-cell-content">
+                        <a href="{$vo.img}" target="_blank">
+                            <img src="{$vo.img}" class="tableimg img-responsive" style="max-width: 50px;max-height: 50px;"></a></span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">分类</b><span class="tablesaw-cell-content">{$vo.cptype|getProType2=###}</span></td>
+                            <!-- <td style="vertical-align:middle;"><b class="tablesaw-cell-label">类别</b><span class="tablesaw-cell-content">{$vo.cptype|getProType=###}</span></td> -->
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">名称</b><span class="tablesaw-cell-content"><a style="max-width:200px;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="LG手机" href="{:U('Swap/swapDetail')}?id={$vo.id}">{$vo.name}</a></span></td>
+                            <!-- <td style="vertical-align:middle;"><b class="tablesaw-cell-label">颜色</b><span class="tablesaw-cell-content">白色</span></td> -->
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">尺寸</b><span class="tablesaw-cell-content">{$vo.ccname}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">市场价</b><span class="tablesaw-cell-content">{$vo.a_money}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">会员价</b><span class="tablesaw-cell-content">{$vo.money}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">库存</b><span class="tablesaw-cell-content">{$vo.num}</span></td>
+                            <!-- <td style="vertical-align:middle;"><b class="tablesaw-cell-label">是否为报单产品</b><span class="tablesaw-cell-content"><eq name="vo.is_reg" value="0">否<else/>是</eq></span></td> -->
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">添加时间</b><span class="tablesaw-cell-content">{$vo.create_time|date='Y-m-d',###}</span></td>
+                            <td style="vertical-align:middle;"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                <!--<a href="productview.php?id=59&pageno=">查看</a> -->
+                                <a class="btn btn-xs btn-outline btn-info" href="{:U('Swap/swapEdit')}?proid={$vo.id}">修改</a>
+                                <a class="btn btn-xs btn-outline btn-danger ajax-a" href="{:U('Swap/proOperation')}?action=del&proid={$vo.id}" info="确定删除该商品吗？">删除</a>
+                            </span></td>
+                        </tr>
+                        </volist>
+                    </tbody>
+                </table>
+
+                <div class="row grey-bg">
+                {$page}
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

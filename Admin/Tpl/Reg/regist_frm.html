@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="format-detection"
+	content="telephone=no,email=no,date=no,address=no">
+<title></title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/register/api.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/register/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/register/regist.css" />
+<script src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"
+	type="text/javascript"></script>
+
+
+<link href="__PUBLIC__/scripts/artdialog/ui-dialog.css" rel="stylesheet"
+	type="text/css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+
+<style>
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.r_img {
+	float: left;
+}
+.r_id {
+    /* position: absolute; */
+    /* top: 5px; */
+    /* LEFT: 10%; */
+    text-align: left;
+    font-size: 20px;
+    color: white;
+    height: 160px;
+}
+
+.content {
+	background: url(__PUBLIC__/adm/images/reg_bg.png);
+	background-size: 100% 100%;
+	top: 0;
+	width: 100%;z-index:1
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+</style>
+</head>
+<body style="overflow-x: scroll;">
+	<DIV class="content">
+		<form id="register_form" class="form-horizontal sweetalert"
+			action="{:U('Reg/usersAdd')}" method="post">
+			
+
+			<div class="r_id" style="color: white">
+			<img class="r_img" width="30" height="30"
+				src="{$r_user['headimgurl']}">
+				<span style="padding-left: 5px;
+    height: 30px;
+    line-height: 30px;float: left;">ID:{$r_user['id']}</span>
+			</div>
+
+			<div class="z-content regist-wrap">
+
+				<div class="item flex-h" style="margin-top:00px">
+					<span class="prefix" style="width: 20px;"></span> <input
+						type="hidden" value="1" name="is_mobile" /> <input type="hidden"
+						value="{$rid}" name="RID" /> <input type="hidden" value="1"
+						name="u_level" /> <input type="hidden" value="1" name="get_level" />
+					<input id="register_id" name="register_id" type="hidden" value="1" />
+					<input id="register_type" name="register_type" type="hidden"
+						value="1" /> <input id="regcp" name="regcp" type="hidden"
+						value="0" /> <input class="flex1" type="number"
+						placeholder="请输入手机号码" autoComplete="off" id="register_phone"
+						name="user_id" style="margin-bottom: 0px;padding: 0px;" />
+				</div>
+				<div class="item flex-h" id="smsWrap"
+					style="padding-bottom: 0px; border-bottom: 0px solid #ffa11d;">
+					<input class="flex1" type="number" placeholder="请输入图形验证码" value=""
+						id="verify" name="verify"
+						style="padding-left: 25px; border-bottom: 1.5px solid #ffa11d; margin-bottom: 0px;" />
+					<span class="sms-btn default-bg-color"
+						onclick="javascript:changeverify();" tapmode id="sendmsg2"><img
+						id="imgverify" src="{:U('Public/verify')}" alt=""></span>
+				</div>
+				<div class="item flex-h" id="smsWrap"
+					style="padding-bottom: 0px; border-bottom: 0px solid #ffa11d;">
+					<input class="flex1" type="number" placeholder="请输入手机验证码" value=""
+						id="r_smstxt" name="sjyzm"
+						style="padding-left: 25px; border-bottom: 1.5px solid #ffa11d; margin-bottom: 0px;" />
+					<span class="sms-btn default-bg-color"
+						onclick="sendSMS(this,'#register_phone','{:U('Reg/fasongyanzhengma')}')"
+						tapmode id="sendmsg2">获取验证码</span>
+				</div>
+				<div class="item flex-h" style="display: none">
+					<span class="prefix" style="width: 20px;"></span> <input
+						class="flex1" type="text" placeholder="请输入登录密码" id="pwd"
+						autoComplete="off" value="{$r_user['id']}" /> <input
+						type="hidden" value="1" name="pwd1" /> <input type="hidden"
+						value="1" name="pwd" /> <input type="hidden" value="register"
+						name="type" />
+				</div>
+
+				<div class="submit default-bg-color" id="registSubmitBtn"
+					onclick="submit_register()" tapmode>立即注册</div>
+
+
+				<div id="registSubmitBtn"
+					style="text-align: center; color: #a7a4a0; font-size: 13px;">
+					*本平台注册完全免费，请勿向任何人<span style="color: #ffa11d">转账，付款</span>
+				</div>
+
+				<div id="code"
+					style="text-align: center; color: #a7a4a0; font-size: 13px;">
+					   <input type="hidden" value="{$gzh_res.unionid}"
+						name="unionid" />
+					  <input type="hidden" value="{$gzh_res.openid}"
+						name="gzh_openid" />
+						 <input type="hidden" value="{$gzh_res.nickname}"
+						name="wx_nickname" /> <input type="hidden" value="{$gzh_res.headimgurl}"
+						name="headimgurl" /> <input type="hidden" value="{$gzh_res.weixinlogo}"
+						name="weixinlogo" /> 
+				</div>
+
+			</div>
+
+
+
+
+
+
+
+			<!-- <header class="header default-bg-color flex-h z-header" id="header">
+			<div class="middle flex1 borderbox" id="title">注册</div>
+			<div class="right" id="operatebtn"></div>
+		</header> -->
+
+			<div class="btns defalut-color hid">
+				<span class="btn borderbox width-50 flt-lft"
+					onclick="openFrame('my_frm');" tapmode>返回登录</span><span
+					class="btn  borderbox width-50 flt-lft"
+					onclick="openFrame('getpwd_frm');" tapmode>忘记密码?</span>
+			</div>
+			<input type="hidden" name="register_type" value="1"
+				id="register_type"> <input type="hidden"
+				name="register_type" value="1" id="register_type"> <input
+				type="hidden" id="check_phone_url" value="{:U('Reg/check_phone')}">
+		</form>
+	</DIV>
+</body>
+<link rel="stylesheet" href="__PUBLIC__/Adm/css/toast.css">
+<script src="__PUBLIC__/Adm/js/toast.js"></script>
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/mui.min.css" />
+<script src="__PUBLIC__/Adm/mui.min.js"
+	type="text/javascript"></script>
+<script type="text/javascript">
+$(function() {
+	$('#register_phone').bind('input propertychange', function() {  
+		var check_phone_url=$('#check_phone_url').val()
+	    if($('#register_phone').val().length==11) 
+		{
+	    	
+	    	$.ajax({
+				url:check_phone_url,
+				type: "POST",
+				timeout: 60000,
+				data: { "user_tel": $('#register_phone').val(),'content':'' },
+				dataType: "json" ,
+				success: function (data, type) {
+					if (data.go_down == 1) {
+						var d = dialog({
+						    title: '提示',
+						    content: data.info,
+						    okValue: '确定',
+						    ok: function () {
+						    	if (data.app_url != "" && data.app_url != undefined) {
+									var sUserAgent = navigator.userAgent.toLowerCase();
+									var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+									var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+									var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+									var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+									var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+									var bIsAndroid = sUserAgent.match(/android/i) == "android";
+									var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+									var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+									if (bIsIpad || bIsIphoneOs) {
+
+										 
+										 
+											location.href = data.ios_url
+									 
+
+										return;
+									}
+									if (bIsAndroid) {
+										 
+											location.href = data.app_url
+										 
+
+										return;
+									}
+								}
+						    },
+						    cancelValue: '取消',
+						    cancel: function () {}
+						});
+						d.show();
+						
+						}
+				} 
+			});
+	    	
+		}
+		
+		
+		
+	});  
+	  if (navigator.userAgent.toLowerCase().indexOf("chrome") >= 0) {
+
+	      $(window).load(function(){
+
+	          $('ul input:not(input[type=submit])').each(function(){
+
+	              var outHtml = this.outerHTML;
+
+	              $(this).append(outHtml);
+
+	          });
+
+	      });
+
+	  }
+	  $('input').on('click', function () {
+		          var target = this;
+		         // 使用定时器是为了让输入框上滑时更加自然
+		        setTimeout(function(){
+		          target.scrollIntoView(true);
+		          },100);
+		     });
+	  
+	  
+
+	});
+function changeverify() {
+
+    $('#imgverify').attr('src',"{:U('Public/verify')}?"+Math.random(1,1000))
+
+}
+	function download(ios_url,app_url) {
+		 
+		var sUserAgent = navigator.userAgent.toLowerCase();
+		var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+		var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+		var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+		var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+		var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+		var bIsAndroid = sUserAgent.match(/android/i) == "android";
+		var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+		var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+		if (bIsIpad || bIsIphoneOs) {
+
+			 
+
+			setTimeout(function() {
+				location.href = ios_url
+			}, 1000);
+
+			return;
+		}
+		if (bIsAndroid) {
+			 
+
+			setTimeout(function() {
+				location.href = app_url
+			}, 1000);
+
+			return;
+		}
+		
+		 
+	}
+	
+	
+									$(function() {
+										//初始化地区
+ 
+									var height=	$(window).height();
+	  $('.content').css('height', height)
+										 
+										$('.r_id').css('height',height*0.35)
+										$('.regist-wrap').css('height',height*0.63)
+										
+										
+
+									});
+									function sendSMS(btnObj, valObj, sendUrl ) {
+										
+										  if($(valObj).val() == ""){
+											  showMessage( '对不起，请填写手机号码后再获取！' ,1000);
+											  
+											 	return false;
+										}
+										  $(btnObj).unbind("click").removeAttr("onclick");
+										//发送AJAX请求
+										$.ajax({
+											url:sendUrl,
+											type: "POST",
+											timeout: 60000,
+											data: { "user_tel": $(valObj).val(),'type':'register' },
+											dataType: "json" ,
+											success: function (data, type) {
+												if (data.status == 1) {
+													wait = data.time * 60; //赋值时间
+													time(); //调用计算器
+													showMessage(data.info ,1000);
+													 
+												} else {
+													$(btnObj).removeClass("gray").html("发送验证码");
+													$(btnObj).bind("click", function(){
+														sendSMS(btnObj, valObj, sendUrl); //重新绑定事件
+													});
+													if (data.go_down == 1) {
+													var d = dialog({
+													    title: '提示',
+													    content: data.info,
+													    okValue: '确定',
+													    ok: function () {
+													    	if (data.app_url != "" && data.app_url != undefined) {
+																var sUserAgent = navigator.userAgent.toLowerCase();
+																var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+																var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+																var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+																var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+																var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+																var bIsAndroid = sUserAgent.match(/android/i) == "android";
+																var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+																var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+																if (bIsIpad || bIsIphoneOs) {
+
+																	 
+																		location.href = data.ios_url
+																	 
+
+																	return;
+																}
+																if (bIsAndroid) {
+																	 
+																		location.href = data.app_url
+																 
+
+																	return;
+																}
+															}
+													    },
+													    cancelValue: '取消',
+													    cancel: function () {}
+													});
+													d.show();
+													
+													}else{
+														showMessage(data.info ,1000); 
+													 
+												}}
+											} 
+										});
+										//倒计时计算器
+										function time(){
+											if (wait == 0) {
+												$(btnObj).removeClass("gray").html("发送验证码");
+												$(btnObj).bind("click", function(){
+													sendSMS(btnObj, valObj, sendUrl); //重新绑定事件
+												});
+											}else{
+												$(btnObj).unbind("click").removeAttr("onclick"); //移除按钮事件
+												$(btnObj).addClass("gray").html("重新发送(" + wait + ")");
+												$(btnObj).attr("disable")
+												wait--;
+												setTimeout(function() {
+													time(btnObj);
+												},1000)
+											}
+										}  
+									}
+								</script>
+
+
+
+<script type="text/javascript" src="__PUBLIC__/reg/login.js"></script>
+
+
+</html>

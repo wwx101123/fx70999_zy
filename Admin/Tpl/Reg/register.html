@@ -1,0 +1,565 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>会员注册 </title>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/mui_px.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/weui.min.css" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/jquery-weui.css" />
+
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/mvalidate-extend.js"></script>
+		<style type="text/css">
+			.TPL:before {
+				border-top: 0px solid #e5e5e5;
+			}
+			
+			.register_type:before {
+				border-top: 0px solid #e5e5e5;
+			}
+			.sms-btn {
+    color: white;
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 5px;
+    height: 40px;
+     background-color: #4c2664;  
+    line-height: 25px;
+    width: 100px;
+    text-align: center;
+    float: right;
+}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+				var ServerIP = "";
+				var FID = localStorage.getItem('FID');
+				$('#FID').val(FID);
+				//				localStorage.setItem('user_id',1);
+				var user_id = localStorage.getItem('user_id');
+				$('#register_id').val(user_id);
+
+				var TPL = localStorage.getItem('TPL');
+
+				if(TPL == '' || TPL == null) {
+					TPL = 0;
+				}
+
+				if(TPL == 0) {
+					$('#TPL0').prop("checked", true);
+					$('#TPL1').prop("checked", false);
+					$('#TPL').val(0);
+				}
+				if(TPL == 1) {
+
+					$('#TPL1').prop("checked", true);
+					$('#TPL0').prop("checked", false);
+					$('#TPL').val(1);
+				}
+				$('#register_type0').prop("checked", true);
+				$('#register_type1').prop("checked", false);
+				 
+				//get_Parameter();
+			});
+
+			function getQueryString(name) {
+
+				var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+				var r = window.location.search.substr(1).match(reg);
+				if(r != null) return unescape(r[2]);
+				return null;
+			}
+
+			function down(obj) {
+				var android_url = $(obj).attr('android_url');
+				var ios_url = $(obj).attr('ios_url');
+				download(ios_url,android_url)
+				
+
+			}
+		</script>
+		<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/register-validate.js"></script>
+
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="background:#4c2664" >
+				<a class="back" href="javascript:history.back();" style="display: none;">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>会员注册</h3>
+				<div class="right" style="display: none;">
+					<a class="weui-cell_access weui-cell_link" href="index.html">
+						<i class="iconfont icon-home"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd" style="MARGIN-TOP: 50PX;" >
+
+				<!--会员注册-->
+				<form id="regForm" name="regForm" class="form-box" url="{:U('Reg/usersAdd')}">
+					<div class="weui-cells weui-cells_form">
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员ID号</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+								<input name="shopid" type="hidden" id="shopid" value="admin" readonly="readonly" class="form-control" required="">
+								<input id="passopen" name="pwd1" type="hidden" value="222222" />
+								<input id="register_id" name="register_id" type="hidden" />
+								<input id="u_level" name="u_level" type="hidden" value="0" />
+								<input id="regcp" name="regcp" type="hidden" value="0" />
+								<input id="user_number" name="user_number" type="text" class="weui-input" placeholder="输入登录用户名" readonly />
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员姓名</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="user_name" name="username" type="text" class="weui-input" placeholder="输入会员姓名"   />
+							</div>
+						</div>
+						
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">手机号码</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="user_id" name="user_id" type="text" class="weui-input" placeholder="输入手机号码" data-validate="m" />
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员昵称</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="nickname" name="nickname" type="text" class="weui-input" placeholder="输入会员昵称"  />
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label for="" class="weui-label">登录密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="txtPassword" name="pwd" type="password" class="weui-input" placeholder="请输入登录密码" value="" />
+
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">确认密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="txtPassword1" name="txtPassword1" type="password" class="weui-input" placeholder="请再次输入密码" />
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">交易密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="pwd1" name="pwd1" type="password" class="weui-input" placeholder="请输入交易密码" value="1" />
+
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">确认密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="repwd1" name="repwd1" type="password" class="weui-input" placeholder="请再次输入密码" value="1" />
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员级别</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/jquery-weui.js"></script>
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/city-picker.js"></script>
+								<input type="text" name="get_level_select" id='get_level_select' class="weui-input" readonly="" value="请选择会员级别" />
+								<input type="hidden" name="get_level" id='get_level' class="weui-input" readonly="" value="1" />
+
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" >
+							<div class="weui-cell__hd">
+								<label class="weui-label">推荐编号</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="RID" name="RID" type="text" class="weui-input" placeholder="推荐编号" value="{$re_user_id}" readonly />
+							</div>
+						</div>
+						
+						<eq name="is_yzm" value="1">
+						
+						<div class="weui-cell weui-check_label" >
+							<div class="weui-cell__hd">
+								<label class="weui-label">验证码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input style="width:60%" id="sjyzm" name="sjyzm" type="text" class="weui-input" placeholder="手机验证码"   />
+								<span class="sms-btn default-bg-color" onclick="sendSMS(this,'#user_id','{:U('Reg/fasongyanzhengma')}')" tapmode id="sendmsg2">获取验证码</span>
+								
+								
+							</div>
+						</div></eq>
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">接点编号</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="FID" name="FID" type="text" class="weui-input" placeholder="接点编号" />
+							</div>
+						</div>
+						<div class="weui-cell weui_check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">市场位置</label>
+							</div>
+							<div class="weui-cell__bd weui-cells_checkbox" style="margin-top: 0px;">
+								<label class="weui-cell weui-check__label" for="TPL0" style="
+    width: 33%;
+    float: left;    padding:  0px  5px;
+">
+        <div class="weui-cell__hd">
+          <input type="checkbox" class="weui-check" name="checkbox1" id="TPL0">
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>左区</p>
+        </div>
+      </label>
+								<label class="weui-cell weui-check__label TPL" for="TPL1" style="
+    width: 40%;
+    float: left; padding:  0px  5px;
+">
+        <div class="weui-cell__hd">
+          <input type="checkbox" name="checkbox1" class="weui-check" id="TPL1">
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>右区</p>
+        </div>
+      </label>
+								<input type="hidden" name="TPL" id="TPL" class="weui-input" readonly="" value="0">
+							</div>
+
+						</div>
+						<div class="weui-cell weui_check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员类型</label>
+							</div>
+							<div class="weui-cell__bd weui-cells_checkbox" style="margin-top: 0px;">
+								<label class="weui-cell weui-check__label" for="register_type0" style="
+    width: 33%;
+    float: left;    padding:  0px  5px;
+">
+        <div class="weui-cell__hd">
+          <input type="checkbox" class="weui-check" name="checkbox1" id="register_type0">
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>商城玩家</p>
+        </div>
+      </label>
+								<label class="weui-cell weui-check__label register_type" for="register_type1" style="
+    width: 40%;
+    float: left; padding:  0px  5px;
+">
+        <div class="weui-cell__hd">
+          <input type="checkbox" name="checkbox1" class="weui-check" id="register_type1">
+          <i class="weui-icon-checked"></i>
+        </div>
+        <div class="weui-cell__bd">
+          <p>币玩家</p>
+        </div>
+      </label>
+								<input type="hidden" name="register_type" id="register_type" class="weui-input" readonly="" value="1">
+							</div>
+
+						</div>
+						<div class="weui-cell vcode" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">身份证号码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="user_code" name="user_code" class="weui-input" type="tel" placeholder="请输入身份证号码" />
+							</div>
+
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">邮箱</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="txtEmail" name="email" type="text" class="weui-input" placeholder="输入邮箱账号" value="1@qq.com" />
+							</div>
+						</div>
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">开户行</label>
+							</div>
+							<div class="weui-cell__bd">
+								<!--<select name="bank" id="bank" class="form-control select" style="width:100%;">
+									<option value="">请选择开户行</option>
+
+								</select>-->
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/jquery-weui.js"></script>
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/city-picker.js"></script>
+								<input type="text" name="bank" id='bank' class="weui-input" readonly="" />
+								<script>
+								</script>
+							</div>
+						</div>
+
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">银行卡号</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="bank_card" name="bank_card" type="text" class="weui-input" placeholder="输入银行卡号" />
+							</div>
+						</div>
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">开户姓名</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="name" name="name" type="text" class="weui-input" placeholder="输入开户姓名" />
+							</div>
+						</div>
+
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">所属地区</label>
+							</div>
+							<div class="weui-cell__bd">
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/jquery-weui.js"></script>
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/city-picker.js"></script>
+
+								<input class="weui-input" name="area" id="city-picker" type="text" readonly="" placeholder="请选择省市区">
+								<input id="area" name="user_address" type="hidden" />
+								<input id="bank_province" name="BankProvince" type="hidden" />
+								<input id="bank_city" name="BankCity" type="hidden" />
+								<input id="bank_area" name="bank_area" type="hidden" />
+								<script>
+									$("#city-picker").cityPicker({
+										title: "选择省市区",
+										onChange: function(picker, values, displayValues) {
+											$('#area').val(displayValues[0] + ' ' + displayValues[1] + ' ' + displayValues[2]);
+											$('#bank_province').val(displayValues[0]);
+											$('#bank_city').val(displayValues[1]);
+											$('#bank_area').val(displayValues[2]);
+										}
+									});
+								</script>
+
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">详细地址</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="bank_address" name="bank_address" type="text" class="weui-input" placeholder="详细地址" />
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">密保问题</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<script type="text/javascript" charset="utf-8" src="__PUBLIC__/js/jquery-weui.js"></script>
+								<input type="text" name="wenti_select" id='wenti_select' class="weui-input" readonly="" value="请选择密保问题" />
+								<input type="hidden" name="wenti" id='wenti' class="weui-input" readonly="" />
+
+							</div>
+						</div>
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">问题答案</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="wenti_dan" name="daan" type="text" class="weui-input" placeholder="输入问题答案" />
+							</div>
+						</div>
+						<div class="weui-cell" style=" display:none ">
+							<div class="weui-cell__hd">
+								<label class="weui-label">性别</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="showUserPicker" name="sex" readonly="readonly" type="text" class="weui-input" placeholder="选择性别" /> 
+							</div>
+						</div>
+					</div>
+
+					<!--开启注册协议-->
+					<label for="chkAgree" class="weui-agree" style="display: none;">
+                <input id="chkAgree" name="chkAgree" type="checkbox" class="weui-agree__checkbox" checked  />
+                <span class="weui-agree__text">
+                    我已阅读并接受<a href="javascript:;" onclick="showWindow('#regrules');">《注册许可协议》</a>
+                    <div id="regrules" title="注册许可协议" style="display:none;"></div>
+                </span>
+            </label>
+					<!--/开启注册协议-->
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit" style="background:#4c2664" name="btnSubmit" type="submit" class="weui-btn weui-btn_primary " value="立即注册" />
+					</div>
+					<div class="weui-btn-area">
+						<input style="color: #fff;
+    
+    background-color: #ef1544;background:#4c2664"    android_url="{$android_url}"   ios_url="{$ios_url}"   type="button" class="weui-btn weui-btn_primary downurl" value="下载APP" onclick="down(this)" />
+					</div>
+				</form>
+				<!--/会员注册-->
+
+				<!--版权信息-->
+
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+		<link href="__PUBLIC__/css/mui.picker.css" rel="stylesheet" />
+		<link href="__PUBLIC__/css/mui.poppicker.css" rel="stylesheet" />
+	<script src="__PUBLIC__/js/mui.min.js"></script>
+	<!--<script src="__PUBLIC__/js/mui.picker.min.js"></script>-->
+	<script src="__PUBLIC__/js/mui.picker.js"></script>
+	<script src="__PUBLIC__/js/mui.poppicker.js"></script>
+	<script src="__PUBLIC__/js/city.data.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__PUBLIC__/js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		(function($, doc) {
+			$.init();
+			$.ready(function() {
+				/**
+				 * 获取对象属性的值
+				 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+				 * @param {Object} obj 对象
+				 * @param {String} param 属性名
+				 */
+				var _getParam = function(obj, param) {
+					return obj[param] || '';
+				};
+				//普通示例
+				var userPicker = new $.PopPicker();
+				userPicker.setData([{
+					value: '男',
+					text: '男'
+				}, {
+					value: '女',
+					text: '女'
+				} ]);
+				var showUserPickerButton = doc.getElementById('showUserPicker');
+				var userResult = doc.getElementById('showUserPicker');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						userResult.value =  items[0]['value'] ;
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+				 
+			});
+		})(mui, document);
+
+		function sendSMS(btnObj, valObj, sendSMSUrl) {
+
+			 
+			if($(valObj).val() == "") {
+				mui.toast('对不起，请填写手机号码后再获取！')
+				return false;
+			}
+
+			//发送AJAX请求
+			$.ajax({
+				url: sendSMSUrl,
+				type: "POST",
+				timeout: 60000,
+				data: {
+					"user_tel": $(valObj).val(),
+					'is_mobile': 1
+				},
+				dataType: "json",
+				success: function(data, type) {
+					if(data.status == 1) {
+						wait = data.time * 60; //赋值时间
+						time(); //调用计算器
+						mui.toast(data.info);
+
+					} else {
+						$(btnObj).removeClass("gray").html("发送验证码");
+						$(btnObj).bind("click", function() {
+							sendSMS(btnObj, valObj, sendSMSUrl); //重新绑定事件
+						});
+
+						mui.toast(data.info);
+					}
+				},
+				error: function(xhr, type, errorThrown) {
+
+					mui.toast('获取失败');
+					//异常处理；
+					console.log(type);
+				}
+			});
+			//倒计时计算器
+			function time() {
+				if(wait == 0) {
+					$(btnObj).removeClass("gray").html("发送验证码");
+					$(btnObj).bind("click", function() {
+						sendSMS(btnObj, valObj); //重新绑定事件
+					});
+				} else {
+					$(btnObj).unbind("click").removeAttr("onclick"); //移除按钮事件
+					$(btnObj).addClass("gray").html("重新发送(" + wait + ")");
+					$(btnObj).attr("disable")
+					wait--;
+					setTimeout(function() {
+						time(btnObj);
+					}, 1000)
+				}
+			}
+		}
+	</script>
+
+</html>

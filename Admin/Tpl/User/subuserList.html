@@ -1,0 +1,152 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>复投列表</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>团队管理</a>
+                </li>
+                <li class="active">
+                    <strong>复投列表</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>复投列表 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <form class="form-inline title-form" name="form2" method="post"
+                            action="?action1=query">
+                            <div class="form-group" id="data_5">
+                                <label class="font-noraml"></label>
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" class="form-control" name="time1"
+                                    placeholder="开始日期" id="time1" value="<notempty name='time1'>{$time1}</notempty>">
+                                    <span class="input-group-addon">到</span>
+                                    <input type="text" class="form-control" name="time2"
+                                    placeholder="截止日期" id="time2" value="<notempty name='time2'>{$time2}</notempty>">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">查询</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">我要复投</button>
+                        </form>
+                    </div>
+                            <script type="text/javascript">
+                                layui.use('laydate', function(){
+                                  var laydate = layui.laydate;
+                                      var start = {
+                                      // min: laydate.now(-2)
+                                      max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        end.min = datas; //开始日选好后，重置结束日的最小日期
+                                        end.start = datas //将结束日的初始值设定为开始日
+                                      }
+                                    };
+                                    
+                                    var end = {
+                                      min: laydate.now()
+                                      ,max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        start.max = datas; //结束日选好后，重置开始日的最大日期
+                                      }
+                                    };
+                                    
+                                    $('#time1').on('click',function(){
+                                      start.elem = this;
+                                      laydate(start);
+                                    });
+                                    $('#time2').on('click',function(){
+                                      end.elem = this
+                                      laydate(end);
+                                    });
+                                });
+                            </script>
+                    <div class="row">
+
+                        <table class="table table-hover table-" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                   <th> 序号</th>
+								   <th>用户账号</th>
+								   <th>会员姓名</th>
+								   <th>消费等级</th>
+								   <th>提现类型</th>
+								   <th>联系电话</th>
+								   <th>状态</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo">
+                                <tr>
+                                    <td><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+									<td><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content"><a href="{:U('User/userinfo')}?id={$vo.id}" target="_blank"><span class="rankcolor_1">{$vo.user_id}</span><p></p></a></span></td>
+									<td><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo.user_name}</span></td>
+									<td><b class="tablesaw-cell-label">消费等级</b><span class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.u_level|getUserLevel=###}</i></span></td>
+									<td><b class="tablesaw-cell-label">提现类型</b><span class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.get_level}个月</i></span></td>
+									<td><b class="tablesaw-cell-label">联系电话</b><span class="tablesaw-cell-content"><i class="rankcolor_1">{$vo.user_tel}</i></span></td>
+									<td><b class="tablesaw-cell-label">账号状态</b><span class="tablesaw-cell-content"><font color="green"><i class="fa fa-check"></i>激活</font></span></td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <!--  <i class="fa fa-money modal-icon"></i>-->
+                <h4 class="modal-title">复投子账户</h4>
+                <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+            </div>
+            <form role="form" id="sendForm" method="post" action="__URL__/transferMoneyAC" class="ajax-post">
+            <div class="modal-body">
+                <p>您目前的复投积分为：{$rs.agent_cash}<span class="label label-primary"></span></p>
+                
+                    <input type="hidden" name="action" value="transfer_ajax">
+                    <div class="form-group"><label>复投级别</label>
+							<select name="u_level" id="rank" class="form-control">
+								<volist name="s10" id="svo" key='k'>
+									<option value="{$k+2}" checked>{$svo} {$s9[$k+1]}</option>
+								</volist>
+							</select>
+                            </div>
+                            <div class="form-group"><label>二级密码</label>
+                                <div id="price_slider" style="margin: 10px auto"></div>
+                                <input type="password" placeholder="" class="form-control" name="password" id="password">
+                            </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                        <button type="button" class="ladda-button ladda-button-demo btn btn-primary" id="sendUp" data-style="zoom-in">确认复投</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </block>

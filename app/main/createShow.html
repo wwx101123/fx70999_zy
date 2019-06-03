@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<title></title>
+		<script type="text/javascript">
+			var link_url=localStorage.getItem('link_url')
+			mui.init({
+				//示例打开百度,进行加载
+				subpages: [{
+					url: link_url,
+					id: link_url,
+					 styles : {  
+            top : '48px',  
+            bottom : '51px',  
+            bounce :'vertical'  
+        }  
+				}]
+			})
+		</script>
+	</head>
+
+	<body>
+	</body>
+
+</html>

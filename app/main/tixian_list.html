@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>直推列表 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/tixian.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+	</head>
+  
+	<body>
+		<div class="page mescroll" id="mescroll">
+			<!--<ul class="ques-card-list trade_rank_list">
+
+			</ul>-->
+			<div class="tab-panel">
+				<div class="tab-panel-item tab-active">
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			var _video = document.getElementById("h5video");
+			$("#poster").click(function() {
+				$(this).hide();
+				_video.play();
+			});
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_tixian_list(pageNum, pageSize, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.tab-panel-item  div').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				info = JSON.parse(data);
+				info = info.data;
+				var IP = localStorage.getItem('IP');
+
+				$('.tab-panel-item div').remove();
+				if(info != null) {
+					var item = '';
+					$.each(info, function(index, content) {
+						var status_bg = '';
+						if(content.is_pay == 0) {
+							status_bg = ' style="background:red;color:white;border:0" '
+						}
+						if(content.t_type == 1 || content.t_type == 0) {
+							content.wx_nickname = content.bank_card;
+							content.wx_logo = '../images/icon-bank.png';
+						}
+						item += '<div class="aui-flex b-line">';
+						item += '<div class="aui-look-img">';
+						item += '	<img src="' + content.wx_logo + '" alt="">';
+						item += '</div>';
+						item += '<div class="aui-flex-box">';
+						if(content.t_type == 2) {
+
+							item += '<h3>' + content.type_str + '(' + content.wx_nickname + ')</h3>';
+						}
+						if(content.t_type == 1 || content.t_type == 0) {
+
+							item += '<h3>' + content.type_str + '(' + content.wx_nickname + ')</h3>';
+						}
+						item += '<p>申请时间:' + content.addtime_str + '</p>';
+						item += '</div>';
+						item += '<div class="aui-flex-download">';
+						item += '	<a style="background: transparent;color: black;border: 0;text-align:center" href="javascript:;">' + content.money + '</a>';
+						item += '	<a ' + status_bg + ' href="javascript:;">' + content.status_str + '</a>';
+						item += '</div>';
+						item += '</div>';
+						console.log(IP + content.img)
+
+					});
+
+					$('.tab-panel-item').append(item);
+
+				}
+
+			}
+		});
+	</script>
+
+</html>

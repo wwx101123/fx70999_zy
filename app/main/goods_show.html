@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+		<meta name="keywords" content="{model.seo_keywords}" />
+		<meta name="description" content="{model.seo_description}" />
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mdetail_v2.min_04a65603.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<style type="text/css">
+			img {
+				width: 100%;
+			}
+			
+			table {
+				width: 100%;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/cart.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			$(document).ready(function() {
+				if(mui.os.ios) {
+					$('#mescroll').css('margin-top', '0px')
+				}
+
+			});
+			$(document).ready(function() {
+				var num_jia = document.getElementById("num-jia");
+				var num_jian = document.getElementById("num-jian");
+				var input_num = document.getElementById("commoditySelectNum");
+
+				if(mui.os.ios) {
+
+					new NoClickDelay(num_jian);
+					new NoClickDelay(num_jia);
+					new NoClickDelay(input_num);
+				}
+				$('#num-jia').click(function() {
+
+					$('#commoditySelectNum').val(parseInt($('#commoditySelectNum').val()) + 1);
+				});
+
+				$('#num-jian').click(function() {
+					var input_num = $('#commoditySelectNum').val();
+					if(input_num <= 0) {
+						input_num = 0;
+					} else {
+
+						input_num = parseInt($('#commoditySelectNum').val()) - 1;
+					}
+					$('#commoditySelectNum').val(input_num);
+
+				});
+			});
+		</script>
+	</head>
+
+	<body>
+		<!--页面头部-->
+
+		<!--/页面头部-->
+
+		<!--页面内容-->
+		<div class="page__bd mescroll" id="mescroll">
+			<!--商品幻灯片-->
+			<div id="slider" class="swiper-container">
+				<div class="swiper-wrapper">
+
+				</div>
+				<div class="pagination"></div>
+			</div>
+			<!--/商品幻灯片-->
+
+			<!--商品名称-->
+			<div class="weui-panel weui-panel_access" style="margin-top:0;">
+				<div class="weui-panel__bd">
+					<div class="goods-head">
+						<p><span class="" style="color: #E44864;font-size: 17px;
+    font-weight: 600;">  </span><span class="price"> </span>元 <span style="float: right;">库存:<span  class="all_stock"></span></span>
+						</p>
+						<h2> </h2>
+						<input type="hidden" id="price" />
+					</div>
+				</div>
+
+			</div>
+			<!--/商品名称-->
+
+			<!--参数选择-->
+			<!--<div class="weui-panel weui-panel_access item-list">
+					<div class="weui-panel__bd">
+						<a id="selectSpecText" class="weui-cell weui-cell_access" href="javascript:;" onclick="showActionSheet();">
+							<div class="weui-cell__bd">
+								<p>选择规格、数量</p>
+							</div>
+							<div class="weui-cell__ft"></div>
+						</a>
+						<a class="weui-cell weui-cell_access" href="#commentList" style="display: none;">
+							<div class="weui-cell__bd">
+								<p>查看评论</p>
+							</div>
+							<div class="weui-cell__ft">共 0条评论</div>
+						</a>
+
+					</div>
+
+				</div>-->
+			<!--/参数选择-->
+
+			<!--	<div class="item item_receive_voucher">
+				<div class="head_box"><span class="status" style="background-color: #ff7c3c;color: #fff;">券</span><span class="title"><em class="voucher">满<span class="agent_bi"></span>元送 <b><i>¥</i><span class="limit_money"></span></b></em> </span><span class="arrow icon-right_arrow"></span></div>
+			</div>-->
+			<div class="weui-panel weui-panel_access item-list" style="display: none;">
+				<a class="weui-cell weui-cell_access" style="WIDTH: 50%;
+    FLOAT: LEFT;">
+					<div class="weui-cell__hd">
+						<i class="iconfont icon-amount"></i>
+					</div>
+					<div class="weui-cell__bd">
+						<p>起拍价</p>
+					</div>
+					<div class="weui-cell__bd crown_price">¥103.90</div>
+				</a>
+				<a class="weui-cell weui-cell_access" href="/user/point/convert.html" style="WIDTH: 50%;
+    FLOAT: LEFT;">
+					<div class="weui-cell__hd">
+						<i class="iconfont icon-amount"></i>
+					</div>
+					<div class="weui-cell__bd">
+						<p>成交价</p>
+					</div>
+					<div class="weui-cell__bd sell_price">¥103.90 </div>
+				</a>
+				<a class="weui-cell weui-cell_access" href="/user/message/accept.html" style="WIDTH: 50%;
+    FLOAT: LEFT;">
+					<div class="weui-cell__hd">
+						<i class="iconfont icon-amount"></i>
+					</div>
+					<div class="weui-cell__bd">
+						<p>成交可赚</p>
+					</div>
+					<div class="weui-cell__bd price">¥103.90</div>
+				</a>
+				<a class="weui-cell weui-cell_access" href="/user/message/accept.html" style="WIDTH: 50%;
+    FLOAT: LEFT;">
+					<div class="weui-cell__hd">
+						<i class="iconfont icon-amount"></i>
+					</div>
+					<div class="weui-cell__bd">
+						<p>赠送拍币</p>
+					</div>
+					<div class="weui-cell__bd crown_price1">¥103.90</div>
+				</a>
+			</div>
+			<!--商品参数-->
+			<!--<div class="weui-panel weui-panel_access item-list">
+					<div class="weui-panel__hd">商品参数</div>
+					<div class="weui-panel__bd">
+						<div class="weui-cell weui-cell_access">
+							<div class="weui-cell__bd">
+								<p>货号：<span id="commodityGoodsNo"></span></p>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_access" style="display: none;">
+							<div class="weui-cell__bd">
+								<p>市场价：<s id="commodityMarketPrice"></s></p>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_access">
+							<div class="weui-cell__bd">
+								<p id="add_time"></p>
+							</div>
+						</div>
+
+					</div>
+
+				</div>-->
+			<!--/商品参数-->
+
+			<div class="meta" style="padding:15px; background: white; margin: 0;HEIGHT:50PX ">
+				<p style="float: left;"></p>
+				<div class="meta-info" style="float: left; margin-left: 10PX;letter-spacing: 3px;">
+					<span>说明:</span>
+					<span><i class="iconfont icon-info"></i>正品保证</span>
+
+					<span><i class="iconfont icon-info"></i>免费服务</span>
+					<span><i class="iconfont icon-info"></i>门店自提</span> </div>
+			</div>
+			<div class="detail_shop_box_v3" id="shopArea" style="display: none;">
+				<div class="shop_info" id="shopLogoInfo">
+					<span class="J_ping logo_wrap" report-eventid="MProductdetail_ShopBanner" report-eventlevel="3"><img class="shopLogo" id="shopLogo" src="http://img12.360buyimg.com/jshopm/jfs/t14794/157/9349167/5151/8e432af/5a212945N570ce77c.jpg!q70.dpg"></span>
+					<div class="info" id="shopInfo">
+						<div class="name "><span class="_n seller_name">Hcollection旗舰店</span>
+							<p class="desc"><span class="star">店铺星级<i class="star_icon"></i><i class="star_icon"></i><i class="star_icon "></i><i class="star_icon "></i><i class="star_icon half"></i></span></p>
+						</div>
+					</div>
+				</div>
+				<div class="info_tab" id="shopBaseInfo" style="">
+					<div class="tab_item">
+						<p class="num funs_num"></p>
+						<p class="desc">粉丝人数</p>
+					</div>
+					<div class="tab_item">
+						<p class="num goods_num"></p>
+						<p class="desc">全部商品</p>
+					</div>
+					<div class="evaluation">
+						<div class="evaluation_wrap">
+							<div class="evaluation_list "><span class="evaluation_list_head">评价</span><span class="score1"> </span> | 高</div>
+							<div class="evaluation_list "><span class="evaluation_list_head">物流</span><span class="score2"> </span>| 高</div>
+							<div class="evaluation_list "><span class="evaluation_list_head">售后</span><span class="score3"> </span>| 高</div>
+						</div>
+					</div>
+				</div>
+				<div class="shop_btns mod_btns">
+					<button class="mod_btn" id="shopFav" ptag="7001.1.23" needlogin="1"><i class="icon_unfavor"></i>关注店铺</button>
+					<button class="mod_btn shopLinks" id="shopLinks"><i class="icon_shop"></i>进入店铺</button>
+				</div>
+			</div>
+			<div class="module-wrap detail_shop_box_v3" data-module="mods/module-shop/index" id="J_mod17">
+				<div class="module-shop shop_info" data-mod-name="detail-m/mods/module-shop/index" data-spm="1998338745">
+					<div class="shop-main" data-spm="1998338745">
+						<div class="shop-logo">
+
+							<img class="shopLogo" aria-label="店铺标志">
+
+						</div>
+						<div class="shop-info">
+							<div class="shop-name seller_name" title="初源旗舰店"></div>
+							<p class="desc"><span class="star">店铺星级<i class="star_icon"></i><i class="star_icon"></i><i class="star_icon "></i><i class="star_icon "></i><i class="star_icon half"></i></span></p>
+						</div>
+						<div class="shop-qualification ">
+
+						</div>
+
+					</div>
+					<ul class="score">
+
+						<li>宝贝描述<b class="equal score1"> </b></li>
+
+						<li>卖家服务<b class="up score2"> </b></li>
+
+						<li>物流服务<b class="up score3"></b></li>
+
+					</ul>
+					<div class="action mui-flex">
+						<a class="all-product cell shopLinks" id="shopLinks">全部商品</a>
+						<a class="go-shop cell shopLinks" id="shopLinks">进入店铺</a>
+
+					</div>
+				</div>
+			</div>
+			<!--商品介绍-->
+			<div class="weui-panel weui-panel_access">
+				<div class="weui-panel__hd">商品介绍</div>
+				<div class="weui-panel__bd">
+					<div class="entry" style="font-size:0;    line-height: 0;margin:0">
+
+					</div>
+				</div>
+			</div>
+			<!--/商品介绍-->
+
+			<!--版权信息-->
+			<!-- <%template src="_copyright.html"%>-->
+			<!--/版权信息-->
+
+			<!--规格容器-->
+			<div class="weui-mask" id="specMask" style="display:none"></div>
+			<div class="weui-actionsheet spec-wrap" id="specActionsheet">
+				<div id="specActionsheetCancel" class="close">
+					<i class="iconfont icon-close"></i>
+				</div>
+				<div id="goodsSpecBox" class="spec-box">
+					<!--<dl>
+						<dt>可进货总额:<span class="user_agent_use"></span></dt>
+						<dd>
+							 
+						</dd>
+					</dl>-->
+					<div class="btn-box btn-numbox">
+						<dt>购物数量<span>(库存<b id="commodityStockNum">{model.fields[stock_quantity]}</b>件)</span></dt>
+						<dd>
+							<input id="img_url" type="hidden" />
+							<input id="spec_text" type="hidden" />
+							<input id="payment" type="hidden" value="0" />
+							<input id="goods_order_type" type="hidden" value="0" />
+							<input id="is_pin" type="hidden" value="0" />
+							<input id="title" type="hidden" />
+							<input id="commodityChannelId" type="hidden" />
+							<input id="commodityArticleId" type="hidden" />
+							<input id="commodityGoodsId" type="hidden" value="0" />
+							<input id="commodityHot_id" type="hidden" value="0" />
+
+							<ul class="count">
+								<li><span id="num-jian" class="num-jian">-</span></li>
+								<li><input type="text" class="input-num" id="commoditySelectNum" value="0" /></li>
+								<li><span id="num-jia" class="num-jia">+</span></li>
+							</ul>
+
+							<!--<a class="reduce" href="javacript:void(0);" onclick="addCartNum(-1);">-</a>
+								<input id="commoditySelectNum" class="input" type="text" value="1"  onkeydown="return checkNumber(event);" />
+								<a class="subjoin" href="javacript:void(0);;" onclick="addCartNum(1);">+</a>-->
+						</dd>
+					</div>
+				</div>
+
+				<div class="weui-actionsheet__action">
+					<button id="confirmButton" class="weui-actionsheet__cell ">确定</button>
+				</div>
+			</div>
+			<!--规格容器-->
+		</div>
+		<!--/页面内容-->
+		<!--底部按钮-->
+		<div class="goods-btn-box">
+			<div class="wrap-box de_btn_wrap">
+				<!--<div class="icon_btn icon_cart "style="display: none;" id="gotoCart" onclick="gotoCart()">
+					<span class="add_num" style="display: none;" id="popone">+1</span>
+					<i class="icon"><span class="num cart-num shoppingCartCount" id="cartNum" style="display: none;" >2</span></i>
+					<span class="txt">购物车</span>
+				</div>
+				<a style="width: 50%;background: #ffb002;" class="green buy" href="javascript:;" onclick="showActionSheet('buy','{config.webpath}','');">
+					<i class="iconfont icon-cart"></i>
+					<span>直接购买</span>
+				</a>
+				<a style="width: 50%;background: #ffb002;" class="green dui" href="javascript:;" onclick="showActionSheet('buy','{config.webpath}','');">
+					<i class="iconfont icon-cart"></i>
+					<span>直接兑换</span>
+				</a>
+				<a style="width:50%;" class="green cart" href="javascript:;" onclick="showActionSheet('cart','{config.webpath}','');">
+					<i class="iconfont icon-order"></i>
+					<span>加入购物车</span>
+				</a>
+				<a style="background:white;color: #8f8f94; width:30%;display: none;" class="red" href="javascript:;">
+
+					<span>需先付:<span class="help_price" style="color:#E44864;font-size: 30PX;" >0</span> 元</span>
+				</a>-->
+				<div class="de_row de_btn_bar">
+
+					<div class="icon_btn icon_shop shopLinks" id="gotoShop" style="" pppptag="7001.1.61">
+						<i class="icon"></i>
+						<span class="txt ">进店</span>
+					</div>
+					<div class="icon_btn icon_print" id="printBag" style="display: none">
+						<i class="icon"></i>
+						<span class="txt">冲印袋</span>
+					</div>
+					<div class="icon_btn icon_cart shoppingCartCount" onclick="gotoCart()" id="gotoCart">
+						<span class="add_num" id="popone">+1</span>
+						<i class="icon"><span class="num" id="cartNum"  style="display:none">1</span></i>
+						<span class="txt">购物车</span>
+					</div>
+					<div class="de_span btn_group">
+						<div class="de_row">
+							<div class="btn btn_share_orange" id="shareBtn2" style="display: none"><span class="txt">邀请好友</span></div>
+							<div class="btn btn_orange" onclick="showActionSheet('cart','{config.webpath}','');" id="addCart2" style="border-radius:0">
+								<span class="txt">加入购物车</span>
+							</div>
+							<div class="btn btn_buy" id="buyBtn2" onclick="showActionSheet('buy','{config.webpath}','');" style="border-radius:0"><span class="txt">立即购买</span></div>
+							<div class="btn btn_orange" id="viewGuess" ptag="7001.1.46" style="display: none;"><span class="txt">查看相似商品</span></div>
+							<div class="btn btn_blue" id="arrivalNotice" style="display: none;"><span class="txt">到货通知</span></div>
+							<div class="btn btn_orange" id="specAddBtn" style="display: none;"><span class="txt">加入购物车</span></div>
+							<div class="btn btn_m_red" id="specBuyBtn" style="display: none;"><span class="txt">立即购买</span></div>
+							<div class="btn btn_orange" id="samVipBuy2" style="display:none;"><span class="txt">购买会籍</span></div>
+							<div class="btn btn_blue" id="bindSamVipBtn2" style="display:none;"><span class="txt">绑定会籍</span></div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--/底部按钮-->
+	</body>
+	<script type="text/javascript">
+		var mescroll;
+		$(function() {
+			localStorage.setItem('is_now_payment', 0)
+			//			init_view();
+
+			//			})
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+
+				down: {
+					callback: downCallback
+				}
+			});
+
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var myDate = new Date();
+				//获取当前年
+				var year = myDate.getFullYear();
+				//获取当前月
+				var month = myDate.getMonth() + 1;
+				//获取当前日
+				var date = myDate.getDate();
+				var h = myDate.getHours(); //获取当前小时数(0-23)
+				var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+				var s = myDate.getSeconds();
+
+				var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
+				console.log(now)
+				var user_id = localStorage.getItem('user_id');
+				get_goods_show(init_view);
+
+			}
+
+			/*上拉加载的回调 */
+
+			function init_view(data) {
+				var status = data.status;
+				if(status == 1) {
+					var info = data.data;
+					$('.swiper-container').css('height', $('body').height() / 2);
+					$('.swiper-container img').css('height', $('body').height() / 2);
+					$('.swiper-wrapper').html('');
+					var height = $('.swiper-container').height();
+					var goods_albums = info.goods_albums;
+
+					if(info.type == 1) {
+						$('.cart').css('display', 'none')
+						$('.dui').css('display', 'block')
+						$('.buy').css('display', 'none')
+						$('.green').css('width', '100%')
+					} else {
+						$('.cart').css('display', 'block')
+						$('.dui').css('display', 'none')
+						$('.buy').css('display', 'block')
+					}
+
+					var item = '	 <div class="swiper-slide"> ';
+					item += '	<img src="' + IP + info.img1 + '"  style="height:' + height + 'px"/> </div>';
+					if(info.img1 != '') {
+						$('.swiper-wrapper').append(item);
+					}
+					item = '	 <div class="swiper-slide"> ';
+					item += '	<img src="' + IP + info.img2 + '"  style="height:' + height + 'px"/> </div>';
+					if(info.img2 != '') {
+						$('.swiper-wrapper').append(item);
+					}
+					item = '	 <div class="swiper-slide"> ';
+					item += '	<img src="' + IP + info.img3 + '"  style="height:' + height + 'px"/> </div>';
+					if(info.img3 != '') {
+						$('.swiper-wrapper').append(item);
+					}
+					console.log(info.id)
+					var mySwiper = new Swiper('.swiper-container', {
+						calculateHeight: true,
+						resizeReInit: true,
+						pagination: ".pagination",
+						autoplay: 5000,
+						paginationClickable: true
+					});
+					$('.all_stock').html(info.stock)
+					$('.main_title').html(info.title)
+					$('.goods-head h2').html(info.title)
+					$('.current').html('剩余量:' + info.remain_crowd_price)
+					$('.market span').html(info.market_price)
+					$('.time_line').html('市场价' + info.market_price)
+					//				$('.sub_btn em').html(info.every_crowd_price + 'apat')
+					$('.goods-head .price').html(info.price)
+					$('.btns .price').html('¥' + info.price)
+
+					$('.btns .crowd_price').html('¥' + info.crowd_price)
+					$('#commodityGoodsNo').html(info.goods_no)
+					$('#commoditySelectNum').attr('maxValue', info.stock)
+					$('#commodityMarketPrice').html(info.market_price)
+					$('#commodityStockNum').html(info.stock)
+					$('#commodityHot_id').val(localStorage.getItem('hot_id'))
+					$('#img_url').val(info.img)
+					$('#title').val(info.title)
+					$('#price').val(info.price)
+
+					$('.price').val('¥' + info.price)
+					$('.price').html('¥' + info.price)
+					//				$('.fan').html('返现金额:' + info.agent_use)
+					$('.pin_num').html('' + info.pinstr)
+					$('.pin_goods_num').html('' + info.pin_goods_num)
+					$('#add_time').html('上架时间：' + info.addtime_str)
+
+					//				var content = decodeURIComponent(info.content)
+					var str = info.content;
+
+					var reg = /src="/g;
+
+					//					str = str.replace(reg, 'src="' + IP);
+					if(str != 0) {
+						$.each(info.image_list, function(index, content) {
+
+							var item = '	<img src="' + IP + content.image_url + '"  />';
+
+							$('.entry').append(item);
+
+						});
+					}
+
+					var str = info.pc_content;
+					if(str != null) {
+						var txt = 'src="/';
+
+						var reg = new RegExp(txt, "g"); //g,表示全部替换。
+						console.log(str)
+
+						var Newstr = str.replace(reg, "src=\""+IP +'/');
+
+						$('.entry').append(Newstr);
+					}
+
+					//					$('.entry').html(str)
+					$('.entry p').css('line-height', '0');
+
+					$('#J-bidMore em').html(info.goods_crowd_users_count + '条')
+					$('#crowd_price').val(info.every_crowd_price);
+					$('.crowd_price').html('¥' + info.crowd_price);
+					$('.comment_num').html('' + info.comment_num);
+					//规格
+					var spec = data.data.goods_spec;
+					if(spec != null) {
+						$.each(spec, function(index, content) {
+
+							var item = '	<dl> <dt>' + content.title + '</dt><dd>';
+							$.each(spec, function(index1, content1) {
+								if(content1.parent_id == content.spec_id) {
+									item += '<a specid="' + content1.spec_id + '" title="' + content1.title + '" href="javascript:;">';
+									item += '			<span>' + content1.title + '</span>';
+									item += '		</a>';
+								}
+							});
+							item += '	<dd><!--规格选项--><!--/规格选项--></dd></dl>';
+							if(content.parent_id == 0) {
+								$('.btn-box').before(item);
+							}
+						});
+					}
+
+					var info = data.seller;
+					console.log(info)
+					$('.detail_shop_box_v3').css('display', 'none')
+					if(info != null) {
+						$('.detail_shop_box_v3').css('display', 'block')
+						$('.shopLogo').attr('src', IP + info.img);
+						$('.seller_name').html('' + info.title);
+						$('.funs_num').html('' + info.fans_num);
+						$('.goods_num').html('' + info.goods_num);
+						$('.score1').html('' + info.score1);
+						$('.score2').html('' + info.score2);
+						$('.score3').html('' + info.score3);
+
+					}
+
+					$('.shopLinks').click(function() {
+						localStorage.setItem('is_login', 1)
+						openWindowWithTitle('商铺详情', 'shop_detail.html');
+					});
+					var info = data.data;
+					$('#cartNum').html('' + info.cartNum)
+					console.log(info.cartNum)
+					if(info.cartNum == 0) {
+
+						$('#cartNum').css('display', 'none')
+					} else {
+
+						$('#cartNum').css('display', 'block')
+					}
+				}
+				console.log(mescroll)
+				mescroll.endSuccess();
+
+			}
+
+			//			get_main_category_list(0, mescroll);
+
+		});
+
+		var user_id = localStorage.getItem('user_id');
+		window.addEventListener('update_goods_show', function(e) {
+			console.log(2222)
+			var is_update_goods_show = localStorage.getItem('update_goods_show')
+			if(is_update_goods_show == 1) {
+				localStorage.setItem('update_goods_show', 0)
+
+				mescroll.triggerDownScroll();
+
+			}
+		});
+		window.addEventListener('order_succeed', function(e) {
+			//			localStorage.setItem('is_now_payment', 0)
+			//			openWindowWithTitle('我的订单', 'userorder.html')
+			//			return;
+		});
+		mui.init({
+			beforeback: function() {　　
+				var list = plus.webview.currentWebview().opener();　　
+				var is_cart_shopping = localStorage.getItem('is_cart_shopping');
+
+				mui.fire(list, 'update_trade_money');
+				mui.fire(list, 'is_cart_shopping');
+
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,58 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>收件箱</h2>
+      <ol class="breadcrumb">
+        <li> <a href="{:U('Index/index')}">首页</a> </li>
+        <li> <a>信息管理</a> </li>
+        <li class="active"> <strong>收件箱</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>收件箱 </h5>
+          </div>
+          <div class="ibox-content">
+            <div class="row">
+              <form name="form1" method="post" action="__URL__/s_del/">
+                <table width="100%" class="tab3" border="0" cellpadding="3" cellspacing="1" id="tb1" bgcolor="#b9c8d0">
+                  <tr>
+                    <th><input type="checkbox" name="chkall" value="checkbox" onclick="CheckAll(this.form)"  class="btn2" id="chkall" /></th>
+                    <th>状态</th>
+                    <th>发件人</th>
+                    <th>主题</th>
+                    <th>时间</th>
+                  </tr>
+                  <volist name="list" id="vo">
+                    <tr>
+                      <td><input type="checkbox" name="tabledb[]" value="{$vo['id']}" class="btn2" /></td>
+                      <td><eq name="vo['s_read']" value="1"><span class="STYLE2" >已阅</span>
+                          <else/>
+                          <span class="STYLE1" >未阅</span></eq></td>
+                      <td>{$vo['f_user_id']|conname}</td>
+                      <td><a href="__URL__/s_view/did/{$vo['id']}">{$vo['title']}</a></td>
+                      <td>{$vo.f_time|date='Y-m-d H:i:s',###}</td>
+                    </tr>
+                  </volist>
+                  <tr>
+                    <td colspan="5">&nbsp;&nbsp;
+                      <input name="全选" type="button" class="btn btn-primary" id="全选" onclick="CheckAll(this.form)" value="全选" />
+                      &nbsp;&nbsp;
+                      <input type="submit" name="action" value="删除信件" onclick="return allcheckbox();"  class="btn btn-primary" /></td>
+                  </tr>
+                </table>
+              </form>
+              {$page} </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</block>

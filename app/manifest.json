@@ -1,0 +1,2397 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "com.lv.zy",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "卓异商城",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "3.8",/*应用版本名称*/
+		"code": ""
+	},
+	"description": "卓异商城",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "login.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+		"Contacts": {
+			"description": "访问系统联系人信息"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		
+		"OAuth": {},
+		"Share": {},
+		"Payment": {},
+		"Speech": {},
+		"Push": {}
+	},
+	"plus": {
+		"splashscreen": {
+			"waiting": true,"delay":"3","autoclose":true
+		},
+		
+		"statusbar": {
+			"immersed": true
+		},
+		"launchwebview": { 
+			"bottom": "0px",
+			"background": "#4c2664",
+			"statusbar": {
+				"background": "#4c2664"
+			}
+		},
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {
+				"payment": {
+					"weixin": {
+						"description": "微信支付",
+						"appid": "wx7c3b7465f37cc43d"
+					}
+				},
+				"oauth": {
+					"weixin": {
+						"appid": "wx7c3b7465f37cc43d",
+						"appsecret": "e63e522042e4c1eaca32e19481c13eed"
+					}
+				},
+				"push": {
+					"igexin": {
+						"appid": "fYcPOQFGrG9qc2fIqXxYM",
+						"appkey": "68UBDoqVWL64ony6l6z893",
+						"appsecret": "gQg7hQc9Dj7ibqC0ZkmOU8"
+					}
+				},
+				"share": {
+					"weixin": {
+						"appid": "wx7c3b7465f37cc43d",
+						"appsecret": "e63e522042e4c1eaca32e19481c13eed",
+						"description": "可选，微信分享"
+					}
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": ["<uses-permission android:name=\"android.permission.GET_ACCOUNTS\"/>","<uses-permission android:name=\"android.permission.RECORD_AUDIO\"/>","<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>","<uses-permission android:name=\"android.permission.READ_CONTACTS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.VIBRATE\"/>","<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>","<uses-permission android:name=\"android.permission.CALL_PHONE\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-permission  android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>","<uses-permission android:name=\"android.permission.WRITE_CONTACTS\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": [
+				"portrait-primary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					/*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "", /*iPhone3/3GS程序图标，分辨率：57x57*/
+						"retina": "", /*iPhone4程序图标，分辨率：114x114*/
+						/*iPhone4S/5/6程序图标，分辨率：120x120*/
+						/*iPhone6 Plus程序图标，分辨率：180x180*/
+						"spotlight-normal": "", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+						/*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "", /*iPhone4设置页面程序图标，分辨率：29x29*/
+						/*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+						"app@2x": "unpackage/res/icons/120x120.png",
+						"app@3x": "unpackage/res/icons/180x180.png",
+						"settings@3x": "unpackage/res/icons/87x87.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"spotlight@3x": "unpackage/res/icons/120x120.png",
+						"notification@3x": "unpackage/res/icons/60x60.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"ipad": {
+						"normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
+						/*iPad iOS7程序图标，分辨率：76x76*/
+						/*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPad设置页面程序图标，分辨率：29x29*/
+						"app": "unpackage/res/icons/76x76.png",
+						"app@2x": "unpackage/res/icons/152x152.png",
+						"settings": "unpackage/res/icons/29x29.png",
+						"proapp@2x": "unpackage/res/icons/167x167.png",
+						"spotlight": "unpackage/res/icons/40x40.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"notification": "unpackage/res/icons/20x20.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"appstore": "unpackage/res/icons/1024x1024.png"
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+						"retina47": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+						"retina55": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+						"retina55l": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",
+						"iphonex": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",
+						"iphonexl": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png"
+					},
+					"ipad": {
+						"portrait": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": "D:/phpStudy/WWW/fx70999_das3/切图/PK启动图(1).png"
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "D:/phpStudy/WWW/fx70999_zy/欢迎图.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "D:/phpStudy/WWW/fx70999_zy/欢迎图.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "D:/phpStudy/WWW/fx70999_zy/欢迎图.png"
+				}
+			},
+			"debug": true
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"login.html": {
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/login.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"js/zepto.min.js",
+					"js/mvalidate.js",
+					"js/mvalidate-extend.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/base.js",
+					"js/weixin_login.js",
+					"images/head-title.png",
+					"images/icon-user.png",
+					"images/icon-psd.png"
+				],
+				"refer": [
+					"index.html",
+					"main/register.html",
+					"main/forget_password.html",
+					"login.html"
+				],
+				"priority": 0
+			},
+			"index.html": {
+				"resources": [
+					"main/shop.html",
+					"main/buylist.html",
+					"main/user.html",
+					"main/help.html",
+					"main/cart.html",
+					"images/app_assets_images_tab_ally_active.png",
+					"images/app_assets_images_tab_home.png",
+					"main/main.html",
+					"js/socket.io.js",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"images/app_assets_images_tab_home_active.png",
+					"images/app_assets_images_tab_ally.png",
+					"images/app_assets_images_tab_account.png",
+					"images/app_assets_images_tab_account_active.png",
+					"images/app_assets_images_tab_earnings_active.png",
+					"images/app_assets_images_tab_earnings.png",
+					"main/cate.html",
+					"main/index.html"
+				],
+				"refer": [
+					"main/sell.html",
+					"main/jinhuo.html",
+					"main/tel.html",
+					"main/tab-vertical-scroll.html"
+				],
+				"priority": 0
+			},
+			"main/shop.html": {
+				"resources": [
+					"img/mescroll-totop.png",
+					"images/loading.png"
+				],
+				"refer": [
+					"main/goods_show.html"
+				],
+				"priority": 0
+			},
+			"main/help.html": {
+				"resources": [],
+				"refer": [
+					"main/goods_show.html",
+					"main/help_goods_show.html"
+				],
+				"priority": 0
+			},
+			"main/buylist.html": {
+				"resources": [],
+				"refer": [
+					"main/goods_show.html",
+					"main/jp_goods_show.html",
+					"main/goodslist.html"
+				],
+				"priority": 0
+			},
+			"main/user.html": {
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/style4.css",
+					"images/head-bg.png",
+					"css/an-skill-bar.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/zepto.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/an-skill-bar.js",
+					"js/main.js",
+					"js/upload.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"css/intial.css",
+					"images/user.png",
+					"images/icon-fl-001.png",
+					"images/icon-fl-002.png",
+					"images/icon-fl-003.png",
+					"images/icon-fl-004.png",
+					"images/icon-fl-005.png",
+					"images/icon-fl-006.png",
+					"images/icon-fl-007.png",
+					"images/icon-fl-008.png",
+					"images/icon-fl-009.png",
+					"images/icon-fl-010.png",
+					"images/icon-fl-011.png",
+					"images/icon-fl-012.png",
+					"images/icon-fl-013.png",
+					"images/icon-fl-014.png",
+					"images/icon-fl-015.png",
+					"images/icon-fl-016.png",
+					"images/vip.png",
+					"images/icon-head-001.png",
+					"images/icon-head-002.png",
+					"images/icon-head-003.png",
+					"images/icon-head-004.png",
+					"images/user-001.png",
+					"css/user.css",
+					"images/king.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"aui/css/aui.css",
+					"aui/css/aui-iconfont.ttf",
+					"js/order.js",
+					"images/ad-cn-001.png",
+					"images/icon-item-01.png",
+					"images/icon-item-02.png",
+					"images/icon-item-03.png",
+					"images/icon-item-04.png",
+					"images/icon-mo-001.png",
+					"images/icon-mo-002.png",
+					"images/icon-mo-003.png",
+					"images/icon-mo-004.png"
+				],
+				"refer": [
+					"main/feedback.html",
+					"main/myteam.html",
+					"main/moneyflows.html",
+					"main/managerpwd.html",
+					"main/user_edit.html",
+					"main/bank.html",
+					"main/useraddress.html",
+					"main/usertradeorder.html",
+					"main/pointflows.html",
+					"main/usertradehelporder.html",
+					"main/userorder.html",
+					"main/recommend.html",
+					"main/apply_agent.html",
+					"main/recommend_list.html",
+					"main/employ_list.html",
+					"main/upload.html",
+					"main/agent_detail.html",
+					"main/active_confirm.html",
+					"main/notice_list.html",
+					"main/daili_confirm.html",
+					"main/usergoodslist.html",
+					"main/jinhuo.html",
+					"main/usertradedetailorder.html",
+					"main/card.html",
+					"main/chat_list.html",
+					"main/usershoporder.html",
+					"main/ok_cerfication.html",
+					"main/mymoney.html",
+					"main/notice.html",
+					"main/agent.html",
+					"main/index.html",
+					"main/tiqu.html",
+					"main/re_list.html",
+					"main/shop_list.html",
+					"main/checkpwd2.html",
+					"main/recommend_images.html",
+					"login.html",
+					"main/mygoods.html",
+					"main/apply_seller.html",
+					"main/sell.html",
+					"main/create.html"
+				],
+				"priority": 0
+			},
+			"main/managerpwd.html": {
+				"resources": [],
+				"refer": [
+					"main/modifypwd.html",
+					"main/modifypwd2.html"
+				],
+				"priority": 0
+			},
+			"main/goodslist.html": {
+				"resources": [],
+				"refer": [
+					"main/jp_goods_show.html"
+				],
+				"priority": 0
+			},
+			"main/bank.html": {
+				"resources": [],
+				"refer": [
+					"main/add_bank.html",
+					"main/add_bank1.html",
+					"main/modifypwd2.html",
+					"main/modifypwd.html"
+				],
+				"priority": 0
+			},
+			"main/usertradeorder.html": {
+				"resources": [],
+				"refer": [
+					"main/upload_img.html",
+					"main/upload_tousu_img.html",
+					"main/usertradedetailorder.html",
+					"main/jinhuo.html"
+				],
+				"priority": 0
+			},
+			"main/usertradehelporder.html": {
+				"resources": [
+					"js/common.js"
+				],
+				"refer": [
+					"main/upload_img.html",
+					"main/upload_tousu_img.html"
+				],
+				"priority": 0
+			},
+			"main/usertradedetailorder.html": {
+				"resources": [],
+				"refer": [
+					"main/upload_img.html",
+					"main/upload.html"
+				],
+				"priority": 0
+			},
+			"main/apply_agent.html": {
+				"resources": [],
+				"refer": [
+					"main/results.html"
+				],
+				"priority": 0
+			},
+			"main/goods_show.html": {
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/idangerous.swiper.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/idangerous.swiper-2.1.min.js",
+					"js/common.js",
+					"js/goods.js",
+					"js/product_cart.js",
+					"img/mescroll-totop.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/cart.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"refer": [
+					"main/useraddress_edit.html",
+					"main/add_bank.html",
+					"main/cart.html",
+					"main/shopping.html",
+					"main/jinhuo.html",
+					"main/usertradeorder.html",
+					"main/userorder.html",
+					"main/shop_detail.html"
+				],
+				"priority": 0
+			},
+			"main/useraddress.html": {
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zepto.min.js",
+					"js/common.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/user.js"
+				],
+				"refer": [
+					"main/useraddress_edit.html",
+					"main/tx_success.html",
+					"main/useraddress.html",
+					"main/register.html"
+				],
+				"priority": 0
+			},
+			"main/pointflows.html": {
+				"resources": [
+					"images/logo.png",
+					"fonts/mui.ttf",
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"js/mui.min.js",
+					"js/zepto.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/app_assets_images_home_card_nodate.png"
+				],
+				"refer": [
+					"main/transfer_edit.html"
+				],
+				"priority": 0
+			},
+			"main/register.html": {
+				"resources": [
+					"css/new_file.css",
+					"js/register-validate.js",
+					"css/validate.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/user.js",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js"
+				],
+				"refer": [
+					"login.html"
+				],
+				"priority": 0
+			},
+			"main/active_confirm.html": {
+				"resources": [],
+				"refer": [
+					"main/upload.html"
+				],
+				"priority": 0
+			},
+			"main/upload.html": {
+				"resources": [
+					"/storage/emulated/0/Tencent/QQfile_recv/)P5HWF33)S(%Q4K9XHL%7DAGV.png",
+					"/storage/emulated/0/Tencent/QQfile_recv/ZP4%605%7BMR%60$$%]APHOEJF7AS.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/plugins/cropper/css/cropper.min.css",
+					"js/plugins/cropper/images/bg.png",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/plugins/cropper/js/cropper.min.js",
+					"js/plugins/cropper/images/icon_upload_photo.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/notice_list.html": {
+				"resources": [
+					"css/index.css",
+					"css/notice.css"
+				],
+				"refer": [
+					"main/notice_show.html"
+				],
+				"priority": 0
+			},
+			"main/daili_confirm.html": {
+				"resources": [],
+				"refer": [
+					"main/upload.html"
+				],
+				"priority": 0
+			},
+			"main/sell.html": {
+				"resources": [],
+				"refer": [
+					"main/create.html"
+				],
+				"priority": 0
+			},
+			"main/create.html": {
+				"resources": [],
+				"refer": [
+					"main/upload.html"
+				],
+				"priority": 0
+			},
+			"main/usergoodslist.html": {
+				"resources": [],
+				"refer": [
+					"main/create.html"
+				],
+				"priority": 0
+			},
+			"main/shopping.html": {
+				"resources": [
+					"js/weui.min.js",
+					"css/validate.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/jquery-weui.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/mvalidate.js",
+					"js/mvalidate-extend.js",
+					"js/common.js",
+					"js/product_cart.js",
+					"images/logo.png",
+					"js/pay/common.js",
+					"images/59af98d4Nb287ee5f.png",
+					"css/index.1693483c.css"
+				],
+				"refer": [
+					"main/useraddress_edit.html",
+					"main/useraddress.html",
+					"main/jinhuo.html",
+					"main/succeed.html",
+					"main/usertradeorder.html",
+					"main/cart.html",
+					"main/shopping.html",
+					"main/index.html"
+				],
+				"priority": 0
+			},
+			"main/cart.html": {
+				"resources": [
+					"images/del.png",
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/shopcar.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/auto-size.js",
+					"js/common.js",
+					"js/product_cart.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"js/mui.min.js",
+					"images/check.png",
+					"css/layout.css",
+					"images/check_on.png"
+				],
+				"refer": [
+					"main/shopping.html",
+					"main/index.html",
+					"main/goods_show.html",
+					"main/useraddress_edit.html"
+				],
+				"priority": 0
+			},
+			"main/jinhuo.html": {
+				"resources": [],
+				"refer": [
+					"main/useraddress_edit.html"
+				],
+				"priority": 0
+			},
+			"main/main.html": {
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/style1.css",
+					"css/modify.css",
+					"images/jncs_bg1.jpg",
+					"images/jncs_bg2.jpg",
+					"images/jncs_bg3.jpg",
+					"images/jncs_bg4.jpg",
+					"images/del.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/mobile-util.js",
+					"js/idangerous.swiper-2.1.min.js",
+					"css/idangerous.swiper.css",
+					"css/my.min_fbd6649a.css",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/app_assets_images_home_notice.png",
+					"images/jncs_tit1.png",
+					"images/7c17f6554addd2abbe71002e510ed262.jpg",
+					"images/d511a076a81bbedf1ddbbde82966ea5f.jpg",
+					"images/f218819e59f57956578bf7869f3fa2b5.jpg",
+					"images/8bdded840944bb2154c8447a6f8e774e.jpg",
+					"images/2dacd533dd67b03fe0ddcf918dcd63e9.jpg",
+					"images/e2db85bf0deb83a8bfa1e75a4e94a970.jpg",
+					"images/bc5ab88c24df8352acbbec388efec943.jpg",
+					"images/6cc73a5bb6fecb3e8bc13e47004fee70.jpg",
+					"images/0f7cb9406ab9e29cd1f0c86e69f54bbd.jpg",
+					"images/e5485c3fab4ac121becef2bafbcf2d10.jpg",
+					"images/e36f673c20343607e27f62310b3fd8c9.jpg",
+					"images/e9e85e764d085eb19e0c973293756913.jpg",
+					"images/d830bbd0a9a333df2f7a0d4bfb7e63e9.jpg",
+					"images/b35dfed8c9b47b3588f8e450fe8f7917.jpg",
+					"images/f79ee329af3f08bc2862e78b9dffdc2a.jpg",
+					"images/cc9fbf0c2b0383e3d99ea7a2b9f855bf.jpg",
+					"images/23bf18f97c4cc46e5b5e140f195df260.jpg",
+					"images/goods_thumb_1067_400_400.jpeg",
+					"images/goods_thumb_1348_400_400.jpeg",
+					"images/goods_thumb_1068_400_400.jpeg",
+					"images/goods_thumb_1328_400_400.jpeg",
+					"images/goods_thumb_425_400_400.jpeg",
+					"images/goods_thumb_780_400_400.jpeg",
+					"images/goods_thumb_1069_400_400.jpeg",
+					"images/goods_thumb_451_400_400.png",
+					"images/goods_thumb_605_400_400.jpeg",
+					"images/goods_thumb_498_400_400.jpeg",
+					"images/goods_thumb_799_400_400.jpeg",
+					"images/goods_thumb_787_400_400.jpeg",
+					"images/goods_thumb_806_400_400.jpeg",
+					"images/goods_thumb_1041_400_400.jpeg",
+					"images/goods_thumb_791_400_400.jpeg",
+					"images/goods_thumb_432_400_400.jpeg",
+					"images/goods_thumb_644_400_400.jpeg",
+					"images/goods_thumb_798_400_400.jpeg",
+					"images/goods_thumb_453_400_400.png",
+					"images/goods_thumb_815_400_400.jpeg",
+					"images/loading.png",
+					"images//goods_thumb_605_400_400.png",
+					"images//goods_thumb_791_400_400.png",
+					"images//goods_thumb_498_400_400.png",
+					"images//goods_thumb_780_400_400.png",
+					"images//goods_thumb_432_400_400.png",
+					"images//goods_thumb_815_400_400.png",
+					"images//goods_thumb_644_400_400.png",
+					"images//goods_thumb_806_400_400.png",
+					"images//goods_thumb_798_400_400.png",
+					"images//goods_thumb_787_400_400.png",
+					"images//goods_thumb_799_400_400.png",
+					"js/swiper-3.4.1.min.js",
+					"css/swiper-3.4.1.min.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/h.min.js",
+					"js/goods.js",
+					"js/common1.js",
+					"img/mescroll-totop.png",
+					"images/arrow_rt.png",
+					"images/seckloading.gif",
+					"images/jd-sprites.png"
+				],
+				"refer": [
+					"main/recommend.html",
+					"main/card.html",
+					"main/goods.html",
+					"main/video_list.html",
+					"main/Terminal.html",
+					"main/apply_saoma.html",
+					"main/chat_list.html",
+					"main/ok_cerfication.html",
+					"main/useralldetailmoney.html",
+					"main/terminal_rank_list.html",
+					"main/trade_rank_list.html",
+					"main/select_type.html",
+					"main/kefu.html",
+					"main/goods_show.html",
+					"main/search.html",
+					"main/index.html",
+					"main/barcode_scan.html",
+					"main/shou.html",
+					"main/wantgathering.html",
+					"main/new_file.html",
+					"main/item1.html",
+					"main/seller_list.html",
+					"main/news_show.html",
+					"main/buy_seller.html"
+				],
+				"priority": 0
+			},
+			"main/goods.html": {
+				"resources": [
+					"images/loading.png",
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"js/goods.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"css/app.min.css"
+				],
+				"refer": [
+					"main/goods_show.html",
+					"main/no_name_tel.html",
+					"main/search.html"
+				],
+				"priority": 0
+			},
+			"main/succeed.html": {
+				"href": "main/succeed.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"js/zepto.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js"
+				],
+				"refer": [
+					"index.html"
+				],
+				"priority": 1
+			},
+			"main/tx_success.html": {
+				"href": "main/tx_success.html",
+				"resources": [
+					"css/tiqu.css",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/mescroll-ball.svg",
+					"img/mescroll-totop.png"
+				],
+				"priority": 2,
+				"refer": []
+			},
+			"main/useraddress_edit.html": {
+				"href": "main/useraddress_edit.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/validate.css",
+					"css/jquery-weui.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/demo.css",
+					"js/ydui.citys.js",
+					"js/ydui.js"
+				],
+				"refer": [
+					"main/useraddress.html",
+					"main/tx_success.html",
+					"main/register.html",
+					"main/useraddress_edit.html"
+				],
+				"priority": 3
+			},
+			"main/userorder.html": {
+				"href": "main/userorder.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/weui.min.css",
+					"js/weui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/order.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"images/mescroll-ball.svg",
+					"js/mescroll.min.js",
+					"js/pay/common.js"
+				],
+				"refer": [
+					"main/userorder.html",
+					"main/succeed.html",
+					"main/useraddress.html"
+				],
+				"priority": 0
+			},
+			"main/card.html": {
+				"href": "main/card.html",
+				"resources": [
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"css/style3.css",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/base.32e41245.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/user.js",
+					"js/upload.js",
+					"css/demo.css",
+					"js/ydui.citys.js",
+					"js/ydui.js"
+				],
+				"refer": [
+					"main/upload.html"
+				],
+				"priority": 1
+			},
+			"main/chat_list.html": {
+				"href": "main/chat_list.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"css/mend-reset.css",
+					"css/mend-weikeniu.css",
+					"img/icon-back@2x.png",
+					"img/c.png",
+					"img/l.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/im.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/fontSize.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 2
+			},
+			"main/usershoporder.html": {
+				"href": "main/usershoporder.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/weui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/order.js"
+				],
+				"refer": [
+					"main/useraddress.html"
+				],
+				"priority": 3
+			},
+			"main/change_bank.html": {
+				"href": "main/change_bank.html",
+				"resources": [
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"css/style3.css",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/base.32e41245.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/user.js",
+					"js/upload.js",
+					"css/demo.css",
+					"js/ydui.citys.js",
+					"js/ydui.js"
+				],
+				"priority": 4
+			},
+			"main/recommend.html": {
+				"href": "main/recommend.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/my-app.css",
+					"css/base.css",
+					"images/friend.png",
+					"images/share/gbRes_2.png",
+					"images/share/gbRes_3.png",
+					"css/home.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/jquery.qrcode.min.js",
+					"js/user.js",
+					"js/weixin.js",
+					"js/js_sdk20170302.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/icon/ewm.png",
+					"images/friend.png",
+					"images/icon/icon-btn.png",
+					"images/logo.png",
+					"images/icon/icon-close.png",
+					"images/icon/icon-line.png",
+					"images/icon/nub1.png",
+					"fonts/fontawesome-webfont.woff2",
+					"css/amazeui.min.css"
+				],
+				"priority": 5,
+				"refer": []
+			},
+			"main/ok_cerfication.html": {
+				"href": "main/ok_cerfication.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/ok_cerficate.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/upload.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/cer.png"
+				],
+				"refer": [
+					"main/change_bank.html",
+					"main/recommend.html"
+				],
+				"priority": 4
+			},
+			"main/pin_show.html": {
+				"href": "main/pin_show.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/idangerous.swiper.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/idangerous.swiper-2.1.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/goods.js",
+					"js/product_cart.js"
+				],
+				"priority": 7,
+				"refer": []
+			},
+			"main/product_show.html": {
+				"href": "main/product_show.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/idangerous.swiper.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/zepto.min.js",
+					"js/weui.min.js",
+					"js/idangerous.swiper-2.1.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/goods.js",
+					"js/product_cart.js",
+					"js/mui.min.js"
+				],
+				"priority": 8,
+				"refer": []
+			},
+			"main/index.html": {
+				"href": "main/index.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/public.css",
+					"css/index_7_2_3.css",
+					"css/index.other.css",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/goods.js",
+					"js/cart.js",
+					"js/user.js",
+					"main/img/num_l.png",
+					"main/img/shop_cart02.png",
+					"main/img/num_r.png"
+				],
+				"refer": [
+					"main/goods_show.html",
+					"main/pin_show.html",
+					"main/product_show.html",
+					"main/useraddress_edit.html",
+					"main/shopping.html",
+					"main/search.html"
+				],
+				"priority": 6
+			},
+			"main/moneys.html": {
+				"href": "main/moneys.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/usermoney.css",
+					"css/flows.css",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/adscorll.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"refer": [
+					"main/useraddress.html"
+				],
+				"priority": 2
+			},
+			"main/no_name_tel.html": {
+				"href": "main/no_name_tel.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"images/flows.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/fontSize.js",
+					"js/user.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/reset1.css",
+					"css/layout.css",
+					"css/wcPop.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/app_assets_images_home_card_nodate.png"
+				],
+				"refer": [
+					"main/moneys.html"
+				],
+				"priority": 2
+			},
+			"main/tel.html": {
+				"href": "main/tel.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"images/flows.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/fontSize.js",
+					"js/custom.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/layout.css",
+					"css/wcPop.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"main/img/cate/sushi.jpg",
+					"main/img/cate/yinpin.jpg",
+					"main/img/cate/daigou.jpg",
+					"main/img/cate/up1.jpg",
+					"main/img/cate/up2.jpg",
+					"main/img/cate/up3.jpg",
+					"main/img/cate/up4.jpg",
+					"main/img/cate/up5.jpg",
+					"main/img/cate/up6.jpg",
+					"main/img/cate/up7.jpg",
+					"main/img/cate/up8.jpg",
+					"main/img/cate/up9.jpg",
+					"main/img/cate/up10.jpg",
+					"main/img/cate/up11.jpg",
+					"main/img/cate/up12.jpg",
+					"main/img/cate/up13.jpg",
+					"main/img/cate/up14.jpg",
+					"main/img/cate/up15.jpg",
+					"main/img/cate/up16.jpg",
+					"main/img/cate/up17.jpg",
+					"main/img/cate/up18.jpg",
+					"main/img/cate/up19.jpg",
+					"main/img/cate/up20.jpg",
+					"main/img/cate/up21.jpg",
+					"main/img/lists/up1.jpg",
+					"main/img/shop_cart02.png",
+					"main/img/lists/up2.jpg",
+					"main/img/lists/up3.jpg",
+					"main/img/lists/up4.jpg",
+					"main/img/lists/up5.jpg",
+					"main/img/lists/up6.jpg",
+					"main/img/lists/up7.jpg",
+					"main/img/lists/up8.jpg",
+					"main/img/lists/up9.jpg",
+					"main/img/lists/up10.jpg",
+					"main/img/lists/up11.jpg",
+					"main/img/num_l.png",
+					"main/img/num_r.png"
+				],
+				"refer": [
+					"main/no_name_tel.html",
+					"main/moneys.html",
+					"main/cart.html"
+				],
+				"priority": 2
+			},
+			"main/detail_tradeflows.html": {
+				"href": "main/detail_tradeflows.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/usermoney.css",
+					"css/flows.css",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/fontSize.js",
+					"js/adscorll.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/logo.png",
+					"img/mescroll-totop.png"
+				],
+				"refer": [
+					"main/useraddress.html"
+				],
+				"priority": 6
+			},
+			"main/tradeflows.html": {
+				"href": "main/tradeflows.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/usermoney.css",
+					"css/flows.css",
+					"js/zepto.min.js",
+					"js/mui.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/fontSize.js",
+					"js/adscorll.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"img/mescroll-totop.png"
+				],
+				"refer": [
+					"main/detail_tradeflows.html",
+					"main/useraddress.html"
+				],
+				"priority": 6
+			},
+			"main/tiqu.html": {
+				"href": "main/tiqu.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/tiqu.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/home.css",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/user.js",
+					"js/weixin.js",
+					"js/weixin_login.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"js/jquery.qrcode.min.js",
+					"images/icon-tj.png",
+					"images/icon-wx.png",
+					"images/icon-zfb.png",
+					"images/icon-bank.png",
+					"images/del_.png",
+					"images/icon-i.png"
+				],
+				"priority": 7,
+				"refer": [
+					"main/tixian_list.html",
+					"main/tiqu_list.html"
+				]
+			},
+			"main/useralldetailmoney.html": {
+				"href": "main/useralldetailmoney.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/style(2).css",
+					"images/icon-circle.png",
+					"css/usermoney.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/tab.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [
+					"main/tradeflows.html",
+					"main/tiqu.html"
+				],
+				"priority": 6
+			},
+			"main/terminal_rank_list.html": {
+				"href": "main/terminal_rank_list.html",
+				"resources": [
+					"css/rank.css",
+					"images/icon-body.png",
+					"css/component.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 7
+			},
+			"main/trade_rank_list.html": {
+				"href": "main/trade_rank_list.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/rank.css",
+					"images/icon-body.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 8
+			},
+			"main/shop_card.html": {
+				"href": "main/shop_card.html",
+				"resources": [
+					"images/1.png",
+					"images/2.png",
+					"css/style3.css",
+					"css/sm.css",
+					"css/base.32e41245.css",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/seller.js",
+					"js/upload.js"
+				],
+				"refer": [
+					"main/useraddress_edit.html"
+				],
+				"priority": 9
+			},
+			"main/bank_radio.html": {
+				"href": "main/bank_radio.html",
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/app.css",
+					"js/common.js",
+					"js/user.js"
+				],
+				"priority": 10
+			},
+			"main/shop_account.html": {
+				"href": "main/shop_account.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/seller.js",
+					"js/mui.min.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/city.data.js"
+				],
+				"refer": [
+					"main/bank_radio.html"
+				],
+				"priority": 10
+			},
+			"main/shop_introduction.html": {
+				"href": "main/shop_introduction.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/seller.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/base.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"js/upload.js",
+					"images/emptyImg.png"
+				],
+				"priority": 11
+			},
+			"main/pos_radio.html": {
+				"href": "main/pos_radio.html",
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/app.css"
+				],
+				"priority": 12
+			},
+			"main/shop_base.html": {
+				"href": "main/shop_base.html",
+				"resources": [
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/seller.js",
+					"js/upload.js",
+					"css/mui.picker.css",
+					"css/mui.poppicker.css",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"js/mui.picker.js",
+					"js/mui.poppicker.js",
+					"js/city.data.js",
+					"main/Mdate/iScroll.js",
+					"main/Mdate/Mdate.js",
+					"main/Mdate/needcss/Mdate.css"
+				],
+				"refer": [
+					"main/pos_radio.html"
+				],
+				"priority": 12
+			},
+			"main/shop_list.html": {
+				"href": "main/shop_list.html",
+				"resources": [
+					"images/del.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/seller.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/app_assets_images_home_card_nodate.png"
+				],
+				"priority": 13
+			},
+			"main/shop_details.html": {
+				"href": "main/shop_details.html",
+				"resources": [
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/seller.js",
+					"css/common.32e41245.css",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"refer": [
+					"main/shop_card.html",
+					"main/shop_account.html",
+					"main/shop_introduction.html",
+					"main/shop_base.html",
+					"main/shop_list.html"
+				],
+				"priority": 9
+			},
+			"main/select_type.html": {
+				"href": "main/select_type.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/zepto.min.js",
+					"js/common.js",
+					"js/base.js",
+					"js/user.js",
+					"js/jquery.qrcode.min.js",
+					"images/chuan.png",
+					"images/logo.png",
+					"images/kuai.png"
+				],
+				"refer": [
+					"main/shop_details.html"
+				],
+				"priority": 9
+			},
+			"main/video_list.html": {
+				"href": "main/video_list.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/video_list.css",
+					"images/play_icon80.png",
+					"css/zy.media.min.css",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/user.js",
+					"js/zy.media.min.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 12
+			},
+			"main/select_user.html": {
+				"href": "main/select_user.html",
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"img/mescroll-totop.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"css/mobileSelect.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/common.js",
+					"js/user.js",
+					"js/mobileSelect.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 13
+			},
+			"main/Terminal.html": {
+				"href": "main/Terminal.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"js/mescroll.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"fonts/mui.ttf",
+					"images/app_assets_images_home_card_nodate.png"
+				],
+				"refer": [
+					"main/select_user.html"
+				],
+				"priority": 13
+			},
+			"main/kefu.html": {
+				"href": "main/kefu.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"images/icon-body.png",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js"
+				],
+				"priority": 14
+			},
+			"main/forget_password.html": {
+				"href": "main/forget_password.html",
+				"resources": [
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/register.css",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"js/common.js",
+					"js/user.js",
+					"images/zc-1.jpg",
+					"images/zc-2.jpg",
+					"images/zc-3.jpg"
+				],
+				"priority": 1,
+				"refer": []
+			},
+			"main/mymoney.html": {
+				"resources": [],
+				"refer": [
+					"main/detail_money.html"
+				],
+				"priority": 0
+			},
+			"main/modifypwd.html": {
+				"resources": [
+					"css/new_file.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/modifypwd2.html": {
+				"resources": [
+					"css/new_file.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/cate.html": {
+				"resources": [],
+				"refer": [
+					"main/goods_show.html",
+					"main/search.html",
+					"main/goods.html"
+				],
+				"priority": 0
+			},
+			"main/search.html": {
+				"href": "main/search.html",
+				"resources": [
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/mui.min.js",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/app.min.css",
+					"js/mescroll.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js"
+				],
+				"priority": 1,
+				"refer": [
+					"main/goods.html"
+				]
+			},
+			"main/recommend_list.html": {
+				"href": "main/recommend_list.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"images/icon-vip.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js",
+					"images/app_assets_images_home_card_nodate.png"
+				],
+				"priority": 1,
+				"refer": []
+			},
+			"main/feedback.html": {
+				"href": "main/feedback.html",
+				"resources": [
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/validate.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"css/user.css",
+					"images/king.png",
+					"js/zepto.min.js",
+					"js/weui.min.js",
+					"js/common.js",
+					"js/mvalidate.js",
+					"js/mvalidate-extend.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"js/mescroll.min.js",
+					"js/mui.min.js"
+				],
+				"priority": 6,
+				"refer": []
+			},
+			"main/notice_show.html": {
+				"href": "main/notice_show.html",
+				"resources": [
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/index.css",
+					"js/mui.min.js",
+					"js/zepto.min.js",
+					"js/common.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"priority": 8,
+				"refer": []
+			},
+			"main/notice.html": {
+				"href": "main/notice.html",
+				"resources": [
+					"images/logo.png",
+					"img/mescroll-totop.png",
+					"css/style.css",
+					"css/icon/iconfont.css",
+					"css/icon/iconfont.eot",
+					"css/icon/iconfont.ttf",
+					"css/icon/iconfont.svg",
+					"css/weui.min.css",
+					"images/cart.png",
+					"css/notice.css",
+					"css/mui.min.css",
+					"fonts/mui.ttf",
+					"js/mui.min.js",
+					"js/jquery/jquery-1.11.2.min.js",
+					"js/user.js",
+					"css/mescroll.min.css",
+					"css/mescroll-option.css",
+					"js/mescroll-option.js",
+					"js/mescroll.min.js"
+				],
+				"refer": [
+					"main/notice_show.html",
+					"main/notice.html",
+					"main/useraddress.html"
+				],
+				"priority": 8
+			},
+			"main/add_bank.html": {
+				"resources": [
+					"css/new_file.css",
+					"css/demo2.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/add_bank1.html": {
+				"resources": [
+					"css/new_file.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/tiqu_list.html": {
+				"resources": [
+					"css/tixian.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/barcode_scan.html": {
+				"resources": [
+					"js/common1.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/wantgathering.html": {
+				"resources": [
+					"js/security.js",
+					"js/transfer.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/transforflows.html": {
+				"resources": [
+					"js/transfer.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"main/shou.html": {
+				"resources": [],
+				"refer": [
+					"main/transforflows.html"
+				],
+				"priority": 0
+			},
+			"main/seller_list.html": {
+				"refer": [
+					"main/city.html",
+					"main/buy_seller.html"
+				],
+				"priority": 0
+			},
+			"main/item1.html": {
+				"resources": [],
+				"refer": [
+					"main/news_show.html",
+					"main/createShow.html"
+				],
+				"priority": 0
+			},
+			"main/recommend_images.html": {
+				"resources": [],
+				"refer": [
+					"main/recommend_detail.html"
+				],
+				"priority": 0
+			},
+			"main/mygoods.html": {
+				"resources": [],
+				"refer": [
+					"main/goods_show.html"
+				],
+				"priority": 0
+			},
+			"main/tab-vertical-scroll.html": {
+				"resources": [],
+				"refer": [
+					"main/goods_show.html",
+					"main/goods.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"img/ewm.png",
+				"images/jtx.png",
+				"aui/css/aui-skin.css",
+				"js/wow.min.js",
+				"css/bass.css",
+				"main/usermoney.html",
+				"aui/css/aui-slide.css",
+				"main/img/slide003.jpg",
+				"images/help_order_num2.png",
+				"main/img/cs_001.jpg",
+				"js/mui.previewimage.js",
+				"main/img/home-new1.png",
+				"main/img/wxpay.jpg",
+				"js/im.js",
+				"main/list-to-detail/detail.html",
+				"css/mui.imageviewer.css",
+				"main/img/jt_right.png",
+				"main/img/foot04.png",
+				"main/img/shijian.png",
+				"css/helpbox.3688746f.css",
+				"js/willesPlay.js",
+				"main/img/user5.png",
+				"css/willesPlay.css",
+				"main/img/lists/up18.jpg",
+				"images/home_customer_service.png",
+				"main/img/index01.png",
+				"images/icon-item-003.png",
+				"css/mui.listpicker.css",
+				"css/detail_p.css",
+				"images/home_register.png",
+				"aui/script/aui-slide.js",
+				"js/update.js",
+				"aui/script/aui-dialog.js",
+				"css/chart.css",
+				"images/icon/nub2.png",
+				"main/img/loc2.png",
+				"images/icon-top-003.png",
+				"aui/css/api.css",
+				"js/slider.js",
+				"images/icon-head-007.png",
+				"aui/script/aui-tab.js",
+				"aui/css/aui-iconfont.2.0.ttf",
+				"main/img/foot02.png",
+				"images/exit.png",
+				"main/img/slide002.jpg",
+				"css/ckin.css",
+				"css/h5payCashierYhd.css",
+				"images/icon-top-002.png",
+				"images/crown_order_num1.png",
+				"images/crown_order_num3.png",
+				"main/userorder_show.html",
+				"main/picker.html",
+				"images/control_01.png",
+				"main/list-to-detail/vue.min.js",
+				"css/htmleaf-demo.css",
+				"css/mui.indexedlist.css",
+				"images/icon-item-002.png",
+				"images/icon/iconb-row.png",
+				"main/list-to-detail/list-to-detail.css",
+				"main/img/tof/up1.jpg",
+				"main/list-to-detail/listview.html",
+				"main/certification.html",
+				"images/tx.png",
+				"aui/script/aui-toast.js",
+				"main/img/lists/up14.jpg",
+				"images/596dd62bN7a8affc5.png",
+				"main/img/lists/up17.jpg",
+				"aui/script/aui-popup.js",
+				"main/withdraw.html",
+				"main/img/lists/up13.jpg",
+				"js/mui.zoom.js",
+				"main/img/map_icon.png",
+				"images/icon-top-001.png",
+				"main/img/index02.png",
+				"main/img/tof/up2.jpg",
+				"images/close.png",
+				"js/pay/immersed.js",
+				"main/img/slide001.jpg",
+				"css/city.css",
+				"images/home_mymerchant.png",
+				"images/home_activity_area.png",
+				"images/icon/nub7.png",
+				"images/order_num3.png",
+				"main/img/tof/timg-6.jpg",
+				"js/agent.js",
+				"images/bat.bat",
+				"css/normalize.css",
+				"main/img/user4.png",
+				"css/index(2).css",
+				"css/iconfont.6dae7b05.css",
+				"main/img/tou.png",
+				"aui/script/aui-scroll.js",
+				"main/img/user6.png",
+				"css/category.css",
+				"main/video_detail.html",
+				"main/im.html",
+				"main/img/foot03.png",
+				"images/home_help.png",
+				"main/introduction.html",
+				"images/crown_order_num4.png",
+				"images/icon/nub6.png",
+				"main/account.html",
+				"aui/script/aui-list-swipe-backup.js",
+				"main/img/user1.png",
+				"css/ranking.751967c.css",
+				"aui/script/aui-sharebox.js",
+				"images/icon/nub8.png",
+				"main/img/tof/up4.jpg",
+				"images/help_order_num4.png",
+				"css/icon/iconfont.js",
+				"js/jquery/jquery.lazyload.min.js",
+				"main/userEdit.html",
+				"main/img/search-new.png",
+				"js/jquery/Validform_v5.3.2_min.js",
+				"images/icon-head-005.png",
+				"images/head-bj.png",
+				"main/base.html",
+				"main/img/tof/up3.jpg",
+				"aui/script/aui-range.js",
+				"css/mycenter.css",
+				"css/global.css",
+				"aui/script/aui-actionsheet.js",
+				"img/icon-toward@2x.png",
+				"images/60x60.gif",
+				"aui/script/aui-skin.js",
+				"main/union.html",
+				"js/modernizr.min.js",
+				"fonts/iconfont.ttf",
+				"main/img/payno.jpg",
+				"js/template.js",
+				"main/img/lists/up16.jpg",
+				"main/img/user2.png",
+				"images/useraddress.png",
+				"js/app.min.js",
+				"images/home_store.png",
+				"css/mui.dtpicker.css",
+				"css/mui.picker.all.css",
+				"images/playheader.jpg",
+				"aui/css/aui.2.0.css",
+				"aui/script/aui-lazyload.js",
+				"js/mui.imageViewer.js",
+				"images/icon/red-crown.png",
+				"css/30.deaa7cd.css",
+				"main/img/lists/up12.jpg",
+				"main/img/index03.png",
+				"js/vedio.js",
+				"main/img/lists/up19.jpg",
+				"aui/script/aui-list-swipe.js",
+				"css/withdraw.css",
+				"aui/css/aui-flex.css",
+				"images/record.png",
+				"main/pwdEdit.html",
+				"js/pay/common.css",
+				"main/img/payok.jpg",
+				"main/img/shop_cart01.png",
+				"images/ad-002.jpg",
+				"images/home_share.png",
+				"css/weui.css",
+				"images/icon-home-005.png",
+				"css/feedback.css",
+				"images/home_opportunity.png",
+				"images/icon-head-006.png",
+				"aui/script/aui-popup-new.js",
+				"main/img/user3.png",
+				"images/feedback.png",
+				"aui/css/aui-skin-night.css",
+				"aui/script/api.js",
+				"images/3.png",
+				"js/util.js",
+				"css/mui.picker.min.css",
+				"images/ad-001.jpg",
+				"css/icon/demo.css",
+				"images/bank.png",
+				"images/icon/blue-crown.png",
+				"images/order_num4.png",
+				"images/icon/nub10.png",
+				"css/main.css",
+				"main/img/lists/up20.jpg",
+				"images/recommend.png",
+				"img/icon-toward@1x.png",
+				"main/details.html",
+				"js/echarts/echarts.min.js",
+				"images/order_num1.png",
+				"aui/css/aui_iconfont.ttf",
+				"images/crown_order_num2.png",
+				"main/img/foot01.png",
+				"main/img/left.png",
+				"js/pay/shortcut.js",
+				"images/help_order_num3.png",
+				"js/jquery/jquery.form.min.js",
+				"js/arttmpl.js",
+				"images/order_num2.png",
+				"main/img/liuyan.png",
+				"images/icon/nub9.png",
+				"images/icon/nub3.png",
+				"css/icons-extra.css",
+				"images/jtx1.png",
+				"images/zd.png",
+				"images/quit_button.png",
+				"js/ckin.js",
+				"main/img/right.png",
+				"images/background.png",
+				"images/icon-home-003.png",
+				"images/help_order_num1.png",
+				"main/img/lists/up15.jpg",
+				"aui/script/aui-pull-refresh.js",
+				"aui/script/aui-collapse.js",
+				"aui/css/aui-pull-refresh.css",
+				"images/icon-head-008.png",
+				"images/icon/yellow-crown.png",
+				"images/icon/nub4.png",
+				"images/managerpwd.png",
+				"img/quan.png",
+				"images/icon/nub5.png",
+				"main/img/close.png",
+				"css/reset.css"
+			]
+		}
+	} 
+}

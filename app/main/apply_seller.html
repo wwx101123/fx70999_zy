@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>收货地址 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jquery-weui.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../scripts/jquery/PCASClass.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/upload.js"></script>
+		<link rel="stylesheet" href="../css/ydui.css?rev=@@hash" />
+		<link rel="stylesheet" href="../css/demo.css" />
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				//初始化表单
+				localStorage.setItem('set_address', 0);
+				var ServerIP = "";
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var user = localStorage.getItem('user');
+				user = JSON.parse(user);
+				$('#user_id').val(localStorage.getItem('user_id'));
+				$('#is_shopping').val(localStorage.getItem('is_shopping'));
+				$('#editForm').attr('url', PreUrl + "Goods/user_address_edit");
+
+				var user_id = localStorage.getItem('user_id')
+				get_seller_info(user_id, successCallback);
+
+			});
+
+			function successCallback(data) {
+
+				var $target = $('#J_Address2');
+
+				var status = data.status;
+				if(status == 1) {
+					var info = data.data;
+
+					if(info != null) {
+						$('.logo').attr('src',IP+'/'+info.img);
+						$('#img_url').val(info.img);
+						$('#txtAcceptName').val(info.accept_name);
+						$('#txtAddress').val(info.address);
+						$('#txtMobile').val(info.phone);
+						$('#txtTelphone').val(info.telphone);
+						$('#title').val(info.title);
+						$('#city-picker').val(info.area);
+						$('#area').val(info.area);
+						$('#seller_id').val(info.id);
+						$('#is_default').val(info.is_default);
+
+						if(info.status == 0) {
+							$('#btnSubmit').val('已审核')
+
+						}
+						console.log(info.status )
+						if(info.status == 1) {
+							$('#btnSubmit').val('等待审核')
+							$('#btnSubmit').attr('disable','disabled')
+
+						}
+						if(info.province == null) {
+
+						} else {
+
+							$target.citySelect({
+								provance: info.province,
+								city: info.city,
+								area: info.area
+							}); 
+
+							$target.val(info.province + info.city + info.area)
+							$('#txtProvince').val(info.province);
+							$('#txtCity').val(info.city);
+							$('#txtArea').val(info.area);
+
+						}
+					} else {
+						$target.citySelect();
+					}
+
+					$target.on('click', function(event) {
+						event.stopPropagation();
+						$target.citySelect('open');
+					});
+
+					$target.on('done.ydui.cityselect', function(ret) {
+						$(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+						$('#txtProvince').val(ret.provance);
+						$('#txtCity').val(ret.city);
+						$('#txtArea').val(ret.area);
+					});
+
+				}
+				//lang()
+
+			}
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_addr_book_list');
+
+				}
+			});
+		</script>
+	</head>
+
+	<body ontouchstart style="background: white;">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<!--编辑地址-->
+
+				<form id="editForm" name="editForm" class="form-box">
+					<input id="user_id" name="user_id" type="hidden" />
+					<input id="is_shopping" name="is_shopping" type="hidden" />
+					<input id="seller_id" name="seller_id" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+						<div class="weui-panel__hd title">填写资料</div>
+						<div class="weui-panel__bd">
+							<div class="weui-cells_form form-box">
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">店铺logo</label>
+									</div>
+									<div class="weui-cell__bd">
+										<img src="../images/store_logo.png" class="logo" height="50PX" onclick="set_upload(this)"  />
+									<input type="hidden" id="img_url" class="img_url" name="img_url" />
+									</div>
+								</div>
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">店铺名称</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="title" name="title" class="weui-input" type="text" value="" placeholder="店铺名称" data-validate="s" />
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">所属地区</label>
+									</div>
+									<div class="weui-cell__bd">
+
+										<!--<input class="weui-input" name="area" id="city-picker" type="text" readonly="">-->
+										<input id="txtProvince" name="txtProvince" type="hidden" />
+										<input id="txtCity" name="txtCity" type="hidden" />
+										<input id="txtArea" name="txtArea" type="hidden" />
+										<input type="text" class="cell-input" name="area" readonly id="J_Address2" placeholder="请选择收货地址">
+
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">详细地址</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="txtAddress" name="txtAddress" class="weui-input" type="text" value="" placeholder="详细地址" data-validate="s" />
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">联系电话</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="txtMobile" name="txtMobile" class="weui-input" type="tel" value="" placeholder="请输入联系电话" data-validate="m" />
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit" name="btnSubmit" onclick="open_shop_step4()" type="button" style="color: white; background: #4c2664;" class="weui-btn weui-btn_primary" value="确认提交" />
+						<input style="display: none;" id="btnDel" name="btnDel" type="button" class="weui-btn weui-btn_primary" value="删除" />
+					</div>
+				</form>
+				<!--/编辑地址-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<div class="footer" id="footer"></div>
+
+				<div class="js" id="js">
+
+				</div>
+				<script type="text/javascript" charset="utf-8">
+					//mui初始化
+
+					$(function() {
+
+						load_footer('_footer.html', '#footer', '#js', 1000)
+
+					});
+				</script>-->
+				<!--/底部导航-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+		<script type="text/javascript" src="../js/ydui.citys.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+
+	</body>
+	<script type="text/javascript">
+		mui('.mui-switch').each(function() { //循环所有toggle
+			//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+
+			/**
+			 * toggle 事件监听
+			 */
+			this.addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+
+				$('#is_default').val((event.detail.isActive) ? '1' : '0');
+				//mui.toast($('#is_default').val())
+			});
+		});
+	</script>
+
+</html>

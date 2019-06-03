@@ -1,0 +1,2 @@
+<import src="./zhiwen-share.vue.wxml" />
+    <template is="d228bb76" data="{{ ...$root['0'], $root }}"/>

@@ -1,0 +1,470 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>注册新会员</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>团队管理</a></li>
+			<li class="active"><strong>注册新会员</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user_list').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #user_list').css('display', 'block')
+		$('.sidebar #bossReg').addClass('current')
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>
+						注册新股东<small>（打<i class="text-danger">*</i> 号为必填项）
+						</small>
+					</h5>
+				</div>
+				<div class="ibox-content">
+					<form class="form-horizontal ajax-post" name="form1" id="form1"
+						method="post" action="{:U('Reg/usersAdd',array('type'=>'boss'))}">
+						<input type="hidden" name="temp1" value="haha"> <input
+							name="regfrom" type="hidden" value=""><input
+							name="type" type="hidden" value="boss">
+
+
+
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label">会员ID： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input type="text" value="{$user_number}" readonly
+									class="form-control" required="" />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">用户账号：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<!--<div class="input-group">-->
+								<!--<neq name="str17" value=""><span class="input-group-addon">{$str17}</span></neq>-->
+								<input id="user_id" name="user_id" type="text" value=""
+									class="form-control" required="" />
+								<!--</div>-->
+								<span id="showUserid" style="color: #1ab394"></span>
+							</div>
+							<script>
+								$(function() {
+									$("#user_id")
+											.change(
+													function() {
+														var username = $(this)
+																.val();
+														$
+																.get(
+																		"__APP__/Fck/getUserid/userid/"
+																				+ username,
+																		function(
+																				data) {
+																			$(
+																					"#showUserid")
+																					.html(
+																							"（"
+																									+ data.info
+																									+ " ）");
+																		});
+													});
+								});
+							</script>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">会员姓名： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="username" type="text" id="username" value=""
+									class="form-control" required="" />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 一级密码： <i
+								class="text-danger">*</i></label>
+
+							<div class="col-sm-5">
+								<input name="pwd" type="password" id="pwd" size="20"
+									value="123456" class="form-control" required="" /> <span
+									class="help-block m-b-none">默认密码：123456</span>
+							</div>
+						</div>
+						<div class="hr-line-dashed"style="display: none"></div>
+						<div class="form-group"style="display: none">
+							<label class="col-sm-2 control-label"> 确认一级密码： <i
+								class="text-danger">*</i></label>
+
+							<div class="col-sm-5">
+								<input name="repwd" type="password" id="repwd" size="20"
+									value="123456" class="form-control" required="" />
+							</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+
+
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 二级密码： <i
+								class="text-danger">*</i></label>
+
+							<div class="col-sm-5">
+								<input name="pwd1" type="password" id="pwd1" size="20"
+									value="123456" class="form-control" required="" /><span
+									class="help-block m-b-none">默认密码：123456</span>
+							</div>
+						</div>
+						<div class="hr-line-dashed"style="display: none"></div>
+
+
+						<div class="form-group"style="display: none">
+							<label class="col-sm-2 control-label"> 确认二级密码： <i
+								class="text-danger">*</i></label>
+
+							<div class="col-sm-5">
+								<input name="repwd1" type="password" id="repwd1" size="20"
+									value="123456" class="form-control" required="" />
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label">会员级别： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<select name="get_level" id="rank" class="form-control">
+									 
+									<option value="3"  > </option>
+									 
+								</select>
+							</div>
+						</div>
+						<!--<div class="hr-line-dashed"></div>-->
+
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label">报单产品： <!--<i class="text-danger">*</i>--></label>
+							<div class="col-sm-5">
+								<div class="input-group">
+									<select name="regcp" id="regcp" class="form-control">
+										<option value="">请选择</option>
+										<volist name="regcp" id="reg" key='k'>
+										<option value="{$reg.id}">{$reg.name}</option>
+										</volist>
+									</select> <span class="input-group-addon btn btn-primary showreg">查看报单产品</span>
+								</div>
+							</div>
+						</div>
+						<script type="text/javascript">
+							$('.showreg')
+									.on(
+											'click',
+											function() {
+												var regid = $('#regcp').val();
+												if (regid > 0) {
+													window
+															.open("{:U('Gouwu/Cpcontent')}?id="
+																	+ regid);
+												}
+											})
+						</script>
+						<!--<div class="hr-line-dashed"></div>-->
+						<div class="form-group" id="data_1" style="display: none">
+							<label class="col-sm-2 control-label">注册时间： <i>&nbsp;</i></label>
+							<div class="col-sm-5">
+								<div class="input-group date">
+									<span class="input-group-addon"><i
+										class="fa fa-calendar"></i></span> <input name="regtime" type="text"
+										id="regtime" size="10" class="form-control" required=""
+										value="{:date(" Y-m-d")}" readonly>
+								</div>
+							</div>
+						</div>
+
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 服务中心编号： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="shopid" type="text" id="shopid"
+									value="admin" class="form-control" required="">
+								<span id="showShopid" style="color: #1ab394"></span>
+							</div>
+							<script>
+								$(function() {
+									$("#shopid")
+											.change(
+													function() {
+														var username = $(this)
+																.val();
+														$
+																.get(
+																		"__APP__/Fck/getUserName/userid/"
+																				+ username,
+																		function(
+																				data) {
+																			$(
+																					"#showShopid")
+																					.html(
+																							"（"
+																									+ data.info
+																									+ " ）");
+																		});
+													});
+								});
+							</script>
+						</div>
+						 
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group " style="display: none">
+							<label class="col-sm-2 control-label"> 接点人编号： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="FID" type="text" id="FID" value="{$zzc[3]}"
+									class="form-control">
+							</div>
+						</div>
+						<div class="hr-line-dashed " style="display: none"></div>
+						<div class="form-group " style="display: none">
+							<label class="col-sm-2 control-label"> 市场位置： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<select name="TPL" id="TPL" class="form-control">
+									<option value="0"{$TPL[0]}>左区</option>
+									<option value="1"{$TPL[1]}>右区</option>
+									<!--<option value="3" {$TPL[2]}>右区</option>-->
+								</select>
+							</div>
+						</div>
+
+						<div class="hr-line-dashed" style="display: none"></div>
+						<p class="text-warning" style="display: none">账号信息注册</p>
+						<div class="form-group" style="display: none">>
+							<label class="col-sm-2 control-label"> 密保问题： <!--<i class="text-danger">*</i>--></label>
+							<div class="col-sm-5">
+								<select name="wenti" id="" class="form-control">
+									<option value="">请选择</option>
+									<foreach name="wentilist" item="wenti" key="k">
+									<option value="{$wenti}">{$wenti}</option>
+									</foreach>
+								</select>
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 密保答案： <!--<i class="text-danger">*</i>--></label>
+							<div class="col-sm-5">
+								<input name="daan" type="text" id="daan" class="form-control"
+									size=25 maxlength="18" value="">
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 身份证号码： <i
+								class="text-danger"></i></label>
+
+							<div class="col-sm-5">
+
+								<input name="user_code" type="text" id="idcard"
+									class="form-control" size=25 maxlength="18" value="">
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label">手机号码：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="user_tel" type="text" id="user_tel"
+									value="{$mobile}" class="form-control" />
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 电子邮箱： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="email" type="text" id="email" class="form-control"
+									size="35" value="">
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 开户银行： <i>&nbsp;</i></label>
+							<div class="col-sm-5">
+								<select name="bank" id="bank" class="form-control">
+									<option value="">请选择开户行</option>
+									<volist name='bank' id='voo'>
+									<option value="{$bank[$key]}">{$bank[$key]}</option>
+									</volist>
+
+								</select>
+							</div>
+						</div>
+						<script type="text/javascript">
+							$(function() {
+								//初始化收货地址
+								var mypcas = new PCAS("province,所属省份",
+										"city,所属城市", "area,所属地区");
+							});
+						</script>
+
+
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 省市区： <i>&nbsp;</i></label>
+							<div class="col-sm-5">
+
+								<select style="width: 33%; float: left" id="province"
+									name="BankProvince" class="form-control"></select> <select
+									style="width: 33%; float: left" id="city" name="BankCity"
+									class="form-control"></select> <select
+									style="width: 33%; float: left" id="area" name="bank_area"
+									class="form-control"></select>
+
+
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 详细地址： <i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">
+								<input name="bank_address" type="text" id="bank_address"
+									class="form-control" size="35" value="">
+							</div>
+						</div>
+
+						<div class="hr-line-dashed" style="display: none"></div>
+
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label">银行卡号： <i>&nbsp;</i></label>
+
+							<div class="col-sm-5">
+
+								<input name="bank_card" type="text" id="bank_card" size="35"
+									class="form-control" maxlength="19" value="">
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 开户姓名： <i>&nbsp;</i></label>
+
+							<div class="col-sm-5">
+
+								<input name="name" type="text" id="name" class="form-control"
+									value="">
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group" style="display: none">
+							<label class="col-sm-2 control-label"> 开户行地址： <i></i></label>
+
+							<div class="col-sm-5">
+
+								<input name="bank_address" type="text" id="bank_address"
+									class="form-control" size="35" value="">
+							</div>
+						</div>
+						 
+						<div class="hr-line-dashed"  style="display: none"></div>
+						<div class="form-group" style="display: none" >
+							<label class="col-sm-2 control-label">会员类型： <i></i></label>
+
+							<div class="col-sm-5">
+
+								<label class="checkboxs inline"> <input type="radio"
+									name="register_type" value="1" checked>商城玩家
+								</label> <label class="checkboxs inline"> <input type="radio"
+									name="register_type" value="0">币玩家
+								</label>
+							</div>
+						</div>
+						<div class="hr-line-dashed" style="display: none"></div>
+						<div class="form-group"  style="display: none">
+							<label class="col-sm-2 control-label">是否空单： <i></i></label>
+
+							<div class="col-sm-5">
+                                   <NEQ name="myid" value='30738'>
+							  <label class="checkboxs inline"> <input type="radio"
+									name="is_money" value="1" >否
+								</label> 
+								</NEQ>
+								 <label class="checkboxs inline"> <input type="radio"
+									name="is_money" value="0"checked>是
+								</label>
+							</div>
+						</div>
+						
+						<div class="hr-line-dashed"  style="display: none"></div>
+						<div class="form-group"  style="display: none">
+							<label class="col-sm-2 control-label"> 额外金额： <i></i></label>
+
+							<div class="col-sm-5">
+
+								<input name="extra_money" type="text" id="extra_money"
+									class="form-control" size="35" value="0">
+							</div>
+						</div>
+						
+						
+						<!-- <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> 支付宝： <i>&nbsp;</i></label>
+                                <div class="col-sm-5">
+                                    <input name="alipay" type="text" id="alipay" class="form-control" size="35"
+                                    value="">
+                                </div>
+                            </div> -->
+						<!--<div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> 收货人： <i>&nbsp;</i></label>
+                                <div class="col-sm-5">
+                                    <input name="nickname" type="text" id="nickname" class="form-control" size="35"
+                                    value="{$user.nickname}">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> 收货地址： <i>&nbsp;</i></label>
+                                <div class="col-sm-5">
+                                    <input name="user_address" type="text" id="user_address" class="form-control" size="35"
+                                    value="{$user.user_address}">
+                                </div>
+                            </div>-->
+
+ 
+
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<div class="col-sm-4 col-sm-offset-2">
+								<button class="btn btn-primary" type="submit">注册</button>
+								<button class="btn btn-white" onclick="history.go(-1)">取消</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</block>

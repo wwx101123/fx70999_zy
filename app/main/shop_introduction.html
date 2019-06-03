@@ -1,0 +1,218 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>
+			移动端商家自入驻-1/4 店铺介绍
+		</title>
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/seller.js"></script>
+		<script src="../JS/promise.auto.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.item-inner {
+				font-size: 13px;
+			}
+			
+			.input-placeholder {
+				font-size: 13px;
+			}
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				font-size: 13px;
+			}
+			
+			.mui-input-row label {
+				font-size: 13px;
+			}
+		</style>
+		<script>
+		$(function() {
+				var UploadUrl = localStorage.getItem('UploadUrl');
+				var user = localStorage.getItem('user');
+				var seller_type = localStorage.getItem('seller_type');
+				$('#seller_type').val(seller_type);
+
+					$('.tip').css('display','none');
+				if(seller_type == 1) {
+					$('.tip').html('注:商户名称须与门头照名称一致');
+					$('.tip').css('display','none');
+ 					$('#shop_title').attr('placeholder','省份+地区+门头名称');
+
+				} else {
+					$('.licence_no_div').css('display', 'none');
+
+				}
+
+				user = JSON.parse(user);
+				$('#user_id').val(user.id);
+				var huikui_id = localStorage.getItem('huikui_id');
+				$('#huikui_id').val(huikui_id);
+				var seller = localStorage.getItem('seller');
+				$('.button-success').click(function() {
+					console.log(222222222222)
+					open_shop_step1();
+				})
+				seller = JSON.parse(seller);
+				if(seller != null && seller != '') {
+
+					$('#seller_id').val(seller.id);
+					$('#shop_title').val(seller.title);
+					$('#licence_no').val(seller.licence_no);
+					$('#licence_title').val(seller.licence_title);
+					if(seller.img != null && seller.img != '') {
+						$('#seller_type').val(seller.seller_type);
+
+						console.log(seller.img)
+						$('.avatar_class').attr('src', '' + UploadUrl + '/' + seller.img);
+						$('#avatar').val(seller.img);
+					}
+				}
+
+			});
+
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'update_user_auth_info');
+
+				}
+			});
+		</script>
+
+		<style>
+			.page-current header {}
+			
+			.contentInner {
+				position: relative;
+			}
+			
+			.readonly_layout {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0);
+				z-index: 100;
+			}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+		<input type="hidden" id="SERVER_TIME" value="1533390113191" />
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" src="../js/upload.js"></script>
+	</head>
+
+	<body>
+		<div id="introduction-page" class="page-group" v-cloak>
+			<!--页面头部-->
+
+			<!--/页面头部-->
+			<div class="page page-current no-animate" id="introduction-home">
+
+				<form id="editForm" name="editForm" class="form-box">
+					<input id="history_url" name="history_url" type="hidden" value="" />
+					<input id="user_id" name="user_id" type="hidden" />
+					<input id="seller_id" name="seller_id" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input id="huikui_id" name="huikui_id" type="hidden" value="0" />
+					<div class="content page-content content-bg intro-content" v-cloak>
+						<div class="contentInner">
+
+							<div class="mt-info" style="text-align: center;margin: 0 auto;padding-top: 10%;">
+
+								<img src="../images/emptyImg.png" class="avatar_class" />
+								<input type="hidden" id="seller_type" class="seller_type" name="seller_type" />
+								<input type="hidden" id="avatar" class="avatar" name="avatar" />
+								<h3 style="text-align: center;margin: 10PX;">按要求创建商户</h3>
+							</div>
+							<div class="list-block">
+								<div class="mui-input-row">
+									<label>商户名称</label>
+									<input name="shop_title" id="shop_title" placeholder="省份+地区+县(市)+商户名" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row ">
+									<div class="item-inner tip" style="color: red;padding-left: 5%;">注:省份+地区+县(市)+商户名</div>
+								</div>
+								<div class="mui-input-row licence_no_div">
+									<label>营业执照名称</label>
+									<input name="licence_title" id="licence_title" placeholder="营业执照,无营业执照可不填写" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row licence_no_div">
+									<label>营业执照号</label>
+									<input name="licence_no" id="licence_no" placeholder="营业执照,无营业执照可不填写" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								
+								
+								<!--<ul id="base-info">
+									<li class="item-content">
+										<div class="item-inner">
+											<span style="width:30%;float: left;text-align: right;">商户名称:</span>
+											<div class="item-input" style="width:80%;float: left;text-align: left;">
+												<input style="text-align: left;" type="text" id="shop_title" name="shop_title" class="input-placeholder" :style="fontStyle" placeholder="请输入商户名称">
+											</div>
+										</div>
+									</li>
+									<li class="item-content licence_no_div">
+										<div class="item-inner">
+											<span style="width:30%;float: left;text-align: right;">营业执照号:</span>
+											<div class="item-input" style="width:80%;float: left;text-align: left;">
+												<input style="text-align: left;" type="text" id="licence_no" name="licence_no" class="input-placeholder" :style="fontStyle" placeholder="请输入营业执照号,无营业执照可不填写">
+											</div>
+										</div>
+									</li>
+									<li class="step-info-li item-content">
+
+									</li>
+								</ul>-->
+							</div>
+							<div class="mui-content-padded">
+							<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success">下一步</a>
+						</div>
+							<!--<div v-if="query.status == 'needImprove' || query.status == 'needModify'" class="list-block block-btn mt-right">
+								<div class="btns">
+									<a class="button button-fill button-success" href="javacript:void(0);">下一步</a>
+								</div>
+							</div>
+-->
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+		window.addEventListener('update_upload_img', function(e) {
+
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+			console.log(upload_obj_id)
+			if(avatar != null && avatar != "") {
+				$('' + upload_obj_id + '_class').attr('src', IP + '/' + avatar)
+				upload_obj_id = upload_obj_id.replace('.', '')
+				$('#' + upload_obj_id).val(avatar);
+			} else {
+
+				//				$('' + upload_obj_id).attr('src', '../images/icon_upload_photo.png')
+			}
+		});
+	</script>
+
+</html>

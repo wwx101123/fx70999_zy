@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<title>聊天列表</title>
+		<meta name="format-detection" content="telephone=no">
+		<!--自动将网页中的电话号码显示为拨号的超链接-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+		<!--width宽度height高度，initial-scale初始的缩放比例，minimum-scale允许缩放到的最小比例，maximum-scale允许缩放到的最大比例，user-scalable是否可以手动缩放-->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--IOS设备-->
+		<meta name="apple-touch-fullscreen" content="yes">
+		<!--IOS设备-->
+		<meta http-equiv="Access-Control-Allow-Origin" content="*">
+		<link rel="stylesheet" href="../css/mend-reset.css" />
+		<link rel="stylesheet" href="../css/mend-weikeniu.css" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" href="../css/im.css" />
+
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/zepto.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+
+		<script src="../js/fontSize.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+
+		<!-- <>聊天列表页面 -->
+		<div class="wei__scene-panel clearfix mescroll" id="mescroll">
+			<!-- //顶部 -->
+
+			<!-- //聊天信息 -->
+			<div class="ws__friend-info ws__chat-list">
+
+			</div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+		var mescroll;
+		$(function() {
+
+			//			localStorage.setItem('category_id', 0)
+			//			$('.mescroll').css('top', $('#sliderSegmentedControl').height() + 44);
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					//					console.log(category_id)
+					get_user_chat_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				console.log(data)
+				var IP = localStorage.getItem('IP');
+
+				data = JSON.parse(data)
+				var status = data.status;
+				if(status == 1) {
+					$('.ws__chat-list .item').remove();
+					var info = data.data;
+					if(info == null) {
+						$('.nodata').css('display', 'block');
+
+					}
+					$.each(info, function(index, content) {
+						console.log(IP+'/'+ content.avatar)
+						var dot_num='display:none';
+						if(content.no_read_count>0){
+							 dot_num='display:block';
+						}
+
+						var item = '<div class="item" id="' + content.user_id + '" msg_id="' + content.msg_id + '">';
+						item += '	<img class="uimg" src="' + IP +'/'+ content.avatar + '" />'; 
+						item += '	<div class="info flex1">';
+						item += '	<h2 class="wx-name">' + content.user_name + '</h2>';
+						item += '	<p class="wx-num c--999 ff-hv clamp1">' + decodeURIComponent(content.new_msg) + '</p>';
+						item += '		<label class="wx-time c--999 ff-ar">' + content.new_time + '</label>';
+						item += '		<i class="dot dot_num " style="'+dot_num+'">'+content.no_read_count+'</i>';
+						item += '	</div>';
+						item += '	</div>';
+						$('.ws__chat-list').append(item);  
+ 
+					});
+
+					$('.ws__chat-list .item').click(function() {
+						localStorage.setItem('select_address', 0)
+						var my_cate_item_name = $(this).find('.wx-name').html()
+						localStorage.setItem('chat_user_id', $(this).attr('id'));
+						localStorage.setItem('msg_id', $(this).attr('msg_id'));
+						//					mui.toast($(this).attr('msg_id'))
+
+						openWindowWithTitle(my_cate_item_name, 'im-chat.html');
+
+					});
+				}
+
+			}
+		});
+		
+		function init_chat_list(){
+			
+			mescroll.resetUpScroll();
+		}
+	</script>
+
+</html>

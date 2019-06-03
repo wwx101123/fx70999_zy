@@ -1,0 +1,275 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>资料查看</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="__APP__">首页</a>
+                </li>
+                <li>
+                    <a>资料管理</a>
+                </li>
+                <li class="active">
+                    <strong>资料查看</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+<block name="menu">
+
+<script type="text/javascript">
+	$(function() {
+		
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #user').css('display','block')
+		//$('.sidebar #myTeam').addClass('current')
+	});
+</script>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row m-b-lg m-t-lg">
+            <div class="col-md-6">
+
+                <div class="profile-image">
+                    <!--<img src="__PUBLIC__/Adm/Resource/plugins/hplus/img/man.jpg" class="img-circle circle-border m-b-md" alt="profile">-->
+                </div>
+                <div class="profile-info">
+                    <div class="">
+                        <div>
+                            <h2 class="no-margins">{$user['user_name']}</h2>
+                            <h4>{$user.get_level|getUserLevel=###}</h4>
+                            <small>编号：{$user['user_id']}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            	<div class="col-md-3">
+                <table class="table small m-b-xs">
+                    <tbody>
+                        <!-- <tr>
+                            <td>
+                                <strong>消费级别</strong> {$user['u_level']}
+                            </td>
+                            <td>
+                                <strong>接点人</strong> {$user['father_name']}
+                            </td>
+                        </tr> -->
+                        <tr>
+                            <!-- <td>
+                                <strong>市场位置</strong> B区
+                            </td> -->
+                            <td>
+                                <strong>注册时间</strong> {$user['rdt']|date="Y-m-d H:i:s",###}
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- <td>
+                                    <strong>32</strong> Friends
+                                </td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <small>账户余额</small>
+                    <h2 class="no-margins">{$user['agent_use']|bcmul=1,###,2}</h2>
+                    <div id="sparkline1"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h3>基本信息</h3>
+                            <p class="small">
+                                <br/>
+                                消费级别：{$user.u_level|getUserLevel=###}<br/>
+                                手机号码：{$user['user_tel']}<br/>
+                                身份证号码：{$user['user_code']}<br/>
+                                <br/>
+                            </p>
+                        </div>
+                    </div>
+                    <!-- <div class="ibox">
+                        <div class="ibox-content">
+                            <h3>已激活会员</h3>
+                            <p class="small">
+                                此处显示您最后注册激活的6位会员，具体详情请进入“已激活会员”查看
+                            </p>
+                            <div class="user-friends">
+                            </div>
+                        </div>
+                    </div> -->
+
+                       <!-- <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>Personal friends</h3>
+                                <ul class="list-unstyled file-list">
+                                    <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
+                                    <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
+                                    <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
+                                    <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
+                                    <li><a href=""><i class="fa fa-file-powerpoint-o"></i> Presentation.pptx</a></li>
+                                    <li><a href=""><i class="fa fa-file"></i> 10_08_2015.docx</a></li>
+                                </ul>
+                            </div>
+                        </div>-->
+                        <div class="ibox" style="display:none">
+                            <div class="ibox-content">
+                                <h3>写邮件</h3>
+                                <p class="small">
+                                    发送邮件给管理员
+                                </p>
+                                <form id="sendForm" class="ajax-post" action="{:U('Msg/writeSave')}">
+                                    <div class="form-group" style="display: none">
+                                        <label>发送给</label>
+                                        <select class="form-control" name="UserID">
+                                            <option value="admin">admin</option>
+                                            <!-- <option value="admin2016">admin2016</option> -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>标题</label>
+                                        <input type="text" class="form-control" placeholder="请输入标题" name="title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>内容</label>
+                                        <textarea class="form-control" placeholder="请输入您的信息" rows="3" name="content"></textarea>
+                                    </div>
+                                    <input type="hidden" name="totype" value="1">
+                                    <input type="hidden" name="action" value="send_ajax">
+                                    <button class="ladda-button ladda-button-demo btn btn-primary btn-block" data-style="zoom-in" id="sendMail" type="submit">发送</button>
+<!--                                     <script>
+                                        $(document).ready(function (){
+
+                                            var l = $( '#sendMail' ).ladda();
+
+                                            l.click(function(){
+                                                // Start loading
+                                                l.ladda( 'start' );
+                                                setTimeout(function(){
+                                                    $.ajax({
+                                                        url:"writemail.php",
+                                                        type:"post",
+                                                        dataType:"text",
+                                                        data:$("#sendForm").serialize(),
+                                                        error:function(msg){
+                                                            showSweetAlert('',msg,'error');
+                                                        },
+                                                        success:function(msg){
+                                                            if(msg!=1){
+                                                                showSweetAlert('',msg,'warning')
+                                                            }else{
+                                                                showSweetAlert("", "发送成功", "success");
+                                                            }
+                                                            l.ladda('stop');
+                                                        }
+                                                    });
+                                                },500);
+                                            });
+                                        });
+                                    </script> -->
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <!--<notempty name="list">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>复投账户</h3>
+                                <p class="small"><i class="fa fa-hand-o-up"></i>
+                                    此处显示您复投账户
+                                </p>
+                                <ul class="sortable-list connectList agile-list" id="inprogress">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                        </notempty>-->
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>团队列表</h3>
+                                <p class="small"><i class="fa fa-hand-o-up"></i>
+                                    此处显示您团队的前6位会员，具体详情请进入“分享结构”查看
+                                </p>
+                                <ul class="sortable-list connectList agile-list" id="inprogress">
+                                <foreach name="list" item="vo">
+                                    <li>{$vo.user_id}
+                                    <span class="col-md-offset-2">累计奖金：{$vo.zjj}</span>
+                                    <!--<eq name="vo.fanli" value="1"><span class="pull-right label label-warning">出局</span></eq>
+                                    <eq name="vo.fanli" value="0"><span class="pull-right label label-success">未出局</span></eq>--></li>
+                                    </foreach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 m-b-lg">
+                        <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h3>银行账户信息</h3>
+                                    <p>开户银行：{$user['bank_name']}</p>
+                                    <p>银行卡号：{$user['bank_card']}</p>
+                                    <p>开户姓名：{$user['user_name']}</p>
+                                    <p>开户行地址：{$user['bank_address']} </p>
+                                   <!-- <a href="#" class="btn btn-sm btn-primary"> More info</a>
+                                    <span class="vertical-date">
+                                            Today <br>
+                                            <small>Dec 24</small>
+                                        </span>-->
+                                    </div>
+                                </div>
+
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon yellow-bg">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <h3>主要联系方式</h3>
+                                        <!-- <p>支付宝：未拥有</p> -->
+                                        <p>QQ：{$user['user_tel']}</p>
+                                        <!-- <p>QQ：{$user['qq']}</p> -->
+                                        <p>电子邮箱：{$user.email}</p>
+                                        <!-- <p>微信号：未拥有</p> -->
+                                   <!-- <a href="#" class="btn btn-sm btn-success"> Download document </a>
+                                    <span class="vertical-date">
+                                            Today <br>
+                                            <small>Dec 24</small>
+                                        </span>-->
+                                    </div>
+                                </div>
+                                <!--<div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon lazur-bg">
+                                        <i class="fa fa-coffee"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <h3>收货信息</h3>
+                                        <p>收货人：{$user.nickname}</p>
+                                        <p>收货人地址：{$user.user_address}</p>
+                                    </div>
+                                </div>-->
+
+                                <div class="vertical-timeline-block hidden">
+                                    <div class="vertical-timeline-icon navy-bg">
+                                        <i class="fa fa-file-text"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <h3>其他信息</h3>
+                                        <p>邮编：邮编</p>
+                                        <p>出生日期：生日</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </block>

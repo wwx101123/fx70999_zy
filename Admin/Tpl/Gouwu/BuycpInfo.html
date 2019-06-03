@@ -1,0 +1,212 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>订单查询</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="__APP__">首页</a>
+                </li>
+                <li>
+                    <a>订单管理</a>
+                </li>
+                <li class="active">
+                    <strong>订单查询</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <form method="post" action="?action=query" name="formq">
+                            <!--<div class="col-sm-2">
+                                <div class="form-group">
+                                    <label class="control-label" for="state">分类</label>
+                                    <select name="state" id="state" class="form-control">
+                                        <option value="">请选择类型</option>
+                                        <option value="0">未付款</option>
+                                        <option value="1">付款</option>
+                                        <option value="2">未收货</option>
+                                        <option value="3">收货</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                            <div class="col-sm-3">
+                                <div class="form-group" id="data_5">
+                                    <label class="control-label">日期</label>
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class=" form-control" name="time1" id="time1" placeholder="开始日期" value="<notempty name='time1'>{$time1}</notempty>">
+                                        <span class="input-group-addon">到</span>
+                                        <input type="text" class="form-control" name="time2" id="time2" placeholder="截止日期" value="<notempty name='time2'>{$time2}</notempty>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group">
+                                    <label class="control-label">点击查询</label>
+                                    <button type="submit" class="btn btn-primary">查询</button>
+                                </div>
+                            </div>
+                            <!--<div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="status">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1" selected="">Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                            <script type="text/javascript">
+                                layui.use('laydate', function(){
+                                  var laydate = layui.laydate;
+                                      var start = {
+                                      // min: laydate.now(-2)
+                                      max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        end.min = datas; //开始日选好后，重置结束日的最小日期
+                                        end.start = datas //将结束日的初始值设定为开始日
+                                      }
+                                    };
+                                    
+                                    var end = {
+                                      min: laydate.now()
+                                      ,max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        start.max = datas; //结束日选好后，重置开始日的最大日期
+                                      }
+                                    };
+                                    
+                                    $('#time1').on('click',function(){
+                                      start.elem = this;
+                                      laydate(start);
+                                    });
+                                    $('#time2').on('click',function(){
+                                      end.elem = this
+                                      laydate(end);
+                                    });
+                                });
+                            </script>
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>我的现金余额为:{$agent_use}&nbsp;我的积分余额为:{$agent_cf}</h5>
+                    </div>
+                    <div class="ibox-title">
+                        <h5>订单列表<span class="text-danger">（支付之前请完善个人资料里的收货信息）</span></h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="display: block;">
+                        <table class="table table-hover" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                    <th>订单号</th>
+                                    <th>商品图片</th>
+                                    <th>商品名称</th>
+                                    <th>价格</th>
+                                    <th>会员价格</th>
+                                    <th>数量</th>
+                                    <th>实际支付</th>
+                                    <th>状态</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="list2" id="vo">
+                                <volist name="list" id="v" key='k'>   
+                                <eq name="v['orderfield']" value="$vo['orderfield']">                        
+                                <tr>
+                                    <neq name="v['orderfield']" value="$list[$k-2]['orderfield']">
+                                    <td rowspan="{$vo.count}">
+                                        <b class="tablesaw-cell-label">订单号</b><span class="tablesaw-cell-content">{$vo.orderfield}</span>
+                                    </td>
+                                    </neq>
+                                    
+                                        <td>
+                                            <b class="tablesaw-cell-label">商品图片</b>
+                                            <span class="tablesaw-cell-content">
+                                            <a href="{$v.img}" target="_blank">
+                                            <img src="{$v.img}" width="60" height="60">
+                                            </a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <b class="tablesaw-cell-label">商品名称</b>
+                                            <span class="tablesaw-cell-content">{$v.name}</span>
+                                        </td>
+                                        <td>
+                                            <b class="tablesaw-cell-label">价格</b>
+                                            <span class="tablesaw-cell-content"><i>{$v.a_money}</i></span>
+                                        </td>
+                                        <td>
+                                            <b class="tablesaw-cell-label">会员价格</b>
+                                            <span class="tablesaw-cell-content"><i>{$v.money}</i></span>
+                                        </td>
+                                    <neq name="v['orderfield']" value="$list[$k-2]['orderfield']">
+                                     <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">数量</b><span class="tablesaw-cell-content">{$vo.sum}</span></td>
+                                     <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">实际支付</b><span class="tablesaw-cell-content">{$vo.money}</span></td>
+                                     <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">状态</b>
+                                     <span class="tablesaw-cell-content">
+                                            {$vo['ispay']|payStatus}
+                                     </span></td>
+                                     <td rowspan="{$vo.count}" title="2016-12-01 14:51:40"><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p>2016-12-01</p></span></td>
+                                     <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                        <a class="btn-white btn btn-xs" data-toggle="modal" data-target="#myModal" onclick="">查看 </a>
+                                        <eq name="vo.ispay" value="0">
+                                        <button class="ladda-button ladda-button-demo btn-white btn btn-xs ajax-buy" data-style="zoom-in" url="{:U('Gouwu/pay')}?order={$vo.orderfield}&zflx=0">现金支付</button>
+                                        
+                                        <eq name="feei3" value="1"><button class="ladda-button ladda-button-demo btn-white btn btn-xs ajax-buy" data-style="zoom-in" url="{:U('Gouwu/pay')}?order={$vo.orderfield}&zflx=1">积分支付</button></eq>
+                                        
+                                        <button class="ladda-button ladda-button-demo btn-white btn btn-xs ajax-a" data-style="zoom-in" href="{:U('Gouwu/delOrder')}?order={$vo.orderfield}" info="确定删除订单吗？">删除 </button>
+                                        </eq>
+                                            </span>
+                                        </td>
+                                    </neq>
+                                    </tr>
+                                    </eq>
+                                    </volist>
+                                    </volist>
+                                </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                layui.use(['layer'],function() {
+                    $('.ajax-buy').on('click',function() {
+						var btn = $(this);
+                        layer.confirm('确定要支付该订单吗？',{icon:3,title:'支付订单'},
+                            function(index) {
+                                var url=btn.attr('url');
+                                console.log($(this));
+                                console.log(url);
+                                $.get(url,function(data) {
+                                    if (data.status) {
+                                        layer.msg(data.info,{end:function() {
+                                            if (data.url) {
+                                                location.href=data.url;
+                                            }else{
+                                                location.reload();
+                                            }
+                                        }});
+                                    }else{
+                                        layer.msg(data.info);
+                                    }
+                                })
+                                layer.close(index);
+                        });
+                    });
+                });
+            </script>
+        </block>

@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>业绩明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/usermoney.css" />
+		<link rel="stylesheet" type="text/css" href="../css/flows.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/adscorll.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+		<style>
+			.shouyi_bg .today {
+				width: 100%;
+				position: relative;
+				bottom: 0;
+				/* height: 61px; */
+			}
+			
+			.today_title .shouyi_tip {
+				width: 50%;
+				font-size: 12PX;
+				float: left;
+				height: 30PX;
+				line-height: 30PX;
+			}
+			
+			.shouyi_bg .tip {
+				/* margin-left: 20px; */
+				color: black;
+				height: 30PX;
+				line-height: 30PX;
+				font-size: 12px;
+				text-align: center;
+				padding-top: 0%;
+				float: left;
+				width: 50%;
+			}
+		</style>
+		<style>
+			.title {
+				margin: 10px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart style="background: #efeff4;">
+		<div class="page mescroll" id="mescroll">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+
+				<!--订单列表-->
+				<div class="detail-list nodata" style="display: none;">
+
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata">暂无记录...</div>
+
+					</ul>
+				</div>
+				<div class="detail-list detail" style="display: none;">
+
+					<!--/订单列表-->
+				</div>
+				<!--分页页码-->
+				<div class="shouyi_bg " style="min-height: 150px;">
+					<div class="firs-bill bg-white">
+						<div class="con-bill">
+							<a href="javascript:void(0);" class="aui-well-item aui-well-item-hei open_tixian">
+								<div class="aui-well-item-bd">
+									<h3>总业绩</h3></div>
+							</a>
+						</div>
+					</div>
+					<div class="today">
+						<div class="today_title"> <span class="tip  ">团队交易额</span> <span class="shouyi_tip team_trade_money all_trade_money1"> 0 </span> </div>
+						<div class="today_title"> <span class="tip  ">个人交易额</span> <span class="shouyi_tip user_trade_money all_trade_money2">0 </span></div>
+					</div>
+					<div class="today">
+						<div class="today_title"> <span class="tip  ">团队总商户</span> <span class="shouyi_tip  team_shop_count all_trade_money1"> 0 </span></div>
+						<div class="today_title"> <span class="tip  ">个人总商户</span> <span class="shouyi_tip shop_count all_trade_money2">0 </span></div>
+					</div>
+					<div class="today">
+						<div class="today_title"> <span class="tip  ">团队总人数</span> <span class="shouyi_tip team_user_count all_trade_money2">0 </span></div>
+						<div class="today_title"> <span class="tip  ">盟友数量</span> <span class="shouyi_tip user_count all_trade_money2">0 </span></div>
+					</div>
+
+				</div>
+				<div class="page-list">
+
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+			</div>
+	</body>
+
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					user_achievement_list(successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+				$('.goods_list .title').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				data = JSON.parse(data);
+				info = data.data;
+				var item = '';
+				$('.page__bd .detail').remove()
+				$('.page__bd .title').remove()
+				console.log(info.length)
+				var year = 0;
+				$.each(info, function(index, content) {
+
+					item += '<div class="title">';
+					if(year != content.year) {
+
+						item += '		<span class="year" style="font-size: 20px;">' + content.year + '年</span>';
+						year = content.year;
+					}
+
+					item += '	</div>	<div class="shouyi_bg detail"style="min-height: 100px;">';
+					item += '	<div class="firs-bill bg-white">';
+					item += '	<div class="con-bill">';
+					item += '	<a href="javascript:void(0);" class="aui-well-item aui-well-item-hei open_tixian">';
+					item += '	<div class="aui-well-item-bd">';
+					item += '	<h3>' + content.month + '月业绩</h3></div>';
+					item += '</a>';
+					item += '</div>';
+					item += '</div>';
+
+					item += '	<div class="today">';
+
+					item += '	<div class="today_title">';
+					item += '	<span class="tip  ">团队交易额</span>';
+					item += '	<span class="shouyi_tip month_shop_count all_trade_money1"> ' + content.month_team_trade_money + ' </span>';
+
+					item += '	</div>';
+					item += '<div class="today_title">';
+					item += '	<span class="tip  ">个人交易额</span>';
+					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.month_shop_trade_money + ' </span>';
+
+					item += '</div>';
+					item += '	</div>';
+
+					//					item += '<div class="today">';
+					//
+					//					item += '	<div class="today_title">';
+					//					item += '	<span class="tip  ">团队总商户</span>';
+					//					item += '	<span class="shouyi_tip month_shop_count all_trade_money1"> ' + content.team_shop_num + ' </span>';
+					//
+					//					item += '</div>';
+					//					item += '<div class="today_title">';
+					//					item += '	<span class="tip  ">个人总商户</span>';
+					//					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.shop_num + ' </span>';
+					//
+					//					item += '</div>';
+					//					item += '	</div>';
+					//					item += '<div class="today">';
+					//					item += '<div class="today_title">';
+					//					item += '	<span class="tip  ">团队总人数</span>';
+					//					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.team_user_num + ' </span>';
+					//
+					//					item += '</div>';
+					//					item += '<div class="today_title">';
+					//					item += '	<span class="tip  ">盟友数量</span>';
+					//					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.user_num + ' </span>';
+					//
+					//					item += '</div>';
+					//					item += '	</div>';
+					item += '<div class="today">';
+					item += '<div class="today_title">';
+					item += '	<span class="tip  ">团队新增盟友</span>';
+					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.month_team_user_count + ' </span>';
+
+					item += '</div>';
+					item += '<div class="today_title">';
+					item += '	<span class="tip  ">个人新增盟友</span>';
+					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.month_user_count + ' </span>';
+
+					item += '</div>';
+					item += '	</div>';
+
+					item += '<div class="today">';
+					item += '<div class="today_title">';
+					item += '	<span class="tip  ">团队新增商户</span>';
+					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.month_team_shop_count + ' </span>';
+
+					item += '</div>';
+					item += '<div class="today_title">';
+					item += '	<span class="tip  ">个人新增商户</span>';
+					item += '	<span class="shouyi_tip month_shop_active_count all_trade_money2">' + content.month_shop_count + ' </span>';
+
+					item += '</div>';
+					item += '	</div>';
+
+					item += '</div>';
+
+				});
+				$('.page__bd').append(item);
+
+				info = data.user;
+				$('.team_trade_money').html(info.team_trade_money)
+				$('.user_trade_money').html(info.user_trade_money)
+				$('.team_shop_count').html(info.team_shop_count)
+				$('.shop_count').html(info.shop_count)
+				$('.team_user_count').html(info.team_user_count)
+				$('.user_count').html(info.user_count)
+
+			}
+		});
+	</script>
+
+</html>

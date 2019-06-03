@@ -1,0 +1,96 @@
+<extend name="Gouwu:shopheader" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>产品详情</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">首页</a>
+            </li>
+            <li>
+                <a>产品订购</a>
+            </li>
+            <li class="active">
+                <strong>产品详情</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+<block name="menu">
+<div class="Location-box"><i class="iconfont" style="font-size: 14px;"></i> 当前位置：{$tyname}</div>
+<div class="clr"></div>
+<!--侧边栏-->
+<!--<div class="sidebar-list fl">
+	<dl class="hot">
+		<dt>猜您喜欢</dt>
+		<dd>
+			<ul>
+				<foreach name="other" item="v">
+				<li><div class="timg">
+					<a href="{:U('Gouwu/shopGoods')}?id={$v.id}" title="{$v.name}"><img src="{$v.img}"></a>
+				</div>
+				<div class="txt"><a href="{:U('Gouwu/shopGoods')}?id={$v.id}" title="{$v.name}">{$v.name}</a><strong class="item1"><span class="symbol">¥</span>{$v.money}</strong></div></li>
+				</foreach>
+			</ul>
+
+		</dd>
+	</dl>
+</div>-->
+
+
+
+
+
+<div class="product-list fr">
+	<div class="status-box"> <ul class="fl"><li class="on">
+		<a href="__ACTION__/time/desc">上架时间<i class="icon"></i></a></li> <li><a href="__ACTION__/price/desc">价格<i class="icon"></i></a>
+	</li></ul>
+
+	<div class="page-fr fr"><span>1/1</span>  
+
+	</div></div>
+	<div class="product-mainbox" style="width: 968px;">
+		<ul class="top2" style="width: 968px;">
+			<foreach name='list' item='vo'>
+			<li onmouseenter="showMain.call(this)" onmouseleave="hiddenMain.call(this);" class="box-check" style="top: -2px;">
+				<a class="gimg" href="{:U('Gouwu/shopGoods')}?id={$vo.id}" target="_blank"><img src="{$vo.img}"></a> 
+				<div class="tag_txt2">
+					<a href="{:U('Gouwu/shopGoods')}?id={$vo.id}">
+						<dl style="display: none;">
+							<dt><h2>{$vo.name}</h2></dt>
+							<dd>
+								<strong class="item1"><span class="symbol">¥</span>{$vo.money}</strong><span class="item2">¥<del>{$vo.a_money}</del></span>
+
+							</dd></dl>
+						</a>
+					</div>
+					<div class="p-main" style="display: block;">
+
+						<div class="p-price" presaletype="2"><strong class="item1"><span class="price">{$vo.money}</span></strong></div>
+						<div class="p-desc">
+							<!--<div class="p-orders"><i class="i-person"></i><span class="text">6人已预定</span></div>-->
+							<div class="p-countdown">{$vo.name}</div>
+							<div class="p-deposit"><i class="i-money"></i><span class="text">原价：<strong>¥<del>{$vo.a_money}</del></strong></span></div>
+							<a href="{:U('Gouwu/shopGoods')}?id={$vo.id}" target="_blank">
+							<div class="p-btnbox"><span class="btn-buy" onclick="">立即购买</span></div></a>
+						</div>
+
+					</div>
+					<div class="border-tops" style="width: 230px;"></div><div class="border-bottoms" style="width: 230px;"></div><div class="border-lefts" style="height: 323px;"></div><div class="border-rights" style="height: 323px;"></div>
+				</li>
+			
+			</foreach>
+			</ul>
+			<div class="clr"></div>
+			<div class="fd_pager">
+
+				<div id="pager" class="pagebar">
+					{$page}
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</block>

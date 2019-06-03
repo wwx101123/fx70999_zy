@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>订单详情</title>
+        <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport"/>
+        <meta content="yes" name="apple-mobile-web-app-capable"/>
+        <meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+        <meta content="telephone=no" name="format-detection"/>
+        <link href="__PUBLIC__/css/daifu.css" rel="stylesheet" type="text/css"/><link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+        <script type="text/javascript">
+	$(function() {
+		$("#file").on("change",function(){
+			//截取路径，获取上传文件名
+			 $('#submit').trigger("click");
+		}); 
+		
+		$("#view_sn").click(function() {
+			var sn=$('.sns').html();
+			
+		 
+			var winDialog = top
+			.dialog(
+					{
+						title : 'SN编号',
+						content : sn,
+						okValue : '确定' ,
+						cancelValue : '取消',
+						cancel : function() {
+						}
+					}).showModal();
+		});
+		$("#btnConfirm").click(function() {
+			OrderConfirm();
+		}); //确认订单
+		$("#btnPayment").click(function() {
+			OrderPayment();
+		}); //确认付款
+		$("#btnDaifu").click(function() {
+			OrderDaifu();
+		}); //确认发货
+		$("#btnComplete").click(function() {
+			OrderComplete();
+		}); //完成订单
+		$("#btnCancel").click(function() {
+			OrderCancel();
+		}); //取消订单
+		$("#btnInvalid").click(function() {
+			OrderInvalid();
+		}); //作废订单
+		$("#btnPrint").click(function() {
+			OrderPrint();
+		}); //打印订单
+		$("#btnEditExpress").click(function() {
+			EditOrderExpress(this);
+		});
+		$("#btnEditExpressNo").click(function() {
+			EditOrderExpressNo();
+		});
+		$("#btnEditBack").click(function() {
+			EditAcceptInfo();
+		}); //修改收货信息
+		
+		
+		$("#btnEditSN").click(function() {
+			EditOrderSN();
+		}); 
+		$("#btnEditRemark").click(function() {
+			EditOrderRemark();
+		}); //修改订单备注
+		$("#btnEditRealAmount").click(function() {
+			EditRealAmount();
+		}); //修改商品总金额
+		$("#btnEditExpressFee").click(function() {
+			EditExpressFee();
+		}); //修改配送费用
+		$("#btnEditPaymentFee").click(function() {
+			EditPaymentFee();
+		}); //修改支付手续费
+		$("#btnEditInvoiceTaxes").click(function() {
+			EditInvoiceTaxes();
+		});
+		$("#btnEditExpire").click(function() {
+			EditExpire();
+		}); //修改发票税金
+	});
+	//确认订单
+	function OrderConfirm() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '提示',
+							content : '确认订单后将无法修改金额，确认要继续吗？',
+							okValue : '确定',
+							ok : function() {
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "order_confirm"
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//确认付款
+	function OrderPayment() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '提示',
+							content : '操作提示信息：<br />1、该订单使用在线支付方式，付款成功后自动确认；<br />2、如客户确实已打款而没有自动确认可使用该功能；<br />3、确认付款后无法修改金额，确认要继续吗？',
+							okValue : '确定',
+							ok : function() {
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "order_payment"
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//确认发货
+	function OrderDaifu() {
+		var winDialog = top
+		.dialog(
+				{
+					title : '代付订单',
+					content : '代付订单，确认要继续吗？',
+					button : [
+							{
+								value : '确定',
+								callback : function() {
+									var postData = {
+										"order_id" : $("#order_id")
+												.val() ,
+
+												"user_name" : $("#user_name")
+														.val() ,
+														"password" : $("#password")
+														.val() 
+									};
+									//发送AJAX请求
+									sendAjaxUrl(winDialog, postData,
+											'{:U('Goods/order_daifu')}');
+									return false;
+								},
+								autofocus : true
+							}, {
+								value : '取消',
+								callback : function() {
+								}
+							} ]
+				}).showModal();
+	}
+	//完成订单
+	function OrderComplete() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '完成订单',
+							content : '订单完成后，订单处理完毕，确认要继续吗？',
+							button : [
+									{
+										value : '确定',
+										callback : function() {
+											var postData = {
+												"order_no" : $("#spanOrderNo")
+														.text(),
+												"edit_type" : "order_complete"
+											};
+											//发送AJAX请求
+											sendAjaxUrl(winDialog, postData,
+													"../../tools/admin_ajax.ashx?action=edit_order_status");
+											return false;
+										},
+										autofocus : true
+									}, {
+										value : '取消',
+										callback : function() {
+										}
+									} ]
+						}).showModal();
+	}
+	//取消订单
+	function OrderCancel() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '取消订单',
+							content : '操作提示信息：<br />1、匿名用户，请线下与客户沟通；<br />2、会员用户，自动检测退还金额或积分到账户；<br />3、请单击相应按钮继续下一步操作！',
+							button : [
+									{
+										value : '检测退还',
+										callback : function() {
+											var postData = {
+												"order_no" : $("#spanOrderNo")
+														.text(),
+												"edit_type" : "order_cancel",
+												"check_revert" : 1
+											};
+											//发送AJAX请求
+											sendAjaxUrl(winDialog, postData,
+													"../../tools/admin_ajax.ashx?action=edit_order_status");
+											return false;
+										},
+										autofocus : true
+									},
+									{
+										value : '直接取消',
+										callback : function() {
+											var postData = {
+												"order_no" : $("#spanOrderNo")
+														.text(),
+												"edit_type" : "order_cancel",
+												"check_revert" : 0
+											};
+											//发送AJAX请求
+											sendAjaxUrl(winDialog, postData,
+													"../../tools/admin_ajax.ashx?action=edit_order_status");
+											return false;
+										}
+									}, {
+										value : '关闭',
+										callback : function() {
+										}
+									} ]
+						}).showModal();
+	}
+	//作废订单
+	function OrderInvalid() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '取消订单',
+							content : '操作提示信息：<br />1、匿名用户，请线下与客户沟通；<br />2、会员用户，自动检测退还金额或积分到账户；<br />3、请单击相应按钮继续下一步操作！',
+							button : [
+									{
+										value : '检测退还',
+										callback : function() {
+											var postData = {
+												"order_no" : $("#spanOrderNo")
+														.text(),
+												"edit_type" : "order_invalid",
+												"check_revert" : 1
+											};
+											//发送AJAX请求
+											sendAjaxUrl(winDialog, postData,
+													"../../tools/admin_ajax.ashx?action=edit_order_status");
+											return false;
+										},
+										autofocus : true
+									},
+									{
+										value : '直接作废',
+										callback : function() {
+											var postData = {
+												"order_no" : $("#spanOrderNo")
+														.text(),
+												"edit_type" : "order_invalid",
+												"check_revert" : 0
+											};
+											//发送AJAX请求
+											sendAjaxUrl(winDialog, postData,
+													"../../tools/admin_ajax.ashx?action=edit_order_status");
+											return false;
+										}
+									}, {
+										value : '关闭',
+										callback : function() {
+										}
+									} ]
+						}).showModal();
+	}
+	//打印订单
+	function OrderPrint() {
+		var winDialog = top.dialog(
+				{
+					title : '打印订单',
+					url : 'dialog/dialog_print.aspx?order_no='
+							+ $("#spanOrderNo").text(),
+					width : 850
+				}).showModal();
+	}
+	//修改收货信息
+	function EditAcceptInfo() {
+		var winDialog = top.dialog({
+			title : '填写审核信息',
+			url : '{:U('Goods/dialog_back')}',
+			width : 550, 
+			data : window
+		//传入当前窗口
+		}).showModal();
+	}
+	//修改订单备注
+	function EditOrderSN() {
+		var winDialog = top
+				.dialog(
+						{
+							title : 'SN编号',
+							content : '<textarea id="txtOrderSn" name="txtOrderSn" rows="2" cols="20" class="input">'
+									+ $("#divSn").html() + '</textarea>',
+							okValue : '确定',
+							ok : function() {
+								var remark = $("#txtOrderSn",
+										parent.document).val();
+								if (remark == "") {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入sn编号！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_id" : $("#order_id").val(),
+									"edit_type" : "edit_order_remark",
+									"sn" : remark
+								};
+								sendAjaxUrl(winDialog, postData,
+										'{:U('Goods/order_sn')}'); 
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	function EditOrderRemark() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '订单备注',
+							content : '<textarea id="txtOrderRemark" name="txtOrderRemark" rows="2" cols="20" class="input">'
+									+ $("#divRemark").html() + '</textarea>',
+							okValue : '确定',
+							ok : function() {
+								var remark = $("#txtOrderRemark",
+										parent.document).val();
+								if (remark == "") {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入订单备注内容！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "edit_order_remark",
+									"remark" : remark
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	function EditOrderExpress(obj) {
+		  
+		var winDialog = top.dialog({
+			title : '填写快递信息',
+			url : '{:U('Goods/dialog_express')}',
+			width : 550, 
+			data : obj
+		//传入当前窗口
+		}).showModal();
+		
+		 
+		 
+	}
+	function EditOrderExpressNo() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '快递编号',
+							content : '<textarea id="txtOrderRemark" name="txtOrderRemark" rows="2" cols="20" class="input">'
+									+ $("#divExpressNo").html() + '</textarea>',
+							okValue : '确定',
+							ok : function() {
+								var remark = $("#txtOrderRemark",
+										parent.document).val();
+								if (remark == "") {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入快递编号！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								 
+								 //发送AJAX请求
+								$("#divExpressNo").html(remark) 
+								$("#express_no").val(remark) 
+								return true;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//修改商品总金额
+	function EditRealAmount() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '请修改商品总金额',
+							content : '<input id="txtDialogAmount" type="text" value="'
+									+ $("#spanRealAmountValue").text()
+									+ '" class="input" />',
+							okValue : '确定',
+							ok : function() {
+								var amount = $("#txtDialogAmount",
+										parent.document).val();
+								if (!checkIsMoney(amount)) {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入正确的商品金额！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "edit_real_amount",
+									"real_amount" : amount
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//修改配送费用
+	function EditExpressFee() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '请修改配送费用',
+							content : '<input id="txtDialogAmount" type="text" value="'
+									+ $("#spanExpressFeeValue").text()
+									+ '" class="input" />',
+							okValue : '确定',
+							ok : function() {
+								var amount = $("#txtDialogAmount",
+										parent.document).val();
+								if (!checkIsMoney(amount)) {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入正确的配送金额！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "edit_express_fee",
+									"express_fee" : amount
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//修改手续费用
+	function EditPaymentFee() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '请修改支付手续费用',
+							content : '<input id="txtDialogAmount" type="text" value="'
+									+ $("#spanPaymentFeeValue").text()
+									+ '" class="input" />',
+							okValue : '确定',
+							ok : function() {
+								var amount = $("#txtDialogAmount",
+										parent.document).val();
+								if (!checkIsMoney(amount)) {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入正确的手续费用！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "edit_payment_fee",
+									"payment_fee" : amount
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//修改税金费用
+	function EditInvoiceTaxes() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '请修改发票税金费用',
+							content : '<input id="txtDialogAmount" type="text" value="'
+									+ $("#spanInvoiceTaxesValue").text()
+									+ '" class="input" />',
+							okValue : '确定',
+							ok : function() {
+								var amount = $("#txtDialogAmount",
+										parent.document).val();
+								if (!checkIsMoney(amount)) {
+									top.dialog({
+										title : '提示',
+										content : '对不起，请输入正确的税金费用！',
+										okValue : '确定',
+										ok : function() {
+										}
+									}).showModal(winDialog);
+									return false;
+								}
+								var postData = {
+									"order_no" : $("#spanOrderNo").text(),
+									"edit_type" : "edit_invoice_taxes",
+									"invoice_taxes" : amount
+								};
+								//发送AJAX请求
+								sendAjaxUrl(winDialog, postData,
+										"../../tools/admin_ajax.ashx?action=edit_order_status");
+								return false;
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	function EditExpire() {
+		var winDialog = top
+				.dialog(
+						{
+							title : '请编辑到期时间',
+							content : '<input id="Expire_day" type="text" value="'
+									+ $("#spanExpire").html()
+									+ '" class="input" />',
+							okValue : '确定',
+							ok : function() {
+								var amount = $("#Expire_day",
+										parent.document).val();
+								 
+								$("#spanExpire").html(amount) 
+								 
+							},
+							cancelValue : '取消',
+							cancel : function() {
+							}
+						}).showModal();
+	}
+	//=================================工具类的JS函数====================================
+	//检查是否货币格式
+	function checkIsMoney(val) {
+		var regtxt = /^(([1-9]{1}\d*)|([0]{1}))(\.(\d){1,2})?$/;
+		if (!regtxt.test(val)) {
+			return false;
+		}
+		return true;
+	}
+	//发送AJAX请求
+	function sendAjaxUrl(winObj, postData, sendUrl) {
+		$.ajax({
+			type : "post",
+			url : sendUrl,
+			data : postData,
+			dataType : "json",
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				top.dialog({
+					title : '提示',
+					content : '尝试发送失败，错误信息：' + errorThrown,
+					okValue : '确定',
+					ok : function() {
+					}
+				}).showModal(winObj);
+			},
+			success : function(data, textStatus) {
+				if (data.status == 1) {
+					winObj.close().remove();
+					var d = dialog({
+						content : data.msg
+					}).show();
+					setTimeout(function() {
+						d.close().remove();
+						//location.reload(); //刷新页面
+					}, 2000);
+				} else {
+					top.dialog({
+						title : '提示',
+						content : '错误提示：' + data.msg,
+						okValue : '确定',
+						ok : function() {
+						}
+					}).showModal(winObj);
+				}
+			}
+		});
+	}
+</script>
+    </head>
+    <body>
+        <!--
+
+         * 17素材vip建站专区模块代码
+         * 详尽信息请看官网：http://www.17sucai.com/pins/vip
+         *
+         * Copyright , 温州易站网络科技有限公司版权所有
+         *
+         * 请尊重原创，未经允许请勿转载。
+         * 在保留版权的前提下可应用于个人或商业用途
+
+        -->
+        <section class="aui-flexView">
+            <INPUT id="order_id"
+					type="hidden" value="{$rs.id}">
+            <section class="aui-scrollView m-main">
+                <div class="aui-pay-change">
+                    <div class="aui-flex">
+                        <div class="aui-flex-box">
+                            <h3>等待买家付款</h3>
+                            <p>剩余23小时59分自动关闭</p>
+                        </div>
+                        <div class="aui-pay-zfb">
+                            <img src="__PUBLIC__/Images/icon-zfb.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="aui-flex">
+                    <div class="aui-flex-add">
+                        <img src="__PUBLIC__/Images/icon-add.png" alt="">
+                    </div>
+                    <div class="aui-flex-box">
+                        <h3>
+                            {$rs.accept_name}  <em> {$rs.mobile}  </em>
+                        </h3>
+                        <p> {$rs.area} {$rs.address} </p>
+                    </div>
+                </div>
+                <div class="divHeight"></div>
+                <!-- <div class="aui-flex">
+                    <div class="aui-shop-item">
+                        <img src="__PUBLIC__/Images/logo.png" alt="">
+                    </div>
+                    <div class="aui-shop-item-arrow">京东商城自营旗舰店
+                    </div>
+                </div> -->
+                <div class="aui-commodity-bg">
+                <foreach name="rs.order_goods" item="vo">
+                
+                    <div class="aui-flex">
+                        <div class="aui-commodity-img">
+                            <img src="{$vo.img}" alt="">
+                        </div>
+                        <div class="aui-flex-box">
+                            <h4>{$vo.goods_title} </h4>
+                            <p>{$vo.spec_text}</p>
+                           <!--  <span class="aui-barter-time"></span> -->
+                        </div>
+                        <div>
+                            <h5>￥{$vo.goods_price}</h5>
+                            <p class="aui-sml-text">X{$vo.quantity}</p>
+                        </div>
+                    </div>
+                    </foreach>
+                </div>
+               <!--  <div class="aui-flex aui-insurance-box b-line">
+                    <div class="aui-insurance-img">
+                        <img src="__PUBLIC__/Images/icon-bx.png" alt="">
+                    </div>
+                    <div class="aui-flex-box">
+                        <h4>运费险</h4>
+                        <h5>确认收货前退货可理赔</h5>
+                    </div>
+                    <div>
+                        <h5>￥00.00</h5>
+                        <p class="aui-sml-text">X00</p>
+                    </div>
+                </div> -->
+                <div class="aui-cp-edu b-line">
+                   <!--  <div class="aui-san-sml"></div>
+                    <div class="aui-flex aui-flex-ed">
+                        <div class="aui-flex-box">
+                            商品总价 <em>￥69.99</em>
+                        </div>
+                    </div>
+                    <div class="aui-flex aui-flex-ed">
+                        <div class="aui-flex-box">
+                            运费 (快递)  <em>￥69.99</em>
+                        </div>
+                    </div>
+                    <div class="aui-flex aui-flex-ed">
+                        <div class="aui-flex-box">
+                            运费险(卖家赠送)  <em>￥69.99</em>
+                        </div>
+                    </div> -->
+                    <div class="aui-flex aui-flex-ed">
+                        <div class="aui-flex-box" style="color:#333; font-size:15px;">
+                            订单总价<em style="color:#333">￥ {$rs.order_amount}</em>
+                        </div>
+                    </div>
+                </div>
+               <div class="aui-sign-form">
+               <div class="aui-flex" style="border:0" >
+                    <div class="aui-shop-item">
+                        <img src="__PUBLIC__/Images/logo.png" alt="">
+                    </div>
+                    <div class="aui-shop-item-arrow">请先登陆
+                    </div>
+                </div>
+				<div class="aui-flex">
+					<i class="icon icon-phone"></i>
+					<div class="aui-flex-box">
+						<input type="text" id="user_name" value="" autocomplete="off" placeholder="输入手机号码">
+					</div>
+				</div>
+				<div class="aui-flex">
+					<i class="icon icon-code"></i>
+					<div class="aui-flex-box">
+						<input type="text" id="password" value="" autocomplete="off" placeholder="输入密码">
+					</div>
+					 
+				</div> 
+				
+
+		</div>
+                
+                
+                <div class="divHeight b-line"></div>
+                <div class="aui-flex aui-flex-text-sml b-line">
+                    <div class="aui-flex-box">
+                        
+                        <p>
+                            <em>订单编号:</em>
+                             {$rs.order_no}
+                        </p>
+                        
+                        <p>
+                            <em>下单时间:</em>
+                            {$rs.add_time_str}
+                        </p>
+                    </div>
+                    
+                </div>
+               <!--  <div class="aui-confirm-flex">
+                    <a href="javascript:;" class="aui-modify-btn modify">
+                        <i class="icon icon-kf"></i>
+                        联系客服
+                    </a>
+                    <a href="javascript:;" class="aui-modify-btn delete">
+                        <i class="icon icon-dh"></i>
+                        拨打电话
+                    </a>
+                </div> -->
+                
+            </section>
+            <footer class="aui-bar-footer">
+                <div class="aui-flex">
+                    <div class="aui-flex-box">
+                        应付金额：<em>￥{$rs.order_amount}</em>
+                    </div>
+                    <div class="aui-btn-button">
+                        <button  id="btnDaifu"   >去支付</button>
+                    </div>
+                </div>
+            </footer>
+        </section>
+    </body>
+</html>
+
+	<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+					$('.ajax-b').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>

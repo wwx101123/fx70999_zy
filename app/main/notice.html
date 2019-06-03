@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>积分明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/notice.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			mui.init();
+
+			function init() {
+				//				$('.page').css('margin-top', '25px');
+				if(mui.os.ios) {
+					$('.page').css('margin-top', '0')
+				}
+			}
+
+			function check_login() {
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == null || user_id == 0) {
+					localStorage.setItem('history_url', 'test2.html');
+					location.href = 'login.html';
+				}
+			}
+		</script>
+		<script type="text/javascript " charset="utf-8 ">
+			$(function() {
+				$('#sliderSegmentedControl .mui-active').css('border-bottom', '2PX solid #f82566');
+				$('.mui-control-item1').css('text-align', 'center');
+				$('.mui-control-item1').css('width', '50%');
+				//				$('.mui-control-item1').click(function() {
+				//					$('.list').css('display', 'none');
+				//					$('.mui-control-item1').css('color', 'black');
+				//					$('.mui-control-item1').css('border-bottom', '0PX solid #f82566');
+				//					$(this).css('border-bottom', '2PX solid #f82566');
+				//					$(this).css('color', '#f82566');
+				//					$('.list:eq(' + $(this).index() + ')').css('display', 'block');
+				//				});
+
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == undefined || user_id == null || user_id == '') {
+					localStorage.setItem('history_url', 'notice.html');
+					location.href = 'login.html';
+				} else {
+					//					mui.init({
+					//						pullRefresh: {
+					//							container: '.page',
+					//							down: {
+					//								style: 'circle',
+					//								color: localStorage.getItem('color'),
+					//								auto: true,
+					//								callback: notice_list
+					//							}
+					//						}
+					//					});
+				}
+
+			});
+		</script>
+	</head>
+	<style type="text/css">
+		.mui-media {
+			font-size: 11px;
+		}
+		
+		.mui-table-view .mui-media-object {
+			max-width: initial;
+			width: 50px;
+			height: 50px;
+		}
+		
+		.meta-info {
+			position: absolute;
+			left: 115px;
+			right: 15px;
+			bottom: 8px;
+			color: #8f8f94;
+		}
+		
+		.meta-info .author,
+		.meta-info .time {
+			display: inline-block;
+		}
+		
+		.meta-info .time {
+			float: right;
+		}
+		
+		.mui-table-view:before,
+		.mui-table-view:after {
+			height: 0;
+		}
+		
+		.mui-content>.mui-table-view:first-child {
+			margin-top: 1px;
+		}
+		
+		.banner {
+			height: 180px;
+			overflow: hidden;
+			position: relative;
+			background-position: center;
+			background-color: #ccc;
+		}
+		
+		.banner img {
+			width: 100%;
+			height: auto;
+		}
+		
+		.banner .title {
+			position: absolute;
+			left: 15px;
+			bottom: 15px;
+			width: 90%;
+			font-size: 16px;
+			font-weight: 400;
+			line-height: 21px;
+			color: white;
+			z-index: 11;
+		}
+		
+		.aui-look-img {
+			width: 50px;
+			height: 50px;
+			margin-right: 20px;
+			border-radius: 5px;
+			position: relative;
+		}
+		
+		.aui-look-tag {
+			position: absolute;
+			width: 15px;
+			height: 15px;
+			right: -7px;
+			top: -3px;
+			background: #fe3916;
+			color: #fff;
+			border-radius: 100%;
+			font-size: 0.7rem;
+			text-align: center;
+			display: block;
+		}
+		
+		.aui-look-img img {
+			width: 50px;
+			height: 50px;
+			display: block;
+			border: none;
+		}
+		
+		.aui-flex-box h3 {
+			color: #333;
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+		
+		.aui-flex-box p {
+			color: #999999;
+			font-size: 13px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 1;
+		}
+		
+		.aui-flex-box {
+			-webkit-box-flex: 1;
+			-webkit-flex: 1;
+			flex: 1;
+			min-width: 0;
+			font-size: 14px;
+			color: #333;
+		}
+		
+		.tab-panel-item .aui-flex {
+			background: #fff;
+		}
+		
+		.hy-b {
+			margin-top: 0 !important;
+			font-size: 15px;
+			color: #ffffff;
+			background: #4990e2;
+			border-radius: 4px;
+			width: 50px;
+			text-align: center;
+			position: absolute;
+			right: 15px;
+		}
+	</style>
+
+	<body ontouchstart style="background: #f0efef;">
+		<div class="page mescroll" id="mescroll" style="position: absolute;
+    width: 100%;">
+
+			<div class="page__bd1" style="position: absolute;
+    width: 100%;">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<a notice_type="1" class="mui-control-item1 item mui-active" href="javascript:void(0)">
+						消息
+					</a>
+					<a notice_type="0" class="mui-control-item1 item" href="javascript:void(0)">
+						通知
+					</a>
+
+				</div>
+				<!--订单列表-->
+
+				<!--分页页码-->
+				<div class="weui-panel__bd list  detail-list">
+					<ul id="list" class="mui-table-view notice_list">
+
+						<div class="nodata">暂无记录...</div>
+					</ul>
+					<div class="tab-panel" style="margin-top:2%;">
+						<div class="tab-panel-item aui-service-box tab-active">
+
+						</div>
+
+					</div>
+				</div>
+
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+
+				<!--/底部导航-->
+			</div>
+		</DIV>
+	</body>
+	<script>
+		var project_id = localStorage.getItem('project_id');
+	</script>
+
+	<script type="text/javascript">
+		$(function() {
+			localStorage.setItem('notice_type', 1)
+			var _video = document.getElementById("h5video");
+			$("#poster").click(function() {
+				$(this).hide();
+				_video.play();
+			});
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					notice_list(pageNum, pageSize, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+			window.addEventListener('update_notice_list', function(e) {
+
+				mescroll.resetUpScroll();
+
+			});
+
+			function setListData(data) {
+				info = JSON.parse(data);
+				info = info.data;
+				var IP = localStorage.getItem('IP');
+
+				$('.aui-service-box a').remove();
+
+				if(info == null) {
+					$('.nodata').css('display', 'block');
+
+				}
+				if(info != null) {
+					$('.nodata').css('display', 'none');
+					var item = '';
+					$.each(info, function(index, content) {
+						var style = '';
+						if(content.is_read == 0) {
+
+							style = 'style="background:red;color:white"';
+						}
+						item += '<a href="javascript:;" class="aui-flex b-line detail" id="' + content.id + '">';
+						item += ' <div class="aui-look-img">';
+						item += '   <img src="../images/logo.png" alt="">';
+						item += ' </div><span class="hy-b fR" ' + style + '>   ' + content.is_read_str + '		</span>';
+						item += ' <div class="aui-flex-box">';
+						item += '    <h3>' + content.title + '</h3>';
+						item += ' <p>' + content.addtime_str + '</p>';
+						item += '</div>';
+						item += '  </a>';
+
+					});
+					$('.aui-service-box').append(item);
+				}
+				$('.aui-service-box .detail').click(function() {
+					localStorage.setItem('notice_id', $(this).attr('id'))
+					openWindowWithTitle('公告详情', 'notice_show.html')
+				})
+				$('.mui-control-item1').click(function() {
+					$('#sliderSegmentedControl a').removeClass('mui-active')
+					var type = $(this).attr('notice_type')
+
+					localStorage.setItem('notice_type', type);
+					mescroll.resetUpScroll();
+
+					$('#sliderSegmentedControl').css('display', 'flex');
+					$('.ranking-view').css('display', 'none');
+					$('.mui-control-item1').css('color', 'black');
+					$('.mui-control-item1').css('border-bottom', '');
+					$(this).css('border-bottom', '2PX solid #f82566');
+					$(this).css('color', '#f82566');
+					$('.ranking-view:eq(' + $(this).index() + ')').css('display', 'block');
+
+				});
+			}
+		});
+	</script>
+
+</html>

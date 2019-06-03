@@ -1,0 +1,186 @@
+<extend name="Public:header" />
+
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.caiwu').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #caiwu').css('display', 'block')
+		$('.sidebar #profitflows_manager').addClass('current')
+		$(".excel").on('click', function() {
+			 $('.form').attr('action',"{:U('YouZi/profitflows_manager',array('is_excel'=>1))}")
+		});
+		$(".query").on('click', function() {
+			 $('.form').attr('action',"{:U('YouZi/profitflows_manager')}")
+		});
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>补贴明细</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-12">
+					<form class="form-inline title-form form" name="form2" method="post"
+						action="{:U('YouZi/profitflows_manager')}">
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="username" name="username"
+								placeholder="输入盟友查询" value="{$UserID}">
+						</div>
+						 
+						<div class="form-group" id="data_5">
+							<label class="font-noraml"></label>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="form-control" name="time1" id="time1"
+									placeholder="开始日期" value="{$S_Date}"> <span
+									class="input-group-addon">到</span> <input type="text"
+									class="form-control" name="time2" id="time2" placeholder="截止日期"
+									value="{$E_Date}">
+							</div>
+						</div>
+						<div class="form-group" style="display: none">
+							<label class="font-noraml"></label> <select name="memo"
+								class="form-control">
+								<option value="">请选择</option>
+								<option value="1"<eq name="ry" value="1">selected</eq>>{$fee_s7[0]}
+								</option>
+								<option value="2"<eq name="ry" value="2">selected</eq>>{$fee_s7[1]}
+								</option>
+								<option value="3"<eq name="ry" value="3">selected</eq>>{$fee_s7[2]}
+								</option>
+								<option value="4"<eq name="ry" value="4">selected</eq>>{$fee_s7[3]}
+								</option>
+								<option value="5"<eq name="ry" value="5">selected</eq>>{$fee_s7[4]}
+								</option>
+								<option value="21"<eq name="ry" value="21">selected</eq>>会员充值
+								</option>
+								<option value="22"<eq name="ry" value="22">selected</eq>>激活积分转出
+								</option>
+								<option value="23"<eq name="ry" value="23">selected</eq>>注册积分转出
+								</option>
+								<option value="20"<eq name="ry" value="20">selected</eq>>转换
+								</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary query">查询</button>
+
+					 
+						<button type="submit" class="btn btn-primary excel">excel下载</button>
+					 
+						<a style="margin-right: 20px" href="javascript:void(0)"
+				class="btn btn-primary pull-right">总交易量:{$all_trade_money}</a> 
+					
+					</form>
+					
+					<script type="text/javascript">
+						layui.use('laydate', function() {
+							var laydate = layui.laydate;
+							var start = {
+								// min: laydate.now(-2)
+								max : '2099-06-16 23:59:59',
+								istoday : false,
+								choose : function(datas) {
+									end.min = datas; //开始日选好后，重置结束日的最小日期
+									end.start = datas //将结束日的初始值设定为开始日
+								}
+							};
+
+							var end = {
+								min : laydate.now(),
+								max : '2099-06-16 23:59:59',
+								istoday : false,
+								choose : function(datas) {
+									start.max = datas; //结束日选好后，重置开始日的最大日期
+								}
+							};
+
+							$('#time1').on('click', function() {
+								start.elem = this;
+								laydate(start);
+							});
+							$('#time2').on('click', function() {
+								end.elem = this
+								laydate(end);
+							});
+						});
+					</script>
+				</div>
+			</div>
+			<div class="tablesaw-bar mode-stack"></div>
+			<table class="table table-hover tablesaw-stack"
+				data-tablesaw-mode="stack" id="table-7689">
+
+				<thead>
+					<tr>
+						<th style="width:10%">用户名</th>
+						<th style="width:5%">姓名</th> 
+						<th style="width:5%">等级</th> 
+						<th style="width:8%">推荐人</th> 
+						<th style="width:10%">所属股东</th> 
+						<th style="width:10%">直营交易量</th> 
+						<th style="width:10%">直营固定万5</th> 
+						<th style="width:10%">盟友交易量</th> 
+						<th style="width:10%">盟友交易量分润</th> 
+						<th style="width:10%">团队交易量</th> 
+						<th style="width:10%">团队交易量分润</th> 
+						<th style="width:8%">所得分润</th> 
+					</tr>
+				</thead>
+
+				<tbody>
+					<volist name="list" id="vo">
+					<tr>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['user_id']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['user_name']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['u_level_str']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['re_name']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['shop_name']}({$vo['shop_user_name']})</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['本人直营交易量']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['本人直营交易量万5']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['盟友团队交易量']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['盟友团队交易量分润']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['本人团队交易量']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['本人团队交易量分润']}</span></td>
+						<td><b class="tablesaw-cell-label">用户账号</b><span
+							class="tablesaw-cell-content">{$vo['所得分润']}</span></td>
+						<!-- <td><b class="tablesaw-cell-label">摘要</b><span class="tablesaw-cell-content">奖金</span></td> -->
+						 
+						 
+					</tr>
+					</volist>
+				</tbody>
+
+			</table>
+			{$page}
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(".Inquire-table2 tbody tr").addClass("odd");
+		// console.log($('.page a').attr('href'));
+		$(document).ready(function() {
+			$('.page a').each(function(eml) {
+				$(this).attr('href', $(this).attr('href') + "&memo={$ry}");
+			});
+		});
+	</script>
+</div>
+</block>

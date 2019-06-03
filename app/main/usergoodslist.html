@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>我的商家订单 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" /> 
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/list.min_622df213.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				//				$('#sliderSegmentedControl').css('margin-top', $('.header').height())
+
+			});
+			window.addEventListener('update_trade_order_list', function(e) {
+
+				get_user_trade_order(1);
+
+			});
+		</script>
+		<style>
+			.mescroll {
+				position: fixed;
+				top: 0px;
+				bottom: 0;
+				height: auto;
+				overflow-x: hidden;
+				/*如设置bottom:50px,则需height:auto才能生效*/
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				position: fixed;
+				bottom: auto;
+				background: white;
+				width: 100%;
+				top: 0;
+				z-index: 1;
+			}
+			
+			.weui-cell:before {
+				border-top: 0PX;
+			}
+			
+			.time-item {
+				float: left;
+				margin-top: 3px;
+			}
+			
+			.time-item strong {
+				background: #ef1544;
+				color: #fff;
+				/* line-height: 49px; */
+				font-size: 15px;
+				font-family: Arial;
+				padding: 0 5px;
+				margin-right: 2px;
+				float: left;
+				border-radius: 5px;
+				box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+			}
+			/*#day_show {
+				float: left;
+				line-height: 49px;
+				color: #c71c60;
+				font-size: 32px;
+				margin: 0 10px;
+				font-family: Arial, Helvetica, sans-serif;
+			}*/
+			
+			.item-title .unit {
+				background: none;
+				line-height: 49px;
+				font-size: 24px;
+				padding: 0 10px;
+				float: left;
+			}
+		</style>
+		<style>
+			.images {
+				background: white;
+				width: 100%;
+				height: 70px;
+			}
+			
+			.images .item {
+				float: left;
+				height: 70px;
+				width: 50%;
+				text-align: center;
+			}
+			
+			.images img {
+				HEIGHT: 70px;
+			}
+			
+			.zfb {
+				width: 50%;
+				float: left;
+				text-align: center;
+				background: white;
+				font-size: 10px;
+			}
+			
+			.wx {
+				width: 50%;
+				float: left;
+				text-align: center;
+				background: white;
+				font-size: 10px;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f5f5f5;">
+		<div class="page " id="">
+
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<div class="weui-gallery gallery" id="gallery">
+					<span class="weui-gallery__img galleryImg" id="galleryImg"></span>
+					<div class="weui-gallery__opr">
+						<a href="javascript:" rel="external nofollow" class="weui-gallery__del">
+							<i class="weui-icon-delete weui-icon_gallery-delete"></i>
+						</a>
+					</div>
+				</div> 
+				<!--订单列表-->
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+
+					<a type="1" check_status="-1" class="mui-control-item1 item mui-active" style="border-bottom:2PX solid #f82566" href="javascript:void(0)">
+						全部
+					</a>
+
+					<a type="2" check_status="1" class="mui-control-item1 item" href="javascript:void(0)">
+						待审核
+					</a>
+					<a type="3" check_status="0" class="mui-control-item1 item" href="javascript:void(0)">
+						已审核
+					</a>
+					<a type="4" check_status="2" class="mui-control-item1 item" href="javascript:void(0)">
+						审核不通过
+					</a>
+
+					<!--
+					<a type="6" class="mui-control-item1 item" href="javascript:void(0)">
+						被投诉
+					</a>
+					<a type="7" class="mui-control-item1 item" href="javascript:void(0)">
+						已取消
+					</a>-->
+				</div>
+
+				<div class="detail-list mescroll" id="mescroll">
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata" style="display: none;">暂无记录...</div>
+
+					</ul>
+				</div>
+
+				<!--分页页码-->
+				<div class="order-list">
+					<div class="my_order" style="">
+						<div id="cont1" class="contJs">
+
+						</div>
+
+					</div>
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--/订单列表-->
+			</div>
+
+			<!--版权信息-->
+			<!--/版权信息-->
+
+			<!--底部导航-->
+
+			<!--/底部导航-->
+		</div>
+	</body>
+	<script type="text/javascript">
+		var mescroll;
+		$(function() {
+			$('.mui-control-item1').css('width', '25%');
+			//			localStorage.setItem('order_select_type',1);
+
+			//			$('.page__bd').css('padding-top', 0)
+
+			var order_select_type = localStorage.getItem('order_select_type');
+			localStorage.setItem('category_id', 0)
+			$('.mescroll').css('top', $('#sliderSegmentedControl').height());
+			//			$('.detail-list').css('margin-top', $('#sliderSegmentedControl').height() + 10);
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+			$('.mui-control-item1').click(function() {
+
+				$('#sliderSegmentedControl a').removeClass('mui-active')
+				var type = $(this).attr('type')
+				var check_status = $(this).attr('check_status')
+				localStorage.setItem('order_select_type', type);
+				localStorage.setItem('check_status', check_status);
+
+				$('.mui-control-item1').css('color', 'black');
+				$('.mui-control-item1').css('border-bottom', '');
+				$(this).css('border-bottom', '2PX solid #f82566');
+				$(this).css('color', '#f82566');
+				$(this).addClass('mui-active')
+
+				mescroll.resetUpScroll();
+
+			});
+			$('.mui-control-item1:eq(' + (order_select_type - 1) + ')').trigger('click')
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					//					console.log(category_id)
+					get_my_goods_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 1;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//					localStorage.setItem('ListData','');
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.resetUpScroll();
+					var curPageData = localStorage.getItem('ListData');
+					console.log(JSON.parse(curPageData))
+					//					console.log(curPageData)
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				var IP = localStorage.getItem('IP');
+				var type = localStorage.getItem('order_select_type');
+				console.log(data)
+				info = JSON.parse(data);
+				var category_list = info.category_list;
+
+				var status = info.status;
+				if(status == 1) {
+					var info = info.data;
+					$('.detail-list ul li').remove()
+
+					if(info == null) {
+						$('.nodata').css('display', 'block');
+
+					}
+					if(info != null) {
+						$('.nodata').css('display', 'none');
+						$.each(info, function(index, content) {
+
+							var item = '<li><div class="order_box removeJs aui-pattern view_goods_detail"  id="' + content.id + '" >';
+
+							item += '	<div class="detail-bd " id="' + content.id + '">';
+							item += '	<a  href="javascript:void(0);" class="order_shopBar view_trade_detail"  payment="' + content.payment + '"    id="' + content.id + '"    name="' + content.shop_name + '"   ><img class="shop_logo" src="' + IP + '/' + content.category_logo + '" style="width:20px"><span>' + content.category + '</span><span style="float: right;" >' + content.status_str + '</span> </a>';
+
+							item += '	<div class="list-box view_trade_detail" id="' + content.id + '" payment="' + content.payment + '" >';
+							item += '		<div class="img-box">';
+							console.log(content.img)
+							item += '		<img src="' + IP+content.img + ' " />';
+							item += '		</div>';
+							item += '	<div class="txt-box">';
+							item += '		<h2>' + content.title + '</h2>';
+							item += '		<p class="note" style="height:50px;line-height:50px" >';
+							item += '			<span class="fr"></span>';
+							//							if(type == 5) {
+							//								item += '			<span class="price"> ' + content.tousu_money + '元</span>';
+							//							} else {
+							item += '			<span class="price"> ¥' + content.price + '(' + content.stock + '件)</span>';
+							//							} 
+							item += '		</p>';
+							item += '	</div>';
+							item += '	</div>';
+							item += '	<div class="order_head view_trade_detail" id="' + content.id + '" payment="' + content.payment + '" >';
+							//							item += '		<a ordertype="22" target_href="//wqs.jd.com/order/n_detail_v2.shtml?ufc=35b42d1ec4be297e18463d1f148eb2bb&amp;deal_id=72858227959&amp;isoldpin=0&amp;sceneval=2" page="3" class="oh_content">';
+							//							item += '		<p class="pState"><span>助力人数:' + content.trade_num + '</p>';
+							//							//							item += '	<p><span>金<i></i>额：</span><em class="co_red">¥' + content.price + '</em></p>';
+							//							item += '		</a>';
+
+							item += '		<a href="javascript:;" class="oh_btn bg_2" id="evaluate_72858227959" dealid="72858227959" style="display:none;" page="3" ptag="7129.2.2">去评价</a>';
+							item += '		<a href="javascript:;" class="oh_btn bg_1" id="share_72858227959" style="display:none;" dealid="72858227959" page="3">分享赚积分</a>';
+							item += '		</div>';
+							  
+							if(content.payment_trade_num > 0) {
+								item += '	<div class="order_box_hd" page="3"><span class="order_box_hd_label"> </span>  ';
+								item += '	<i class=" removeItemJs order_head view_trade_detail"  payment="' + content.payment + '" style="FLOAT: RIGHT;"    id="' + content.id + '"   >	<a href="javascript:void(0)"   class="oh_btn toPay"  style="top: 10px;"      >付款</a></i>';
+
+								item += '	</div>	';
+							}
+
+							 
+							item += '	</div></li>';
+
+							$('.detail-list ul').append(item);
+
+						});
+						$(".view_goods_detail").on('click', function() {
+							localStorage.setItem('goods_id', $(this).attr('id'));
+							 
+								openWindowWithTitle('商品详情', 'create.html')
+							 
+						});
+						$('.trade_reamin_time').each(function() {
+							console.log($(this).attr('remain_money_time'))
+							trade_timer($(this).attr('remain_money_time'), this)
+						});
+						$('.remain_tiqu_award_time').each(function() {
+							console.log($(this).attr('remain_tiqu_award_time'))
+							trade_timer($(this).attr('remain_tiqu_award_time'), this)
+						});
+					}
+				}
+
+			}
+
+		});
+		window.addEventListener('update_trade_list', function(e) {
+			var is_upload_trade_img = localStorage.getItem('is_upload_trade_img');
+			if(is_upload_trade_img == 1) {
+
+				mescroll.resetUpScroll();
+			}
+			localStorage.setItem('is_upload_trade_img', 0);
+		});
+		var trade_interval;
+		var intDiff = parseInt(60); //倒计时总秒数量
+		function trade_timer(intDiff, obj) {
+			goods_interval = setInterval(function() {
+				var day = 0,
+					hour = 0,
+					minute = 0,
+					second = 0; //时间默认值        
+				if(intDiff > 0) {
+					day = Math.floor(intDiff / (60 * 60 * 24));
+					hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+					minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+					second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+				}
+				if(hour <= 9) hour = '0' + hour;
+				if(minute <= 9) minute = '0' + minute;
+				if(second <= 9) second = '0' + second;
+
+				if(intDiff == 0) {
+					$(obj).find('#day_show').css("display", 'none');
+					$(obj).find('#hour_show').css("display", 'none');
+					$(obj).find('#minute_show').css("display", 'none');
+					$(obj).find('#second_show').html('');
+					clearInterval(goods_interval);
+					location.reload()
+					//					check_order($(obj).find('.time-item').attr('order_id'), $(obj).find('.time-item').attr('goods_id'));
+
+				} else {
+					$(obj).find('#day_show').html(day + "天");
+					$(obj).find('#hour_show').html('<s id="h"></s>' + hour + '时');
+					$(obj).find('#minute_show').html('<s></s>' + minute + '分');
+					$(obj).find('#second_show').html('<s></s>' + second + '秒');
+				}
+
+				intDiff--;
+			}, 1000);
+
+			var timer = setInterval(goods_interval, 1000);
+		}
+		//打开规格选择窗口
+		function showActionSheet(actiontype, express, express_no, express_time, user_name, trade_id, payment) {
+
+			var goods_id = localStorage.getItem('goods_id');
+			$('.express_no').html(express_no)
+			$('.express').html(express)
+			$('.express_time_str').html(express_time)
+			$('.user_name').html(user_name)
+			if(payment == 1) {
+
+				$('.seller_txt').html('收货人')
+			}
+			//显示窗口
+			$('#specActionsheet').addClass('weui-actionsheet_toggle');
+			$('#specMask').fadeIn(200);
+			//添加隐藏事件
+			$('#specMask').on('click', hideActionSheet);
+			$('#specActionsheetCancel').on('click', hideActionSheet);
+			//判断是选择规格|立即购买|加入购物车
+			$('#confirmButton').unbind("click"); //移除事件
+			$('#confirmButton').attr("trade_id", trade_id);
+
+			if(actiontype == "shoukuan") {
+				$('#confirmButton').on('click', function() {
+
+					hideActionSheet();
+
+				});
+
+			} else if(actiontype == "sell") { //加入购物车
+
+			}
+		}
+
+		//隐藏规格选择窗口
+		function hideActionSheet() {
+			$('#specActionsheet').removeClass('weui-actionsheet_toggle');
+			$('#specMask').fadeOut(200);
+		}
+	</script>
+	<!--规格容器-->
+	<div>
+		<div class="weui-mask" id="specMask" style="display:none"></div>
+		<div class="weui-actionsheet spec-wrap" id="specActionsheet">
+			<div id="specActionsheetCancel" class="close">
+				<i class="iconfont icon-close"></i>
+			</div>
+			<div id="goodsSpecBox" class="spec-box">
+				<dl class="payment">
+					<dt>发货信息</dt>
+					<dd>
+						<!--规格选项-->
+
+						<!--/规格选项-->
+					</dd>
+				</dl>
+				<div class="btn-box">
+					<dt class="seller_txt">销售方</dt>
+					<dd class="user_name">
+
+					</dd>
+
+				</div>
+				<div class="btn-box">
+					<dt>发货时间<span></span></dt>
+					<dd class="express_time_str">
+
+					</dd>
+
+				</div>
+
+				<div class="btn-box">
+					<dt>快递公司<span></span></dt>
+					<dd class="express">
+
+					</dd>
+
+				</div>
+				<div class="btn-box">
+					<dt>快递编号<span></span></dt>
+					<dd class="express_no">
+
+					</dd>
+
+				</div>
+			</div>
+
+			<div class="weui-actionsheet__action">
+				<button id="confirmButton" class="weui-actionsheet__cell ">确定</button>
+			</div>
+		</div>
+	</div>
+	<!--规格容器-->
+
+</html>

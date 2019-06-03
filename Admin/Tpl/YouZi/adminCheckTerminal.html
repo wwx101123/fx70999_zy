@@ -1,0 +1,247 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>订单管理管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>订单管理管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.adminTerminal').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #adminTerminal').css('display', 'block')
+		$('.sidebar #adminCheckTerminal{$type}').addClass('current')
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script> <script
+	type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script> <script
+	type="text/javascript">
+		<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+		<script src="__PUBLIC__/Adm/js/laymain.js">
+	</script> <script
+	type="text/javascript">
+	
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>终端列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<div class="row wrapper border-bottom white-bg page-heading">
+				<div class="col-sm-12">
+					<form class="form-inline title-form" name="qfrm" method="get"
+						action="?action=query">
+						<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="username" name="username"
+								placeholder="用户账号或姓名查询" value="{$username}">
+						</div>
+
+<div class="form-group">
+							<label for="username"></label> <input type="text"
+								class="form-control" id="sn" name="sn"
+								placeholder="SN查询" value="{$sn}">
+						</div>
+						<div class="form-group" id="data_5">
+							<label class="font-noraml"></label>
+							<div class="input-daterange input-group" id="datepicker">
+								<input type="text" class="form-control" name="time1"
+									placeholder="提交日期" value="{$S_Date}" id="time1">
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary">查询</button>
+				<a href="{:U('User/init_out_data')}" class="btn btn-primary">下发记录初始化</a>
+					</form>
+				</div>
+			</div>
+			<script type="text/javascript">
+				layui.use('laydate', function() {
+					var laydate = layui.laydate;
+					var start = {
+						// min: laydate.now(-2)
+						max : '2099-06-16 23:59:59',
+						istoday : false,
+						choose : function(datas) {
+							end.min = datas; //开始日选好后，重置结束日的最小日期
+							end.start = datas //将结束日的初始值设定为开始日
+						}
+					};
+
+					var end = {
+						min : laydate.now(),
+						max : '2099-06-16 23:59:59',
+						istoday : false,
+						choose : function(datas) {
+							start.max = datas; //结束日选好后，重置开始日的最大日期
+						}
+					};
+
+					$('#time1').on('click', function() {
+						start.elem = this;
+						laydate(start);
+					});
+					$('#time2').on('click', function() {
+						end.elem = this
+						laydate(end);
+					});
+				});
+
+				function view_content(content) {
+					var winDialog = dialog({
+						title : 'SN编号',
+						content : content,
+						okValue : '确定',
+						ok : function() {
+
+							return true;
+						},
+						cancelValue : '取消',
+						cancel : function() {
+						}
+					}).showModal();
+				}
+			</script>
+			<!-- <a href="{:U('Goods/orderDaoChu_MM')}" class="btn btn-primary">导出Excel</a> -->
+			<div class="table-container">
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					class="ltable table table-hover tablesaw-stack">
+					<thead>
+						<tr>
+
+							<th>SN</th>
+
+							<lt  name="type" value="3">
+
+
+							<th>下发者</th>
+							</lt>
+							<gt name="type" value="2">
+
+
+							<th>拥有者</th>
+							</gt>
+
+							<lt name="type" value="3">
+
+
+							<th>接收者</th>
+							</lt>
+							<gt name="type" value="2">
+
+
+							<th>回收者</th>
+							</gt>
+							<th>状态</th>
+							<th>提交时间</th>
+							<lt name="type" value="3">
+
+
+							<th>操作</th>
+							</lt>
+							<eq name="type" value="4">
+
+
+							<th>操作</th>
+							</eq>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="vo">
+						<tr>
+
+									<td>{$vo.sn}</td>
+							<!-- <td><font color="green"> <a
+									class="btn  btn-info"
+									href="javascript:void(0)" onclick="view_content('{$vo.sn}')">查看</a></font></td> -->
+							<td>{$vo.user_id}({$vo.user_name})</td>
+							<td>{$vo.use_user_id}({$vo.use_user_name})</td>
+
+
+							<td>{$vo.status_str}</td>
+							<td>{$vo.addtime_str}</td>
+							<lt name="type" value="3">
+							<td><eq name="vo.status" value="1"> <a info="确定审核通过？"
+									class="ajax-a"
+									href="{:U('YouZi/checkTerminal')}?action=check&amp;id={$vo.id}">审核通过</a>
+								<a info="确定审核不通过？" class="ajax-a"
+									href="{:U('YouZi/checkTerminal')}?action=rejuse&amp;id={$vo.id}">审核不通过</a>
+								</eq></td>
+							</lt>
+							<eq name="type" value="4">
+							<td><eq name="vo.status" value="1"> <a info="确定审核通过？"
+									class="ajax-a"
+									href="{:U('YouZi/checkTerminal')}?action=check&amp;id={$vo.id}">审核通过</a>
+								<a info="确定审核不通过？" class="ajax-a"
+									href="{:U('YouZi/checkTerminal')}?action=rejuse&amp;id={$vo.id}">审核不通过</a>
+								</eq></td>
+							</eq>
+						</tr>
+
+						</foreach>
+					</tbody>
+				</table>
+
+			</div>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

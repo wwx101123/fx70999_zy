@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>收货地址 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+
+				$(".add").on('click', function() {
+					localStorage.setItem('address_id', 0);
+					location.href = 'useraddress_edit.html'
+				})
+				plus.webview.currentWebview().setStyle({
+					titleNView: {
+						'titletext': '收货地址',
+						'titlecolor': '#FFFFFF',
+						buttons: [{
+							text: '新增',
+							"fontSize": "15px",
+							fontSrc: 'fonts/mui.ttf',
+							float: 'right', //按钮不像绘制的方法，是不能用position绝对定位的，只能左右浮动
+							onclick: add_address //按钮有个好处可以直接绑定事件，如果没有事件，跟绘制没有差别了。
+						}]
+					}
+				});
+			});
+
+			function add_address() {
+				localStorage.setItem('address_id', 0);
+				openWindowWithTitle('新增收货地址', 'useraddress_edit.html')
+
+			}
+		</script>
+		<style>
+			.pay_type h3:after {
+				background: none;
+			}
+			
+			#noSelectPage:after {
+				background: none;
+			}
+			
+			.noChoose:before {
+				display: none;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			.sub_list li:after {
+				display: none;
+			}
+			
+			.qq_footer,
+			.wx_footer {
+				display: none;
+			}
+		</style>
+		<script type="text/javascript">
+			function ExecPostBack(checkValue) {
+				if(arguments.length == 1) {
+					ExecDelete('user_address_delete', checkValue, '#turl');
+				} else {
+					var valueArr = '';
+					$("input[name='checkId']:checked").each(function(i) {
+						valueArr += $(this).val();
+						if(i < $("input[name='checkId']:checked").length - 1) {
+							valueArr += ","
+						}
+					});
+					ExecDelete('user_address_delete', valueArr, '#turl');
+				}
+			}
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="display: none;">
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>收货地址簿</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link add" href="javascript:;">
+						<i class="iconfont icon-edit"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<div class="address_list">
+
+				</div>
+				<!--收货地址列表-->
+				<div class="detail-list" style="">
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata" style="display: none;">暂无记录...</div>
+
+					</ul>
+
+				</div>
+
+				<!--分页页码-->
+				<div class="page-list">
+
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--/收货地址列表-->
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		init()
+
+		function init() {
+			mui.init({
+				pullRefresh: {
+					container: '.page__bd',
+					down: {
+						style: 'circle',
+						color: localStorage.getItem('color'),
+						auto: true,
+						callback: down
+					}
+				}
+			});
+
+		}
+
+		function down() {
+			get_user_addr_book_list();
+			mui('.page__bd').pullRefresh().endPulldown();
+		}
+		window.addEventListener('update_user_addr_book_list', function(e) {
+			var set_address = localStorage.getItem('set_address');
+			if(set_address == 1) {
+				mui('.page__bd').pullRefresh().pulldownLoading();
+				console.log(2222)
+			}
+		});
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_addr_book_list');
+
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		mui('.mui-switch').each(function() { //循环所有toggle
+			//toggle.classList.contains('mui-active') 可识别该toggle的开关状态
+
+			/**
+			 * toggle 事件监听
+			 */
+			this.addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+
+				$('#is_default').val((event.detail.isActive) ? '1' : '0');
+				//mui.toast($('#is_default').val())
+			});
+		});
+	</script>
+
+</html>

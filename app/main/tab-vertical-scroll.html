@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/home.css">
+		<link rel="stylesheet" href="../css/packages-a4c6abcf.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.109bca465a.css" />
+		<link rel="stylesheet" type="text/css" href="../css/gomeplusUI.css" />
+		<style>
+			.mui-row.mui-fullscreen>[class*="mui-col-"] {
+				height: 100%;
+			}
+			
+			.mui-col-xs-3,
+			.mui-col-xs-9 {
+				overflow-y: auto;
+				height: 100%;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 50px;
+				width: 100%;
+			}
+			
+			.mui-control-content {
+				display: block;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				background-color: #fff;
+			}
+		</style>
+
+		<style type="text/css">
+			.search {
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				z-index: 11000000000;
+				position: fixed
+			}
+			
+			.search header {
+				left: 0;
+				right: 0;
+				padding-top: 0px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				position: relative;
+				border-bottom: 0px solid #e0e0e0;
+				background: #c8111d;
+			}
+			
+			.search a {
+				color: #fff;
+				text-align: left;
+				font-size: 15px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				display: flex;
+				display: -webkit-flex;
+				-ms-flex-align: center;
+				align-items: center;
+				-ms-flex-pack: center;
+				justify-content: center
+			}
+			
+			.search a span {
+				margin-left: 10px
+			}
+			
+			.search a.message {
+				position: relative;
+				text-align: right
+			}
+			
+			.message span {
+				background: red;
+				display: block;
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				top: .3rem;
+				right: -.2rem;
+				border-radius: 9999px;
+				border: 1px solid hsla(0, 0%, 100%, .8)
+			}
+			
+			.search .iconfont {
+				font-size: 1.7rem
+			}
+			
+			.search .icon-down-arrow {
+				font-size: .9rem;
+				margin-left: .18rem;
+				font-weight: 700
+			}
+			
+			.search .input .icon-search {
+				font-size: 20px;
+				margin-right: 10px;
+			}
+			
+			.search .input a,
+			.search .mask {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0
+			}
+			
+			.search .mask {
+				z-index: -1;
+				background: linear-gradient(180deg, rgba(0, 0, 0, .8) 0, transparent)
+			}
+			
+			body {
+				padding-top: 0px;
+				background: transparent;
+				position: relative;
+			}
+			
+			.sao {
+				position: absolute;
+				left: 10px;
+				bottom: 2px;
+				color: white;
+				font-size: 35px;
+			}
+			
+			.biao {
+				width: 12PX;
+				margin-top: 3px;
+				float: left;
+			}
+			
+			.mui-control-item img {
+				width: 20px;
+				height: 20px;
+				float: left;
+				margin-top: 15px;
+				margin-right: 5px;
+				margin-left: 5px;
+			}
+			
+			.mui-control-item span {
+				float: left;
+				font-size: 12px;
+			}
+			
+			.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+				color: #c8111d;
+			}
+			
+			.mui-row.mui-fullscreen>[class*="mui-col-"] {
+				height: 100%;
+			}
+			
+			.aui-layout {
+				position: relative;
+				overflow: hidden;
+				padding-top: 10px
+			}
+			
+			.aui-layout-item {
+				width: 33%;
+				float: left;
+				position: relative;
+				z-index: 0;
+				padding-top: 10px;
+				font-size: 0.85rem;
+				text-align: center;
+				color: #71777d;
+			}
+			
+			.aui-layout-icon {
+				width: 45px;
+				height: 45px;
+				margin: 0 auto;
+			}
+			
+			.aui-layout-icon img {
+				width: 45px;
+				height: 45px;
+				display: block;
+				border: none;
+			}
+			
+			.aui-layout-text {
+				color: #2b333b;
+				font-size: 12px;
+				padding-top: 0.2rem;
+			}
+			
+			.aui-fiance-ad {
+				width: 100%;
+			}
+			
+			.aui-fiance-ad img {
+				width: 100%;
+				height: auto;
+				display: block;
+				border: none;
+			}
+			
+			.aui-flex-box h1 {
+				color: #c8111d;
+				font-size: 19px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="search">
+			<header style="background-color: #c8111d;">
+
+				<section class="input search_section" style="color: rgb(255, 255, 255);">
+					<a href="javacript:void(0);"></a> <i class="mui-icon mui-icon-search"></i>搜索商品或图片
+				</section>
+
+				<a class="message" href="javacript:void(0);" style="color: rgb(255, 255, 255);"><i class="iconfont icon-message"></i></a>
+			</header>
+			<div class="mask "></div>
+		</div>
+		<div class="mui-content mui-row mui-fullscreen" style="margin-top:40px;background-color:#efeff4">
+			<div class="mui-col-xs-3">
+				<div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+
+				</div>
+			</div>
+			<div id="segmentedControlContents" class="mui-col-xs-9" style="border-left: 0px solid #c8c7cc;background: white;">
+				
+			</div>
+		</div>
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/goods.js"></script>
+		<script>
+			init_exit_view();
+
+			var StatusbarHeight = localStorage.getItem('StatusbarHeight')
+			document.addEventListener('plusready', function() {
+				localStorage.setItem('StatusbarHeight', plus.navigator.getStatusbarHeight())
+				var head_height = localStorage.getItem('head_height')
+				console.log(StatusbarHeight)
+				$('header').css('height', parseFloat(StatusbarHeight) + parseFloat(head_height))
+				$(".search").on('click', function() {
+
+					openWindowWithTitle('搜索', 'search.html')
+				})
+				$(".search_section").css('padding', 10)
+				$(".search_section").css('margin-top', parseFloat(StatusbarHeight) + 10)
+
+			}, false);
+			$('.mui-fullscreen').css('margin-top', parseFloat($('header').height()) + parseFloat(StatusbarHeight) + 20)
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			var controls = document.getElementById("segmentedControls");
+			var contents = document.getElementById("segmentedControlContents");
+
+			get_category_list(100000, setListData);
+
+			function setListData(data) {
+				console.log(data)
+
+				var status = data.status;
+				if(status == 1) {
+					info = data.data;
+					$('#segmentedControls a').remove();
+					var indexx = 0;
+					$('#segmentedControlContents  .mui-control-content').remove();
+					$('#segmentedControlContents  div').remove();
+					$.each(info, function(index, content) {
+
+						var active = '';
+
+						if(index == 0) {
+
+						}
+						var length = $('.curr').length;
+
+						if(content.parent_id == 0) {
+							if(indexx == 0) {
+								active = 'mui-active';
+							}
+							var item = '<a class="mui-control-item ' + active + '" data-index="' + (indexx) + '" href="#content' + (indexx + 1) + '">';
+							item += '<img   src="' + IP + content.img_url + '">';
+							item += '<span>' + content.title + '</span></a>';
+
+							$('#segmentedControls').append(item);
+
+							var item1 = ('<div id="content' + (indexx + 1) + '" class="mui-control-content"><ul class="mui-table-view">');
+//							$.each(content.goods, function(index1, content1) {
+//
+//								//								item1 += ' <li class="mui-table-view-cell">' + content1.title + '</li>';
+//								item1 += '<a href="javascript:;" class="aui-list-theme-item goods_item"  id="' + content1.id + '" name="' + content1.title + '" >';
+//								item1 += '<div class="aui-list-img"> <img class="img" src="' + IP + content1.img + '" alt=""> </div>';
+//								item1 += '<div class="aui-list-title">';
+//								item1 += '	<h3>' + content1.title + '</h3>';
+//								item1 += '<!--<div class="aui-flex">';
+//								item1 += '	<div class="aui-flex-box"> <span>￥56.00</span></div>';
+//								item1 += '	<div class="aui-list-right"> <span>  </span></div>';
+//								item1 += '</div>-->';
+//								item1 += '<div class="aui-flex aui-flex-pic" style="margin-top:10px" >';
+//								item1 += '	<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_biao.png" /> <span>' + content1.price + '</span><span style="color:#de614f;opacity: 0.5;">0</span> </div>';
+//								item1 += '<div class="aui-list-right">';
+//								//								item1 += '	<span>￥' + content1.agent_bi + '</span>';
+//								item1 += '</div>';
+//								item1 += '</div>';
+//								item1 += '<div class="aui-flex aui-flex-pic">';
+//								item1 += '<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_zun.png" /> <span style="color:#ffb909">' + content1.agent_use + '</span><span style="color:#ab9b72;opacity: 0.5;">0</span> </div>';
+//								item1 += '<div class="aui-list-right">';
+//								//								item1 += '	<p>月销:' + content1.sell_count + '</p>';
+//								item1 += '</div>';
+//								item1 += '</div>';
+//								item1 += '</div>';
+//								item1 += '	</a>';
+//							});
+//							item1 += ('</ul></div>');
+							var item1 = '<div class="mui-control-content "  id="content' + (indexx + 1) + '" ><div class="aui-flex" style="padding-bottom:0">';
+							item1 += '  <div class="aui-flex-box">';
+							item1 += ' <h1>'+content.title+'</h1>';
+							item1 += '  </div>';
+							item1 += ' <div class="aui-arrow main_item"  main_title="'+content.title+'"  category_id="'+content.id+'"  >';
+							item1 += '  <h2>更多</h2>';
+							item1 += ' </div>';
+							item1 += '  </div><div class="aui-layout">';
+							if(content.child!=null){
+								
+							
+							$.each(content.child, function(index1, content1) {
+								item1 += '<a href="javascript:;" class="aui-layout-item main_item" main_title="'+content1.title+'"  category_id="'+content1.id+'">';
+								item1 += ' <div class="aui-layout-icon">';
+								item1 += ' <img src="'+IP+content1.img_url+'" alt="">';
+								item1 += ' </div>';
+								item1 += ' <div class="aui-layout-text">'+content1.title+'</div>';
+								item1 += '  </a>';
+
+							});}
+							item1 += '  </div></div>';
+							$('#segmentedControlContents').append(item1);
+							//							$('#segmentedControlContents').append(item1);
+							indexx++;
+						}
+
+					});
+					$(".goods_item").on('click', function() {
+
+						localStorage.setItem('goods_id', $(this).attr('id'));
+						localStorage.setItem('hot_id', $(this).attr('hot_id'));
+						localStorage.setItem('title', $(this).attr('name'));
+						localStorage.setItem('goods_detail', decodeURI($(this).attr('goods_detail')));
+						var myDate = new Date();
+						//获取当前年
+						var year = myDate.getFullYear();
+						//获取当前月
+						var month = myDate.getMonth() + 1;
+						//获取当前日
+						var date = myDate.getDate();
+						var h = myDate.getHours(); //获取当前小时数(0-23)
+						var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+						var s = myDate.getSeconds();
+
+						var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
+						console.log(now)
+						openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+					});
+
+					$(".category-nav li").on('click', function() {
+						$(".category-nav li").removeClass('curr')
+						$(this).addClass('curr')
+						var cate_id = $(this).attr('data-id')
+						get_child_category_list(cate_id, 0, setChildListData);
+					})
+					$(".main_item").on('click', function() {
+						var title = $(this).attr('main_title')
+						var category_id = $(this).attr('category_id')
+						localStorage.setItem('is_cate', 1)
+						localStorage.setItem('is_login', 0)
+						localStorage.setItem('category_id', category_id)
+						openWindowWithTitle(title, 'goods.html')
+					})
+
+					var controlsElem = document.getElementById("segmentedControls");
+					var contentsElem = document.getElementById("segmentedControlContents");
+					var controlListElem = controlsElem.querySelectorAll('.mui-control-item');
+					var contentListElem = contentsElem.querySelectorAll('.mui-control-content');
+					var controlWrapperElem = controlsElem.parentNode;
+					var controlWrapperHeight = controlWrapperElem.offsetHeight;
+					var controlMaxScroll = controlWrapperElem.scrollHeight - controlWrapperHeight; //左侧类别最大可滚动高度
+					var maxScroll = contentsElem.scrollHeight - contentsElem.offsetHeight; //右侧内容最大可滚动高度
+					var controlHeight = controlListElem[0].offsetHeight; //左侧类别每一项的高度
+					var controlTops = []; //存储control的scrollTop值
+					var contentTops = [0]; //存储content的scrollTop值
+					var length = contentListElem.length;
+					for(var i = 0; i < length; i++) {
+						controlTops.push(controlListElem[i].offsetTop + controlHeight);
+					}
+					for(var i = 1; i < length; i++) {
+						var offsetTop = contentListElem[i].offsetTop;
+						if(offsetTop + 100 >= maxScroll) {
+							var height = Math.max(offsetTop + 100 - maxScroll, 100);
+							var totalHeight = 0;
+							var heights = [];
+							for(var j = i; j < length; j++) {
+								var offsetHeight = contentListElem[j].offsetHeight;
+								totalHeight += offsetHeight;
+								heights.push(totalHeight);
+							}
+							for(var m = 0, len = heights.length; m < len; m++) {
+								contentTops.push(parseInt(maxScroll - (height - heights[m] / totalHeight * height)));
+							}
+							break;
+						} else {
+							contentTops.push(parseInt(offsetTop));
+						}
+					}
+					contentsElem.addEventListener('scroll', function() {
+						var scrollTop = contentsElem.scrollTop;
+						for(var i = 0; i < length; i++) {
+							var offsetTop = contentTops[i];
+							var offset = Math.abs(offsetTop - scrollTop);
+							//						console.log("i:"+i+",scrollTop:"+scrollTop+",offsetTop:"+offsetTop+",offset:"+offset);
+							if(scrollTop < offsetTop) {
+								if(scrollTop >= maxScroll) {
+									onScroll(length - 1);
+								} else {
+									onScroll(i - 1);
+								}
+								break;
+							} else if(offset < 20) {
+								onScroll(i);
+								break;
+							} else if(scrollTop >= maxScroll) {
+								onScroll(length - 1);
+								break;
+							}
+						}
+					});
+					var lastIndex = 0;
+					//监听content滚动
+					var onScroll = function(index) {
+						if(lastIndex !== index) {
+							lastIndex = index;
+							var lastActiveElem = controlsElem.querySelector('.mui-active');
+							lastActiveElem && (lastActiveElem.classList.remove('mui-active'));
+							var currentElem = controlsElem.querySelector('.mui-control-item:nth-child(' + (index + 1) + ')');
+							currentElem.classList.add('mui-active');
+							//简单处理左侧分类滚动，要么滚动到底，要么滚动到顶
+							var controlScrollTop = controlWrapperElem.scrollTop;
+							if(controlScrollTop + controlWrapperHeight < controlTops[index]) {
+								controlWrapperElem.scrollTop = controlMaxScroll;
+							} else if(controlScrollTop > controlTops[index] - controlHeight) {
+								controlWrapperElem.scrollTop = 0;
+							}
+						}
+					};
+					//滚动到指定content
+					var scrollTo = function(index) {
+						contentsElem.scrollTop = contentTops[index];
+					};
+					mui(controlsElem).on('tap', '.mui-control-item', function(e) {
+						scrollTo(this.getAttribute('data-index'));
+						return false;
+					});
+
+				}
+			}
+
+			//			function setChildListData(data) {
+			//
+			//				console.log(data)
+			//
+			//				var status = data.status;
+			//				if(status == 1) {
+			//					info = data.data;
+			//					$('.cat-list .list li').remove();
+			//					$.each(info, function(index, content) {
+			//						var active = '';
+			//
+			//						if(index == 0) {
+			//
+			//						}
+			//						var length = $('.curr').length;
+			//						if(length == 0) {
+			//
+			//							active = 'curr';
+			//						}
+			//						if(content.parent_id > 0) {
+			//							var item = '<a class="mui-control-item" data-index="' + (index) + '" href="#content' + index + '">' + content.title + '</a>';
+			//
+			//							$('.cat-list .list').append(item);
+			//							
+			//							
+			//							
+			//							
+			//							
+			//							
+			//							
+			//						}
+			//					});
+			//					$(".cat-list li").on('click', function() {
+			//						var title = $(this).attr('title')
+			//						var category_id = $(this).attr('category_id')
+			//						localStorage.setItem('is_cate', 1)
+			//						localStorage.setItem('category_id', category_id)
+			//						openWindowWithTitle(title, 'goods.html')
+			//					})
+			//
+			//				}
+			//
+			//			}
+
+			var html = [];
+			var i = 1,
+				j = 1,
+				m = 16, //左侧选项卡数量+1
+				n = 21; //每个选项卡列表数量+1
+			for(; i < m; i++) {
+				html.push('<a class="mui-control-item" data-index="' + (i - 1) + '" href="#content' + i + '">选项' + i + '</a>');
+			}
+			//			controls.innerHTML = html.join('');
+			html = [];
+			for(i = 1; i < m; i++) {
+				html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+				for(j = 1; j < n; j++) {
+					html.push('<li class="mui-table-view-cell">第' + i + '个选项卡子项-' + j + '</li>');
+				}
+				html.push('</ul></div>');
+			}
+			//			contents.innerHTML = html.join('');
+			//默认选中第一个
+			//			contents.querySelector('.mui-control-content').classList.add('mui-active');
+			(function() {})();
+		</script>
+
+	</body>
+
+</html>

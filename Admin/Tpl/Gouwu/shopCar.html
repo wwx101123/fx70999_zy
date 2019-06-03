@@ -1,0 +1,180 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>我的购物车</h2>
+      <ol class="breadcrumb">
+        <li> <a href="__APP__">首页</a> </li>
+        <li> <a>订单管理</a> </li>
+        <li class="active"> <strong>我的购物车</strong> </li>
+      </ol>
+    </div>
+  </div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>我的幸运积分余额为:{$agent_cf}</h5>
+          </div>
+          <div class="ibox-title"> <span class="pull-right">（<strong id="allCount">{$sum}</strong>） 个商品</span>
+            <h5>我的购物车</h5>
+          </div>
+          <notempty name="list">
+            <form name="sendForm" method="post" id="sendForm">
+              <volist name="list" id="vo">
+                <div class="ibox-content">
+                  <div class="table-responsive">
+                    <div class="tablesaw-bar mode-stack"></div>
+                    <table class="table shoping-cart-table tablesaw-stack" data-tablesaw-mode="stack" id="table-3107">
+                      <tbody>
+                        <tr>
+                          <td width="90"><div class="cart-product-imitation" style="padding-top: 0px"> <a href="{$vo.img}" target="_blank"><img src="{$vo.img}" width="80"></a> </div></td>
+                          <td class="desc"><h3> <a href="{:U('Gouwu/Cpcontent')}?id={$vo.id}" class="text-navy">{$vo.name}</a> </h3>
+                            <div class="m-t-sm"> <a name="__URL__/delBuyList/id/{$vo['id']}" class="text-muted ajax-get" ><i class="fa fa-trash"></i> 移出购物车</a> </div></td>
+                          <td width="50">￥{$vo.money}<br/>
+                            <s class="small text-muted">{$vo.a_money}</s></td>
+                          <td width="130"><div class="input-group bootstrap-touchspin"> <span class="input-group-btn">
+                              <button class="btn btn-white bootstrap-touchspin-down" type="button" onclick="numOperate(0,$(this),{$vo.money})">-</button>
+                              </span> <span class="input-group-addon bootstrap-touchspin-prefix" style="display: none;"></span>
+                              <input type="text" class="touchspin1 form-control" id="{$vo.id}" value="{$ids[$vo['id']]}" name="num" onchange="numChange({$vo.id},{$vo.money})" style="display: block;text-align: center;">
+                              <span class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span> <span class="input-group-btn">
+                              <button class="btn btn-white bootstrap-touchspin-up" type="button" onclick="numOperate(1,$(this),{$vo.money})">+</button>
+                              </span> </div></td>
+                          <td><h4> ￥<span name="subtotal">{$ep[$vo['id']]}</span> </h4></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </volist>
+            </form>
+            <else/>
+            <div class="ibox-content">
+              <center>
+                <img src="__PUBLIC__/Adm/Images/shop/cart.jpg" width="200" height="200"/> <br/>
+                <p>亲，购物车空空的哦~，去看看心仪的商品吧~</p>
+                <br/>
+                <b><a href="{:U('Gouwu/Buycp')}" onClick="location.href='order.php'" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> 去看看</a></b>
+              </center>
+            </div>
+          </notempty>
+        </div>
+        <div class="ibox-content">
+          <input type="hidden" value="{$ordertype}" name="ordertype">
+          <input type="hidden" name="action" value="sub_ajax">
+          <button class="ladda-button ladda-button-demo btn btn-primary pull-right confrimBuy" data-style="zoom-in" type="button" onclick="confirmBuy.call(this);"><i class="fa fa fa-shopping-cart"></i> 确定购物</button>
+          <a class="btn btn-white" href="{:U('Gouwu/Buycp')}"><i class="fa fa-arrow-left"></i> 继续购物</a> 
+          <script>
+			function numChange(id,price) {
+				self=$('#'+id);
+				var bnum = self.val();
+				layui.use(['layer'], function(){
+					$.get("__URL__/chang/DID/"+id+"/nums/"+bnum,
+						function(data) {
+							if (data.status) {
+								// console.log(data);
+								layer.msg(data.info);
+							}else{
+								layer.msg(data.info);
+							}
+						});
+				 });
+
+				var allNumber = 0;
+				var allThisSum = 0;
+				var thisAllPrice = parseFloat(price*bnum).toFixed(2);
+				$localPriceObject = self.parent().parent().next("td");//当前小计
+				$localPriceObject.children("h4").children("span").html(thisAllPrice);
+
+				$("input[name='num']").each(function () {
+					var num = $(this).val();
+					allNumber = Number(allNumber) + Number(num);                  //重新计算总数量
+				});
+				$("span[name='subtotal']").each(function () {
+					var subtotals = $(this).text();
+					allThisSum = allThisSum + Number(subtotals);//计算总金额
+
+				});                                                      
+				$("#totalPrice").text(parseFloat(allThisSum).toFixed(2));
+			}
+			function numOperate(type,self,price) {
+				var input = self.parent().siblings('input');
+				var id=input.attr('id');
+				var num=input.val();
+				// console.log(num);
+				if (type==1) {
+					input.val(parseInt(num)+1);
+				}else{
+					if (num>=1) {
+						input.val(parseInt(num)-1);
+					}                            
+				}
+				numChange(id,price);
+			}
+			layui.use(['layer'],function() {
+				$('.ajax-get').on('click',function() {
+					$.get($(this).attr('name'),function(data) {
+						if (data.status) {
+							layer.msg(data.info,{icon:1,time:1000,end:function(index) {
+								location.reload();
+							}});
+						}else{
+							layer.msg(data.info)
+						}
+					});
+				return false;
+				});
+				$('.confrimBuy').on('click',function() {
+					// location.href='__APP__/Gouwu/ShoppingListAdd/';
+					layer.confirm('确定创建订单吗?', {icon: 3, title:'提示'}, 
+						function(index){
+							$.get("__URL__/ShoppingListAdd",function(res) {
+								if (res.status) {
+									layer.msg(res.info,{time:2000,end:function() {
+										location.href=res.url;
+									}});
+								}else{
+									layer.msg(res.info);
+								}
+							});
+						layer.close(index);
+					});
+				});
+			});
+
+		</script> 
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>购物车统计</h5>
+          </div>
+          <div class="ibox-content"> <span> 总金额 </span>
+            <h2 class="font-bold"> ￥<span id="totalPrice">{$eps}</span> </h2>
+            <hr/>
+            <span class="text-muted small"> *确认商品信息后点击“确认购物”进行支付，您也可以点击“继续购物”前往商城挑选心仪的商品 </span>
+            <div class="m-t-sm">
+              <div class="btn-group">
+                <input type="hidden" name="action" value="order_ajax">
+                <button class="ladda-button ladda-button-demo btn btn-primary btn-sm confrimBuy" data-style="zoom-in" type="button" onclick="confirmBuy.call(this);"><i class="fa fa-shopping-cart"></i> 确定购物</button>
+                <a href="{:U('Gouwu/Buycp')}" class="btn btn-white btn-sm"> 继续购物</a> </div>
+            </div>
+          </div>
+        </div>
+        <div class="ibox">
+          <div class="ibox-title">
+            <h5>联系QQ</h5>
+          </div>
+          <div class="ibox-content text-center">
+            <h3><!--<i class="fa fa-phone"></i>-->{$str25}</h3>
+            <span class="small"> 如果您有任何问题，请与我们联系。我们提供24小时支持服务。 </span> </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</block>

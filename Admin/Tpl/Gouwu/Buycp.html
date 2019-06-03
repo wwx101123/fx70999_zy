@@ -1,0 +1,82 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>产品订购</h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="__APP__">首页</a>
+      </li>
+      <li>
+          <a>订单管理</a>
+      </li>
+      <li class="active">
+          <strong>产品订购</strong>
+      </li>
+  </ol>
+</div>
+</div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-title">
+                <h5>产品分类</h5>
+                <div class="ibox-tools">
+                      <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="scroll_content" style="background-color: white;overflow:auto;height: 90px;">
+                    <div class="col-xs-2">
+                        <h4><a href="{:U('Gouwu/Buycp')}" style="color:#1ab394;font-weight: 100;">全部</a></h4>
+                    </div>
+                <volist name="tplist" id="vo">
+                    <div class="col-xs-2">
+                        <h4><a href="{:U('Gouwu/Buycp')}?tp={$vo.id}" style="color:#1ab394;font-weight: 100;">{$vo.tpname}</a>  </h4>
+                    </div>
+                </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <volist name="list" id="vo">
+        <div class="col-md-3">
+            <a href="{:U('Gouwu/Cpcontent')}?id={$vo.id}">
+                  <div class="ibox">
+                    <div class="ibox-content product-box">
+
+                      <div class="product-imitation" style="padding: 0px;">
+                        <img src="{$vo.img}" width="100%"/>
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-price">{$vo.money}</span>
+                          <small class="text-muted">{$vo.cptype|getProType=###}</small>
+                          <a href="{:U('Gouwu/Cpcontent')}?id={$vo.id}" class="product-name"> {$vo.name}</a>
+                          <!--<div class="small m-t-xs">-->
+                          <!--Many desktop publishing packages and web page editors now.-->
+                          <!--</div>-->
+                          <div class="m-t text-righ">
+
+                            <a href="{:U('Gouwu/Cpcontent')}?id={$vo.id}" class="btn btn-xs btn-outline btn-primary">查看详情 <i class="fa fa-long-arrow-right"></i> </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </a>
+        </div>
+        </volist>
+    </div>
+    <div class="row grey-bg">
+      {$page}
+    </div>
+</block>

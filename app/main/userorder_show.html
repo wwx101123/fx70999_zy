@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>查看订单 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/order.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				var order_id = localStorage.getItem('order_id')
+
+				get_user_order_show(order_id);
+			});
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header">
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>我的订单</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="usercenter.html">
+						<i class="iconfont icon-user"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<div class="page__bd">
+
+				<!--收货信息-->
+				<div class="weui-form-preview form-preview">
+					<div class="weui-form-preview__bd">
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">收货人</label>
+							<span class="weui-form-preview__value accept_name"> </span>
+						</div>
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">收货地址</label>
+							<span class="weui-form-preview__value area"> </span>
+						</div>
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">联系电话</label>
+							<span class="weui-form-preview__value mobile"> </span>
+						</div>
+
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">备注留言</label>
+							<span class="weui-form-preview__value message"></span>
+						</div>
+					</div>
+				</div>
+				<!--收货信息-->
+
+				<!--订单概述-->
+				<div class="weui-form-preview form-preview payment_time_item" style="display: none;">
+					<div class="weui-form-preview__bd">
+
+						<div class="weui-form-preview__item  " style="display: none;">
+							<label class="weui-form-preview__label">付款时间</label>
+							<span class="weui-form-preview__value payment_time">/span>
+						</div>
+						  <div class="weui-form-preview__item payment_time_item"  >
+							<label class="weui-form-preview__label">发货时间</label>
+							<span class="weui-form-preview__value express_time"></span>
+						</div>
+						<div class="weui-form-preview__item express_item">
+							<label class="weui-form-preview__label">快递公司</label>
+							<span class="weui-form-preview__value express_title">  </span>
+						</div>
+						<div class="weui-form-preview__item express_item">
+							<label class="weui-form-preview__label">发货单号</label>
+							<span class="weui-form-preview__value express_no">  </span>
+						</div>
+						<div class="weui-form-preview__item express_item" style="display: none;">
+							<label class="weui-form-preview__label">物流信息</label>
+							<span class="weui-form-preview__value expressdetail"> </span>
+						</div>
+					</div>
+				</div>
+				<!--订单概述-->
+
+				<!--订单信息-->
+				<div class="weui-form-preview form-preview">
+					<div class="weui-form-preview__bd">
+						<div class="weui-form-preview__item">
+							<label class="weui-form-preview__label">商品积分</label>
+							<span class="weui-form-preview__value real_amount"></span>
+						</div>
+
+					</div>
+				</div>
+				<!--订单信息-->
+
+				<!--商品列表-->
+				<div class="detail-list goods_list">
+					<ul>
+						<li>
+							<div class="detail-hd">
+								<span class="fr order_status"></span>
+								<span class="  order_no"></span>
+							</div>
+							<div class="detail-bd order_goods">
+
+							</div>
+							<div class="detail-ft">
+								<p class="fr order_amount"></p>
+								<p class="add_time">{model.add_time}</p>
+								<div class="ft-btn">
+									<div class="btn-box">
+
+										<a href="javascript:;" class="btnExpress" style="display: none;" onclick="order_complete(this)">确认收货</a>
+
+										<a href="javascript:;" class="btnPayment" style="display: none;" onclick="order_payment(this)">确认付款</a>
+										<a href="javascript:;" class="btnMoney" style="display: none;" onclick="order_money(this)">确认收款</a>
+										<a href="javascript:;" class="btnTousu" style="display: none;" onclick="order_money(this)">确认提交</a>
+
+									</div>
+								</div>
+							</div>
+							<script type="text/javascript" charset="utf-8" src="../js/jquery-weui.js"></script>
+							<script type="text/javascript">
+								var ServerIP = "";
+								var IP = localStorage.getItem('IP');
+								var PreUrl = localStorage.getItem('PreUrl');
+								$(function() { // 允许上传的图片类型  
+									var allowTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+									// 1024KB，也就是 1MB  
+									var maxSize = 2048 * 2048;
+									// 图片最大宽度  
+									var maxWidth = 10000;
+									// 最大上传图片数量  
+									var maxCount = 11116;
+									var tmpl = '<li class="weui-uploader__file" style="background-image:url(#url#);background-size: 100%;"></li>',
+										$gallery = $("#gallery"),
+										$galleryImg = $("#galleryImg"),
+										$uploaderInput = $("#uploaderInput"),
+										$uploaderFiles = $("#uploaderFiles");
+									$uploader_list = $("#uploader_list");
+
+									$uploaderInput.on("change", function(e) {
+										var src, url = window.URL || window.webkitURL || window.mozURL,
+											files = e.target.files;
+										if(($('.original_path').length + files.length) > 1) {
+											$.toast("最多上传一张图片", "forbidden")
+											remove_toast()
+											return;
+										}
+										for(var i = 0, len = files.length; i < len; ++i) {
+											var file = files[i];
+											if(url) {
+												src = url.createObjectURL(file);
+											} else {
+												src = e.target.result;
+											}
+
+											if($('.original_path').length < 2) {
+												$uploaderFiles.append($(tmpl.replace('#url#', src)));
+											}
+											imgLoad(src);
+										}
+									});
+									var index; //第几张图片
+									$uploaderFiles.on("click", "li", function() {
+										index = $(this).index();
+
+										$galleryImg.attr("style", this.getAttribute("style"));
+										$gallery.fadeIn(100);
+									});
+									$gallery.on("click", function() {
+										$gallery.fadeOut(100);
+									});
+									//删除图片 删除图片的代码也贴出来。
+									$(".weui-gallery__del").click(function() { //这部分刚才放错地方了，放到$(function(){})外面去了
+
+										$('.original_path').eq(index).remove();
+										$uploaderFiles.find("li").eq(index).remove();
+
+										if($('.original_path').length < 2) {
+											$('.uploader_btn').css('display', 'block')
+										}
+									});
+								});
+							</script>
+							<div class="weui-cell uploader_div" style="display: none;">
+
+								<div class="weui-cell__bd">
+									<div class="weui-uploader">
+										<div class="weui-uploader__hd">
+											<p class="weui-uploader__title">凭证上传</p>
+
+										</div>
+										<div class="weui-uploader__bd">
+											<div style="display: none;" id="uploader_list">
+
+											</div>
+											<ul class="weui-uploader__files" id="uploaderFiles">
+
+											</ul>
+											<div class="weui-uploader__input-box uploader_btn">
+												<input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" multiple="">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<!--/商品列表-->
+
+				<!--用户列表-->
+				<div class="detail-list user_list">
+					<ul>
+					</ul>
+				</div>
+				<!--/商品列表-->
+
+			</div>
+
+			<!--版权信息-->
+			<!--/版权信息-->
+
+			<!--底部导航-->
+
+			<!--/底部导航-->
+		</div>
+	</body>
+
+</html>

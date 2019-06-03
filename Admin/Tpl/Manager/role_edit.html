@@ -1,0 +1,241 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑角色</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<script type="text/javascript">
+layui.use('layer', function() {
+
+});
+</script>
+<style type="text/css">
+.tree-list .col-1 {
+	padding-left: 1%;
+	width: 39%;
+}
+
+.tree-list .col-2 {
+	width: 50%;
+}
+
+.tree-list .col-3 {
+	width: 10%;
+	text-align: center;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+
+		//初始化分类的结构
+		initCategoryHtml('.tree-list', 1);
+		//初始化分类的事件
+		$('.tree-list').initCategoryTree(true);
+		//是否启用权限
+		if ($("#ddlRoleType").find("option:selected").attr("value") == 1) {
+			$(".tree-list").find("input[type='checkbox']").prop("disabled",
+					true);
+		}
+		$("#ddlRoleType").change(
+				function() {
+					if ($(this).find("option:selected").attr("value") == 1) {
+						$(".tree-list").find("input[type='checkbox']").prop(
+								"checked", false);
+						$(".tree-list").find("input[type='checkbox']").prop(
+								"disabled", true);
+					} else {
+						$(".tree-list").find("input[type='checkbox']").prop(
+								"disabled", false);
+					}
+				});
+		//权限全选
+		$("input[name='checkAll']")
+				.click(
+						function() {
+							if ($(this).prop("checked") == true) {
+								$(this).parent().siblings(".col").find(
+										"input[type='checkbox']").prop(
+										"checked", true);
+							} else {
+								$(this).parent().siblings(".col").find(
+										"input[type='checkbox']").prop(
+										"checked", false);
+							}
+						});
+		layui.use([ 'layedit', 'upload', 'layer', 'laydate' ], function() {
+			$("#btnSubmit").click(function() {
+
+				var mycars ='[';
+
+				$(".action_type:checked").each(function(i) {
+					var item = '{"role_id":"'+ $('#id').val()+'","nav_name":"'+ $(this).attr('nav_name')+'","action_type":"'+ $(this).attr('action_type')+'"},';
+					 
+					mycars=mycars+(item);
+				});
+				
+				
+				
+				mycars=mycars+'{}]';
+               
+    				$("#manager_role_value").val(mycars);
+             
+				form = $('#form1');
+				$.post(form.attr('action'), form.serialize(), function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+
+			});
+
+		});
+
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form id="form1" method="post" action="{:U('Manager/role_edit')}">
+		<input name="id" type="hidden" id="id" value="{$rs.id}"> <input
+			name="manager_role_value" type="hidden" id="manager_role_value"
+			value="{$rs.manager_role_value}">
+		<!--导航栏-->
+		<div class="location">
+			<a href="role_list.aspx" class="back"><i class="iconfont icon-up"></i><span>返回列表页</span></a>
+			<a href="../center.aspx"><i class="iconfont icon-home"></i><span>首页</span></a>
+			<i class="arrow iconfont icon-arrow-right"></i> <a
+				href="manager_list.aspx"><span>管理员</span></a> <i
+				class="arrow iconfont icon-arrow-right"></i> <a
+				href="role_list.aspx"><span>管理角色</span></a> <i
+				class="arrow iconfont icon-arrow-right"></i> <span>编辑角色</span>
+		</div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">编辑角色信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			<dl>
+				<dt>角色类型</dt>
+				<dd>
+					<div class="rule-single-select">
+						<select name="role_type" class="form-control">
+
+							<volist name="role_type_list" id="vvo" key="i">
+							<option value="{$vvo.id}"<eq name="rs.role_type"
+									value="$vvo.id">selected="selected"</eq> >{$vvo['title']}
+							</option>
+							</volist>
+						</select>
+
+					</div>
+				</dd>
+			</dl>
+			<dl>
+				<dt>角色名称</dt>
+				<dd>
+					<input ID="txtRoleName" name="role_name" runat="server"
+						Class="input normal" datatype="*1-100" sucmsg=" "
+						Value='{$rs.role_name}' /> <span class="Validform_checktip">*角色中文名称，100字符内</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>管理权限</dt>
+				<dd>
+
+					<div class="tree-list">
+						<div class="thead">
+							<div class="col col-1">导航名称</div>
+							<div class="col col-2">权限分配</div>
+							<div class="col col-3">权限分配</div>
+						</div>
+						<ul>
+							<volist name="cate" id="vo">
+							<li class="layer-{$vo.class_layer}">
+								<div class="tbody">
+									<div class="col index col-1">
+										<input ID="hidName" Value='{$vo.name}' type="hidden" /> <input
+											ID="hidActionType" Value='{$vo.action_type}' type="hidden" />
+										{$vo.title}
+									</div>
+									<div class="col col-2">
+
+										<volist name="vo.action_type" id="voo"> <label><input
+											id="action_type[]" name="action_type[]" type="checkbox"
+											action_type="{$voo.func}" value="{$voo.func}"
+											class="action_type" nav_name="{$voo.nav_name}"
+										<eq name="voo.checked" value="1"> checked="checked" </eq>
+											/>{$voo.title}</label> </volist>
+
+									</div>
+									<div class="col col-3">
+										<input name="checkAll" type="checkbox" />
+									</div>
+								</div>
+							</li>
+							</volist>
+						</ul>
+					</div>
+
+				</dd>
+			</dl>
+		</div>
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input id="btnSubmit" name="btnSubmit" type="button" value="提交保存" class="btn "
+				/> <input name="btnReturn"
+					type="button" value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+
+	</form>
+</body>
+</html>

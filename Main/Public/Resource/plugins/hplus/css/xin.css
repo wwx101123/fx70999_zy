@@ -1,0 +1,38 @@
+.hyaline-bg .ibox-title,.hyaline-bg .ibox-content,.hyaline-bg .mail-box-header ,.hyaline-bg .mail-box{
+    border-color:#676A6C ;
+    background:rgba(0,0,0,0.35);
+    color: #fafafa;
+}
+.hyaline-bg .product-name ,.hyaline-bg .text-muted,.hyaline-bg .folder-list li a{
+    color:#fafafa;
+}
+
+.hyaline-bg .contact-box{
+    background:rgba(0,0,0,0.35);
+    border: 1px solid #676A6C;
+}
+.hyaline-bg .footer {
+    background: none repeat scroll 0 0 rgba(0,0,0,0.35);
+    border-top: 1px solid #676A6C;
+    color: #fafafa;
+}
+.hyaline-bg{
+    background-image:  url(../../assets/admin/pages/media/bg/8.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    color: #fafafa;
+    font-family: "Microsoft YaHei";
+}
+.hyaline-bg .page-heading,.hyaline-bg .vertical-timeline-content{
+    background: rgba(0,0,0,0.35);
+    color: #fafafa;
+}
+.hyaline-bg .breadcrumb,.hyaline-bg .table-striped>tbody>tr:nth-of-type(odd),.hyaline-bg .scroll_content,.hyaline-bg .vote-item,.hyaline-bg .agile-list li  {
+    background: none;
+}
+.hyaline-bg .vertical-timeline-content::before{
+    border-right: 7px solid  rgba(0,0,0,0.35);
+}
+.hyaline-bg .tablesaw-stack tr:hover,.hyaline-bg .table-mail tr:hover,.hyaline-bg .dropdown-menu > li > a,.hyaline-bg .btn-white,.hyaline-bg .vote-item:focus,.hyaline-bg .form-control {
+    color: #333;
+}

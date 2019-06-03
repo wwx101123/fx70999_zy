@@ -1,0 +1,89 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>服务中心申请管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>后台管理</a>
+                </li>
+                <li class="active">
+                    <strong>服务中心申请管理</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>服务中心申请</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content" style="display: block;">
+
+                <div class="tablesaw-bar mode-stack"></div>
+                <table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-9413">
+
+                    <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>用户账号</th>
+                            <th>会员姓名</th>
+                            <th>申请级别</th>
+                            <!--<th>申请区域</th>-->
+                            <th>申请时间</th>
+                            <th>处理时间</th>
+                            <th>状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <foreach name="list" item="vo">
+                            <tr>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label"> </b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content">{$vo.user_id}</span></td>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo.user_name}</span></td>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">申请级别</b><span class="tablesaw-cell-content">{$Aname[$vo['up_level']]}</span></td>
+                                <!--<td style="vertical-align:middle;"><b class="tablesaw-cell-label">申请区域</b><span class="tablesaw-cell-content">{:agentD($vo['uid'],$vo['u_level'],$vo['up_level'])}</span></td>-->
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">申请时间</b><span class="tablesaw-cell-content">
+                                    <p title="{$vo.create_time|date='Y-m-d H:i:s',###}">{$vo.create_time|date='Y-m-d H:i:s',###}</p>
+                                </span>
+                                </td>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">处理时间</b><span class="tablesaw-cell-content">
+                                    <p title="">
+                                    <notempty name="vo.pdt">
+                                        {$vo.pdt|date='Y-m-d H:i:s',###}
+                                    </notempty>
+                                    </p>
+                                </span></td>
+                                <td style="vertical-align:middle;"><b class="tablesaw-cell-label">状态</b><span class="tablesaw-cell-content">
+                                    <eq name="vo.is_pay" value="2"><span class="label label-danger">拒绝</span></eq>
+                                    <eq name="vo.is_pay" value="0"><span class="label label-warning">未审核</span></eq>
+                                    <eq name="vo.is_pay" value="1"><span class="label label-success">已通过</span></eq>
+                                </span>
+                                    </td>
+                                    <td style="vertical-align:middle;"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                        <eq name="vo.is_pay" value="0">
+                                        <a href="__URL__/adminAgentsAC/action/confirm/id/{$vo.id}" class="ajax-a" info="确定同意申请？">同意</a>
+                                        | <a href="__URL__/adminAgentsAC/action/deny/id/{$vo.id}" class="ajax-a" info="确定删除申请？">删除</a>
+                                        </eq>
+                                    </span></td>
+                                </tr>
+                                </foreach>
+                            </tbody>
+
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+
+        </block>

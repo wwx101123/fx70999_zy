@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>选择类型 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<!--<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />-->
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script src="../js/mui.min.js"></script>
+
+		<style>
+			.subscript {
+				color: #fff;
+				height: 30px;
+				width: 100px;
+				position: absolute;
+				right: 0px;
+				top: 0;
+				text-align: center;
+				line-height: 30px;
+				font-family: "黑体";
+				background-color: #0c60ee;
+			}
+			
+			.avatar {
+				margin-right: 0px;
+				padding: 0rem;
+			}
+			
+			.aui-list-flex {
+				padding: 15px;
+				position: relative;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				color: #000000;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+			
+			.aui-list-flex-hd {
+				margin-right: .8em;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+			}
+			
+			.aui-list-flex-hd img {
+				width: 100%;
+				max-height: 100%;
+				vertical-align: top;
+			}
+			
+			.aui-list-flex-bd {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				min-width: 0;
+				font-size: 0.9rem;
+			}
+			
+			.aui-list-flex-fr {
+				text-align: right;
+				color: #808080;
+				padding-right: 13px;
+				position: relative;
+				font-size: 0.8rem;
+			}
+			
+			.aui-list-flex-fr:after {
+				content: " ";
+				display: inline-block;
+				height: 8px;
+				width: 8px;
+				border-width: 2px 2px 0 0;
+				border-color: #C8C8CD;
+				border-style: solid;
+				-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				position: relative;
+				top: -2px;
+				position: absolute;
+				top: 50%;
+				margin-top: -4px;
+				right: 2px;
+				border-radius: 2px;
+			}
+			
+			.aui-list-flex-bd em {
+				color: #fff;
+				font-weight: normal;
+				font-size: 0.7rem;
+				font-style: normal;
+				background: #ff3b67;
+				padding: 0.1rem 0.2rem;
+			}
+			
+			.aui-list-flex-bd .aui-circle {
+				width: 0.5rem;
+				height: 0.5rem;
+				border-radius: 100%;
+				padding: 0;
+				display: inline-block;
+			}
+		</style>
+
+	</head>
+
+	<body style="background: white;">
+
+		<div class="page " style="background: white;">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+			<script type="text/javascript">
+				$(function() {
+					//选中TAB样式
+					localStorage.setItem('seller_id', 0)
+					$(".weui-tabbar a").eq(4).addClass("weui-bar__item_on");
+					$(".my_header_v4_main").click(function() {
+						localStorage.setItem('seller_id', 0)
+						var my_header_v4_name_text = $(this).find('.my_header_v4_name_text').html()
+						localStorage.setItem('seller_type', $(this).attr('seller_type'))
+                        console.log($(this).attr('seller_type'))
+						localStorage.setItem('huikui_id', 0)
+						localStorage.setItem('huikui_sn', '');
+						localStorage.setItem('seller', null);
+						localStorage.setItem('seller_id', 0);
+						openWindowWithTitle(my_header_v4_name_text + '做件', 'shop_details.html')
+
+					});
+				});
+			</script>
+			<!--会员中心-->
+			<div class="page__bd" style="padding-bottom: 40PX;">
+				<!--页面头部-->
+				<div id="wrapper" data-tag="wrapper">
+
+					<!--用户信息-->
+					<a href="javascript:;" class="aui-list-flex my_header_v4_main" seller_type="0">
+						<div class="aui-list-flex-hd">
+							<img src="../images/chuan.png" alt="">
+						</div>
+						<div class="aui-list-flex-bd my_header_v4_name_text">传统商户</div>
+						<div class="aui-list-flex-fr">立即做件</div>
+					</a>
+					<div class="divHeight"></div>
+					<a href="javascript:;" class="aui-list-flex my_header_v4_main" seller_type="1">
+						<div class="aui-list-flex-hd">
+							<img src="../images/logo.png" alt="">
+						</div>
+						<div class="aui-list-flex-bd "><span class="my_header_v4_name_text">二维码商户(小微入件)</span>
+							
+							
+						<div class="aui-list-flex-bd " style="color: red;font-size: 10px;" >注：限额20000元 单日200000元</div>
+						</div>
+						<div class="aui-list-flex-fr">立即做件</div>
+					</a>
+					<div class="divHeight"></div>
+					<a href="javascript:;" class="aui-list-flex my_header_v4_main" seller_type="2">
+						<div class="aui-list-flex-hd">
+							<img src="../images/kuai.png" alt="">
+						</div>
+						<div class="aui-list-flex-bd "><span class="my_header_v4_name_text">二维码商户(快速入件)</span>
+							
+						
+						<div class="aui-list-flex-bd " style="color: red;font-size: 10px;" >注：限额500元，单日5000元</div>
+							
+							
+						</div> 
+						<div class="aui-list-flex-fr">立即做件</div>
+					</a>
+					<div class="divHeight"></div>
+					<div class="my_header_v4_wrap" style="display: none;">
+						<div class="my_header_v4 user">
+							<div class="my_header_v4_main" id="myHeader" seller_type="0">
+								<div class="my_header_v4_avatar">
+									<div class="my_header_v4_avatar_img avatar" data-url="//wqs.jd.com/my/accountv2.shtml?sceneval=2&amp;ptag=7155.3.1">
+										<img id="headPic" src="../images/logo.png" onerror="this.src='//img11.360buyimg.com/jdphoto/s120x122_jfs/t5683/191/7076936752/5123/834e5571/596dd62bN7a8affc5.png';">
+									</div>
+
+								</div>
+								<div class="my_header_v4_msg">
+									<div class="my_header_v4_name" style="font-size: 30px;">
+										<span class="my_header_v4_name_text" data-tag="editNameSpan">传统商户</span>
+									</div>
+									<div class="my_header_v4_pin " id="userName" data-pin="18261970930_p"> <span class=""></span> <span class="username"></span></div>
+									<div class="my_header_v4_info">
+
+									</div>
+									<div class="my_header_v4_info">
+
+										<a href="javascript:;" class="my_header_v4_plus" id="vipplusItem" data-on="plus" ptag="7155.3.2" data-addsite="" data-eventid="MMyJD_MemberPlus" data-eventparam="" data-eventlevel="">
+											<div class="my_header_v4_plus_btn">尊享8大特权</div>
+										</a>
+
+									</div>
+
+								</div>
+
+							</div>
+							<!--<div class="subscript">
+
+							</div>
+-->
+						</div>
+						<div class="my_header_v4  company " style="margin-top: 10px;">
+							<div class="my_header_v4_main" id="myHeader" seller_type="1">
+								<div class="my_header_v4_avatar">
+									<div class="my_header_v4_avatar_img avatar" data-url="//wqs.jd.com/my/accountv2.shtml?sceneval=2&amp;ptag=7155.3.1">
+										<img id="headPic" src="../images/logo.png" onerror="this.src='//img11.360buyimg.com/jdphoto/s120x122_jfs/t5683/191/7076936752/5123/834e5571/596dd62bN7a8affc5.png';">
+									</div>
+
+								</div>
+								<div class="my_header_v4_msg">
+									<div class="my_header_v4_name" style="font-size: 30px;">
+										<span class="my_header_v4_name_text" data-tag="editNameSpan">二维码商户</span>
+									</div>
+									<div class="my_header_v4_pin " id="userName" data-pin="18261970930_p"> <span class=""></span> <span class="username"></span></div>
+									<div class="my_header_v4_info">
+
+									</div>
+									<div class="my_header_v4_info">
+
+										<a href="javascript:;" class="my_header_v4_plus" id="vipplusItem" data-on="plus" ptag="7155.3.2" data-addsite="" data-eventid="MMyJD_MemberPlus" data-eventparam="" data-eventlevel="">
+											<div class="my_header_v4_plus_btn">尊享8大特权</div>
+										</a>
+
+									</div>
+
+								</div>
+
+							</div>
+							<!--<div class="subscript">
+
+							</div>-->
+
+						</div>
+					</div>
+
+					<!--灰度猜你喜欢模块 -->
+
+					<!--        <div id="footerNav">
+            <a class="logo"><img src="//img11.360buyimg.com/jdphoto/s120x24_jfs/t8491/44/367160357/4445/edf821ae/59a675cbN3f1f1e88.png" alt=""></a>
+            <a class="openapp" id="openApp_apps" data-on="openApp">打开京东 APP</a>
+            <a href="//passport.m.jd.com/user/logout.action?sceneval=2&sid=" data-update rel="nofollow">退出登录</a>
+        </div>-->
+				</div>
+				<!--/菜单选项-->
+			</div>
+			<!--版权信息-->
+			<!--/版权信息-->
+
+			<!--底部导航-->
+
+			<div class="js" id="js">
+
+			</div>
+
+			<!--/底部导航-->
+			<!--会员中心-->
+
+		</div>
+		<script type="text/javascript" src="../js/jquery.qrcode.min.js"></script>
+
+	</body>
+	<style>
+		.er_username {
+			font-size: 20PX;
+		}
+	</style>
+
+</html>

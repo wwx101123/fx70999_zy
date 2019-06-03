@@ -1,0 +1,211 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>充值</h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="{:U('Index/index')}">首页</a>
+      </li>
+      <li>
+          <a>财务管理</a>
+      </li>
+      <li class="active">
+          <strong>充值</strong>
+      </li>
+  </ol>
+</div>
+</div>
+</block>
+
+<block name="menu">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+              <div class="ibox-title">
+                <h5>充值记录 </h5>
+            </div>
+
+            <div class="ibox-content">
+              <div class="row">
+                <!--   <div class="col-sm-6" style="text-align:center;">
+                      <img src="{$str21}" style="width:150px;">
+                      <p>微信</p>
+                  </div>
+                  <div class="col-sm-6" style="text-align:center;">
+                      <img src="{$str22}" style="width:150px;">
+                    <p>支付宝</p>
+                  </div> -->
+              </div>
+                <div class="row">
+                  <form class="form-inline title-form" name="form2" method="post"
+                  action="__ACTION__">
+                  <div class="form-group" id="data_5">
+                        <label class="font-noraml"></label>
+                        <div class="input-daterange input-group" id="datepicker">
+                          <input type="text" class="form-control" name="time1" id="time1" 
+                          placeholder="开始日期" value="<notempty name='time1'>{$time1}</notempty>">
+                          <span class="input-group-addon">到</span>
+                          <input type="text" class="form-control" name="time2" id="time2" 
+                          placeholder="截止日期" value="<notempty name='time2'>{$time2}</notempty>">
+                      </div>
+                  </div>
+                      <button type="submit" class="btn btn-primary">查询</button>
+                      <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">我要充值</button>
+                  </form>
+              </div>
+                            <script type="text/javascript">
+                                layui.use('laydate', function(){
+                                  var laydate = layui.laydate;
+                                      var start = {
+                                      // min: laydate.now(-2)
+                                      max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        end.min = datas; //开始日选好后，重置结束日的最小日期
+                                        end.start = datas //将结束日的初始值设定为开始日
+                                      }
+                                    };
+                                    
+                                    var end = {
+                                      min: laydate.now()
+                                      ,max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        start.max = datas; //结束日选好后，重置开始日的最大日期
+                                      }
+                                    };
+                                    
+                                    $('#time1').on('click',function(){
+                                      start.elem = this;
+                                      laydate(start);
+                                    });
+                                    $('#time2').on('click',function(){
+                                      end.elem = this
+                                      laydate(end);
+                                    });
+                                });
+                            </script>
+                <div class="row">
+                    <table class="table table-hover table-" data-tablesaw-mode="stack">
+                        <thead>
+                        <tr>
+                              <th>序号</th>
+                              <th>用户账号</th>
+                              <th>转入会员</th>
+                              <th>货币类型</th>
+                              <th>金额</th>
+                              <!-- <th>手续费</th> -->
+                              <th>时间</th>
+                              <th>状态</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="list" id="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo.uid}</td>
+                                <td>{$vo.user_id}</td>
+                                <td><eq name="vo.stype" value="0">现金点值</eq><eq name="vo.stype" value="1">注册积分</eq></td>
+                                <td>{$vo.epoint}</td>
+                                <!-- <td>{$vo.id}</td> -->
+                                <td>{$vo.rdt|date="Y-m-d H:i:s",###}</td>
+                                <td>
+                                <eq name="vo.is_pay" value="2"><span class="label label-danger">拒绝</span></eq>
+                                <eq name="vo.is_pay" value="0"><span class="label label-warning">未审核</span></eq>
+                                <eq name="vo.is_pay" value="1"><span class="label label-success">已通过</span></eq>
+                                </td>
+                            </tr>
+                            </volist>
+                        </tbody>
+                    </table>
+                    {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <!--  <i class="fa fa-money modal-icon"></i>-->
+        <h4 class="modal-title">我要充值</h4>
+    </div>
+    <form role="form" id="sendForm" method="post" action="__URL__/currencyRechargeAC" class="ajax-post">
+        <div class="modal-body">
+          <h2 style="display:none" ><span class="label label-warning" style="font-size:16px;">{$config}</span></h2>
+          
+          <p>您目前的余额为：<span class="label label-primary">{$frs.agent_use}</span></p>
+          <input type="hidden" name="action" value="transfer_ajax">
+          <div class="form-group"><label>充值用户账号<span id="showName" style="color: #1ab394"></span></label>
+            <input type="text" placeholder="" class="form-control" name="tousername" value="{$frs.user_id}" id="tousername" readonly>
+            <script>
+              $(function () {
+                $("#tousername").change(function () {
+                  var username = $(this).val();
+                  $.get("__APP__/Transfer/getUserName/userid/"+username,function (data) {
+                    $("#showName").html("（"+data.info+" ）");
+                });
+
+              });
+            });
+        </script>
+    </div>
+    <div class="form-group"><label>充值金额</label>
+        <div id="price_slider" style="margin: 10px auto"></div>
+        <input type="text" placeholder="" class="form-control" name="price" value="" id="price">
+    </div>
+    <div class="form-group"><label>充值类型</label>
+        <div id="price_slider" style="margin: 10px auto"></div>
+        <select name="type" id="" class="form-control">
+          <option value="0">现金点值</option>
+          <option value="1">注册积分</option>
+        </select>
+    </div>
+     <div class="form-group"><label>银行列表</label>
+        <div id="price_slider" style="margin: 10px auto"></div>
+       <select name="bank" id="bank" class="form-control">
+									<option value="">请选择银行</option>
+										<volist name='bank_list' id='voo'>
+										<option value="{$bank_list[$key]}"  bankcard="{$bankcard[$key]}"   bankusername="{$bankusername[$key]}" >{$bank_list[$key]} </option>
+										</volist>
+
+								</select>
+    </div>
+     <div class="form-group"><label>卡号<span   style="color: #1ab394"></span></label>
+            <input type="text" placeholder="" class="form-control"    id="bankcard" readonly>
+           
+    </div>
+     <div class="form-group"><label>收款人<span   style="color: #1ab394"></span></label>
+            <input type="text" placeholder="" class="form-control"    id="bankusername" readonly>
+           
+    </div>
+     <script>
+              $(function () {
+                $("#bank").change(function () {
+                  var bankcard = $(this).children('option:selected').attr("bankcard");
+                  var bankusername = $(this).children('option:selected').attr("bankusername");
+                  $("#bankcard").val(bankcard);
+                  $("#bankusername").val(bankusername);
+                  
+              });
+            });
+        </script>
+    <div class="form-group"><label>充值时间</label>
+        <div id="price_slider" style="margin: 10px auto"></div>
+        <input type="text" placeholder="" class="form-control" onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" name="time" value="" id="time">
+    </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+  <button type="submit" class="ladda-button ladda-button-demo btn btn-primary" id="sendUp" data-style="zoom-in">确认充值</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</block>

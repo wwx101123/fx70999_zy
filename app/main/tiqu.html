@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/tiqu.css" />
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/user.js"></script>
+		<script type="text/javascript" src="../js/weixin.js"></script>
+		<script type="text/javascript" src="../js/weixin_login.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/jquery.qrcode.min.js"></script>
+		<style type="text/css">
+			a,
+			body,
+			center,
+			cite,
+			code,
+			dd,
+			del,
+			div,
+			dl,
+			dt,
+			em,
+			fieldset,
+			figcaption,
+			figure,
+			footer,
+			form,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			header,
+			hr,
+			html,
+			img,
+			input,
+			label,
+			legend,
+			li,
+			mark,
+			ol,
+			p,
+			section,
+			span,
+			strong,
+			textarea,
+			time,
+			ul,
+			var input {
+				margin: 0;
+				border: 0;
+				padding: 0;
+				font-style: normal;
+				color: #323232;
+				box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				/* Firefox */
+				-webkit-box-sizing: border-box;
+				/* Safari */
+			}
+			
+			ol,
+			ul {
+				list-style: none;
+			}
+			
+			input {
+				border: 0px solid rgba(0, 0, 0, .2);
+			}
+			
+			.content {
+				margin: 50px 0 20px;
+				text-align: center;
+			}
+			
+			.password {
+				height: 50px;
+				line-height: 50px;
+				width: 300px;
+				margin: 0 auto;
+				background-color: #fff;
+			}
+			
+			.password span {
+				float: left;
+				width: 50px;
+				height: 50px;
+				line-height: 50px;
+				border: 1px solid #ccc;
+				text-align: center;
+			}
+			
+			.password span {
+				border-right: none;
+			}
+			
+			.password span:last-child {
+				border-right: 1px solid #ccc;
+			}
+			
+			.keyboard {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				bottom: 0;
+			}
+			
+			.keyboard>li {
+				float: left;
+				line-height: 50px;
+				width: 33.3%;
+				text-align: center;
+				background-color: #fff;
+			}
+			
+			.bottom_border {
+				border-bottom: 1px solid #ccc;
+			}
+			
+			.top_border {
+				border-top: 1px solid #ccc;
+			}
+			
+			.right_border {
+				border-right: 1px solid #ccc;
+			}
+			
+			.aui-flex-box span {
+				color: black;
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<div class="" id="mescroll">
+
+			<div class=" aui-flex-member-list" style="padding: 0px;">
+
+				<div class="module-cell clearfix  pad02rem">
+					<div class="box accountinfo"  >
+						<div class="box-flex">
+							<h5 class="title_name">姓名</h5>
+							<h3 class="colorhui3 user_name"></h3>
+						</div>
+						<div class="box-flex">
+							<h5 class="title_name agent_use_str"></h5>
+							<h3 class="color5b agent_use">0</h3>
+						</div>
+					</div>
+					<div class="chi">
+						<div class="aui-flex b-line" style="padding:15px 10px;">
+							<div class="aui-flex-wx">
+								<img src="../images/icon-bank.png" alt="">
+							</div>
+							<div class="aui-flex-box aui-flex-box-clear">
+								<h4>
+                                    银行卡提现 
+                                    <em class="aui-flex-box-tj">
+                                       <img src="../images/icon-tj.png" alt=""> 
+                                    </em>
+                                </h4>
+								<p>亿万用户的选择，更快更安全</p>
+							</div>
+							<div class="aui-payment-method">
+								<label class="cell-right"><input class="radio" s_type="1"  type="radio" name="radio" value="bank"   >
+                                    <i class="cell-radio-icon"></i>
+                                </label>
+							</div>
+						</div>
+						<div class="aui-flex b-line" style="padding:15px 10px;background: #cdd2d2;">
+							<div class="aui-flex-wx">
+								<img src="../images/icon-wx.png" alt="">
+							</div>
+							<div class="aui-flex-box aui-flex-box-clear">
+								<h4>
+                                    微信提现 
+                                    <em class="aui-flex-box-tj">
+                                      <!--  <img src="../images/icon-tj.png" alt="">-->
+                                    </em>
+                                </h4>
+								<p>亿万用户的选择，更快更安全</p>
+							</div>
+							<div class="aui-payment-method" style="display: none;">
+								<label class="cell-right"><input class="radio" s_type="2" payment_id=8  type="radio" name="radio" value="wx" checked="checked">
+                                    <i class="cell-radio-icon"></i>
+                                </label>
+							</div>
+						</div>
+						<div class="aui-flex b-line" style="padding:15px 10px;background: #cdd2d2;">
+							<div class="aui-flex-wx">
+								<img src="../images/icon-zfb.png" alt="">
+							</div>
+							<div class="aui-flex-box">
+								<h4>支付宝提现</h4>
+								<p>亿万用户的选择</p>
+							</div>
+							<div class="aui-payment-method" style="display: none;">
+								<label class="cell-right"><input class="radio" s_type="3" type="radio" name="radio" value="zfb" >
+                                    <i class="cell-radio-icon"></i>
+                                </label>
+							</div>
+						</div>
+
+					</div>
+					<div class="aui-info-box" style="background: #fef6e9;display: none;">
+						<div class="aui-flex">
+							<div class="aui-i-img" style="width: 15px;
+    height: 15px;">
+								<img src="../images/icon-i.png" alt="">
+							</div>
+							<div class="aui-flex-box" style="padding-left: 2%;">
+								<p style="color: #fcb63a;font-size: 12px;" class="sxf wx_sxf"> </p>
+								<p style="color: #fcb63a;font-size: 12px;display: none;" class="zfb_sxf sxf"> </p>
+							</div>
+
+						</div>
+					</div>
+					<!--充值-->
+					<div class="aui-flex-member-list" style="margin-top: 5px;">
+						<h2 style="font-size: 12px;"></h2>
+						<ul class="aui-cho-box money_list">
+
+							 
+						</ul>
+						<div class="cell-item recharge_select" style="width: 95%;">
+							<div class="cell-left"><input type="text" value="" placeholder="自定义金额" id="price" name="price"></div>
+
+						</div>
+						<div class="cell-item alipay_select recharge_select change_alipay" style="width: 95%;display: none;position: relative;">
+							<div class="cell-left" style="font-size: 12PX;">支付宝账号:<input style="font-size: 12PX;" type="text" value="" readonly="readonly" placeholder="请绑定支付宝账号" id="alipay" name="alipay"></div>
+
+							<button class="aui-tabBar-btn " style="line-height: 0px;width: 30%;;background: #439dfe;position: absolute;right: 0;">更换</button>
+						</div>
+					</div>
+				</div>
+				<div class="aui-tabBar aui-tabBar-fixed">
+					<input type="hidden" name="money" id="money" class="mui-input-clear" value="0.3" placeholder="本次提现金额">
+					<input id="s_type" name="s_type" class="s_type" type="hidden" value="1" />
+					<input id="wx_url" name="wx_url" class="union_url" type="hidden" value="" />
+					<button class="aui-tabBar-btn tiqu" style="line-height: 0px;background: #4c2664;" onclick="add_tixian(this,'#s_type')">立即提现</button>
+				</div>
+
+				<!-- pop begin -->
+				 
+				<!-- pop end -->
+
+			</div>
+		</div>
+		<input id="turl" name="turl" type="hidden" />
+		<input id="sharehref" style="display: none;" class="sharehref" type="url" value="www.baidu.com" placeholder="请输入要分享的链接地址" />
+		<input id="sharehrefTitle" style="display: none;" class="sharehref" type="text" value="提现公众号" placeholder="请输入要分享的链接标题" />
+		<input id="sharehrefDes" style="display: none;" class="sharehref" type="text" value="我正在使用HBuilder+HTML5开发移动应用，赶紧跟我一起来体验！" placeholder="请输入要分享的链接描述" />
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				var re_share_sub_title = localStorage.getItem('re_share_sub_title');
+				var re_share_title = localStorage.getItem('re_share_title');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var user = localStorage.getItem('user');
+				user = JSON.parse(user);
+				//alert(re_share_title)  
+				//				$('#sharehref').val(PreUrl + 'Weixin/notify.html');
+				$('#sharehrefTitle').val('提现公众号');
+				$('#sharehrefDes').val('请立即进行授权');
+			});
+
+			mui.plusReady(function() {
+				localStorage.setItem('sns', '');
+				localStorage.setItem('in_uid', 0);
+
+				var wv = plus.webview.currentWebview();
+				wv.setStyle({
+
+					titleNView: {
+
+						buttons: [{
+							"float": "right",
+							"fontSrc": "_www/fonts/mui.ttf", //wap2app内置字体文件
+							"text": "明细",
+							"onclick": "javascript:test()",
+							"fontSize": '15px'
+						}]
+					}
+				});
+
+				$('.change_alipay').on('click', function() {
+
+					go_change_alipay();
+
+				});
+
+			});
+
+			function test() {
+				openWindowWithTitle('提现明细', 'tiqu_list.html')
+
+			}
+		</script>
+		<div class="my-c-img" id="code" style="position: relative;display: none;">
+		</div>
+		</div>
+	</body>
+	<!--规格容器-->
+	<div>
+		<div class="weui-mask" id="specMask" style="display:none"></div>
+		<div class="weui-actionsheet spec-wrap" id="specActionsheet">
+			<div id="specActionsheetCancel" class="close">
+				<i class="iconfont icon-close"></i>
+			</div>
+			<div id="goodsSpecBox" class="spec-box">
+				<dl class="payment">
+					<dt>提现信息</dt>
+					<dd>
+						<!--规格选项-->
+
+						<!--/规格选项-->
+					</dd>
+				</dl>
+				<div class="btn-box">
+					<dt class="seller_txt"><img class="wx_logo" src="../images/logo.png" style="width:30px;height: 30px;" ></dt>
+					<dd class="tiqu_user_name">
+
+					</dd>
+
+				</div>
+
+				<div class="btn-box">
+					<dt>提现金额<span></span></dt>
+					<dd class="tiqu_money">
+
+					</dd>
+
+				</div>
+
+			</div>
+
+			<div class="weui-actionsheet__action">
+				<button style="width: 50%; float: left;border-right:1px solid white;" id="changeButton" class="weui-actionsheet__cell ">切换账号</button>
+				<button style="width: 50%; float: left;" id="confirmButton" class="weui-actionsheet__cell ">提交</button>
+			</div>
+		</div>
+	</div>
+	<!--规格容器-->
+	<!--规格容器-->
+	<div>
+		<div class="weui-mask" id="specMaskzfb" style="display:none"></div>
+		<div class="weui-actionsheet spec-wrap" id="specActionsheetzfb">
+			<div id="specActionsheetCancel" class="close">
+				<i class="iconfont icon-close"></i>
+			</div>
+			<div id="goodsSpecBox" class="spec-box">
+				<dl class="payment">
+					<dt>提现信息</dt>
+					<dd>
+						<!--规格选项-->
+
+						<!--/规格选项-->
+					</dd>
+				</dl>
+				<div class="btn-box">
+					<dt>支付宝账号<span></span></dt>
+					<dd class="tiqu_user_name">
+
+					</dd>
+
+				</div>
+
+				<div class="btn-box">
+					<dt>提现金额<span></span></dt>
+					<dd class="tiqu_money">
+
+					</dd>
+
+				</div>
+
+			</div>
+
+			<div class="weui-actionsheet__action">
+				<button style="width: 50%; float: left;border-right:1px solid white;" class="weui-actionsheet__cell change_alipay">切换账号</button>
+				<button style="width: 50%; float: left;" id="confirmButton" class="weui-actionsheet__cell ">提交</button>
+			</div>
+		</div>
+	</div>
+	<!--规格容器-->
+	<div class="weui-actionsheet spec-wrap" id="yzmActionsheet">
+		<div id="specActionsheetCancel" class="close specActionsheetCancel">
+			<i class="iconfont icon-close"></i>
+		</div>
+		<input type="hidden" name="user_id" id="user_id" value="18261970930">
+		<input type="hidden" id="step" value="1" />
+		<input type="hidden" id="old_pwd" />
+		<input type="hidden" id="pwd" />
+		<input type="hidden" id="repwd" />
+		<div class="content get_yzm" style="margin:10px;font-size: 12px;">
+			短信发送至:<span class="phone">18261970930</span>
+		</div>
+		<div class="content" style="margin:10px;font-size: 12px;">
+			绑定微信钱包,请输入短信验证码
+		</div>
+		<div class="password">
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<button style="text-align: center; width: 80%; margin-left: 10%;  margin-top: 20px; background: #439dfe;color: white; height: 40px; line-height:0px;" id="btnSubmit" name="btnSubmit" type="button" class="login_go_div confirmYzm">确认</button>
+		<ul class="keyboard clearfix">
+			<li class="bottom_border right_border top_border">1</li>
+			<li class="bottom_border right_border top_border">2</li>
+			<li class="bottom_border top_border">3</li>
+			<li class="bottom_border right_border ">4</li>
+			<li class="bottom_border right_border">5</li>
+			<li class="bottom_border ">6</li>
+			<li class="bottom_border right_border">7</li>
+			<li class="bottom_border right_border">8</li>
+			<li class="bottom_border ">9</li>
+			<li class="" style="background-color: #d5d8db;">&nbsp;</li>
+			<li>0</li>
+			<li style="background-color: #d5d8db;"><img src="../images/del_.png" style="width: 30PX;vertical-align: middle"></li>
+		</ul>
+	</div>
+
+</html>
+<script type="text/javascript">
+	$(document).ready(function(e) {
+
+		$(".radio").click(function() {
+
+			$('.alipay_select').css('display', 'none');
+			$('.sxf').css('display', 'none');
+			$("#price").val('')
+			$('#s_type').val($(this).attr('s_type'))
+			if($(this).attr('s_type') == 2) {
+				$('.wx_sxf').css('display', 'block');
+				var user = localStorage.getItem('user');
+
+				var info = JSON.parse(user);
+				if(info.gzh_openid == '') {
+
+				}
+			}
+			if($(this).attr('s_type') == 3) {
+				$('.zfb_sxf').css('display', 'block');
+				$('.alipay_select').css('display', 'flex');
+
+			}
+
+		});
+		$(".radio:eq(0)").trigger('click')
+		$("#price").bind("input propertychange", function() {
+			$('.aui-flex').removeClass('on')
+			$('#money').val($(this).val())
+		})
+		$(".save_qcode").click(function() {
+			downloadIamge()
+		});
+		$(".confirmYzm").click(function() {
+
+			var password = localStorage.getItem('password')
+			console.log(password.length)
+			if(password == '' || password == null) {
+				mui.toast('请输入验证码')
+			}
+			var user_tel = $('#user_id').val();
+			wxYzmCheck(user_tel, Callback);
+
+		});
+
+	});
+
+	function Callback(data) {  
+
+		if(data.status == 1) {
+
+			hideActionSheet();
+			Ceng(data.eweima_time);
+
+		}
+	}
+
+	function getRandom(n) {
+		return Math.floor(Math.random() * n + 1)
+	}
+
+	function downloadIamge() {            
+		var canvas = $('.my-c-img').find('canvas').get(0);
+		var alink = document.createElement("a");
+
+		alink.href = canvas.toDataURL('image/jpg');
+		alink.download = getRandom(100000) + ".png";
+		console.log(canvas.toDataURL('image/jpg'))
+
+		var bitmap = new plus.nativeObj.Bitmap();
+		quality = 10;
+		//      callback = callback || $.noop;
+		// 从本地加载Bitmap图片
+		bitmap.loadBase64Data(alink.href, function() {
+			//    console.log('加载图片成功');
+			var filename = getSDRoot() + '/' + alink.download
+			bitmap.save(filename, {
+				overwrite: true,
+				quality: quality
+			}, function(i) {
+				plus.gallery.save(filename, function() { //保存到相册
+					plus.io.resolveLocalFileSystemURL(filename, function(enpty) {
+						// 关闭弹框 
+						mui.toast('保存成功')
+					});
+
+				})
+				console.log('保存图片成功：' + JSON.stringify(i));
+			}, function(e) {
+				console.log('保存图片失败：' + JSON.stringify(e));
+			});
+		}, function(e) {
+			console.log('加载图片失败：' + JSON.stringify(e));
+		});
+
+		// 		alink.click();   
+	}
+
+	function tola() {
+		var $li = $(".aui-cho-box").children("li.on");
+		var money = $li.children("i").text();
+		var count = $(".auiSks").val();
+		$(".aui-total span").text(money * count);
+	}
+	//二维码弹窗
+	function Ceng(eweima_time) {
+		console.log(eweima_time)
+
+		var user = localStorage.getItem('user');
+
+		console.log(user)
+		var info = JSON.parse(user);
+		var phone = info.user_id.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+		$('.phone').html(phone);
+		$('.user_name').html(info.user_name);
+		if(info.id > 1) {
+			$('#user_id').val(info.user_id);
+		}
+		$('.agent_kt').html(info.agent_use);
+		var PreUrl = localStorage.getItem('PreUrl');
+		var url = PreUrl + '/Reg/union_frm/id/' + info.id + '/eweima_time/' + eweima_time;
+		$('.union_url').val(url);
+		console.log(url)
+		$('#sharehref').val(url);
+		console.log($('#sharehref').val())
+		$('#union_url_btn').click(function() {
+			console.log($('.union_url').val())
+			copyShareUrl($('.union_url').val());
+		});
+
+		$('#code').qrcode(url);
+		var margin = ($("#code").height() - $("#qrCodeIco").height()) / 2;
+		$("#qrCodeIco").css("margin", margin);
+		var canvas = $('body').find('canvas').get(0);
+		//			$('#imgOne').attr('src', canvas.toDataURL('image/jpg'))
+		$('.in-pop').css('background', 'url(' + canvas.toDataURL('image/jpg') + ') no-repeat');
+		$('.in-pop').css('background-size', '100%');
+
+		document.getElementById('ceng').style.display = 'block';
+		document.getElementById('close').style.display = 'block';
+
+		$('.in-pop').css('height', $('.in-pop').width())
+
+		var height = ($(".in-pop").height())
+
+		var margin = (height - $("#CodeIco").height()) / 2;
+		$("#CodeIco").css("top", margin);
+		$("#CodeIco").css("right", margin);
+		$(".save_qcode").css("bottom", $('.save_qcode').height() * 2 * -1);
+
+		return false;
+	}
+
+	function closeCeng() {
+		document.getElementById('ceng').style.display = 'none';
+		document.getElementById('close').style.display = 'none';
+		return false;
+
+	}
+</script>
+<script type="text/javascript">
+	$(function() {
+		$('input').css('border', 0)
+		var size = 10;
+		var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		var mescroll = initMeScroll("mescroll", {
+			down: {
+				auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+				callback: downCallback //下拉刷新的回调
+			}
+		});
+
+		function getListDataFromNet(user_id, successCallback, errorCallback) {
+			//延时一秒,模拟联网
+
+			try {
+
+				get_user_info(user_id, successCallback)
+			} catch(e) {
+				//联网失败的回调
+				errorCallback && errorCallback();
+			}
+
+		}
+		var page_index = 0;
+		localStorage.setItem('page_index', page_index);
+		/*下拉刷新的回调 */
+		function downCallback() {
+			var page_index = 0;
+
+			//					page_index = parseInt(page_index) + 1;
+			localStorage.setItem('page_index', page_index);
+
+			var user_id = localStorage.getItem('user_id');
+
+			//联网加载数据
+			getListDataFromNet(user_id, function(data) {
+				//联网成功的回调,隐藏下拉刷新的状态
+				mescroll.endSuccess();
+				var curPageData = localStorage.getItem('ListData');
+				console.log(curPageData)
+				//设置列表数据
+				setListData(curPageData);
+				//			down();
+			}, function() {
+				//联网失败的回调,隐藏下拉刷新的状态
+				mescroll.endErr();
+			});
+		}
+
+		function setListData(data) {
+			var user = localStorage.getItem('user');
+
+			console.log(user)
+			var info = JSON.parse(user);
+			var phone = info.user_id.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+			$('.phone').html(phone);
+			$('.user_name').html(info.user_name);
+			if(info.id > 1) {
+				$('#user_id').val(info.user_id);
+			}
+			$('#alipay').val(info.alipay);
+			$('.wx_sxf').html(info.sxf);
+			$('.zfb_sxf').html(info.zfb_sxf);
+			$('.agent_kt').html(info.agent_kt);
+			$('.agent_kt_str').html(info.bi.agent_kt);
+			$('.agent_use').html(info.agent_use);
+			$('.agent_use_str').html(info.bi.agent_use);
+			$('.money_list li').remove();
+
+			$.each(info.money_list, function(index, content) {
+				console.log(content.money)
+				var on = '';
+				var tj = '';
+				if(index == 0) {
+					on = 'on';
+					tj = '<img src="../images/icon-tj.png" alt="">';
+					$('#money').val(content.money)
+				}
+				var item = ' <li class="aui-flex ' + on + '">';
+				item += '<div class="aui-flex-box">';
+				item += '<h3>';
+				item += ' <span>' + content.money + '</span>';
+				item += ' <em class="aui-flex-box-tj">';
+				item += '   ' + tj;
+				item += '  </em>';
+				item += '   </h3>';
+				item += '	<p>立即到账</p>';
+				item += '</div>';
+
+				item += '</li>';
+				$('.money_list').append(item);
+			});
+			console.log($('#money').val())
+			$(".aui-cho-box li").click(function() {
+				$("#price").val('')
+
+				$(this).addClass("on").siblings().removeClass("on");
+				tola();
+				$('#money').val($(this).find('span').html())
+				console.log($('#money').val())
+
+			});
+
+		}
+	});
+</script>
+<script type="text/javascript">
+	localStorage.setItem('change_user', '')
+	var keyboard = document.querySelector('.keyboard').querySelectorAll('li');
+	for(var i = 0; i < keyboard.length; i++) {
+		if(mui.os.ios) {
+
+			new NoClickDelay(keyboard[i]);
+		}
+
+		keyboard[i].addEventListener('click', function() {
+			set_num(this.innerHTML)
+		}, false);
+	}
+
+	function set_num(num) {
+
+		var spans = document.querySelector('.password').querySelectorAll('span');
+		if(/[0-9]/.test(num) && num.indexOf('img') < 0) {
+			var index = 0;
+			for(var i = 0; i < spans.length; i++) {
+				var val = spans[i].innerHTML;
+				index = i;
+				if(!val) {
+					spans[i].innerHTML = num;
+					spans[i].setAttribute('data-num', num);
+					setTimeout(function() {
+						//								spans[i].innerHTML = '*';
+					}, 200);
+					break;
+				}
+			}
+			if(index == 5) {
+				var password = '';
+				for(var j = 0; j < spans.length; j++) {
+					var val = spans[j].getAttribute('data-num');
+					password += val;
+				}
+				var step = $('#step').val();
+				localStorage.setItem('password', password)
+				if(step == 1) {
+
+				}
+				//				if(step == 2) {
+				//					$('#step').val(3)
+				//					$('#pwd').val(password)
+				//
+				//					$('#btnSubmit').css('display', 'block')
+				//					$('.content').html('请再次输入新交易密码')
+				//				}
+				//				if(step == 3) {
+				//
+				//					$('#repwd').val(password)
+				//
+				//				} else {
+				//					setTimeout(function() {
+				//						for(var k = 0; k < spans.length; k++) {
+				//							spans[k].innerHTML = '';
+				//							spans[k].setAttribute('data-num', '');
+				//						}
+				//					}, 300);
+				//				}
+			}
+		} else if(num.indexOf('img') > 0) {
+			var index = 0;
+			for(var i = 0; i < spans.length; i++) {
+				var val = spans[i].innerHTML;
+				console.log(val)
+				if(val) {
+					index = i;
+				}
+
+			}
+			spans[index].innerHTML = '';
+			spans[index].setAttribute('data-num', '');
+
+			for(var j = 0; j < spans.length; j++) {
+				var val = spans[j].getAttribute('data-num');
+				password += val;
+			}
+			localStorage.setItem('password', password)
+		}
+	}
+
+	window.addEventListener('update_user_info', function(e) {
+
+		var data = localStorage.getItem('change_user');
+		if(data != null && data != '') {
+			var info = JSON.parse(data)
+			$('#alipay').val(info.alipay);
+			localStorage.setItem('change_user', '')
+		}
+	});
+</script>

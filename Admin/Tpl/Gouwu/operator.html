@@ -1,0 +1,11 @@
+ <td rowspan="2"><b class="tablesaw-cell-label">数量</b><span class="tablesaw-cell-content">{$vo.shu}</span></td>
+ <td rowspan="2"><b class="tablesaw-cell-label">实际支付</b><span class="tablesaw-cell-content">442.00</span></td>
+ <td rowspan="2"><b class="tablesaw-cell-label">状态</b><span class="tablesaw-cell-content"><span class="label label-danger">未付款</span></span></td>
+ <td rowspan="2" title="2016-12-01 14:51:40"><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p>2016-12-01</p></span></td>
+ <td rowspan="2"><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+    <a class="btn-white btn btn-xs" data-toggle="modal" data-target="#myModal" onclick="showDetail.call(this,&quot;订单详情&quot;,&quot;orderview.php?id=4&quot;)">查看 </a>
+    <button onclick="confirmBuy.call(this,'确定支付？','orderlist.php?action=payment_ajax&amp;id=4&amp;pageno=1');" class="ladda-button ladda-button-demo btn-white btn btn-xs" data-style="zoom-in">
+        支付 </button>
+        <button onclick="confirmDel.call(this,'确定删除？','orderlist.php?action=del_ajax&amp;id=4&amp;pageno=1');" class="ladda-button ladda-button-demo btn-white btn btn-xs" data-style="zoom-in">
+            删除 </button>
+        </span></td>

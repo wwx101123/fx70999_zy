@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>收款信息 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link href="../css/user.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/upload.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+
+				$(".add").on('click', function() {
+					localStorage.setItem('address_id', 0);
+					location.href = 'useraddress_edit.html'
+				})
+				//				plus.webview.currentWebview().setStyle({
+				//					titleNView: {
+				//						'backgroundcolor': '#439dfe',
+				//						'titletext': '收款信息',
+				//						'titlecolor': '#FFFFFF',
+				//						buttons: [{
+				//							text: '新增银行卡',
+				//							"fontSize": "15px",
+				//							fontSrc: 'fonts/mui.ttf',
+				//							float: 'right', //按钮不像绘制的方法，是不能用position绝对定位的，只能左右浮动
+				//							onclick: add_address //按钮有个好处可以直接绑定事件，如果没有事件，跟绘制没有差别了。
+				//						}]
+				//					}
+				//				});
+			});
+
+			function add_address() {
+				localStorage.setItem('address_id', 0);
+				openWindowWithTitle('新增收货地址', 'useraddress_edit.html')
+
+			}
+
+			function add_bank() {
+				localStorage.setItem('address_id', 0);
+				openWindowWithTitle('新增银行', 'add_bank.html')
+
+			}
+		</script>
+		<style>
+			.pay_type h3:after {
+				background: none;
+			}
+			
+			#noSelectPage:after {
+				background: none;
+			}
+			
+			.noChoose:before {
+				display: none;
+			}
+			
+			li {
+				list-style: none;
+			}
+			
+			.sub_list li:after {
+				display: none;
+			}
+			
+			.qq_footer,
+			.wx_footer {
+				display: none;
+			}
+			
+			.aui-flex {
+				background: white;
+				margin-bottom: 10PX;
+			}
+		</style>
+		<script type="text/javascript">
+			function ExecPostBack(checkValue) {
+				if(arguments.length == 1) {
+					ExecDelete('user_address_delete', checkValue, '#turl');
+				} else {
+					var valueArr = '';
+					$("input[name='checkId']:checked").each(function(i) {
+						valueArr += $(this).val();
+						if(i < $("input[name='checkId']:checked").length - 1) {
+							valueArr += ","
+						}
+					});
+					ExecDelete('user_address_delete', valueArr, '#turl');
+				}
+			}
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<div class="address_list">
+
+				</div>
+				<!--收货地址列表-->
+				<div class="detail-list" style="">
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata" style="display: none;">暂无记录...</div>
+
+					</ul>
+
+				</div>
+
+				<!--分页页码-->
+				<div class="page-list">
+					<section class="aui-scrollView ">
+						<div class="aui-flex b-line aui-flex-two" style="border: 0;" onclick="add_bank()">
+							<div class="aui-flex-box">银行卡</div>
+
+							<div class="aui-flex-fr"> <span class="bank_tip">未新增</span> </div>
+						</div>
+						<div class="aui-flex b-line aui-flex-two" style="border: 0;" onclick="open_modifypwd1()">
+							<div class="aui-flex-box">修改登录密码</div>
+
+							<div class="aui-flex-fr"> <span class="">修改</span> </div>
+						</div>
+						<div class="aui-flex b-line aui-flex-two" style="border: 0;" onclick="open_modifypwd2()">
+							<div class="aui-flex-box">修改二级密码</div>
+
+							<div class="aui-flex-fr"> <span class="">修改</span> </div>
+						</div>
+						<div class="aui-flex b-line aui-flex-two" style="border: 0; display: none;">
+							<div class="aui-flex-box">支付宝</div>
+							<img src="../images/zhifubao.png" onclick="init_upload(this,'.alipay_img',upload_avatar)" width="5px" class="alipay_img" style="
+    width: 25px;
+    height: 25px;
+">
+							<div class="aui-flex-fr"> <span>上传</span> </div>
+						</div>
+						<div class="aui-flex b-line aui-flex-two" style="border: 0; display: none;">
+							<div class="aui-flex-box">微信</div>
+							<img src="../images/app_new_images_weixin.png" width="5px" class="weixin_img" onclick="init_upload(this,'.weixin_img',upload_avatar)" style="
+    width: 25px;
+    height: 25px;
+">
+							<div class="aui-flex-fr">上传</div>
+						</div>
+
+					</section>
+					<!--<div class="aui-box-item">
+						<div class="aui-card-list">
+							<div class="aui-card-list-bg">
+								<h2>支付宝</h2>
+
+								<a href="javascript:;" class="aui-card-list-link" onclick="init_upload(this,'.alipay_img',upload_avatar('alipay'))">
+									上传收款码
+								</a>
+							</div><img class="alipay_img" src="../images/zhifubao.png" style="position: absolute;
+    top: 6%;
+    width: 75px;
+    height: 75px;
+    right: 12%;" />
+						</div>
+						<div class="aui-card-list aui-card-blue" style="position: relative;">
+							<div class="aui-card-list-bg aui-card-list-loan">
+								<h2>微信</h2>
+								<a href="javascript:;" class="aui-card-list-link" onclick="init_upload(this,'.weixin_img',upload_avatar('weixin'))">
+									上传收款码
+								</a>
+
+							</div>
+							<img class="weixin_img" src="../images/app_new_images_weixin.png" style="position: absolute;
+    top: 5%;
+    width: 80px;
+    height: 80px;
+    right: 10%;" />
+						</div>
+					</div>-->
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--/收货地址列表-->
+			</div>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		init()
+
+		function init() {
+			mui.init({
+				pullRefresh: {
+					container: '.page__bd',
+					down: {
+						style: 'circle',
+						color: localStorage.getItem('color'),
+						auto: true,
+						callback: down
+					}
+				}
+			});
+
+		}
+
+		function open_modifypwd1() {
+
+			openWindowWithTitle('修改登录密码', 'modifypwd.html');
+
+		}
+
+		function open_modifypwd2() {
+
+			openWindowWithTitle('修改支付密码', 'modifypwd2.html');
+
+		}
+
+		function init_view() {
+			var user = localStorage.getItem('user');
+			var info = JSON.parse(user);
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			if(info.weixin_img != null && info.weixin_img != '') {
+
+				$('.weixin_img').attr('src', UploadUrl + info.weixin_img);
+			}
+			if(info.alipay_img != null && info.alipay_img != '') {
+
+				$('.alipay_img').attr('src', UploadUrl + info.alipay_img);
+			}
+			if(info.bank_card != null && info.bank_card != '') {
+
+				$('.bank_tip').html('已更新');
+			}
+		}
+
+		function down() {
+
+			var user_id = localStorage.getItem('user_id');
+			get_user_info(user_id, init_view)
+			mui('.page__bd').pullRefresh().endPulldown();
+		}
+		window.addEventListener('update_user_addr_book_list', function(e) {
+			var set_address = localStorage.getItem('set_address');
+			if(set_address == 1) {
+				mui('.page__bd').pullRefresh().pulldownLoading();
+				console.log(2222)
+			}
+		});
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_addr_book_list');
+
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		function upload_avatar() {
+			var user_id = localStorage.getItem('user_id');
+			var avatar_url = localStorage.getItem('avatar_url');
+
+			var IP = localStorage.getItem('IP');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var IndexUrl = localStorage.getItem('IndexUrl');
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var upload_type = localStorage.getItem('upload_type');
+			console.log(upload_type)
+
+			/**
+			 * 获取商品列表
+			 */
+			var avatarEdit_val = PreUrl + "User/avatarEdit";
+			$.ajax({
+				url: avatarEdit_val,
+				data: {
+					is_mobile: 1,
+
+					user_id: user_id,
+
+					avatar: avatar_url,
+
+					type: upload_type
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'POST', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+
+				success: function(data) {
+					console.log(JSON.stringify(data))
+					localStorage.setItem('user', JSON.stringify(data.data));
+
+					if(status == 1) {
+						mui.toast(data.msg)
+					} else {
+
+					}
+					////lang()
+
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(JSON.stringify(xhr));
+				}
+			});
+
+		}
+	</script>
+
+</html>

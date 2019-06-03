@@ -1,0 +1,709 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>
+			移动端商家自入驻-2/4 店铺信息
+		</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<script type="text/javascript" src="../js/upload.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/mescroll.min.css" />
+		<link rel="stylesheet" href="../css/mescroll-option.css" />
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<style type="text/css">
+			.mui-input-row {
+				background: #fff;
+				margin: 0.1rem 0;
+			}
+			
+			.J-area {
+				height: 50px;
+				line-height: 50px;
+				font-size: 15px;
+			}
+		</style>
+		<style type="text/css">
+			.chooseBtn {
+				display: none;
+			}
+			
+			.choose-label {
+				box-shadow: #ccc 0px 0px 0px 1px;
+				width: 40px;
+				height: 20px;
+				display: inline-block;
+				border-radius: 20px;
+				position: relative;
+				background-color: #bdbdbd;
+				overflow: hidden;
+			}
+			
+			.choose-label:before {
+				content: '';
+				position: absolute;
+				left: 0;
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				border-radius: 20px;
+				background-color: #fff;
+				z-index: 20;
+				-webkit-transition: all 0.5s;
+				transition: all 0.5s;
+			}
+			
+			.chooseBtn:checked+label.choose-label:before {
+				left: 20px;
+			}
+			
+			.chooseBtn:checked+label.choose-label {
+				background-color: #51ccee;
+			}
+			
+			input[type=button],
+			input[type=submit],
+			input[type=checkbox],
+			button {
+				cursor: pointer;
+				-webkit-appearance: none;
+			}
+			
+			.mui-input-row label~input,
+			.mui-input-row label~select,
+			.mui-input-row label~textarea {
+				font-size: 13px;
+			}
+			
+			.mui-input-row label {
+				font-size: 13px;
+			}
+		</style>
+	</head>
+	<script>
+		$(function() {
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var user = localStorage.getItem('user');
+			var seller_type = localStorage.getItem('seller_type');
+
+			if(seller_type == 1 || seller_type == 2) {
+				$('.fan_type_div').css('display', 'none');
+				$('.chooseBtn_div').remove();
+
+			}
+
+			$('#seller_type').val(seller_type);
+
+			var huikui_id = localStorage.getItem('huikui_id');
+			$('#huikui_id').val(huikui_id);
+
+			user = JSON.parse(user);
+			$('#user_id').val(user.id);
+			var seller = localStorage.getItem('seller');
+
+			$('#userResult').html('请选择您的机器');
+			if(seller != null && seller != '') {
+				seller = JSON.parse(seller);
+				if(seller != null) {
+					$('#seller_id').val(seller.id);
+					console.log(seller.card_no)
+					$('#seller_type').val(seller.seller_type);
+					$('#sn').val(seller.sn);
+					$('#card_no').val(seller.card_no);
+
+					$('#userResult').val(seller.sn);
+					$('#mobile').val(seller.mobile);
+					$('#user_name').val(seller.user_name);
+					$('#address').val(seller.address);
+					$('#card_begin_time').val(seller.card_begin_time);
+					$('#card_end_time').val(seller.card_end_time);
+
+					$('#credit_card_no').val(seller.credit_card_no);
+					$('#credit_mobile').val(seller.credit_mobile);
+					if(seller.province != null) {
+						$('#txtProvince').val(seller.province);
+						$('#txtCity').val(seller.city);
+						$('#txtArea').val(seller.area);
+						$('#txtAddress').val(seller.address);
+						$('#showCityPicker').val(seller.province + seller.city + seller.area);
+
+					}
+					if(seller.fan_type == 0) {
+
+						$('#fan_type').val('盟友');
+					}
+					if(seller.fan_type == 1) {
+
+						$('#fan_type').val('商户');
+					}
+
+				}
+
+			}
+
+			(function($, doc) {
+
+				$.init();
+				$.ready(function() {
+
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					var user = localStorage.getItem('user');
+					user = JSON.parse(user);
+
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+					var index; //用index来记住给你的那个默认值的下标
+					var seller = localStorage.getItem('seller');
+
+					var seller_type = localStorage.getItem('seller_type');
+					var huikui_id = localStorage.getItem('huikui_id');
+					if(user.user_terminal != null) {
+						var List = user.user_terminal;
+						for(var i = 0; i < List.length; i++) {
+							if(huikui_id > 0) {
+								if(List[i].huikui_id > 0) {
+									shopList1.push({
+
+										value: List[i].id, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+										text: List[i].sn
+
+									})
+								}
+							} else {
+								//二维码的
+								if(seller_type == 1 || seller_type == 2) {
+									if(List[i].terminal_type > 0) {
+										shopList1.push({
+
+											value: List[i].id, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+											text: List[i].sn
+
+										})
+									}
+								}
+								if(seller_type == 0) {
+									if(List[i].terminal_type == 0) {
+										shopList1.push({
+
+											value: List[i].id, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+											text: List[i].sn
+
+										})
+									}
+								}
+								console.log(List[i].huikui_id)
+
+							}
+
+						}
+
+						if(shopList1.length == 0) {
+							var userResult = doc.getElementById('userResult');
+							userResult.value = '您的名下没有传统POS机器'
+
+							var seller_type = localStorage.getItem('seller_type');
+							if(seller_type == 1) {
+
+								userResult.value = '您的名下没有二维码POS机器'
+							}
+							if(seller_type == 2) {
+
+								userResult.value = '您的名下没有二维码POS机器'
+							}
+							var seller = localStorage.getItem('seller');
+							console.log(seller)
+							seller = JSON.parse(seller);
+							if(seller != null && seller != '') {
+
+								if(seller.sn != null || seller.sn != undefined) {
+
+									userResult.value = seller.sn
+
+								}
+							}
+						} else {
+							userPicker.setData(shopList1);
+							var showUserPickerButton = doc.getElementById('sn_select');
+							var userResult = doc.getElementById('userResult');
+							userResult.value = '请选择您的机器'
+							var seller = localStorage.getItem('seller');
+
+							if(seller != null && seller != '') {
+
+								seller = JSON.parse(seller);
+								if(seller != null) {
+									if(seller.sn != null || seller.sn != undefined) {
+
+										userResult.value = seller.sn
+
+									}
+								}
+							}
+
+							var bank = doc.getElementById('bank');
+
+							showUserPickerButton.addEventListener('tap', function(event) {
+								var huikui_sn = localStorage.getItem('huikui_sn');
+
+								if(huikui_sn != null && huikui_sn != '') {
+									userResult.value = huikui_sn;
+									showUserPickerButton.addEventListener("tap", function() { //无效！
+										mui.toast('二维码做件无需选择SN')
+									}, false);
+								} else {
+									openWindowWithTitle('选择机器', 'pos_radio.html');
+								}
+								//							userPicker.show(function(items) {
+								//								userResult.innerText = (items[0].text);
+								//							});
+							}, false);
+
+							var huikui_sn = localStorage.getItem('huikui_sn');
+
+							if(huikui_sn != null && huikui_sn != '') {
+								userResult.value = huikui_sn;
+
+							}
+						}
+					} else {
+						var userResult = doc.getElementById('userResult');
+						userResult.value = '您的名下没有机器'
+						var seller = localStorage.getItem('seller');
+						console.log(seller)
+						seller = JSON.parse(seller);
+						if(seller != null && seller != '') {
+
+							if(seller.sn != null || seller.sn != undefined) {
+
+								userResult.value = seller.sn
+
+							}
+						}
+
+					}
+
+				});
+			})(mui, document);
+
+			$('.button-success').click(function() {
+
+				if($('#userResult').val().indexOf("SN") >= 0) {
+					mui.toast('请选择机器');
+					return;
+				}
+				if($('#userResult').val().indexOf("没有机器") >= 0) {
+					mui.toast('请购买机器');
+					return;
+				}
+				$('#sn').val($('#userResult').val())
+				var is_check = $('.chooseBtn').prop('checked');
+				if(is_check) {
+					if($('#credit_card_no').val() == '') {
+						mui.toast('请输入信用卡号');
+						return;
+					}
+					if($('#credit_mobile').val() == '') {
+						mui.toast('请输入预留电话');
+						return;
+					}
+				}
+				console.log($('#seller_type').val())
+				open_shop_step2();
+			})
+		});
+
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_auth_info');
+
+			}
+		});
+		window.addEventListener('update_select_pos', function(e) {
+			var userResult = $('#userResult');
+
+			var select_pos = localStorage.getItem('select_pos');
+			if(select_pos != '') {
+				userResult.val(select_pos)
+			}
+		});
+	</script>
+
+	<body>
+
+		<input type="hidden" name="shopFrontUrl" value="" />
+		<input type="hidden" name="environmentalUrl" value="" />
+		<input type="hidden" name="shopLogoUrl" value="" />
+
+		<form id="editForm" name="editForm" class="form-box">
+			<input id="huikui_id" name="huikui_id" type="hidden" value="0" />
+			<input id="user_id" name="user_id" type="hidden" />
+			<input id="seller_id" name="seller_id" type="hidden" />
+			<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+			<input id="history_url" name="history_url" type="hidden" value="" />
+			<input type="hidden" id="seller_type" class="seller_type" name="seller_type" />
+			<div id="base-page" class="page-group page__bd" v-cloak>
+				<!-- 把头部提出来，设置成fixed，防止1像素闪烁问题 -->
+				<!--页面头部-->
+
+				<!--/页面头部-->
+
+				<!-- 店铺信息首屏-start -->
+				<div class="page page-current no-animate mescroll" id="mescroll">
+					<div class="content page-content" style="padding-top: 0;">
+						<div class="contentInner">
+
+							<div class="list-block">
+								<div class="mui-input-row">
+									<label>所在地区</label>
+									<input id="txtProvince" name="txtProvince" type="hidden" />
+									<input id="txtCity" name="txtCity" type="hidden" />
+									<input id="txtArea" name="txtArea" type="hidden" />
+									<input name="user_name" id="showCityPicker" placeholder="请选择地区" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<script src="../js/mui.picker.js"></script>
+								<script src="../js/mui.poppicker.js"></script>
+								<script src="../js/city.data.js" type="text/javascript" charset="utf-8"></script>
+								<script src="../js/city.data-3.js" type="text/javascript" charset="utf-8"></script>
+								<script>
+									(function($, doc) {
+										$.init();
+										$.ready(function() {
+											/** 
+											 * 获取对象属性的值
+											 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+											 * @param {Object} obj 对象
+											 * @param {String} param 属性名
+											 */
+											var _getParam = function(obj, param) {
+												return obj[param] || '';
+											};
+											//普通示例
+
+											//-----------------------------------------
+											//级联示例
+											var cityPicker = new $.PopPicker({
+												layer: 3
+											});
+											cityPicker.setData(cityData3);
+											var showCityPickerButton = doc.getElementById('showCityPicker');
+											var cityResult = doc.getElementById('showCityPicker');
+											var txtProvince = doc.getElementById('txtProvince');
+											var txtCity = doc.getElementById('txtCity');
+											var txtArea = doc.getElementById('txtArea');
+											showCityPickerButton.addEventListener('tap', function(event) {
+												cityPicker.show(function(items) {
+													console.log(items[2])
+
+													cityResult.value = "" + items[0].text + " " + items[1].text + " " + items[2].text;
+													txtProvince.value = (items[0].text);
+													txtCity.value = (items[1].text);
+													txtArea.value = (items[2].text);
+													localStorage.setItem('province', items[0].text)
+													localStorage.setItem('city', items[1].text)
+													localStorage.setItem('area', items[2].text)
+													console.log(localStorage.getItem('city'))
+
+												});
+											}, false);
+
+										});
+									})(mui, document);
+								</script>
+								<div class="mui-input-row">
+									<label>详细地址</label>
+									<input name="address" id="address" placeholder="请输入详细地址,必须精确到门牌号" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row">
+									<label>真实姓名</label>
+									<input name="user_name" id="user_name" placeholder="请输入真实姓名" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row">
+									<label>手机号码</label>
+									<input name="mobile" id="mobile" placeholder="请输入手机号码" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row">
+									<label>身份证号</label>
+									<input name="card_no" id="card_no" placeholder="输入身份证号" type="text" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+
+								</div>
+								<div class="mui-input-row dateShowBtn" id="dateShowBtn">
+									<label>身份证开始时间</label>
+									<input name="card_begin_time" id="card_begin_time" data-options='{"type":"date","beginYear":2010,"endYear":2040}' class="btn" placeholder="请选择身份证开始时间" readonly="readonly" type="text" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+
+								</div>
+								<div class="mui-input-row dateShowBtn" id="dateShowBtn2">
+									<label>身份证到期时间</label>
+									<input name="card_end_time" id="card_end_time" data-options='{"type":"date","beginYear":2010,"endYear":2040}' class="btn" placeholder="请选择身份证到期时间" readonly="readonly" type="text" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+
+								</div>
+								<style type="text/css">
+									.demoBox {
+										color: #fff;
+										background-color: rgba(0, 0, 0, 0.4);
+										border-radius: 5px;
+										margin-bottom: 15px;
+										padding: 8px 8px 20px;
+									}
+									
+									.demoBox>p {
+										padding-top: 10px;
+									}
+									
+									.demoBox>ol {
+										padding-top: 15px;
+										border-top: 1px dashed rgba(255, 255, 255, 0.3);
+									}
+									
+									.demoBox>ol>li {
+										padding-top: 10px;
+										margin-left: 7%;
+									}
+									
+									.demoBox>ol>li>span {
+										font-size: 12px;
+										color: rgba(255, 255, 255, 0.4);
+										display: block;
+									}
+									
+									.demo {
+										height: 35px;
+										margin: 15px 0;
+										display: flex;
+										display: -webkit-flex;
+										display: -moz-flex;
+									}
+									
+									.demo>input {
+										display: block;
+										border: 0;
+										border-radius: 3px;
+										padding: 0 8px;
+										height: 100%;
+										flex: 1;
+										-webkit-flex: 1;
+										-moz-flex: 1;
+										font-size: 14px;
+									}
+									
+									.demo>button {
+										background-color: #00c599;
+										color: #fff;
+										border: 0;
+										height: 100%;
+										margin-left: 8px;
+										padding: 0 15px;
+										border-radius: 3px;
+										font-size: 14px;
+									}
+								</style>
+								<script src="Mdate/iScroll.js"></script>
+								<script src="Mdate/Mdate.js"></script>
+
+								<script type="text/javascript">
+									new Mdate("dateShowBtn2", {
+										acceptId: "card_end_time",
+										beginYear: "2010",
+										beginMonth: "10",
+										beginDay: "24",
+										endYear: "2040",
+										endMonth: "1",
+										endDay: "1",
+										format: "-"
+									});
+									
+									new Mdate("dateShowBtn", {
+										acceptId: "card_begin_time",
+										beginYear: "2010",
+										beginMonth: "10",
+										beginDay: "24",
+										endYear: "2040",
+										endMonth: "1",
+										endDay: "1",
+										format: "-"
+									});
+								</script>
+
+								<div class="mui-input-row" id="sn_select">
+									<label>SN编号</label>
+									<input type="hidden" name="sn" id="sn">
+									<input name="userResult" id="userResult" placeholder="请选择SN编号" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+								</div>
+								<div class="mui-input-row  fan_type_div   ">
+									<label>服务费返还对象</label>
+									<input name="fan_type" id="fan_type" placeholder="请选择押金返还对象" readonly="readonly" type="text"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+
+								</div>
+								<!--<ul>
+
+									<li class="item-content">
+
+										<div class="item-inner">
+											<div class="item-title label">SN编号</div>
+											<a href="javascript:void(0);" external="" id="sn_select" class="item-link item-content">
+												<div class="item-input ">
+													<input type="hidden" name="sn" id="sn">
+													<div style="float: left;" id='userResult' class="ui-alert">请选择SN编号</div><span class="validate"></span></div>
+											</a>
+										</div>
+
+									</li>
+								</ul>-->
+
+								<div class="mui-card chooseBtn_div">
+									<div class="header">
+										<h3 style="color: red;font-size: 15PX;padding:10PX;">高级认证(开通秒到)</h3>
+										<input type="checkbox" name="male" checked id="male" class="chooseBtn chooseBtn2" />
+										<label for="male" class="choose-label" style="position: absolute;
+    right: 10px;
+    top: 10px;"></label>
+
+									</div>
+									<script>
+										$(".chooseBtn2").click(function() {
+											var is_check = $(this).is(':checked')
+
+											if(is_check) {
+												$('.content3').css('display', 'block')
+											} else {
+
+												$('.content3').css('display', 'none')
+											}
+
+										});
+										$(".chooseBtn2").attr('ondblclick', 'this.click()');
+										var type_list = [{
+											'value': 2,
+											text: '盟友'
+										}, {
+											'value': 1,
+											text: '商户'
+										}];
+										//普通示例
+										var userPicker = new mui.PopPicker();
+										userPicker.setData(type_list);
+										var showUserPickerButton = document.getElementById('fan_type');
+										var userResult = document.getElementById('fan_type');
+										showUserPickerButton.addEventListener('tap', function(event) {
+											userPicker.show(function(items) {
+												userResult.value = items[0]['text'];
+
+											});
+										}, false);
+									</script>
+									<div class="mui-collapse-content aui-palace-two content3">
+										<div class="mui-input-row">
+											<label>信用卡号</label>
+											<input name="credit_card_no" id="credit_card_no" onkeyup="formatBankCarNumber(this)" onkeydown="formatBankCarNumber(this)" type="text" placeholder="请输入信用卡号"></span>
+										</div>
+										<div class="mui-input-row">
+											<label>预留电话</label>
+											<input name="credit_mobile" id="credit_mobile" type="text" placeholder="请输入预留电话"></span>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+
+						</div>
+						<div class="mui-content-padded">
+							<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success">下一步</a>
+						</div>
+
+					</div>
+
+				</div>
+				<!-- 店铺信息首屏-end -->
+				<label id="map-container"></label>
+
+			</div>
+		</form>
+
+	</body>
+
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(user_id, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_user_info(user_id, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(user_id, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				console.log(data)
+				var user = localStorage.getItem('user');
+				var info = JSON.parse(user);
+
+			}
+			//			$("#credit_card_no").on("input propertychange", function() {
+			//				 
+			//			})
+		});
+	</script>
+
+</html>

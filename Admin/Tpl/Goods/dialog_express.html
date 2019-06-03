@@ -1,0 +1,121 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>修改收货信息窗口</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript">
+	var api = top.dialog.get(window); //获取窗体对象
+	var W = api.data;
+	//页面加载完成执行
+	$(function() {
+		//设置按钮及事件
+		api.button([ {
+			value : '确定',
+			callback : function() {
+				;
+				$(api.data).parent().parent().find("#express_no").val($("#express_no").val());
+				$(api.data).parent().parent().find("#express").val($("#express_id").val());
+				$(api.data).parent().parent().find("#divExpressNo").html($("#express_no").val());
+				$(api.data).parent().parent().find("#divExpress").html($("#express_id").val());
+				//submitForm();
+			},
+			autofocus : true
+		}, {
+			value : '取消',
+			callback : function() {
+			}
+		} ]);
+		$('.express a').click(function() {
+			$('#express_id').val(
+					$('.express_input:eq('+$(this).index()+')').val()
+					
+					
+					)
+			 
+			}); 
+		
+		
+		
+		
+	});
+
+	//提交表单处理
+	function submitForm() {
+		var currDocument = $(document); //当前文档
+		//验证表单
+		 
+		 
+		//下一步，AJAX提交表单
+		var postData = {
+			"order_id" : $("#order_id", W.document).val(),
+			"edit_type" : "edit_accept_info",
+			"accept_name" : $("#txtAcceptName").val(),
+			"province" : $("#txtProvince").val(),
+			"city" : $("#txtCity").val(),
+			"area" : $("#txtArea").val(),
+			"address" : $("#txtAddress").val(),
+			"post_code" : $("#txtPostCode").val(),
+			"mobile" : $("#txtMobile").val(),
+			"telphone" : $("#txtTelphone").val(),
+			"email" : $("#txtEmail").val(),
+			"express_id" : $("#express_id").val(),
+			"express_no" : $("#express_no").val()
+		};
+		//发送AJAX请求
+		W.sendAjaxUrl(api, postData,
+				'{:U('Goods/order_express')}');
+		return false;
+	}
+</script>
+</head>
+
+<body>
+	<div class="div-content">
+		<!-- <input id="express_id" type="hidden" name="express_id" value="0"> -->
+		<dl>
+			<dt>快递公司</dt>
+			<dd class="express">
+				<!-- <div class="rule-multi-radio multi-radio">
+					<div class="boxwrap ">
+
+
+						<foreach name="express" item="vo"> <a
+							href="javascript:;" class="" value="{$vo.id}">{$vo.title}</a> </foreach>
+					</div>
+					<span style="display: none;"> <foreach name="express"
+							item="vo"> <input id="express_{$vo.id}" type="radio" class="express_input"
+							value="{$vo.id}">
+						<label for="express_{$vo.id}">{$vo.title}</label> </foreach>
+
+					</span>
+				</div> -->
+				<input type="text" id="express_id" class="input normal" /> <span
+					class="Validform_checktip">*</span>
+
+			</dd>
+		</dl>
+
+		<dl>
+			<dt>快递编号</dt>
+			<dd>
+				<input type="text" id="express_no" class="input normal" /> <span
+					class="Validform_checktip">*</span>
+			</dd>
+		</dl>
+
+	</div>
+</body>
+</html>

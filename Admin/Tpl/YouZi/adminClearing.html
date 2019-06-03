@@ -1,0 +1,128 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<load href='__PUBLIC__/js/Ajax/ajaxpg.js' />
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>结算分红</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>结算分红</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.Operate').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #Operate').css('display','block')
+		$('.sidebar #adminClearing').addClass('current')
+	});
+</script>
+	<form class="form-horizontal ajax-form"
+		action="__URL__/adminClearingSave" method="post" id="myform">
+<div class="ncenter_box">
+<div class="accounttitle"><h1>结算分红 </h1></div>
+<table width="100%" border="0" cellspacing="10" cellpadding="0">
+	<tr>
+		<td>
+<div id="result" style="text-align:center">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" >
+<tr align="center">
+  <td align="center">
+  <input name="a1" id="a1" type="hidden" value="{$nowday}">
+  <br />
+  <br />
+  <br />
+  <span style="color:#FF3300;">您好！请在结算奖金前先备份数据库，防止奖金错误不可返回</span><!-- <a href="__APP__/YouZi/cody/c_id/7"><span style="color:#oof;">备份数据库</span></a> -->
+
+  <input name="a2" type="hidden" id="a2" value="1" class="btn2">
+  <br /><br />
+  <button id="send_ajax" class="button_text ajax-submit"   type="button" >马上结算</button>
+  <br />
+  <br />
+</td>
+</tr>
+</table>
+</div>
+		</td>
+	</tr>
+</table>
+</div>
+</form>
+<script>
+						$(function() {
+							$("#checkbox").change(function() {
+								if ($('#checkbox').is(':checked')) {
+									$('#type').val(1);
+								} else {
+									$('#type').val(0);
+								}
+							});
+						});
+
+						layui
+								.use(
+										[ 'layedit', 'upload', 'layer' ],
+										function() {
+											var layedit = layui.layedit;
+											var layer = layui.layer;
+											layedit
+													.set({
+														uploadImage : {
+															url : '__APP__/Gouwu/upload_layedit_pp'
+														}
+													});
+											edit = layedit.build('demo'); //建立编辑器
+
+											$('.ajax-submit')
+													.on(
+															'click',
+															function() {
+																$(
+																		'#RegisterProtocol')
+																		.val(
+																				layedit
+																						.getContent(edit));
+																form = $('.ajax-form');
+																$
+																		.post(
+																				form
+																						.attr('action'),
+																				form
+																						.serialize(),
+																				function(
+																						data) {
+																					// console.log(data);
+																					if (data.status) {
+																						layer
+																								.msg(
+																										data.info,
+																										{
+																											offset : '100px',
+																											end : function() {
+																												if (data.url) {
+																													location.href = data.url;
+																												} else {
+																													location
+																															.reload();
+																												}
+																											}
+																										});
+																					} else {
+																						layer
+																								.msg(data.info);
+																					}
+																				});
+																return false;
+															});
+										});
+					</script>
+</block>

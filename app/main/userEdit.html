@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>修改资料 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" src="../js/ydui.citys.js"></script>
+		<script type="text/javascript" src="../js/ydui.js"></script>
+		<script type="text/javascript">
+			mui.plusReady(function() {
+				//初始化表单
+				var ServerIP = "";
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var IndexUrl = localStorage.getItem('IndexUrl');
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+
+				var address_id = localStorage.getItem('address_id')
+
+				if(user.user_name != '') {
+					//					$('#username').attr("readonly", "readonly")
+				}
+				if(user.user_code != '') {
+					$('#idcard').attr("readonly", "readonly")
+				}
+
+				get_user_info(user.id, init_view)
+
+			});
+
+			function init_view() {
+
+				var user = localStorage.getItem('user');
+				var info = JSON.parse(user);
+
+				var PreUrl = localStorage.getItem('PreUrl');
+				$('#user_id').val(localStorage.getItem('user_id'));
+
+				$('#editForm').attr('url', PreUrl + "User/userEdit");
+				AjaxInitForm('#editForm', '#btnSubmit', 1, '#turl');
+				$('#user_name').val(info.user_id);
+				$('#username').val(info.user_name);
+			}
+			init()
+
+			function init() {
+				mui.init({
+					pullRefresh: {
+						container: '.page__bd',
+						down: {
+							style: 'circle',
+							color: localStorage.getItem('color'),
+							auto: true,
+							callback: down
+						}
+					}
+				});
+
+			}
+
+			function down() {
+				console.log(2222)
+				var user_id = localStorage.getItem('user_id');
+
+				get_user_info(user_id, init_view)
+
+				mui('.page__bd').pullRefresh().endPulldown();
+			}
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<!--<div class="header">
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>修改资料</h3>
+				<div class="right">
+					<a class="weui-cell_access weui-cell_link" href="usercenter.html">
+						<i class="iconfont icon-user"></i>
+					</a>
+				</div>
+			</div>-->
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<!--编辑地址-->
+
+				<form id="editForm" name="editForm" class="form-box">
+					<input id="user_id" name="user_id" type="hidden" />
+					<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+
+					<div class="weui-panel weui-panel_access" style="margin-top:10px;">
+						<div class="weui-panel__hd title">基本信息</div>
+						<div class="weui-panel__bd">
+							<div class="weui-cells_form form-box">
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">用户账号</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="user_name" name="user_name" class="weui-input" type="text" value="" readonly="" />
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__hd">
+										<label class="weui-label">会员姓名</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="username" name="username" class="weui-input" type="text" value="" />
+									</div>
+								</div>
+								  
+								<div class="weui-cell" style="display: none;">
+									<div class="weui-cell__hd">
+										<label class="weui-label">登录密码</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="password" name="password" class="weui-input" type="text" value="" />
+									</div>
+								</div>
+
+								<div class="weui-cell" style="display: none;">
+									<div class="weui-cell__hd">
+										<label class="weui-label">会员级别</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input id="group" name="group" class="weui-input" type="tel" value="" readonly />
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit" name="btnSubmit" type="submit" class="weui-btn weui-btn_primary" value="确认提交" />
+					</div>
+				</form>
+				<!--/编辑地址-->
+
+				<input id="turl" type="hidden" value="pin.html" />
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+			<link href="../css/sm.css?source=11" rel="stylesheet">
+
+</html>

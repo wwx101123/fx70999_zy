@@ -1,0 +1,117 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>订单管理管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>订单管理管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.goods').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #goods').css('display', 'block')
+		$('.sidebar #order_list6').addClass('current')
+	});
+</script>
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<script src="__PUBLIC__/Adm/js/laymain.js"></script> <script
+	type="text/javascript">
+	
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>订单列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<!-- <a href="{:U('Goods/orderDaoChu_MM')}" class="btn btn-primary">导出Excel</a> -->
+			<div class="table-container">
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					class="ltable table table-hover tablesaw-stack">
+					<thead>
+						<tr>
+
+							<th>订单号</th>
+							<th>商品名称</th>
+							<th>会员账号</th>
+							 <th >订单状态</th> 
+							<th>总金额</th>
+							<th>下单时间</th> 
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<foreach name="list" item="vo">
+						<tr>
+
+							<td><a href="order_edit.html?action=edit&id={$vo.id}">{$vo.order_no}</a></td>
+							<td>{$vo.goods_title}</td>
+							<td>{$vo.user_name}</td>
+
+						 <td >{$vo.order_status}</td>
+							<td>{$vo.order_amount}</td>
+							<td>{$vo.addtime_str}</td> 
+							<td><a href="order_edit.html?action=edit&id={$vo.id}">详细</a></td>
+						</tr>
+
+						</foreach>
+					</tbody>
+				</table>
+
+			</div>
+			{$page}
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

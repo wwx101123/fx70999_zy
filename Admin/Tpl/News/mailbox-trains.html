@@ -1,0 +1,156 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>垃圾信箱</h2>
+            <ol class="breadcrumb">
+                <li>
+                <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>信息管理</a>
+                </li>
+                <li class="active">
+                    <strong>垃圾信箱</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content mailbox-content">
+                            <div class="file-manager">
+                                <a class="btn btn-block btn-primary compose-mail" href="{:U('News/writemail')}">写信</a>
+                                <div class="space-25"></div>
+                                <h5>文件夹</h5>
+                            <ul class="folder-list m-b-md" style="padding: 0">
+                                <li>
+                                    <a href="{:U('News/shoumail')}"> <i class="fa fa-inbox "></i> 收件箱                     </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('News/sendmail')}"> <i class="fa fa-envelope-o"></i> 发件箱</a>
+                                </li>
+                                <li>
+                                    <a href="{:U('News/mailbo-zhongyao')}"> <i class="fa fa-certificate"></i> 重要</a>
+                                </li>
+                                <li>
+                                    <a href="{:U('News/mailbox-caogao')}"> <i class="fa fa-file-text-o"></i> 草稿
+                                                            </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('News/mailbox-trains')}"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
+                                </li>
+                            </ul>
+                              <!--  <h5>分类</h5>
+                                <ul class="category-list" style="padding: 0">
+                                    <li>
+                                        <a href="mail_compose.html#"> <i class="fa fa-circle text-navy"></i> 工作</a>
+                                    </li>
+                                    <li>
+                                        <a href="mail_compose.html#"> <i class="fa fa-circle text-danger"></i> 文档</a>
+                                    </li>
+                                    <li>
+                                        <a href="mail_compose.html#"> <i class="fa fa-circle text-primary"></i> 社交</a>
+                                    </li>
+                                    <li>
+                                        <a href="mail_compose.html#"> <i class="fa fa-circle text-info"></i> 广告</a>
+                                    </li>
+                                    <li>
+                                        <a href="mail_compose.html#"> <i class="fa fa-circle text-warning"></i> 客户端</a>
+                                    </li>
+                                </ul>
+
+                                <h5 class="tag-title">标签</h5>
+                                <ul class="tag-list" style="padding: 0">
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 朋友</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 工作</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 家庭</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 孩子</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 假期</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 音乐</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 照片</a>
+                                    </li>
+                                    <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 电影</a>
+                                    </li>
+                                </ul>-->
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-9 animated fadeInRight">
+                    <div class="mail-box-header">
+
+                        <form method="get" action="mailbox.php" class="pull-right mail-search">
+                            <div class="input-group">
+                                <input type="hidden" name="search" value="1">
+                                <input type="text" class="form-control input-sm" name="searchContent" placeholder="搜索标题，正文等">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <h2>
+                            垃圾箱 (1)
+                        </h2>
+                        <div class="mail-tools tooltip-demo m-t-md">
+                            <div class="btn-group pull-right">
+                                <a class="btn btn-white btn-sm" href="javascript:;" onclick="location.href='?pageno=0'"><i class="fa fa-arrow-left"></i>
+                                </a>
+                                <a class="btn btn-white btn-sm" href="javascript:;" onclick="location.href='?pageno=2'"><i class="fa fa-arrow-right"></i>
+                                </a>
+
+                            </div>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="刷新邮件列表" onclick="javascript:location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为已读" onclick="domail('read');"><i class="fa fa-eye"></i>
+                            </button>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为重要" onclick="domail('set_zhongyao');"><i class="fa fa-exclamation"></i>
+                            </button>
+                            <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="标为垃圾邮件"><i class="fa fa-trash-o" onclick="domail('set_trains');"></i>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="mail-box">
+                        <table class="table table-hover table-mail">
+                            <tbody>
+                                                <form action="mailbox.php" id="form" method="post"></form>
+                                <input type="hidden" name="action" value="" id="action">
+                                <input type="hidden" name="turnurl" value="" id="turnurl">
+                                                <tr class="read">
+                                <td class="check-mail">
+                                        <input type="checkbox" class="i-checks" name="checks[]" value="2">
+                                </td>
+                                <td class="mail-ontact">
+                                    <a href="mailbox.php?action=mailview&amp;id=2&amp;pageno=1" id="mailtype">1</a>
+                                                               <!-- <span class="label label-warning pull-right">验证邮件</span>-->
+                                </td>
+                                <td class="mail-subject"><a href="mailbox.php?action=mailview&amp;id=2&amp;pageno=1">z716577 z716577 z716577 z716577 z716577</a>
+                                </td>
+                                <td class="">
+                                    <!--<i class="fa fa-paperclip"></i>-->
+                                </td>
+                                <td class="text-right mail-date">2016年10月25日 18:29:59</td>
+                            </tr>
+                                                
+                                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+</block>

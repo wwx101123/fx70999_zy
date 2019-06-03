@@ -1,0 +1,85 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>财务列表</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>财务管理</a>
+                </li>
+                <li class="active">
+                    <strong>财务列表</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>财务列表</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content" style="display: block;">
+                <div id="index_diagram">
+                    <div id="chartspie" style="width:49%;float:left;"></div>
+                    <div id="chartscolumn" style="width:49%;float:left;"></div>
+
+                    <input type="hidden" name="temp1" value="haha"><input name="regfrom" type="hidden" value="">
+                    <div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-387">
+
+                    <thead>
+                        <tr><th>类型</th>
+                            <th>总额</th>
+                        </tr></thead>
+
+                        <tbody>
+                            <tr>
+                                <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">累计收益<b style="color: red"></b>:</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.zjj}</b></span></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">累计提现<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.zsq}</b></span></td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">现金点值<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_use}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">注册积分<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_cash}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">激活积分<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_kt}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">幸运积分<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_cf}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">复投积分<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_xf}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">配送积分<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.agent_gp}</b></span></td>
+                            </tr>
+                            <tr>
+                            <td width="20%" class="text-fr"><b class="tablesaw-cell-label">类型</b><span class="tablesaw-cell-content">股票(股)<b style="color: red"></b>：</span></td>
+                                <td width="30%" class="text-fl"><b class="tablesaw-cell-label">总额</b><span class="tablesaw-cell-content"><b>{$rs.live_gupiao}</b></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>

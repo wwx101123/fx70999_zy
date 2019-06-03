@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/mod.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/mobile.css">
+		<link rel="stylesheet" href="../css/portal_basic.css">
+		<link rel="stylesheet" href="../css/ui.css">
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<style>
+			.search header {
+				left: 0;
+				right: 0;
+				padding: 30px 10px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="page-w " style="background-color:tranparent;background-size:;">
+			<div id="page-content" class="page-content">
+				<div class="search">
+					<header style="background-color: rgba(242, 242, 242, 0);">
+						<a class="position back" style="color: rgb(255, 255, 255);">
+							<img src="../images/back.png" /> <span></span> <i class="iconfont icon-down-arrow"></i></a>
+
+					</header>
+					<div class="mask "></div>
+				</div>
+				<div id="mainBanner" class="main_banner">
+
+					<div id="slider" class="swiper-container">
+						<div class="swiper-wrapper">
+
+						</div>
+						<div class="pagination"></div>
+					</div>
+
+				</div>
+				<!--<div class="mod mod-pic mod-picone" style="margin:   ;">
+					<a href="javacript:void(0);"><img src="http://pic.kuaizhan.com/g3/20/aa/71e6-3c8e-498f-afaf-8afad10e8f9059/imageView/v1/thumbnail/640x0" title="" height="" data-imgid="1924115247" fit=""></a>
+				</div>-->
+				<div class="mod mod-pictxt t1 mod-pictxt1" data-component="{&quot;eid&quot;:21,&quot;name&quot;:&quot;pictxt&quot;,&quot;version&quot;:&quot;6.15.188&quot;,&quot;ename&quot;:&quot;system_plugin\/pictxt&quot;,&quot;is_testing&quot;:&quot;&quot;}" data-param="5afb7374b4d5fb742f323f367b554ce3">
+					<ul>
+
+					</ul>
+				</div>
+				<div id="image-viewer" class="image-viewer">
+					<div class="view" style="height: 100%; width: 100%;"></div>
+					<div class="paging"></div>
+				</div>
+			</div>
+			<footer class="kz-footer">
+				<div class="mod mod-text " style="margin:   ;background:">Powered by 搜狐快站</div>
+			</footer>
+			<footer class="kz-footer">
+				<div class="mod mod-text " style="margin:   ;background:">Powered by 搜狐快站</div>
+			</footer>
+		</div>
+
+	</body>
+	<script>
+		mui.init({
+			beforeback: function() {　　　
+				localStorage.setItem('category_id', 0);
+				localStorage.setItem('is_login', 0);
+
+			}
+		});
+		$(function() {
+
+			localStorage.setItem('is_login', 0)
+			var news_type = localStorage.getItem('news_type');
+
+			get_news_list(news_type, 1, 10000, setListData);
+
+			function setListData(data) {
+
+				info = (data);
+				info = info.data;
+				var IP = localStorage.getItem('IP');
+
+				$('.mod-pictxt ul li').remove();
+				if(info != null) {
+					var item = '';
+					$.each(info, function(index, content) {
+
+						item += '<li link_url="' + content.link_url + '" title="' + content.title + '" id="' + content.id + '">';
+						item += '<a href="javacript:void(0);">';
+						item += '	<div class="pic"><img src="' + IP + content.img + '"></div>';
+						item += '	<div class="text">';
+						item += '	<h3>' + content.title + '</h3>';
+						item += '	<p></p>';
+						item += '</div>';
+						item += '<div>';
+						item += '	<p class="time"><span class="k-i-time"></span>' + content.addtime_str + '</p>';
+						item += '<div class="rl-info">';
+						item += '<p><span class="k-i-art-scan"></span>' + content.click + '</p>';
+						//						item += '<p><span class="k-i-art-like"></span>5</p>';
+						item += '</div>';
+						item += '</div>';
+						item += '</a>';
+						item += '</li>';
+
+					});
+
+					$('.mod-pictxt ul').append(item);
+
+				}
+				$(".mod-pictxt ul li").click(function() {
+					var title = $(this).attr('title')
+					var url = $(this).attr('link_url');
+					console.log(url)
+					localStorage.setItem('link_url', '');
+					localStorage.setItem('notice_id', $(this).attr('id'));
+					if(url != '' && url != null) {
+						localStorage.setItem('link_url', url);
+
+						openWindowWithTitle(title, 'createShow.html')
+
+					} else {
+
+						openWindowWithTitle(title, 'news_show.html')
+					}
+				});
+
+				info = data.cate_slider;
+
+				$('.swiper-wrapper .swiper-slide').remove();
+				var height = $('.swiper-container').height();
+				var goods_albums = info;
+				console.log(goods_albums)
+				if(goods_albums != null) {
+					if(goods_albums.length >= 1) {
+						$.each(goods_albums, function(index, content) {
+							//							console.log(IP + content.img)
+							var item = '	 <div class="swiper-slide"> ';
+							item += '<a href="javacript:void(0);">	<img src="' + IP + content + '"  style="height:200px"/></a> </div>';
+
+							$('.swiper-wrapper').append(item);
+
+						});
+					}
+					var mySwiper = new Swiper('.swiper-container', {
+						calculateHeight: true,
+						resizeReInit: true,
+						pagination: ".pagination",
+						autoplay: 5000,
+						paginationClickable: true,
+						autoplayDisableOnInteraction: false
+					});
+				}
+				$(".back").click(function() {
+
+					mui.back()
+				});
+			}
+		});
+	</script>
+
+</html>

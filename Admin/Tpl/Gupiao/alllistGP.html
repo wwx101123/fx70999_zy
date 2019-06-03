@@ -1,0 +1,110 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>交易市场</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>股票市场</a>
+                </li>
+                <li class="active">
+                    <strong>交易市场</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>出售 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        
+                    	<div class="row">
+                        <table class="table table-hover table-" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                    <th>卖家编号</th>
+                                    <th>挂入总量</th>
+                                    <th>挂入价格</th>
+                                    <th>成交量</th>
+                                    <th>挂入剩余</th>
+                                    <th>状态</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="vo"  key="i">
+                                <tr>
+                                    <td>{$vo.user_id|conname}</td>
+                                    <td>{$vo.sNun}</td>
+                                    <td>{$vo.one_price}</td>
+                                    <td>{$vo.used_num}</td>
+                                    <td>{$vo.lnum}</td>
+                                    <td><eq name="vo['ispay']" value="0">等待交易
+										<else/>
+										交易成功</eq></td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    	
+    	<div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>求购 </h5>
+                    </div>
+                    <div class="ibox-content">
+                        
+                    	<div class="row">
+                        <table class="table table-hover table-" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                    <th>买家编号</th>
+                                    <th>求购额度</th>
+                                    <th>求购价格</th>
+                                    <th>数量</th>
+                                    <th>买入数量</th>
+                                    <th>状态</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list1" id="vo1" key="i">
+                                <tr>
+                                    <td>{$vo1.user_id|conname}</td>
+                                    <td>{$vo1.buy_s}</td>
+                                    <td>{$vo1.one_price}</td>
+                                    <td>{$can_b[$vo1['id']]}</td>
+                                    <td>{$vo1['buy_nn']}</td>
+                                    <td><eq name="vo1['ispay']" value="0">正在委托
+										<else/>
+										交易成功</eq></td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    </block>

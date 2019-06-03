@@ -1,0 +1,609 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+
+		<script src="../js/promise.auto.min.js"></script>
+		<link rel="stylesheet" href="../css/style3.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<style>
+			.contentInner {
+				position: relative;
+			}
+			
+			.readonly_layout {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0);
+				z-index: 100;
+			}
+		</style>
+
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link href="../css/base.32e41245.css?source=11" rel="stylesheet">
+		<link rel="stylesheet" href="../css/_icon_m.scss" />
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/upload.js"></script>
+		<style type="text/css">
+			.uploadimageadd-container-add:after,
+			.uploadimageadd-container-add:before,
+			.uploadimageadd-container-img .delete-img:after {
+				content: "";
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				background-color: #06c1ae;
+				border-radius: 2px
+			}
+			
+			.uploadimageadd-container-add,
+			.uploadimageadd-container-img {
+				position: relative;
+				display: inline-block;
+				border-radius: .1rem;
+				text-align: center;
+				width: 3rem;
+				height: 3rem
+			}
+			
+			.uploadimageadd-content,
+			.uploadimageadd-title {
+				padding: 0;
+				margin: 0
+			}
+			
+			.uploadimageadd {
+				position: relative;
+				padding-bottom: .25rem
+			}
+			
+			.uploadimageadd-title {
+				font-family: PingFangSC-Regular;
+				font-size: .8rem;
+				color: #333;
+				line-height: 1rem
+			}
+			
+			.uploadimageadd-content {
+				font-family: PingFangSC-Regular;
+				font-size: .6rem;
+				color: #999;
+				line-height: .75rem;
+				margin-top: .25rem;
+				margin-bottom: .5rem
+			}
+			
+			.uploadimageadd-content a {
+				text-decoration: underline;
+				color: orange
+			}
+			
+			.uploadimageadd-container input[type=file] {
+				width: .1rem;
+				height: .1rem;
+				opacity: 0;
+				overflow: hidden;
+				position: absolute;
+				z-index: 0
+			}
+			
+			.uploadimageadd-container-add {
+				border: 1px solid #06c1ae
+			}
+			
+			.uploadimageadd-container-add:before {
+				width: .1rem;
+				height: 1.5rem;
+				margin: -.75rem 0 0 -.05rem
+			}
+			
+			.uploadimageadd-container-add:after {
+				width: 1.5rem;
+				height: .1rem;
+				margin: -.05rem 0 0 -.75rem
+			}
+			
+			.uploadimageadd-container-img .delete-img {
+				position: absolute;
+				top: -.4rem;
+				right: -.4rem;
+				width: .8rem;
+				height: .8rem;
+				background-color: red;
+				border-radius: 50%;
+				z-index: 99
+			}
+			
+			.uploadimageadd-container-img .delete-img:after {
+				width: .5rem;
+				height: 2px;
+				margin: -1px 0 0 -.25rem;
+				background-color: #fff;
+				border-radius: 0
+			}
+			
+			.uploadimageadd-container-img img {
+				max-width: 3rem;
+				max-height: 3rem
+			}
+			
+			.image-view-container {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				z-index: 101;
+				margin: auto
+			}
+			
+			.image-view-container .image-content {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				width: 100%
+			}
+			
+			.image-view-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background-color: rgba(0, 0, 0, .5);
+				z-index: 100
+			}
+			
+			.mui-input-row {
+				background: #fff;
+				margin: 0.1rem 0;
+			}
+			
+			.J-area {
+				height: 50px;
+				line-height: 50px;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<script>
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_auth_info');
+
+			}
+		});
+	</script>
+	<script src="../js/mui.picker.js"></script>
+	<script src="../js/mui.poppicker.js"></script>
+
+	<body>
+		<div class="mescroll" id="mescroll">
+
+			<form id="editForm" name="editForm" class="form-box">
+				<input id="history_url" name="history_url" type="hidden" value="" />
+				<input id="user_id" name="user_id" type="hidden" />
+				<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+				<div id="base-page" class="page-group page__bd " v-cloak>
+					<!-- 把头部提出来，设置成fixed，防止1像素闪烁问题 -->
+					<!--页面头部-->
+
+					<!--/页面头部-->
+
+					<!-- 店铺信息首屏-start -->
+					<div class="page page-current no-animate" id="base-home" v-cloak>
+						<div class="content page-content" style="margin-top: 0;">
+							<div class="contentInner">
+								<span class="step-info-li  error" style="color: red;display: none;">
+								失败原因:2222
+								<!---->
+							</span>
+								<div class="list-block" style="margin-top: 10px;">
+									<div class="mui-input-row">
+										<label>真实姓名<span style="color: red;font-weight:  bold">*</span></label>
+										<input id="user_name" name="user_name" type="text" class="mui-input-clear" placeholder="请输入真实姓名" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row">
+										<label>身份证号<span style="color: red;font-weight:  bold">*</span></label>
+										<input name="card_no" id="card_no" type="text" class="mui-input-clear" placeholder="请输入身份证号" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row" style="display: none;" >
+										<label>支付宝<span style="color: red;font-weight:  bold">*</span></label>
+										<input name="alipay" id="alipay" type="text" class="mui-input-clear" placeholder="请输入支付宝账号" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<link rel="stylesheet" href="../css/ydui.css?rev=@@hash" />
+									<link rel="stylesheet" href="../css/demo.css" />
+									<script type="text/javascript" src="../js/ydui.citys.js"></script>
+									<script type="text/javascript" src="../js/ydui.js"></script>
+									<div class="mui-input-row" id="J_Address2">
+										<label>所属省市<span style="color: red;font-weight:  bold">*</span></label>
+										<input id="txtProvince" name="txtProvince" type="hidden" />
+										<input id="txtCity" name="txtCity" type="hidden" />
+										<input id="txtArea" name="txtArea" type="hidden" />
+										<input type="text" readonly="readonly" class="mui-input-clear J-area" placeholder="请选择省市区" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+									<div class="mui-input-row" id="bank_name_select">
+										<label>所属银行<span style="color: red;font-weight:  bold">*</span></label>
+										<input type="hidden" name="bank_name" id="bank_name">
+										<div id="userResult" readonly="readonly" class="mui-input-clear J-area" placeholder="请选择省市区" data-input-clear="11">
+										</div><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+
+									<div class="mui-input-row">
+										<label>结算卡号<span style="color: red;font-weight:  bold">*</span></label>
+										<input name="bank_card" id="bank_card" type="text" class="mui-input-clear" placeholder="请输入结算卡号" data-input-clear="11"><span class="mui-icon mui-icon-clear mui-hidden"></span>
+									</div>
+
+									<script type="text/javascript">
+										$(function() {
+											//初始化地区
+
+											var $target = $('#J_Address2');
+											$target.citySelect();
+											$target.on('click', function(event) {
+
+												event.stopPropagation();
+												$target.citySelect('open');
+												//												$('.cityselect-nav > a').css('font-size','15px')
+												//												$('.cityselect-item-box > a').css('font-size','15px')
+												//												$('.cityselect-title').css('font-size','15px')
+												//												$('.cityselect-item-box > a span').css('font-size','15px')
+												//												$('.cityselect-item-box > a span').css('font-size','15px')
+												$('.cityselect-content').css('padding-top', $('.cityselect-header').height())
+
+											});
+
+											$target.on('done.ydui.cityselect', function(ret) {
+												$('.J-area').val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+												$('#txtProvince').val(ret.provance);
+												$('#txtCity').val(ret.city);
+												$('#txtArea').val(ret.area);
+											});
+										});
+										(function($, doc) {
+
+											$.init();
+											$.ready(function() {
+												/**
+												 * 获取对象属性的值
+												 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+												 * @param {Object} obj 对象
+												 * @param {String} param 属性名
+												 */
+												var _getParam = function(obj, param) {
+													return obj[param] || '';
+												};
+												var user = localStorage.getItem('user');
+
+												user = JSON.parse(user);
+												var userbank = localStorage.getItem('userbank');
+												userbank = JSON.parse(userbank);
+												//普通示例
+												var userPicker = new $.PopPicker();
+												var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+												var index; //用index来记住给你的那个默认值的下标
+												var List = userbank;
+												for(var i = 0; i < List.length; i++) {
+													shopList1.push({
+
+														value: List[i].label, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+														text: List[i].label,
+														phone: List[i].value,
+														saddress: List[i].value, //地址                     
+
+													})
+
+													if(List[i].value == user.bank) {
+														index = i
+													}
+
+												}
+												console.log(List)
+												userPicker.setData(shopList1);
+												var showUserPickerButton = doc.getElementById('bank_name_select');
+												var userResult = doc.getElementById('userResult');
+												var bank = doc.getElementById('bank_name');
+
+												showUserPickerButton.addEventListener('tap', function(event) {
+													userPicker.show(function(items) {
+														localStorage.setItem('bank', items[0].text)
+														userResult.innerText = (items[0].text);
+													});
+												}, false);
+
+											});
+										})(mui, document);
+									</script>
+
+								</div>
+								<div class="width96 center hidden">
+									<div class="aui-palace aui-palace-two">
+										<a href="javascript:;" class="aui-palace-grid">
+											<div class="aui-palace-grid-icon">
+												<img src="../images/app_assets_images_mine_authentication_id_face.png" class="card_img1_class" onclick="init_upload(this,'.card_img1','上传身份证正面')">
+												<input type="hidden" id="card_img1" class="card_img1" name="card_img1" /></div>
+											<div class="aui-palace-grid-text">
+												<h2>身份证正面</h2>
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>(文字清晰,四角齐全)</h2>
+											</div>
+										</a>
+										<a href="javascript:;" class="aui-palace-grid">
+											<div class="aui-palace-grid-icon">
+												<img src="../images/app_assets_images_mine_authentication_id_back.png" class="card_img2_class" onclick="init_upload(this,'.card_img2','上传身份证背面')">
+												<input type="hidden" id="card_img2" class="card_img2" name="card_img2" /></div>
+											<div class="aui-palace-grid-text">
+												<h2>身份证背面</h2>
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>(文字清晰,四角齐全)</h2>
+											</div>
+										</a>
+										<a href="javascript:;" class="aui-palace-grid">
+											<div class="aui-palace-grid-icon">
+												<img src="../images/app_assets_images_mine_authentication_handle.png" class="card_img3_class" onclick="init_upload(this,'.card_img3','上传手持身份证照片')">
+												<input type="hidden" id="card_img3" class="card_img3" name="card_img3" />
+
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>手持身份证照片</h2>
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>(文字清晰,四角齐全)</h2>
+											</div>
+										</a>
+										<a href="javascript:;" class="aui-palace-grid">
+											<div class="aui-palace-grid-icon">
+												<img src="../images/app_assets_images_mine_authentication_bank.png" class="card_img4_class" onclick="init_upload(this,'.card_img4','上传银行卡正面')">
+												<input type="hidden" id="card_img4" class="card_img4" name="card_img4" />
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>银行卡正面</h2>
+											</div>
+											<div class="aui-palace-grid-text">
+												<h2>(文字清晰,四角齐全)</h2>
+											</div>
+										</a>
+
+									</div>
+								</div>
+							</div>
+
+							<div class="mui-content-padded">
+								<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success">保存</a>
+							</div>
+							<!--<footer v-else-if="stepStatus == 'needModify_reject'" class="bar bar-standard bar-footer">
+						<div class="btns">
+							<a class="button button-fill button-success" external @click="onNextClick">保存</a>
+						</div>
+					</footer>-->
+						</div>
+
+					</div>
+					<!-- 店铺信息首屏-end -->
+
+				</div>
+			</form>
+
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(user_id, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_user_info(user_id, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(user_id, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				var IP = localStorage.getItem('IP');
+				var user = localStorage.getItem('user');
+				user = JSON.parse(user);
+				$('#user_id').val(user.id);
+				$('#user_name').val(user.user_name);
+				$('#userResult').html(user.bank_name);
+				$('#card_no').val(user.card_no);
+				$('#bank_card').val(user.bank_card);
+				$('#name').val(user.name);
+				$('#alipay').val(user.alipay);
+
+				//			$('#license_img1').val(user.license_img1);
+
+				var tmpl = ' <div class="uploadimage-image-reupload">点击重新上传</div>'
+				if(user.card_img1 != null) {
+					var card_img1 = '<input type="hidden" class="card_img1" name="card_img1" id="card_img1" value="' + user.card_img1 + '">'
+
+					$('.card_img1_div .uploadimage-upload span').remove()
+					$('.card_img1_div .uploadimage-upload div').remove()
+
+					$('.card_img1_div .uploadimage-upload').css('background', 'url(' + IP + '/' + user.card_img1 + ')')
+					$('.card_img1_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img1_div .uploadimage-upload').append(tmpl)
+					$('#uploader_list').append(card_img1)
+				}
+				if(user.card_img2 != null) {
+					var card_img2 = '<input type="hidden" class="card_img2" name="card_img2" id="card_img2" value="' + user.card_img2 + '">'
+					$('.card_img2_div .uploadimage-upload span').remove()
+					$('.card_img2_div .uploadimage-upload div').remove()
+
+					$('.card_img2_div .uploadimage-upload').css('background', 'url(' + IP + '/' + user.card_img2 + ')')
+					$('.card_img2_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img2_div .uploadimage-upload').append(tmpl)
+					$('#uploaderzfbFiles_list').append(card_img2)
+				}
+				if(user.province != null) {
+					$('#txtProvince').val(user.province);
+					$('#txtCity').val(user.city);
+					$('#txtArea').val(user.area);
+					$('#txtAddress').val(user.address);
+					$('.J-area').val(user.province + user.city + user.area);
+					var $target = $('#J_Address2');
+					$target.citySelect({
+						provance: user.province,
+						city: user.city,
+						area: user.area
+					});
+
+				}
+				$('.button-success').click(function() {
+					console.log($('#userResult').html())
+					$('#bank_name').val($('#userResult').html())
+					open_shop_step3();
+				})
+				$('.card_img1_div').click(function() {
+					$('.card_img1_tip').css('display', 'block')
+				})
+				$('.card_img2_div').click(function() {
+					$('.card_img2_tip').css('display', 'block')
+				})
+				if(user.card_img1 != null) {
+					console.log(UploadUrl + user.card_img1)
+					$('.card_img1_class').attr('src', '' + UploadUrl + '/' + user.card_img1 + '');
+					$('#card_img1').val(user.card_img1);
+				}
+
+				if(user.card_img2 != null) {
+
+					$('.card_img2_class').attr('src', '' + UploadUrl + '/' + user.card_img2);
+					$('#card_img2').val(user.card_img2);
+				}
+				if(user.card_img3 != null) {
+
+					$('.card_img3_class').attr('src', '' + UploadUrl + '/' + user.card_img3);
+					$('#card_img3').val(user.card_img2);
+				}
+				if(user.card_img4 != null) {
+
+					$('.card_img4_class').attr('src', '' + UploadUrl + '/' + user.card_img4);
+					$('#card_img4').val(user.card_img4);
+				}
+				var history_url = localStorage.getItem('history_url')
+				if(history_url != '') {
+
+					$('#history_url').val(history_url);
+				}
+				$('#history_url').val('');
+				if(user.auth_status == 1) {
+					$('.button-success').html('正在审核中');
+					console.log(222222)
+					$('#user_name').attr('readonly', 'readonly');
+					$('#card_no').attr('readonly', 'readonly');
+					$('#alipay').attr('readonly', 'readonly');
+					$('#J_Address2').unbind('click');
+					$('.card_img1_class').removeAttr('onclick');
+					$('.card_img2_class').removeAttr('onclick');
+					$('.card_img3_class').removeAttr('onclick');
+					$('.card_img4_class').removeAttr('onclick');
+					$('#bank_card').attr('readonly', 'readonly');
+					document.getElementById('userResult').addEventListener('tap');
+				}
+				if(user.auth_status == 2) {
+					$('.button-success').html('认证失败,重新提交');
+
+				}
+				if(user.auth_status == 0 && user.card_img4 != '' && user.card_img4 != null) {
+					console.log(user.card_img4)
+					$('.button-success').css('display', 'none');
+					$('#user_name').attr('readonly', 'readonly');
+					$('#card_no').attr('readonly', 'readonly');
+					$('#J_Address2').unbind('click');
+					$('.card_img1_class').removeAttr('onclick');
+					$('.card_img2_class').removeAttr('onclick');
+					$('.card_img3_class').removeAttr('onclick');
+					$('.card_img4_class').removeAttr('onclick');
+					$('#bank_card').attr('readonly', 'readonly');
+
+				}
+				$('.error').css('display', 'none')
+				if(user.auth_error != '' && user.auth_error != null) {
+
+					$('.error').css('display', 'block')
+					$('.error').html(user.auth_error);
+				}
+
+			}
+		});
+	</script>
+	<script type="text/javascript">
+		window.addEventListener('update_upload_img', function(e) {
+
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+			console.log(upload_obj_id)
+			if(avatar != null && avatar != "") {
+				$('' + upload_obj_id + '_class').attr('src', IP + '/' + avatar)
+				upload_obj_id = upload_obj_id.replace('.', '')
+				$('#' + upload_obj_id).val(avatar);
+			} else {}
+		});
+	</script>
+
+</html>

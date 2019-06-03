@@ -1,0 +1,286 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>会员管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>权限设置</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu"> <block name="menu"> <script
+	type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.user_list').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #user_list').css('display', 'block')
+		$('.sidebar #adminMenber').addClass('current')
+	});
+</script> <script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 2; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<table width="100%" class="tab3" border="0" cellpadding="5"
+		cellspacing="0" id="tb1">
+		<form name="form3" method="post" action="__URL__/premAddSave">
+			<tr>
+				<td align="right">&nbsp;</td>
+				<td>&nbsp;</td>
+			</tr>
+			<!-- <tr>
+				<td align="right">权限：</td>
+				<td><select name="isBoss" size="1" id="isBoss">
+						<option value="0"<eq name="rs['is_boss']" value="0">selected="selected"</eq>
+							>无权限
+						</option>
+						<option value="2"<eq name="rs['is_boss']" value="1">selected="selected"</eq>
+							>有权限
+						</option>
+				</select></td>
+				<td width="61%"><input name="全选" type="button"
+					class="button_text" id="全选" onclick="CheckAll(this.form)"
+					value="全选" /></td>
+			</tr> -->
+
+			<tr>
+
+
+
+				<div class="form-group">
+
+					<div class="col-sm-10" style="margin-left: 5%;">
+						<div class="col-sm-12">
+							<div class="checkbox">
+								<label> <input name="is_boss[]" value="1" class=""
+									type="checkbox"{$ars[1]}> <span class="lbl">盟友管理</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-10" style="margin-left: 5%;">
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="2" class=""
+										type="checkbox"{$ars[2]}> <span class="lbl">已审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="3" class=""
+										type="checkbox"{$ars[3]}> <span class="lbl">待审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3"  >
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="4" class=""
+										type="checkbox"{$ars[4]}> <span class="lbl">待完善</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3" style="display: none">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="5" class=""
+										type="checkbox"{$ars[5]}> <span class="lbl">盟友管理</span>
+									</label>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-sm-10" style="margin-left: 5%;">
+						<div class="col-sm-12">
+							<div class="checkbox">
+								<label> <input name="is_boss[]" value="6" class=""
+									type="checkbox"{$ars[6]}> <span class="lbl">终端管理</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-10" style="margin-left: 5%;">
+							<div class="col-sm-3" style="display: none">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="7" class=""
+										type="checkbox"{$ars[7]}> <span class="lbl">下发已审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="8" class=""
+										type="checkbox"{$ars[8]}> <span class="lbl">下发待审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="9" class=""
+										type="checkbox"{$ars[9]}> <span class="lbl">回收已审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3" style="display: none">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="10" class=""
+										type="checkbox"{$ars[10]}> <span class="lbl">回收待审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="11" class=""
+										type="checkbox"{$ars[11]}> <span class="lbl">终端管理</span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+
+
+					<div class="col-sm-10" style="margin-left: 5%;">
+						<div class="col-sm-12">
+							<div class="checkbox">
+								<label> <input name="is_boss[]" value="12" class=""
+									type="checkbox"{$ars[12]}> <span class="lbl">商城管理</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-10" style="margin-left: 5%;">
+							<div class="col-sm-3" >
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="13" class=""
+										type="checkbox"{$ars[13]}> <span class="lbl">全部订单</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3" >
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="14" class=""
+										type="checkbox"{$ars[14]}> <span class="lbl">待付款订单</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="15" class=""
+										type="checkbox"{$ars[15]}> <span class="lbl">待发货订单</span>
+									</label>
+								</div>
+							</div>
+							 
+						</div>
+					</div>
+					<div class="col-sm-10" style="margin-left: 5%;">
+						<div class="col-sm-12">
+							<div class="checkbox">
+								<label> <input name="is_boss[]" value="16" class=""
+									type="checkbox"{$ars[16]}> <span class="lbl">商户管理</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-10" style="margin-left: 5%;">
+							<div class="col-sm-3" >
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="17" class=""
+										type="checkbox"{$ars[17]}> <span class="lbl">未审核</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="18" class=""
+										type="checkbox"{$ars[18]}> <span class="lbl">已审核</span>
+									</label>
+								</div>
+							</div>
+							 <div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="19" class=""
+										type="checkbox"{$ars[19]}> <span class="lbl">待完善</span>
+									</label>
+								</div>
+							</div>
+							 <div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="20" class=""
+										type="checkbox"{$ars[20]}> <span class="lbl">商户管理</span>
+									</label>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-10" style="margin-left: 5%;">
+						<div class="col-sm-12">
+							<div class="checkbox">
+								<label> <input name="is_boss[]" value="21" class=""
+									type="checkbox"{$ars[21]}> <span class="lbl">财务管理</span>
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-10" style="margin-left: 5%;">
+							<div class="col-sm-3" >
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="22" class=""
+										type="checkbox"{$ars[22]}> <span class="lbl">待分红类别</span>
+									</label>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="23" class=""
+										type="checkbox"{$ars[23]}> <span class="lbl">已分红列表</span>
+									</label>
+								</div>
+							</div>
+							 <div class="col-sm-3">
+								<div class="checkbox">
+									<label> <input name="is_boss[]" value="24" class=""
+										type="checkbox"{$ars[24]}> <span class="lbl">提现管理</span>
+									</label>
+								</div>
+							</div>
+							 
+						</div>
+					</div>
+				</div>
+			</tr>
+
+			<tr>
+				<td align="right"><input name="id" type="hidden" id="id"
+					value="{$rs['id']}" /></td>
+				<td><input type="submit" name="button" id="button" value="提交"
+					class="button_text" /> &nbsp; <input type="button" name="button"
+					id="button" value="返回" class="button_text"
+					onclick="history.back();" /></td>
+			</tr>
+
+
+
+			<tr align="center">
+				<td colspan="2">&nbsp;</td>
+			</tr>
+		</form>
+	</table>
+</div>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> </block>

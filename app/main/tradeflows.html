@@ -1,0 +1,393 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>积分明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/usermoney.css" />
+		<link rel="stylesheet" type="text/css" href="../css/flows.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/fontSize.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/adscorll.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+				//				tradeflows_list();
+			});
+		</script>
+		<style>
+			.mui-table-view:before{
+				height: 0PX;
+			}
+			.mui-table-view:after{
+				height: 0PX;
+			}
+		</style>
+	</head>
+
+	<body ontouchstart style="background: #efeff4;">
+		<div class="page mescroll" id="mescroll">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<div class="aui-wer-box">
+					<div class="shouyi_bg aui-wer-box-item" style="MARGIN: 0px;    min-height: 0px;">
+						<!--<span class="user_icon">交易数据</span>-->
+
+						<div class="tip" style="padding-top:5%">本月累计交易额(元)</div>
+						<div class="money month_shop_trade_money all_trade_money" style="padding-top:0px">0.00</div>
+
+						<div class="today">
+
+							<div class="today_title">
+								<span class="tip  ">本月直营商户交易额</span>
+								<span class="shouyi_tip month_shop_count all_trade_money1"> 0 </span>
+							</div>
+							<div class="today_title">
+								<span class="tip  ">本月团队商户交易额</span>
+								<span class="shouyi_tip month_shop_active_count all_trade_money2">0  </span>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="wrap " style="display: none;">
+					<div class="firs-bill bg-white">
+						<div class="con-bill">
+							<a href="javascript:void(0);" class="aui-well-item aui-well-item-hei open_tixian">
+								<div class="aui-well-item-bd">
+									<h3>12月总计</h3>
+								</div>
+								<span class="aui-well-item-fr">收起</span>
+							</a>
+
+						</div>
+						<!--ad scroll start-->
+						<!--<div id="broadcast" class="bar" name="giftactive">
+							<span><img src="images/bill-horn.png" alt=""></span>
+							<div id="demo" style="overflow:hidden;">
+								<ul class="mingdan" id="holder" style="margin-top: 0px;">
+
+									<li>会员187****3548，获得1980元分红收益出局。</li>
+									<li>会员187****3548，获得1980元分红收益出局。会员187****3548，获得1980元分红收益出局。</li>
+									<li>会员187****3548，获得1980元分红收益出局。</li>
+									<li>会员187****3548，获得1980元分红收益出局。会员187****3548，获得1980元分红收益出局。</li>
+									<li>会员187****3548，获得1980元分红收益出局。</li>
+								</ul>
+							</div>
+						</div>-->
+
+						<!--ad scroll end-->
+					</div>
+					<!--bill list start -->
+
+					<!--bill list end -->
+				</div>
+				<!--订单列表-->
+				<div class="detail-list nodata" style="display: none;margin-top: 10%;">
+
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata">暂无记录...</div>
+
+					</ul>
+				</div>
+				<div class="detail-list detail aui-wer-list" style="margin-top: 10%;">
+
+				</div>
+				<!--分页页码-->
+				<div>
+					<ul class="mui-table-view" style="margin-left: 15px; margin-right: 15px;">
+
+					</ul>
+					
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+			</div>
+
+			<script>
+				var size = 10;
+				var mescroll = initMeScroll("mescroll", {
+					down: {
+						auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+						callback: downCallback //下拉刷新的回调
+					},
+					up: {
+						auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+						isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+						callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+						page: {
+							num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+							size: size //每页数据条数,默认10
+						},
+						toTop: { //配置回到顶部按钮
+							src: "../img/mescroll-totop.png"
+						},
+						htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+						noMoreSize: size,
+						lazyLoad: {
+							use: true, // 是否开启懒加载,默认false
+							attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+							showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+							delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+							offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+						},
+						use: false
+					}
+				});
+
+				function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+					//延时一秒,模拟联网
+
+					try {
+
+						tradeflows_list(pageNum, pageSize, successCallback);
+					} catch(e) {
+						//联网失败的回调
+						errorCallback && errorCallback();
+					}
+
+				}
+				var page_index = 0;
+				localStorage.setItem('page_index', page_index);
+				/*下拉刷新的回调 */
+				function downCallback() {
+					var page_index = 0;
+					$('.my_cate li').remove()
+					$('.goods_list .goods_item').remove()
+								localStorage.setItem('day', '')
+
+					//					page_index = parseInt(page_index) + 1;
+					localStorage.setItem('page_index', page_index);
+
+					//联网加载数据
+					getListDataFromNet(page_index, size, function(data) {
+						//联网成功的回调,隐藏下拉刷新的状态
+						mescroll.endSuccess();
+						var curPageData = localStorage.getItem('ListData');
+						//设置列表数据
+						setListData(curPageData);
+						//			down();
+					}, function() {
+						//联网失败的回调,隐藏下拉刷新的状态
+						mescroll.endErr();
+					});
+				}
+
+				/*上拉加载的回调 */
+				function upCallback(page) {
+					var page_index = page.num;
+					//					page_index = parseInt(page_index) + 1;
+					localStorage.setItem('page_index', page_index);
+					//					page_index = localStorage.getItem('page_index');
+					//联网加载数据
+					getListDataFromNet(page_index, page.size, function(curPageData) {
+						//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+						//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+						var ListData = localStorage.getItem('ListData');
+
+						var data = JSON.parse(ListData);
+						//			mescroll.endBySize(list_count, total_count);
+						//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+						//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+						//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+						//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+						//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+						//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+						//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+						mescroll.endSuccess(data.current_count);
+
+						//提示:curPageData.length必传的原因:
+						// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+						// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+						// 3.使配置的noMoreSize生效
+
+						//设置列表数据
+						var curPageData = localStorage.getItem('ListData');
+
+						setListData(curPageData, true);
+					}, function() {
+						//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+						mescroll.endErr();
+					});
+				}
+
+				function setListData(data) {
+
+					data = JSON.parse(data);
+					var status = data.status;
+					if(status == 1) {
+						var info = data.data;
+						if(info == null) {
+							$('.nodata').css('display', 'block');
+						}
+
+						$('.all_trade_money').html(data.all_trade_money);
+						$('.all_trade_money1').html(data.all_trade_money1);
+						$('.all_trade_money2').html(data.all_trade_money2);
+
+						$('.wrap').remove();
+						$('.mui-table-view li').remove();
+						if(info != null) {
+
+							//							$.each(info, function(index, content) {
+							//
+							//								var item = '<div class="wrap">';
+							//								item += '<div class="firs-bill bg-white">';
+							//								item += '<div class="con-bill">';
+							//								item += '	<a href="javascript:void(0);" class="aui-well-item aui-well-item-hei open_tixian">';
+							//								item += '	<div class="aui-well-item-bd">';
+							//								item += '	<h3>' + content.day_time + '日总计 收入:' + content.all_trade_money + '元</h3>';
+							//								item += '</div>';
+							//								item += '<span class="aui-well-item-fr open" style="" >收起</span>';
+							//								item += '	</a>';
+							//
+							//								item += '</div> ';
+							//								item += '</div><ul>';
+							//
+							//								$.each(content.list, function(index1, content1) {
+							//
+							//									item += '	 <li>';
+							//									item += '	  <div class="aui-flex b-line">';
+							//									item += '	       <div class="aui-wer-img">';
+							//									item += '	      <img src="../images/logo.png" alt="">';
+							//									item += '	  </div>';
+							//									item += '	 <div class="aui-flex-box">';
+							//									item += '	    <h3>' + content1.shop_name + '</h3>';
+							//									item += '	   <p></p>';
+							//									item += '	   <p>' + content1.trade_time_str + '</p>';
+							//									item += '	  </div>';
+							//									item += '	 <div class="aui-wer-button">';
+							//									item += '	     <button>交易额:' + content1.trade_money + '</button>  <button>分润:' + content1.real_fen_money + '</button>';
+							//									item += '	  </div>';
+							//
+							//									//									item += '	   <p style="color: red;font-size: 15px;position: absolute;right: 0; bottom: 0;">交易额:' + content1.trade_money + '</p>';
+							//
+							//									item += '	   </div>';
+							//									item += '	  <div class="aui-layout" style="display:none" >';
+							//									item += '	   <a href="javascript:;" class="aui-layout-item">';
+							//
+							//									item += '	  <p style="    line-height: 45px;" >升级前</p>';
+							//									item += '	  </a>';
+							//
+							//									item += '	 <a href="javascript:;" class="aui-layout-item">';
+							//									item += '	   <h2>' + content1.chai_trade_money1 + '</h2>';
+							//									item += '	  <p>交易量</p>';
+							//									item += '	 </a>';
+							//									item += '	<a href="javascript:;" class="aui-layout-item">';
+							//									item += '	  <h2>' + content1.fen_money1 + '</h2>';
+							//									item += '	  <p>分润</p>';
+							//									item += '	 </a>';
+							//									item += '	  </div>';
+							//									item += '	  <div class="aui-layout"style="display:none" >';
+							//
+							//									item += '	   <a href="javascript:;" class="aui-layout-item">';
+							//
+							//									item += '	  <p style="    line-height: 45px;" >升级后</p>';
+							//									item += '	  </a>';
+							//
+							//									item += '	 <a href="javascript:;" class="aui-layout-item">';
+							//									item += '	   <h2>' + content1.trade_money2 + '</h2>';
+							//									item += '	  <p>交易量</p>';
+							//									item += '	 </a>';
+							//									item += '	<a href="javascript:;" class="aui-layout-item">';
+							//									item += '	  <h2>' + content1.fen_money2 + '</h2>';
+							//									item += '	  <p>分润</p>';
+							//									item += '	 </a>';
+							//
+							//									item += '	  </div>';
+							//									item += '	  </li>';
+							//									//									item += '  <div class="divHeight"></div>';
+							//
+							//								});
+							//								<!--bill list end -->
+							//								item += '	</ul></div>';
+							//
+							//								//								$('.detail').append(item);
+							//
+							//							});
+							$.each(info, function(index, content) {
+
+								var item = '<li class="mui-table-view-cell day_time" style="    FONT-SIZE: 20PX;" day_time="' + content.day_time + '" >';
+								item += '<a class="mui-navigate-right">';
+								item += '<span class="mui-pull-right" style="line-height: 40px; font-size: 18px; color: black; margin-right: 20PX';
+								item += '; ">' + content.all_trade_money + '</span>';
+								item += '<div class="mui-media-body">';
+
+								item += '<span class="mui-ellipsis" style="font-size: 18px; color: black; ">' + content.month + '月' + content.day_time + '日账单</span>';
+								item += '<p class="mui-ellipsis" style="font-size: 12px; color: #8f8f94; ">分润已到账</p>';
+
+								item += '</div>';
+								item += '</a>';
+								item += '</li>';
+								$('.mui-table-view').append(item);
+
+							});
+							$(".day_time").on('click', function() {
+								var month = (localStorage.getItem('month'))
+								var day = month + '-' + $(this).attr('day_time')
+								localStorage.setItem('day', day)
+								console.log(day)
+								openWindowWithTitle('账单详情', 'detail_tradeflows.html')
+
+							});
+							$(".open").on('click', function() {
+								var display = $(this).parent().parent().parent().parent().find('ul').css('display');
+
+								if(display == 'block') {
+									$(this).html('打开')
+									$(this).parent().parent().parent().parent().find('ul').css('display', 'none')
+								} else {
+
+									$(this).html('收起')
+									$(this).parent().parent().parent().parent().find('ul').css('display', 'block')
+								}
+
+							})
+						}
+					}
+				}
+			</script>
+	</body>
+
+</html>

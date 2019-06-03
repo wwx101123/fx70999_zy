@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>下载客户端</title>
+<link rel="stylesheet" href="css/style2.css">
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+</head>
+<body style="">
+	<div class="all">
+		<div class="sharing">
+			<div id="appName"
+				style="width: 100%; text-align: center; font-size: 20px !important; position: fixed; top: 20px;">全民微客</div>
+			<div class="sharingNav">
+				<img src="images/fxxz_tp1@2x.png" alt="">
+			</div>
+			<div class="sharingBtn">
+				<p onclick="JUMPDownload()">立即下载</p>
+			</div>
+			<div class="sharingInstructions">
+				<p class="sharingTitle">下载须知</p>
+				<p class="sharingText">1、请按照下载提示进行下载注册</p>
+				<p class="sharingText">2、苹果用户请安如下操作:设置-通用-倒数第三项找到"Harbin.Pengbo
+					Puhua..."点击信任后,即可使用</p>
+				<p class="sharingText">3、应用宝下载软件,选择"普通下载"即可</p>
+				<p class="sharingText">4、通过浏览器也可以进行安全下载</p>
+			</div>
+		</div>
+		<div class="sharingMask">
+			<div>
+				<img src="images/ios.png" alt="">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var isIos = (function() {
+			var explorer = window.navigator.userAgent;
+			return (explorer.indexOf("iPhone") >= 0 || explorer.indexOf("iPad") >= 0);
+		})();
+		var busID;
+
+		$(document)
+				.ready(
+						function() {
+							 
+						});
+
+		function JUMPDownload() {
+			var ex = window.navigator.userAgent;
+			if (ex.indexOf("MicroMessenger") >= 0) {
+				showTips();
+			} else {
+				 
+					var url = '';
+					if (isIos) {
+						if (ex.indexOf("iPhone") >= 0 && ex.indexOf("QQ") >= 0) {
+							showTips();
+							return;
+						} else {
+							url = 'itms-services://?action=download-manifest&url=https://www.mayishengcai.com/app/IOS/x5.plist';
+							 
+						}
+					} 
+					location.href = url;
+				 
+			}
+		}
+
+		function showTips() {
+			$('.sharingMask').find("img").attr("src",
+					"images/" + (isIos ? "ios" : "android@2x") + ".png");
+			$('.sharingMask').show();
+		}
+	</script>
+
+
+</body>
+</html>

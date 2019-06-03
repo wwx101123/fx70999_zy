@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>
+			认证详情
+		</title>
+		<meta name="applicable-device" content="mobile">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+		<meta name="renderer" content="webkit">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<!--iPhone私有标签，表示允许全屏模式浏览，即取消顶部工具栏-->
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<!--iPhone私有标签，表示safari顶端的状态条的样式-->
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!--不识别邮件和不把数字识别为电话号码-->
+		<meta name="format-detection" content="telephone=no; email=no">
+		<meta name="format-detection" content="telephone=no">
+		<!-- META禁止缓存,解决浏览器后退不刷新问题(1/4) -->
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta http-equiv="Cache-control" content="no-cache,no-store,must-revalidate">
+		<meta http-equiv="Expires" content="0">
+
+		<style>
+			.page-current header {}
+			
+			.contentInner {
+				position: relative;
+			}
+			
+			.readonly_layout {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0);
+				z-index: 100;
+			}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+
+		<style type="text/css">
+			.step-info-li {
+				line-height: 2rem;
+				text-align: center;
+				font-size: .65rem;
+				color: #909090;
+				border-bottom: 1px solid #f0f0f0
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:2) {
+				.step-info-li {
+					border-bottom: .5px solid #f0f0f0
+				}
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:3) {
+				.step-info-li {
+					border-bottom: .333333px solid #f0f0f0
+				}
+			}
+			
+			.mt-right:after {
+				content: "";
+				background-image: url(../images/copyright.png);
+				display: block;
+				width: 3rem;
+				height: .725rem;
+				z-index: 1;
+				margin: 1.5rem auto;
+				background-size: 3rem .725rem;
+				text-align: center
+			}
+			
+			.task-details .color-success {
+				color: #94d77d
+			}
+			
+			.task-details .color-primary {
+				color: #999
+			}
+			
+			.task-details .status-warning {
+				color: #ff5a5a
+			}
+			
+			.task-details .status-waiting {
+				color: #fdb463
+			}
+			
+			.list-block .item-link .item-inner.no-toright {
+				background-image: none
+			}
+		</style>
+		<style type="text/css">
+			.task-introduction {
+				background: #fff
+			}
+			
+			.task-introduction .icon-shop {
+				width: 2rem;
+				height: 2rem;
+				background: url(../images/shop.png) no-repeat;
+				background-size: 100% 100%;
+				border-radius: 50%;
+			}
+			
+			.task-introduction .list-block .item-inner {
+				display: block
+			}
+			
+			.task-introduction .item-inner .shop-name {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				font-size: 0.8rem;
+				width: 100px;
+				margin-top: 8px;
+				margin-left: 10px;
+			}
+			
+			.task-introduction .item-inner .tags {
+				color: #9b9b9b;
+				font-size: .65rem
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link href="../css/common.32e41245.css?source=11" rel="stylesheet">
+		<link href="../css/details.32e41245.css?source=11" rel="stylesheet">
+
+	</head>
+	<script>
+		init_view()
+
+		function init_view() {
+			mui.init({
+				pullRefresh: {
+					container: '.page__bd',
+					down: {
+						style: 'circle',
+						color: localStorage.getItem('color'),
+						auto: true,
+						callback: down
+					}
+				}
+			});
+
+		}
+
+		function init() {
+			var user = localStorage.getItem('user');
+			user = JSON.parse(user);
+			$('.shop-name').html(user.shop_title);
+			$('.tags').html(user.category_title);
+			$('#bank_card').val(user.bank_card);
+			$('#bank_user_name').val(user.bank_user_name);
+			$('#bank_name').val(user.bank_name);
+			$('.icon').addClass('i-error')
+			$('.item-link span').addClass('status-warning')
+			$('.item-link span').html('待录入')
+
+			$('.icon-shop').css('margin-top', '8px;')
+			if(user.avatar != null) {
+				console.log(user.avatar)
+				$('.icon-shop').css('background', 'url(' + UploadUrl + user.avatar + ')')
+				$('.icon-shop').css('background-size', '100% 100%')
+			}
+
+			if(user.shop_title != null&&user.shop_title != '') {
+
+				$('.step1 .icon').removeClass('i-error')
+				$('.step1 .icon').addClass('i-ok')
+				$('.step1 span').removeClass('status-warning')
+				$('.step1 span').addClass('color-success') 
+				$('.step1 span').html('已录入')
+			}
+			if(user.user_tel != null&&user.user_tel != '') {
+				console.log(user.user_tel )
+				$('.step2 .icon').removeClass('i-error')
+				$('.step2 .icon').addClass('i-ok')
+				$('.step2 span').removeClass('status-warning')
+				$('.step2 span').addClass('color-success')
+				$('.step2 span').html('已录入')
+			}
+			if(user.card_no != null&&user.card_no != '') {
+				$('.step3 .icon').removeClass('i-error')
+				$('.step3 .icon').addClass('i-ok')
+				$('.step3 span').removeClass('status-warning')
+				$('.step3 span').addClass('color-success')
+				$('.step3 span').html('已录入')
+			}
+			if(user.bank_user_name != null&&user.bank_user_name != '') {
+				$('.step4 .icon').removeClass('i-error')
+				$('.step4 .icon').addClass('i-ok')
+				$('.step4 span').removeClass('status-warning')
+				$('.step4 span').addClass('color-success')
+				$('.step4 span').html('已录入')
+			}
+			$('.error').css('display', 'none')
+
+			if(user.auth_error != '' && user.auth_error != null) {
+
+				$('.error').css('display', 'block')
+				$('.error').html(user.auth_error);
+
+				if(user.auth_error.indexOf("昵称") >= 0 || user.auth_error.indexOf("类别") >= 0) {
+					$('.step1 .icon').addClass('i-error')
+					$('.step1 .icon').removeClass('i-ok')
+					$('.step1 span').addClass('status-warning')
+					$('.step1 span').removeClass('color-success')
+					$('.step1 span').html('重新编辑')
+				}
+				if(user.auth_error.indexOf("所在省市区") >= 0 || user.auth_error.indexOf("真实姓名") >= 0 || user.auth_error.indexOf("手机号码") >= 0) {
+					$('.step2 .icon').addClass('i-error')
+					$('.step2 .icon').removeClass('i-ok')
+					$('.step2 span').addClass('status-warning')
+					$('.step2 span').removeClass('color-success')
+					$('.step2 span').html('重新编辑')
+				}
+				if(user.auth_error.indexOf("身份证号") >= 0 ||user.auth_error.indexOf("身份证正面照") >= 0 || user.auth_error.indexOf("身份证反面照") >= 0 || user.auth_error.indexOf("手持身份证照片") >= 0 || user.auth_error.indexOf("银行卡正面照") >= 0) {
+					$('.step3 .icon').addClass('i-error')
+					$('.step3 .icon').removeClass('i-ok')
+					$('.step3 span').addClass('status-warning')
+					$('.step3 span').removeClass('color-success')
+					$('.step3 span').html('重新编辑')
+				}
+				if(user.auth_error.indexOf("银行卡号") >= 0 || user.auth_error.indexOf("开户姓名") >= 0 || user.auth_error.indexOf("开户银行") >= 0 || user.auth_error.indexOf("开户地址") >= 0) {
+					$('.step4 .icon').addClass('i-error')
+					$('.step4 .icon').removeClass('i-ok')
+					$('.step4 span').addClass('status-warning')
+					$('.step4 span').removeClass('color-success')
+					$('.step4 span').html('重新编辑')
+				}
+			}
+
+			localStorage.setItem('history_url', 'details')
+			$('.task-introduction').click(function() {
+				openWindowWithTitle('1/4 自我介绍', 'introduction.html')
+			});
+			$('.step2').click(function() {
+
+				openWindowWithTitle('2/4 身份信息', 'base.html')
+
+			});
+			$('.step3').click(function() {
+				openWindowWithTitle('3/4 资质信息', 'card.html')
+			});
+			$('.step4').click(function() {
+				openWindowWithTitle('4/4 收款信息', 'account.html')
+			})
+		}
+
+		function down() {
+
+			var IP = localStorage.getItem('IP');
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var user_id = localStorage.getItem('user_id');
+			console.log(user_id)
+
+			get_user_info(user_id, init);
+
+		}
+		window.addEventListener('update_user_auth_info', function(e) {
+
+			mui('.page__bd').pullRefresh().pulldownLoading();
+
+		});
+	</script>
+
+	<body><input type="hidden" id="SERVER_TIME" value="1533479313180">
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<div id="shop-info" class="page-group page__bd">
+			<div id="my-home" class="page page-current no-animate">
+				<div class="header" style="display: none;">
+					<a class="back" href="javascript:history.back();">
+						<i class="iconfont icon-arrow-left"></i>
+					</a>
+					<h3>认证详情</h3>
+					<div class="right">
+						<a class="weui-cell_access weui-cell_link" href="../usercenter.html">
+							<i class="iconfont icon-user"></i>
+						</a>
+					</div>
+				</div>
+				<div class="content details-content task-details">
+					<div class="task-introduction">
+						<div class="list-block">
+							<a class="item-link item-content step1" href="javascript:void(0);">
+								<div class="icon-shop" style="float: left;
+    margin-top: 8px;"></div>
+								<div class="item-inner" style="margin-left: 20px; width:auto; ">
+									<div style=" float:LEFT">
+										<div class="shop-name"></div>
+										<!--<div class="tags">鲜花绿植-绿植</div>-->
+									</div>
+									<div style="
+    float: right;
+    margin-top: 8px;" class="item-after"><i class="icon i-ok"></i> <span class="color-success">已录入</span></div>
+								</div>
+							</a>
+						</div>
+					</div>
+					<div class="task-details list-block mt-right">
+						<ul>
+							<li class="step-info-li  error" style="color: red;display: none;">
+								失败原因:2222
+								<!---->
+							</li>
+							<li class="step-info-li">
+								只需完成以下步骤、即可完成认证
+								<!---->
+							</li>
+							<li>
+								<a class="item-link item-content step2" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">基本信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="color-success">已录入</span></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a class="item-link item-content step3" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">身份信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="color-success">已录入</span></div>
+									</div>
+								</a>
+							</li>
+							<li>
+								<a class="item-link item-content step4" href="javascript:void(0);">
+									<div class="item-inner">
+										<div class="item-title label">收款信息</div>
+										<div class="item-after"><i class="icon "></i> <span class="color-success">待录入</span></div>
+									</div>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+					<!---->
+				</div>
+			</div>
+			<div class="help-popup" style="display: none;">
+				<div class="kd-help-model">
+					<div class="modal-title">入驻帮助</div>
+					<div class="model-content">
+						<div class="modal-title-sub">您好，欢迎来到美团外卖!</div>
+						<div class="modal-title-min">入驻前您需要仔细阅读以下标准：</div>
+						<div class="modal-details">
+							<div class="modal-text-name">1. 具有实体店铺:</div>
+							<div class="modal-text">美团外卖暂不接受无实体店铺商家入驻，例：家庭私厨；</div>
+						</div>
+						<div class="modal-details">
+							<div class="modal-text-name">2. 双证齐全,具有营业执照和许可证:</div>
+							<div class="modal-text">a. 餐饮类商家提供餐饮许可证，超市类商家提供食品许可证，药品类商家提供药品许可证；</div>
+							<div class="modal-text">b. 部分地区可用特许证件代替营业执照；</div>
+							<div class="modal-text">c. 三证合一商家提供单证即可；</div>
+						</div>
+						<div class="modal-details">
+							<div class="modal-text-name">3. 品类为餐饮类、超市类、药品类:</div>
+							<div class="modal-text">其它品类暂不合作，例：美容美发；</div>
+						</div>
+					</div>
+					<div class="close">我知道了</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+</html>

@@ -1,0 +1,730 @@
+﻿body {
+  background: #fff1a1; 
+    background-size: 100% 100%;
+    
+}
+
+.login-content {
+    background: url(image/dlk.png) no-repeat;
+    background-size: 100% 100%;
+    width: 60%;
+    height: 80%;
+    margin: 0 auto;
+    top: 10%;
+    position: fixed;
+    left: 20%;
+}
+
+    .login-content .title {
+        background: url(image/yhdl_title.png) no-repeat center;
+        background-size: auto 60%;
+        height: 10%;
+        width: 100%;
+        position: absolute;
+        top: 26%;
+    }
+
+    .login-content .wrap {
+        position: absolute;
+        overflow: auto;
+        top: 40%;
+        height: 60%;
+        width: 100%;
+    }
+
+        .login-content .wrap .item {
+            width: 57%;
+            margin: 0 auto;
+        }
+
+            .login-content .wrap .item img {
+                width: 32%;
+                vertical-align: middle;
+            }
+
+            .login-content .wrap .item input {
+                width: 58%;
+                display: inline-block;
+                vertical-align: middle;
+                background: url(image/dlsrk1.png) no-repeat;
+                background-size: 100% 100%;
+                padding: 5px 1%;
+                font-size: 14px;
+                margin-left: 2%;
+                color: white;
+            }
+
+        .login-content .wrap .yzm input {
+            width: 25% !important;
+        }
+
+            .login-content .wrap .yzm input:last-child {
+                text-align: center;
+                font-size: 13px;
+                color: yellow;
+            }
+
+        .login-content .wrap .operate img {
+            width: 40% !important;
+            margin: 0 0 0 5%;
+            display: inline-block;
+        }
+
+        .login-content .wrap .forgetpwd {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            width: 100% !important;
+            background: url(image/wjmm.png) no-repeat center;
+            background-size: auto 60%;
+            height: 18%;
+        }
+
+        .login-content .wrap .space {
+            margin-top: 2% !important;
+        }
+
+        .login-content .wrap .operate {
+            width: 60%;
+        }
+
+.registbtn {
+    width: 25%;
+    margin-left: 38%;
+    bottom: 3%;
+    position: absolute;
+}
+/* æ³¨å†Œ */
+
+.regist-content {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    /* top: 5%; */
+    position: absolute;
+    /* left: 25%; */
+    overflow: auto;
+}
+
+    .regist-content .close {
+        width: auto;
+        height: 10%;
+        position: absolute;
+        right: 0.5em;
+        top: 2%;
+        z-index: 9999;
+    }
+
+.apptitle {
+    position: absolute;
+    background-size: 100% 100%;
+    width: 27%;
+    height: 13%;
+    margin: auto;
+    left: 41%;
+    top: 2%;
+    color: rgb(253,248,197);
+    font-size: 20px;
+}
+
+.applogo {
+     
+    background: url(image/APPlogo.png) no-repeat;
+    background-size: 100% 100%;
+    width: 70%;
+    height: 18%;
+    margin: auto;
+    left: 29%;
+    top: 8%;
+}
+
+.regist-content .step1 {
+    background: url(image/backgroundimage.png) no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.regist-content .step2 {
+    background: url(image/regsitfrm2.png) no-repeat;
+    background-size: 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+.regist-content .wrap {
+    position: absolute;
+    overflow: auto;
+    top: 13%;
+    height: 83%;
+    width: 100%;
+}
+
+.tologin {
+    position: absolute;
+    bottom: 0;
+    width: 50%;
+    left: 25%;
+    bottom: 5%;
+}
+
+.regist-content .step1 .item {
+    position: absolute;
+    /*     background: red; */
+    height: 6%;
+    left: 36%;
+    width: 56%;
+    font-size: 20px;
+    color: white;
+}
+    .regist-content .step1 .item.invite {
+        top: 22%;
+    }
+
+    .regist-content .step1 .item.name {
+        top: 28.3%;
+    }
+
+    .regist-content .step1 .item.bank {
+        top: 34.5%;
+    }
+
+    .regist-content .step1 .item.bank_name {
+        top: 41%;
+        width: 55%;BACKGROUND-COLOR: rgb(209,172,89);border-radius: 10px;
+    	
+    }
+
+    .regist-content .step1 .item.province {
+        width: 18%;
+        top: 47%;BACKGROUND-COLOR: rgb(209,172,89);border-radius: 10px;
+    }
+
+    .regist-content .step1 .item.city {
+        left: 56%;
+        top: 47%;
+        width: 18%;BACKGROUND-COLOR: rgb(209,172,89);border-radius: 10px;
+    }
+
+    .regist-content .step1 .item.area {
+        width: 18%;
+        top: 47%;
+        left: 75%;BACKGROUND-COLOR: rgb(209,172,89);border-radius: 10px;
+    }
+
+    .regist-content .step1 .item.detail {
+        top: 53%;
+    }
+
+.regist-content .step1 .next {
+    width: 35%;
+    position: absolute;
+    bottom: 3%;
+    left: 32.5%;
+}
+
+.regist-content .step2 .item {
+    position: absolute;
+    /*   background: red; */
+    height: 7%;
+    left: 28%;
+    width: 56%;
+    font-size: 14px;
+    color: white;
+}
+
+.reg_sjyzm {
+    position: absolute;
+    height: 12%;
+    left: 12%;
+    width: 74%;
+    font-size: 14px;
+    color: white;
+    top: 78%;
+    background-size: 100% auto;
+}
+.mobile {
+    top:59.5%;
+}
+.password {
+    top:66%;
+}.password2 {
+    top:72.5%;
+}
+.noregsms {
+    top: 45% !important;
+}
+
+form {
+    height: 100%;
+    width: 100%;
+}
+
+.reg_sjyzm > .smstxt {
+    width: 42%;
+    top: 11%;
+    left: 32%;
+    position: absolute;
+    height: 53%;
+    font-size: 20px;
+    color: white;
+}
+
+.reg_sjyzm > .smsbtn {
+    width: 33%;
+    top:11%;
+    left:75%;
+    position: absolute;
+    height: 53%;
+    color:white;
+    font-size: 15px;
+    text-align: center;
+}
+
+.regist-content .step2 .item.pwd1 {
+    top: 18%;
+}
+
+.regist-content .step2 .item.pwd2 {
+    top: 26%;
+}
+
+.regist-content .step2 .item.mobile {
+    top: 35%;
+}
+
+.regist-content .step2 .item.smstxt {
+    top: 44%;
+    width: 28%;
+}
+
+.regist-content .step2 .item.smsbtn {
+    top: 44%;
+    width: 25%;
+    left: 59%;
+    color: rgb(255, 163, 40);
+    text-align: center;
+}
+
+.regist-content .step2 .choose {
+    position: absolute;
+    left: 18%;
+    width: 64%;
+    font-size: 12px;
+    top: 57%;
+    text-align: center;
+}
+
+    .regist-content .step2 .choose > span {
+        background: url(image/choose1.png) no-repeat left center;
+        background-size: 1.5em 1.5em;
+        height: 1.5em;
+        padding-left: 1.7em;
+        line-height: 1.5em;
+        color: black;
+        font-size: 14px;
+        margin-left: 0.5em;
+    }
+
+        .regist-content .step2 .choose > span.active {
+            background: url(image/choose2.png) no-repeat left center;
+            background-size: 1.5em 1.5em;
+            height: 1.5em;
+        }
+
+.regist-content .step2 .tj {
+    width: 35%;
+    position: absolute;
+    bottom: 20%;
+    left: 33.5%;
+}
+/* æ‰¾å›žå¯†ç  */
+.forgetpwd-content {
+    background: url(image/xgmmk.png) no-repeat;
+    background-size: 100% 100%;
+    width: 50%;
+    height: 90%;
+    margin: 0 auto;
+    top: 5%;
+    position: absolute;
+    left: 25%;
+    overflow: auto;
+}
+
+    .forgetpwd-content .title {
+        background: url(image/zczh_title.png) no-repeat center;
+        background-size: auto 60%;
+        height: 10%;
+        width: 100%;
+        position: absolute;
+        top: 2%;
+    }
+
+    .forgetpwd-content .close {
+        width: auto;
+        height: 10%;
+        position: absolute;
+        right: 0.5em;
+        top: 2%;
+    }
+
+    .forgetpwd-content .wrap {
+        position: absolute;
+        overflow: auto;
+        top: 13%;
+        height: 83%;
+        width: 100%;
+    }
+
+        .forgetpwd-content .wrap .item {
+            width: 80%;
+            margin: 0 auto;
+            height: 1.5em;
+            line-height: 1.5em;
+            text-align: center;
+        }
+
+            .forgetpwd-content .wrap .item .sex {
+                display: inline-block;
+                background: url(image/nlzn_wxz.png) no-repeat left center;
+                background-size: 1em 1em;
+                width: 4em;
+                vertical-align: middle;
+                padding-left: 0.5em;
+            }
+
+                .forgetpwd-content .wrap .item .sex.active {
+                    display: inline-block;
+                    background: url(image/nlzn_xz.png) no-repeat left center;
+                    background-size: 1em 1em;
+                }
+
+            .forgetpwd-content .wrap .item.username {
+                background: url(image/zczh2.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.dlmm {
+                background: url(image/dlmm_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.qrdlmm {
+                background: url(image/qrdlmm_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.jymm {
+                background: url(image/jymm_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.qrjymm {
+                background: url(image/qrjymm_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.tjrzh {
+                background: url(image/tjrzh_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.sjh {
+                background: url(image/sjh_k.png) no-repeat;
+                background-size: 100% 100%;
+            }
+
+            .forgetpwd-content .wrap .item.sjyzm {
+                background: url(image/sjyzm_k.png) no-repeat;
+                background-size: 75% 100%;
+                position: relative;
+            }
+
+            .forgetpwd-content .wrap .item.yzm {
+                background: url(image/yzm2.png) no-repeat;
+                background-size: 75% 100%;
+                position: relative;
+            }
+
+                .forgetpwd-content .wrap .item.sjyzm input, .forgetpwd-content .wrap .item.yzm input {
+                    width: 30% !important;
+                    padding-left: 10% !important;
+                }
+
+                .forgetpwd-content .wrap .item.sjyzm .btn, .forgetpwd-content .wrap .item.yzm .btn {
+                    width: 23% !important;
+                    position: absolute;
+                    right: 0;
+                    height: 100%;
+                    background: url(image/fsyzm.png) no-repeat right;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    font-size: 16px;
+                    color: yellow;
+                }
+
+                .forgetpwd-content .wrap .item.yzm .btn {
+                    width: 23% !important;
+                    position: absolute;
+                    right: 0;
+                    height: 100%;
+                    background: url(image/dlsrk1.png) no-repeat right;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    font-size: 16px;
+                    color: yellow;
+                    padding-left: 0 !important;
+                }
+
+            .forgetpwd-content .wrap .item img {
+                width: 32%;
+                vertical-align: middle;
+            }
+
+            .forgetpwd-content .wrap .item input {
+                width: 55%;
+                vertical-align: middle;
+                padding-left: 38%;
+                font-size: 14px;
+                margin-left: 2%;
+                color: white;
+                height: 1.5em;
+                line-height: 1.5em;
+            }
+
+    .forgetpwd-content .yzm input {
+        width: 25% !important;
+    }
+
+        .forgetpwd-content .yzm input:last-child {
+            text-align: center;
+            font-size: 16px;
+            color: yellow;
+        }
+
+    .forgetpwd-content .operate {
+        text-align: center;
+    }
+
+        .forgetpwd-content .operate img {
+            width: 45% !important;
+            margin: 0 1%;
+        }
+
+    .forgetpwd-content .forgetpwd {
+        position: absolute;
+        top: 90%;
+        left: 0;
+        text-align: center;
+        width: 100% !important;
+        background: url(image/wjmm.png) no-repeat center;
+        background-size: auto 60%;
+        height: 8%;
+    }
+
+    .forgetpwd-content .space {
+        margin-top: 3px !important;
+    }
+
+    .forgetpwd-content .bottom {
+        font-size: 13px;
+        color: rgb(137,93,59);
+        text-align: center
+    }
+
+    .forgetpwd-content .space {
+        margin-top: 5px !important;
+    }
+
+    .forgetpwd-content .wrap .item.username {
+        background: url(image/ndzh_k.png) no-repeat;
+        background-size: 100% 100%;
+    }
+
+    .forgetpwd-content .title {
+        background: url(image/xgmm_title.png) no-repeat center;
+        background-size: auto 60%;
+        height: 10%;
+        width: 100%;
+        position: absolute;
+        top: 2%;
+    }
+
+    .forgetpwd-content .bottom {
+        text-decoration: underline;
+        text-align: center;
+    }
+
+    .forgetpwd-content .wrap .item:first-child {
+        margin-top: 1em;
+    }
+
+    .forgetpwd-content .operate img {
+        width: 35% !important;
+        margin: 0.5em 0;
+    }
+
+/* ======placeholderå±žæ€§ é¢œè‰² å…¼å®¹æ€§è®¾ç½® ======*/
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: white;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: white;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: white;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: white;
+}
+/*====== placeholderå±žæ€§ é¢œè‰² å…¼å®¹æ€§è®¾ç½®====== */
+
+
+.item1 {
+    position: absolute;
+    height: 6%;
+    left: 6%;
+    width: 56%;
+    font-size: 14px;
+    color: white;
+}
+.invite1 {
+top:22%
+}
+.name1 {
+    top: 28.2%
+}
+.bank1 {
+    top: 34.2%
+}
+.bank_name1 {
+    top: 41%
+}
+.province1 {
+    top: 47%
+}
+.detail1 {
+    top: 53%
+}
+.smstxt1 {
+    top: 79%
+}
+
+
+
+
+
+.tab-content {
+	padding: 15px 15px;
+	font-size: 12px;
+	color: #666;
+	border-top: none;
+	overflow: hidden;background:  #fff1a1;
+    background-size: 100% 100%; 
+}
+
+.tab-content:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.tab-content dl, .div-content dl {
+	clear: both;
+	display: block;
+	padding: 5px 0;
+	line-height: 30px;
+}
+
+.tab-content dl:after, .div-content dl:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.tab-content dl:first-child {
+	border-top: none;
+}
+
+.tab-content dl dt {
+	display: block;
+    float: left;
+    width: 24%;
+    text-align: right;
+    margin-left: 13px;
+    color: #6d7e86;
+     height: 30px;
+    margin-top: 5px;
+}
+
+.tab-content dl dd {
+	position: relative;
+	float: left;
+	margin-left: 10px;
+	*position: static;
+	width:68%;
+}
+
+.tab-content dl dd.yzmdd {
+	width: 215px;
+}
+
+.tab-content dl dd .input {
+	position: static;
+	border: 0px;
+	BACKGROUND-COLOR: #d1ad58;
+	color: white;
+	font-size:16px;
+	height: 40px;border-radius:20px;
+    width: 100%;box-shadow: inset 0 0 1px 1px #a2853e;    padding-left:8px;
+}
+
+.tab-content dl dd .select {
+	position: static;
+	border: 0px;
+	BACKGROUND-COLOR: rgb(209,172,89);
+	color: white;
+	font-size: 16px;
+	height: 38px;border-radius: 20px;
+    border: 1px solid rgb(155,119,22); width: 33%;box-shadow: inset 0 0 1px 1px #a2853e;float:left
+}
+/*������ʽ*/
+.tab-content.mini dl dt {
+	display: block;
+	float: none;
+	text-align: left;
+	
+}
+
+.tab-content.mini dl dd {
+	margin-left: 0;
+}
+
+.tab-content.mini dl dd .input {
+	max-width: 100%;
+}
+
+@media only screen and (max-width:1600px) {
+	.tab-content dl dd {
+		/* width: 220px; */
+	}
+.tab-content dl dd.yzmdd {
+	width: 135px;
+}
+}
+@media only screen and (min-width:1800px) {
+.tab-content dl dd {
+		/* width: 250px; */
+	}
+.tab-content dl dd.yzmdd {
+    width: 170px;
+}
+}

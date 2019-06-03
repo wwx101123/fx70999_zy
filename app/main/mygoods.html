@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/modify.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/h.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<link rel="stylesheet" href="../css/my.min_fbd6649a.css">
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=12e112ed914077e56c9952451ca7d4fd&plugin=AMap.Geolocation"></script>
+		<link rel="stylesheet" type="text/css" href="../css/introduction.32e41245.css" />
+		<style>
+			body {
+				background: white;
+			}
+			
+			.show {
+				display: none;
+			}
+		</style>
+
+		<script type="text/javascript">
+			var img = null;
+			var blist = [];
+
+			function scaned(t, r, f) {
+				var d = new Date();
+				var h = d.getHours(),
+					m = d.getMinutes(),
+					s = d.getSeconds(),
+					ms = d.getMilliseconds();
+				if(h < 10) {
+					h = '0' + h;
+				}
+				if(m < 10) {
+					m = '0' + m;
+				}
+				if(s < 10) {
+					s = '0' + s;
+				}
+				if(ms < 10) {
+					ms = '00' + ms;
+				} else if(ms < 100) {
+					ms = '0' + ms;
+				}
+				console.log(r)
+				var result = decodeURIComponent(r);
+				result = JSON.parse(result)
+
+				console.log(result.uid)
+				if(result.type = 'money') {
+
+					localStorage.setItem('zz_user_id', result.uid)
+					openWindowWithTitle('转账', 'wantgathering.html');
+				}
+				//				var ts = '[' + h + ':' + m + ':' + s + '.' + ms + ']';
+				//				var li = null,
+				//					hl = document.getElementById('history');
+				//				if(blist.length > 0) {
+				//					li = document.createElement('li');
+				//					li.className = 'ditem';
+				//					hl.insertBefore(li, hl.childNodes[0]);
+				//				} else {
+				//					li = document.getElementById('nohistory');
+				//				}
+				//				li.id = blist.length;
+				//				var html = '[' + h + ':' + m + ':' + s + '.' + ms + ']' + '　　' + t + '码<div class="hdata">';
+				//				html += r;
+				//				html += '</div>';
+				//				li.innerHTML = html;
+				//				li.setAttribute('onclick', 'selected(id)');
+				//				blist[blist.length] = {
+				//					type: t,
+				//					result: r,
+				//					file: f
+				//				};
+				//				update(t, r, f);
+			}
+
+			function selected(id) {
+				var h = blist[id];
+				update(h.type, h.result, h.file);
+				if(h.result.indexOf('http://') == 0 || h.result.indexOf('https://') == 0) {
+					plus.nativeUI.confirm(h.result, function(i) {
+						if(i.index == 0) {
+							plus.runtime.openURL(h.result);
+						}
+					}, '', ['打开', '取消']);
+				} else {
+					plus.nativeUI.alert(h.result);
+				}
+			}
+
+			function update(t, r, f) {
+				outSet('扫描成功：');
+				outLine(t);
+				outLine(r);
+				outLine('\n图片地址：' + f);
+				if(!f || f == 'null') {
+					img.src = '../img/barcode.png';
+				} else {
+					plus.io.resolveLocalFileSystemURL(f, function(entry) {
+						img.src = entry.toLocalURL();
+					});
+					//img.src = 'http://localhost:13131/'+f;
+				}
+			}
+
+			function onempty() {
+				if(window.plus) {
+					plus.nativeUI.alert('无扫描记录');
+				} else {
+					alert('无扫描记录');
+				}
+			}
+
+			function cleanHistroy() {
+				if(blist.length > 0) {
+					var hl = document.getElementById('history');
+					hl.innerHTML = '<li id="nohistory" class="ditem" onclick="onempty();">无历史记录	</li>';
+				}
+				plus.io.resolveLocalFileSystemURL('_doc/barcode/', function(entry) {
+					entry.removeRecursively(function() {
+						// Success
+					}, function(e) {
+						//alert( "failed"+e.message );
+					});
+				});
+			}
+		</script>
+	</head>
+	<style type="text/css">
+
+	</style>
+
+	<body style="background: white;" class="mui-plus mui-statusbar mui-statusbar-offset">
+
+		<div class=" mescroll" id="mescroll">
+
+			<!--<div class="my_section" id="myActivity" style=" border: 0;   ">
+				<div class="aui-palace clearfix category-list">
+
+				</div>
+			</div>-->
+
+			<style type="text/css">
+				.content_div {
+					margin-left: 6px;
+					background: #fff;
+					width: 97%;
+					margin-right: 6px;
+				}
+				
+				.nav[data-v-7ca19972] {
+					background: #fff;
+					overflow: hidden
+				}
+				
+				.nav .list[data-v-7ca19972] {
+					overflow: hidden;
+					box-sizing: content-box;
+					position: relative
+				}
+				
+				.nav .list img[data-v-7ca19972] {
+					display: block
+				}
+				
+				.nav .con[data-v-7ca19972] {
+					font-size: 1.5rem;
+					color: #000;
+					box-flex: 1;
+					-ms-flex: 1!important;
+					flex: 1!important;
+					-webkit-flex: 1!important
+				}
+				
+				.list a[data-v-7ca19972] {
+					border-left: 0;
+					position: absolute;
+					top: 10px;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					font-size: 15px;
+				}
+				
+				.list a[data-v-7ca19973] {
+					border-left: 0;
+					position: absolute;
+					top: 30px;
+					right: 0;
+					bottom: 0;
+					left: 0;
+					color: #a185cb;
+				}
+				
+				.list-style1[data-v-7ca19972] {
+					padding-bottom: 0;
+					padding: 0 .8rem
+				}
+				
+				.list-style1 .list[data-v-7ca19972] {
+					height: 4.8rem;
+					border-bottom: 1px solid #e3e8ee;
+					display: box;
+					display: -moz-box;
+					display: -webkit-box;
+					box-pack: start;
+					-webkit-box-pack: start;
+					box-align: center;
+					-webkit-box-align: center;
+					-moz-box-align: center;
+					display: -ms-flexbox;
+					display: flex;
+					display: -webkit-flex;
+					-ms-flex-align: center;
+					align-items: center;
+					-ms-flex-pack: initial;
+					justify-content: initial
+				}
+				
+				.list-style1 .list .icon-right-arrow[data-v-7ca19972] {
+					color: #464c5b;
+					font-size: 1.2rem
+				}
+				
+				.list-style1 .list[data-v-7ca19972]:last-of-type {
+					border-bottom: 0
+				}
+				
+				.list-style1 .list img[data-v-7ca19972] {
+					height: 64%;
+					width: auto;
+					margin-right: .5rem
+				}
+				
+				.list-style2 .list[data-v-7ca19972] {
+					width: 20%;
+					float: left;
+					text-align: center;
+					overflow: hidden
+				}
+				
+				.list-style2 .list img[data-v-7ca19972] {
+					width: 100%;
+					height: auto;
+					margin: 0 auto;
+					display: block;
+					margin-top: 40px;
+				}
+				
+				.list-style2 .list .con[data-v-7ca19972] {
+					margin-top: .2rem;
+					font-size: 1.3rem
+				}
+				
+				.list-style2 .list .icon-right-arrow[data-v-7ca19972] {
+					display: none
+				}
+				
+				.list-style2.whole-margin[data-v-7ca19972] {
+					padding: .8rem 0
+				}
+				
+				.list-style2.all-padding section[data-v-7ca19972] {
+					box-sizing: border-box;
+					padding: .4rem
+				}
+				
+				.list-style2.all-border section[data-v-7ca19972] {
+					box-sizing: border-box;
+					margin-bottom: -1px;
+					border: 1px solid #e7ecec;
+					border-right: 0
+				}
+			</style>
+
+			<style type="text/css">
+				.separate-img-list ul li[data-v-0dbb90dc] {
+					width: 100%;
+					position: relative;
+					margin-bottom: .6rem;
+					background: white;
+					display: box;
+					display: -moz-box;
+					display: -webkit-box;
+					box-pack: center;
+					-webkit-box-pack: center;
+					box-align: center;
+					-webkit-box-align: center;
+					-moz-box-align: center;
+					display: -ms-flexbox;
+					display: flex;
+					display: -webkit-flex;
+					-ms-flex-align: center;
+					align-items: center;
+					-ms-flex-pack: center;
+					justify-content: center;
+					height: 40px;
+					BORDER-TOP: 10PX #f1f0f0 SOLID;
+				}
+				
+				.separate-img-list ul li.default-img[data-v-0dbb90dc]:last-child,
+				.separate-img-list ul li[data-v-0dbb90dc]:last-child {
+					margin-bottom: 0
+				}
+				
+				.separate-img-list ul li a[data-v-0dbb90dc] {
+					position: absolute;
+					top: 0;
+					right: 0;
+					bottom: 0;
+					left: 0
+				}
+				
+				.separate-img-list ul li span[data-v-0dbb90dc] {
+					position: absolute;
+					padding: .4rem;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: rgba(0, 0, 0, .5);
+					color: #fff;
+					overflow: hidden;
+					text-overflow: ellipsis
+				}
+				
+				.separate-img-list ul li img[data-v-0dbb90dc] {
+					width: 60%;
+					display: block
+				}
+				
+				.separate-img-list ul.mini[data-v-0dbb90dc] {
+					overflow: hidden
+				}
+				
+				.separate-img-list ul.mini li[data-v-0dbb90dc] {
+					width: 50%;
+					float: left;
+					padding-bottom: 0;
+					margin-bottom: 0
+				}
+				
+				.separate-img-list ul.mini li.gap[data-v-0dbb90dc] {
+					padding: .4rem
+				}
+				
+				.separate-img-list ul.mini li.gap[data-v-0dbb90dc]:nth-child(2n-1) {
+					padding-right: .2rem
+				}
+				
+				.separate-img-list ul.mini li.gap[data-v-0dbb90dc]:nth-child(2n) {
+					padding-left: .2rem
+				}
+				
+				.separate-img-list ul.mini li.gap:nth-child(2n-1) span[data-v-0dbb90dc] {
+					left: .4rem;
+					right: .2rem
+				}
+				
+				.separate-img-list ul.mini li.gap:nth-child(2n) span[data-v-0dbb90dc] {
+					left: .2rem;
+					right: .4rem
+				}
+				
+				.default-img[data-v-0dbb90dc] {
+					min-height: 4rem;
+					background: #f4f5fa;
+					display: -ms-flexbox;
+					display: flex;
+					display: -webkit-flex;
+					-ms-flex-align: center;
+					align-items: center;
+					-ms-flex-pack: center;
+					justify-content: center
+				}
+				
+				.separate-img-list li.default-img img[data-v-0dbb90dc] {
+					display: block;
+					width: 50%;
+					height: auto
+				}
+				
+				.separate-img-list ul li img.no-img[data-v-0dbb90dc] {
+					width: 50%
+				}
+			</style>
+			<div class="content  detail-list">
+				<ul>
+					<div class="nodata">暂无记录...</div>
+				</ul>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var watchId;
+
+		function getGeocode() {
+			console.log('getGeocode')
+			//高德地图API
+			//AMap.service解决只使用高德Geolocation功能提示Geolocation不是构造函数问题  
+			    
+			AMap.service(["AMap.Geolocation"], function() {
+				var geolocation = new AMap.Geolocation({
+					timeout: 10,
+					GeoLocationFirst: false,
+					maximumAge: 0 //定位结果缓存0毫秒，默认：0
+				});
+				geolocation.getCurrentPosition(function(status, result) {
+					if(status == "complete") {
+						console.log(result.position.lng)
+
+						var city_name = localStorage.getItem('city_name');
+						if(city_name != null && city_name != '') {
+							$('.city_name').html(city_name)
+						} else {
+							localStorage.setItem('city_name', result.addressComponent.city)
+							localStorage.setItem('lat', result.position.lat)
+							localStorage.setItem('lng', result.position.lng)
+
+							$('.city_name').html(result.addressComponent.city)
+						}
+
+						//设置当前经纬度
+
+					} else {
+						attendanceVue.currentAddress.ADDRESS = result.message;
+					}
+				});
+			});
+		}
+		//		function geoInf(position) {
+		////			var str = "";
+		////			str += "地址：" + position.addresses + "\n"; //获取地址信息
+		////			str += "坐标类型：" + position.coordsType + "\n";
+		////			var timeflag = position.timestamp; //获取到地理位置信息的时间戳；一个毫秒数；
+		////			str += "时间戳：" + timeflag + "\n";
+		////			var codns = position.coords; //获取地理坐标信息；
+		////			var lat = codns.latitude; //获取到当前位置的纬度；
+		////			str += "纬度：" + lat + "\n";
+		////			var longt = codns.longitude; //获取到当前位置的经度
+		////			str += "经度：" + longt + "\n";
+		////			var alt = codns.altitude; //获取到当前位置的海拔信息；
+		////			str += "海拔：" + alt + "\n";
+		////			var accu = codns.accuracy; //地理坐标信息精确度信息；
+		////			str += "精确度：" + accu + "\n";
+		////			var altAcc = codns.altitudeAccuracy; //获取海拔信息的精确度；
+		////			str += "海拔精确度：" + altAcc + "\n";
+		////			var head = codns.heading; //获取设备的移动方向；
+		////			str += "移动方向：" + head + "\n";
+		////			var sped = codns.speed; //获取设备的移动速度；
+		////			str += "移动速度：" + sped;
+		//			console.log(JSON.stringify(position));
+		//			var city_name = localStorage.getItem('city_name');
+		//			if(city_name != null && city_name != '') {
+		//				$('.city_name').html(city_name)
+		//			} else {
+		//
+		//				$('.city_name').html(position.address.city)
+		//			}
+		//		}
+
+		function getPos() {
+			console.log("获取位置信息:");
+			plus.geolocation.getCurrentPosition(geoInf, function(e) {
+				console.log("获取位置信息失败：" + e.message);
+			}, {
+				geocode: false
+			});
+		}
+
+		function watchPos() {
+			if(watchId) {
+				return;
+			}
+			watchId = plus.geolocation.watchPosition(function(p) {
+				console.log("监听位置变化信息:");
+				geoInf(p);
+			}, function(e) {
+				console.log("监听位置变化信息失败：" + e.message);
+			}, {
+				geocode: false
+			});
+		}
+
+		function clearWatch() {
+			if(watchId) {
+				console.log("停止监听位置变化信息");
+				plus.geolocation.clearWatch(watchId);
+				watchId = null;
+			}
+		}
+		// 通过定位模块获取位置信息
+
+		getGeocode()
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			localStorage.setItem('is_hot', 1)
+			init_exit_view()
+			mui('body').on('shown', '.mui-popover', function(e) {
+				$('#topPopover').css('top', 100)
+			});
+			localStorage.setItem('category_id', 0)
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+						,
+					isBounce: false
+				},
+				up: {
+					auto: false,
+					isBounce: false
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					localStorage.setItem('order', '')
+					localStorage.setItem('category_id', 0);
+					localStorage.setItem('goods_type', 0)
+					var category_id = localStorage.getItem('category_id');
+					get_goods_detail_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				var page_index = 1;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				var lng = localStorage.getItem('lng')
+				var lat = localStorage.getItem('lat')
+				localStorage.setItem('huikui_sn', '');
+
+				data1 = JSON.parse(data);
+				console.log(data1.video_img)
+				if(data1.status == 0) {
+					exit();
+				}
+				$('.video').attr('src', IP + data1.video_img)
+
+				$('.search').css('padding-top', localStorage.getItem('StatusbarHeight'))
+				//$('.search').css('padding-top',0)
+				$('.mui-scroll-wrapper').css('margin-bottom', $('.mui-bar').height() * 2)
+
+				$('.ui-tags-tit a').click(function() {
+					$('.ui-tags-tit a').removeClass('active')
+					$(this).addClass('active');
+
+					$('.ui-tags-ct li').css('display', 'none')
+					$('.ui-tags-ct li:eq(' + $(this).index() + ')').css('display', 'block')
+
+				})
+
+				var city = localStorage.getItem('select_city');
+				if(city != '' && city != null) {
+					$('.select_city').html(city)
+				}
+
+				user = JSON.parse(data);
+				var form = user.form;
+
+				if(form != null) {
+					$('marquee').css('display', 'block')
+					var item = '';
+
+					$('marquee li span').remove();
+					$.each(form, function(index, content) {
+
+						item += '  <span style="color:#4c2664;">' + content.title + '</span>';
+
+					});
+
+					$('marquee li').append(item);
+
+					init_marquee_box();
+				}
+
+				info = JSON.parse(data);
+				//				info = info.app_icon;
+				//				var app_icon = info;
+				//
+				//				$.each(app_icon, function(index, content) {
+				//
+				//					$('.my_cate_item:eq(' + index + ')').find('img').attr('src', IP + content.img)
+				//				});
+				$('.category-list .aui-palace-grid').remove();
+				$('.content_div .slide').remove();
+				$('.content_div .list').remove();
+				$('.content_div .tab-panel-item').remove();
+				$('.content .aui-flex').remove();
+				$('.content .ary').remove();
+
+					$('.nodata').css('display', 'none')
+				 
+				$(".cate_item").click(function() {
+					jump_url(this);
+				});
+				$(".category-list .aui-palace-grid").click(function() {
+					jump_url(this);
+				});
+				$('.aui-palace-grid').css('width', '25%');
+				$('.aui-palace-grid-text h2').css('font-size', '10px');
+
+				$('.goods_list .aui-shop-list-item').remove();
+				console.log(data)
+				info = JSON.parse(data);
+				info = info.data;
+				var item = ' <div class="aui-flex">';
+				item += '<ul id="m_list" class="m-list ary">';
+				$.each(info, function(index, content1) {
+					item += '	<a href="javascript:;" class="aui-list-theme-item goods_item" id="' + content1.id + '" name="' + content1.title + '">';
+					item += '<div class="aui-list-img">';
+					item += '	<img src="' + IP + content1.img + '" alt="">';
+					item += '	</div>';
+					item += '<div class="aui-list-title">';
+					item += '	<h3>' + content1.title + '</h3>';
+					item += '<div class="aui-flex">';
+					item += '<div class="aui-flex-box">';
+					item += '	<span>￥' + content1.price + '</span>';
+					item += '</div>';
+					item += '<div class="aui-list-right">';
+					item += '	<span>';
+					//						item += '    <img src="../images/user-logo-001.png" alt="">';
+					//						item += '    <img src="../images/user-logo-002.png" alt="">';
+					item += '  </span>';
+					item += '</div>';
+					item += '</div>';
+					item += '<div class="sy-cs">';
+					item += '<div class="sy-hs" style="width:' + content1.percent + '%" ></div>';
+					item += ' </div>';
+					item += '<div class="aui-flex aui-flex-pic">';
+					item += '	<div class="aui-flex-box">';
+					item += '	<span>已卖出:' + content1.sell_count + '</span>';
+					item += '	</div>';
+					item += '<div class="aui-list-right">';
+					item += '	<p>库存:' + content1.stock + '</p>';
+					item += '</div>';
+
+					item += '</div>';
+					item += '<div class="aui-flex aui-flex-pic">';
+					item += '	<div class="aui-flex-box">';
+					item += '	<span>兑换时间:' + content1.addtime_str + '</span>';
+					item += '	</div>';
+
+					item += '</div>';
+					item += '</div>';
+					item += '</a>';
+				});
+				item += ' </ul>';
+				$('.content').append(item);
+
+				$(".goods_item").on('click', function() {
+
+					localStorage.setItem('goods_id', $(this).attr('id'));
+					localStorage.setItem('hot_id', $(this).attr('hot_id'));
+					localStorage.setItem('title', $(this).attr('name'));
+					localStorage.setItem('goods_detail', decodeURI($(this).attr('goods_detail')));
+					var myDate = new Date();
+					//获取当前年
+					var year = myDate.getFullYear();
+					//获取当前月
+					var month = myDate.getMonth() + 1;
+					//获取当前日
+					var date = myDate.getDate();
+					var h = myDate.getHours(); //获取当前小时数(0-23)
+					var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+					var s = myDate.getSeconds();
+
+					var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
+					console.log(now)
+//					openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+				});
+				$(".sao").click(function() {
+
+					openWindowWithTitle('扫码', 'barcode_scan.html')
+				});
+				$(".shou").click(function() {
+
+					openWindowWithTitle('向我转账', 'shou.html')
+				});
+				$(".search_section").click(function() {
+
+					openWindowWithTitle('搜索', 'search.html')
+				});
+				$(".goods_item").on('click', function() {
+
+					localStorage.setItem('goods_id', $(this).attr('id'));
+					localStorage.setItem('hot_id', $(this).attr('hot_id'));
+					localStorage.setItem('title', $(this).attr('name'));
+					localStorage.setItem('goods_detail', decodeURI($(this).attr('goods_detail')));
+					var myDate = new Date();
+					//获取当前年
+					var year = myDate.getFullYear();
+					//获取当前月
+					var month = myDate.getMonth() + 1;
+					//获取当前日
+					var date = myDate.getDate();
+					var h = myDate.getHours(); //获取当前小时数(0-23)
+					var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+					var s = myDate.getSeconds();
+
+					var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
+					console.log(now)
+//					openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+				});
+
+				$('.content .aui-tile-content').remove();
+				info = JSON.parse(data);
+				info = info.category;
+				$.each(info, function(index, content) {
+
+				});
+				$(".aui-more").click(function() {
+					console.log(3333)
+					jump_url(this);
+				});
+				$(".item").click(function() {
+					console.log()
+					localStorage.setItem('seller_id', $(this).attr('id'));
+					localStorage.setItem('goods_id', $(this).attr('id'));
+					localStorage.setItem('notice_id', $(this).attr('id'));
+					localStorage.setItem('seller_name', $(this).attr('title'));
+					localStorage.setItem('price', $(this).attr('price'));
+//					openWindowWithTitle($(this).attr('title'), $(this).attr('url'))
+				});
+
+			}
+		});
+
+		 
+		mui.plusReady(function() {
+
+			var top = plus.navigator.getStatusbarHeight() + 'px';
+			$('.search').css('padding-top', top)
+
+			var wv = plus.webview.currentWebview();
+			wv.setStyle({
+
+				titleNView: null
+			});
+
+		});
+		var autoTimer;
+
+		function init_marquee_box() {
+			//1文字轮播(2-5页中间)开始
+
+			$(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner")); //克隆第一个放到最后(实现无缝滚动)
+			var liHeight = $(".swiper_wrap").height(); //一个li的高度
+			//获取li的总高度再减去一个li的高度(再减一个Li是因为克隆了多出了一个Li的高度)
+			var totalHeight = ($(".font_inner li").length * $(".font_inner li").eq(0).height()) - liHeight;
+			$(".font_inner").height(totalHeight); //给ul赋值高度
+			var index = 0;
+			var autoTimer = 0; //全局变量目的实现左右点击同步
+			var clickEndFlag = true; //设置每张走完才能再点击
+
+			function tab() {
+				$(".font_inner").stop().animate({
+					top: -index * liHeight
+				}, 400, function() {
+					clickEndFlag = true; //图片走完才会true
+					if(index == $(".font_inner li").length - 1) {
+						$(".font_inner").css({
+							top: 0
+						});
+						index = 0;
+					}
+				})
+			}
+
+			function next() {
+				index++;
+				if(index > $(".font_inner li").length - 1) { //判断index为最后一个Li时index为0
+					index = 0;
+				}
+				tab();
+			}
+
+			function prev() {
+				index--;
+				if(index < 0) {
+					index = $(".font_inner li").size() - 2; //因为index的0 == 第一个Li，减二是因为一开始就克隆了一个LI在尾部也就是多出了一个Li，减二也就是_index = Li的长度减二
+					$(".font_inner").css("top", -($(".font_inner li").size() - 1) * liHeight); //当_index为-1时执行这条，也就是走到li的最后一个
+				}
+				tab();
+			}
+			//切换到下一张
+			$(".swiper_wrap .gt").on("click", function() {
+				if(clickEndFlag) {
+					next();
+					clickEndFlag = false;
+				}
+			});
+			//切换到上一张
+			$(".swiper_wrap .lt").on("click", function() {
+				if(clickEndFlag) {
+					prev();
+					clickEndFlag = false;
+				}
+			});
+			clearInterval(autoTimer);
+			//自动轮播
+			autoTimer = setInterval(next, 2000);
+			$(".font_inner a").hover(function() {
+				clearInterval(autoTimer);
+			}, function() {
+				autoTimer = setInterval(next, 2000);
+			})
+
+			//鼠标放到左右方向时关闭定时器
+			$(".swiper_wrap .lt,.swiper_wrap .gt").hover(function() {
+				clearInterval(autoTimer);
+			}, function() {
+				autoTimer = setInterval(next, 3000);
+			})
+			//1文字轮播(2-5页中间)结束
+		}
+		window.addEventListener('is_cart_shopping', function(e) {
+			var is_cart_shopping = localStorage.getItem('is_cart_shopping');
+			console.log(is_cart_shopping)
+			if(is_cart_shopping == 1) {
+				var webview = plus.webview.getWebviewById('index.html');
+
+				webview.evalJS('cart_shopping();')
+			}
+		});
+  
+	</script>
+
+</html>

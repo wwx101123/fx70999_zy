@@ -1,0 +1,71 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>积分转换</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="__APP__">首页</a>
+                </li>
+                <li>
+                    <a>财务管理</a>
+                </li>
+                <li class="active">
+                    <strong>积分转换</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>积分转换记录 </h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <form role="form" id="sendForm" method="post" action="__URL__/transferMoneyAC" class="ajax-post">
+                                <div class="modal-body">
+                                <p>您目前的现金点值为：<span class="label label-primary">{$rs.agent_use}</span></p>
+                                <p>您目前的配送积分为：<span class="label label-primary">{$rs.agent_gp}</span></p>
+                                <p>您目前的注册积分为：<span class="label label-primary">{$rs.agent_cash}</span></p>
+                                <p>您目前的幸运积分为：<span class="label label-primary">{$rs.agent_cf}</span></p>
+                                    
+                                        <input type="hidden" name="action" value="transfer_ajax">
+                                        <div class="form-group"><label>转换方式</label>
+                                            <select name="zztype"  class="form-control"> 
+                                                 <option value="2">现金点值 转 注册积分</option>
+                                                <option value="3">现金点值 转 幸运积分</option>
+                                                <option value="4">幸运积分 转 购物点值</option>
+                                                <option value="6">现金点值 转 购物点值</option> 
+                                            </select>
+                                        </div>
+                                        <div class="form-group"><label>转出金额</label>
+                                            <div id="price_slider" style="margin: 10px auto"></div>
+                                            <input type="text" placeholder="" class="form-control" name="price" value="" id="price">
+                                        </div>
+                                        <div class="form-group"><label>二级密码</label>
+                                            <div id="price_slider" style="margin: 10px auto"></div>
+                                            <input type="password" placeholder="" class="form-control" name="password" id="password">
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-white">取消</button>-->
+                                    <button type="submit" class="ladda-button lad  da-button-demo btn btn-primary" id="sendUp">确认转换</button>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </block>

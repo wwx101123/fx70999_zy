@@ -1,0 +1,162 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>提现管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>提现管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.caiwu').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #caiwu').css('display', 'block')
+		$('.sidebar #adminCurrency1').addClass('current')
+	});
+</script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row" style="margin-bottom: 15px">
+		<div class="col-md-4" style="width: 100%">
+
+			<button style="margin-left: 10px" type="button" class="btn btn-info"
+				onclick="selectAll.call(this);" name="all">
+				<i class="fa fa-check-square-o"></i> 全选
+			</button>
+			<button type="button" id="agree"
+				class="ladda-button ladda-button-demo btn btn-primary"
+				data-style="zoom-in"
+				onclick="dealCashes('agree','确定全部同意？','agreeAll');">
+				<i class="fa fa-check"></i> 同意
+			</button>
+			<button type="button" id="refuse"
+				class="ladda-button ladda-button-demo btn btn-danger"
+				data-style="zoom-in"
+				onclick="dealCashes('refuse','确定全部拒绝？','refuseAll');">
+				<i class="fa fa-remove"></i> 拒绝
+			</button>
+			<eq name="myid" value='2'> <a
+				href="{:U('Currency/addCurrency')}"
+				class="btn btn-primary pull-right"> 新增提现{$tiqu_count}笔,总金额{$tiqu_money}</a> </eq>
+			<form style="float: left" class="form-inline title-form" name="qfrm"
+				method="post" action="?action=query">
+				<div class="form-group">
+					<label for="username"></label> <input type="text"
+						class="form-control" id="username" name="UserID"
+						placeholder="用户账号或姓名查询" value="{$user_id}">
+				</div>
+
+				<button type="submit" class="btn btn-primary">查询</button>
+
+			</form>
+		</div>
+		<!-- <div class="col-md-8">
+            <button type="button" class="btn btn-info" onclick="selectState('all');"><i class="fa fa-flag"></i> 所有</button>
+            <button type="button" class="btn btn-warning" onclick="selectState(0);"><i class="fa fa-exclamation"></i> 待审</button>
+            <button type="button" class="btn btn-primary" onclick="selectState(1);"><i class="fa fa-check"></i> 同意</button>
+            <button type="button" class="btn btn-danger" onclick="selectState(2);"><i class="fa fa-close"></i> 拒绝</button>
+        </div>-->
+		<!-- <script>
+            function selectState(state) {
+               $("select[name=state]").val(state);
+                $("form[name=form2]").submit();
+            }
+        </script>-->
+	</div>
+	<div class="row">
+		<foreach name="list" item="vo">
+		<div class="col-md-3 col-sm-4 col-xs-12">
+			<div class="ibox iboxs" onclick="">
+				<div class="ibox-content product-box">
+					<div class="product-desc">
+						<eq name="vo.is_pay" value="0"> <span class="product-price"
+							style="top: 0;"> 实发：{$vo.epoint}</span> </eq>
+
+						<gt name="vo.is_pay" value="0"> <span class="product-price"
+							style="top: 0; background: red"> 实发：{$vo.epoint}</span> </gt>
+
+						<span name="hiddenTips"
+							style="position: absolute; top: 5px; left: 5px; color: #1ab394"
+							class="hidden"> <i class="fa fa-check"></i>
+						</span> <span name="id" class="hidden">3</span> 
+						<lt	 name="myid" value="3">
+						<span
+							style="position: absolute; top: 5px; left: 20px; color: #1ab394">No.{$vo.id}</span></lt>
+						<small class="text-muted">{$vo.user_id}</small> <span
+							class="product-name">{$vo.user_name}</span>
+						<div class="small m-t-xs">
+							{$vo.bank_name}<br>
+							<h3 style="font-weight: 100;">{$vo.bank_card}</h3>
+						</div>
+						<div class="small m-t-xs">
+							手续费：<b class="text-warning">{$vo.money_two}</b> <b
+								class="pull-right">{$vo.rdt|date='Y-m-d H:i:s',###}</b>
+						</div>
+						<div class="m-t text-righ">
+							<a href="__URL__/adminCurrencyAC/action/del/id/{$vo.id}"
+								class="btn btn-xs btn-outline btn-danger ajax-a" info="确认删除？">删除</a>
+							<eq name="vo.is_pay" value="0"> <a
+								href="__URL__/adminCurrencyAC/action/deny/id/{$vo.id}"
+								class="btn btn-xs btn-outline btn-danger pull-right ajax-a"
+								info="确认拒绝提现？">拒绝</a>&nbsp; <a
+								href="__URL__/adminCurrencyAC/action/confirm/id/{$vo.id}"
+								class="btn btn-xs btn-outline btn-primary pull-right ajax-a"
+								info="确认同意提现？">同意</a> </eq>
+<eq	 name="myid" value="2">
+							<input user_id="{$vo.id}" value="{$vo.sort_id}"
+								style="WIDTH:150px"
+								onchange="ajaxUpdateField(this,'sort_id');">
+
+</eq>
+							<eq name="vo.is_pay" value="1"> <span
+								class="text-success pull-right block" style="font-size: 16px;">同意</span>
+							</eq>
+							<eq name="vo.is_pay" value="2"> <span
+								class="text-danger pull-right" style="font-size: 16px;">拒绝</span>
+							</eq>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</foreach>
+	</div>
+	{$page}
+</div>
+ <script language="JavaScript">
+	 
+
+	// 输入框失去焦点 ajax 保存
+	//	$('input[name^="field_"]').on('blur', function () {
+	function ajaxUpdateField(obj, field) {
+
+		var id = $(obj).attr('user_id');
+
+		var value = $(obj).val();
+
+		$.ajax({
+			type : 'POST',
+			data : {
+				id : id,
+				field : field,
+				value : value
+			},
+			url : "{:U('Currency/UpdateField')}",
+			success : function(data) {
+				layer.msg('修改成功', {
+					icon : 1,
+					time : 1000
+				});
+			}
+		});
+	}
+</script>
+</block>

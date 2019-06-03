@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>环运商城</title>
+	<link href="__PUBLIC__/Adm/Resource/plugins/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+	<link href="__PUBLIC__/Adm/Resource/plugins/Public/shop/css/style.css" rel="stylesheet"
+	type="text/css" />
+	<link href="__PUBLIC__/Adm/Resource/plugins/Public/shop/css/nav.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/jquery.js"></script>
+	<script type="text/javascript"
+	src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/jQuery-shopping.js"></script>
+<!--[if IE 6]>
+<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/respond.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('.pngfix,.icon');</script>
+<![endif]-->
+<!--登录  -->
+<script type="text/javascript"
+src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/jquery.easing.min.js"></script>
+<style type="text/css">
+	.p-btnbox,  .p-countdown,  .p-deposit,  .p-price {
+		width: 190px;
+		margin: 0 auto;
+		text-align: center
+	}
+	.p-price {
+		margin-bottom: 10px
+	}
+
+	.p-countdown,  .p-deposit {
+		margin-bottom: 10px
+	}
+
+	.p-btnbox {
+		padding-top: 10px
+	}
+
+	.p-btnbox,  .p-countdown,  .p-deposit {
+		/*display: none*/
+	}
+	.p-main {
+		position: absolute;
+		bottom: 0;
+		padding: 20px 0;
+		height: auto;
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#CCf3f3f3', endColorstr='#CCf3f3f3');
+		background: rgba(243, 243, 243, .9);
+		width: 100%;
+		display: none;
+
+	}
+	.btn-buy {
+		display: inline-block;
+		width: 190px;
+		height: 40px;
+		color: rgb(255, 255, 255);
+		text-align: center;
+		font: 16px/40px 微软雅黑, "Hiragino Sans GB";
+		border-radius: 2px;
+		background: #ce2634;
+		cursor: pointer;
+	}
+	.price{
+		font: 16px/20px verdana;
+		color: #ce2634;
+	}
+</style>
+<style type="text/css" >
+	.ibox{
+		cursor:pointer;
+		/*border: 2px solid #e7eaec;*/
+	}
+	.border-bottoms,.border-tops,.border-lefts,.border-rights {
+		border: 1px solid #ce2634;
+		width: 0;
+		position: absolute;
+	}
+	.border-bottoms{
+		bottom:0;
+	}
+	.border-tops,.border-lefts,.border-rights {
+		top:0;
+	}
+	.border-rights {
+		right: 0;
+	}
+	.box-check{
+		/*border: 2px solid #1ab394;*/
+	}
+</style>
+
+</head>
+
+<body>
+
+	<!--导航-->
+	<link href="__PUBLIC__/Adm/Resource/plugins/Public/shop/css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/shop.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+	<div class="loginmask"></div>
+
+	<div id="loginalert">
+
+		<div class="pd20 loginpd">
+			<h3><i class="closealert fr"></i>
+
+				<div class="clear"></div>
+			</h3>
+			<div class="loginwrap">
+				<div class="loginh">
+					<div class="fl">会员登录</div>
+					<div class="fr"></div>
+				</div>
+				<h3><span class="fl">用户登录</span>
+					<div class="clear"></div>
+				</h3>
+				<form action="" method="post" style="margin:0px; padding:0px" id=loginform
+				encType=multipart/form-data>
+				<div class="logininput">
+					<input name="username" type="text" id="username" class="loginusername" placeholder="请输入账号"/>
+					<input name="password" type="password" class="loginuserpasswordt" placeholder="请输入密码"
+					id="password"/>
+				</div>
+				<div class="clr"></div>
+				<div class="loginbtn">
+					<div class="loginsubmit fl"><input type="submit" value="登录" class="btn" name="Loginbtn"/></div>
+					<div class="fr" style="margin:26px 0 0 0;"><a href="#">忘记密码?</a></div>
+					<div class="clear"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+</div>
+<div class="top-box">
+	<div class="top-box-ion">
+		<div class="header">
+			<span class="btn-codeShare fl">
+				<a title="首页" class="btn-primary icon" href="{:U('Gouwu/shop')}">首页</a>
+				<a title="收藏" class="btn-primary icon" onClick="addFavoritepage();return !1;" href="javascript:void(0);" style="background: none">收藏本页</a> </span>
+				<empty name="Think.session.loginUseracc">
+				<span class="btn-member fr">
+					欢迎光临环运商城！<span class=""><a href="{:U('Public/login')}" style="background: none">登录</a><a href="{:U('Reg/us_reg')}" style="background: none">注册</a></span> 
+				</span>
+				<else/>
+					<span class="btn-member fr">
+				 	欢迎光临环运商城！<span class="text-warning"><a href="{:U('Index/index')}">{$Think.session.loginUseracc}</a></span>
+				 	</span>
+                </empty>
+			</div>
+		</div>
+		<div class="top-box-main" >
+			<div class="header">
+				<div class="logo-box fl"><a href="{:U('Gouwu/shop')}"><img src="__PUBLIC__/Adm/Images/shop/logo0.png"  /></a></div>
+				<div class="searchBar fl">
+					<!-- <form name="form1" method="post" action="products.php?action=one" id="searchForm">
+						<div class="search">
+							<div class="searchTxt fl"><input type="text" placeholder="搜索商品..." class="input-text radius size-M" NAME="productname" autocomplete="off">
+							</div>
+							<div class="searchBtn fl">
+								<input type="hidden" name="actoin" value="one">
+								<input class="btn-primary2" type="submit" value="搜索" ></div>
+							</div>
+						</form>
+
+					</div> -->
+				</div>
+
+			</div>
+		</div>
+		<div class="clr"></div>
+
+		<div class="nav-box">
+			<div class="header">
+				<div id="nav-2015">
+					<div id="navitems-2015">
+						<li class="current"><a href="{:U('Gouwu/shop')}" >首页</a></li>
+						<foreach name="type" item="vo">
+						<li><a href="{:U('Gouwu/shopAll')}?type={$vo.id}">{$vo.tpname}</a></li>
+						</foreach>
+						<empty name="Think.session.loginUseracc">
+						<li><a href="{:U('Public/login')}">登录</a></li>
+						</empty>
+						<!--<li><a href="#">社区</a></li>-->
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="clr"></div>
+ 		<div class="fullSlide">
+			<div class="bd">
+				<ul>
+					<volist name="imglist" id="vo">
+					<li _src="url({$vo.img_url})" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					</volist>
+					<!--<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/s2.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/s3.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/s4.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/f1.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/f2.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/f3.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/f4.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>
+					<li _src="url(__PUBLIC__/Adm/Resource/images/proimgs/f5.JPG)" style="background:#333333 center 0 no-repeat;"><a target="_blank" href="#"></a></li>-->
+					
+				</ul>
+			</div>
+			<div class="hd" ><span class="w-slbtn" ><span class="partr" ><ul></ul></span></span></div>
+			<div class="banner-main" >
+				<div>
+					<span class="prev"></span>
+					<span class="next"></span>
+				</div>
+			</div>
+		</div> 
+		<!--公告-->
+		<div class="Notice-box">
+			<section class="main">
+				<div class="sellpoint left2">
+					<a class="" href="javascript:void(0);" target="_blank"><i class="iconfont">&#xe7b1;</i>100%正品</a>
+					<a class="" href="javascript:void(0);" target="_blank"><i class="iconfont">&#xe7c4;</i>天无忧退货</a>
+					<a class="" href="javascript:void(0);" target="_blank"><i class="iconfont">&#xe792;</i>满就包邮</a>
+				</div>
+			</section>
+		</div>
+		<div id="main">
+			<block name="menu"></block>
+		</div>
+<div class="clr"></div>
+
+<div class="foot-box">
+	<dl>
+		<dt>
+			<ul class="clearfix footer">
+				<li>
+					<i class="iconfont w-icon-23">&#xe7b1;</i>
+					<strong class="tit">正品保证</strong>
+					<span class="desc">100%正品商城</span>
+				</li>
+				<li id="auto-id-1471489689065">
+					<i class="iconfont w-icon-23">&#xe7ab;</i>
+					<strong class="tit">售后保障</strong>
+					<span class="desc">保障交易安全</span>
+				</li>
+				<li>
+					<i class="iconfont w-icon-23">&#xe7d3;</i>
+					<strong class="tit">价格适中</strong>
+					<span class="desc">合理公平价格</span>
+				</li>
+				<li class="last">
+					<i class="iconfont w-icon-23">&#xe7c1;</i>
+					<strong class="tit">物流便捷</strong>
+					<span class="desc">快递直通车服务</span>
+				</li>
+				<li class="last">
+					<i class="iconfont w-icon-23">&#xe7a8;</i>
+					<strong class="tit">支付方便</strong>
+					<span class="desc">100%网络安全支付</span>
+				</li>
+			</ul>
+		</dt>
+		<dd>
+			<ul>
+				<li><a href="#">免责条款</a> | <a href="#">隐私保护</a> | <a href="#">咨询热点</a> | <a href="#">联系我们</a> | <a href="#">公司简介</a> | <a href="#">批发方案</a> | <a href="#">配送方式</a></li>
+				<li style="color:#c2c2c2; margin-bottom:5px;">Copyright 2015 All Rights Reserved </li>
+				<!-- <li style="margin-top: 20px;"><img src="__PUBLIC__/Adm/Resource/plugins/Public/shop/images/new/index_4.png" /></li> -->
+			</ul>
+		</dd>
+	</dl>
+
+</div>
+<script>
+	$(function(){
+		$('#close_im').bind('click',function(){
+			$('#main-im').css("height","0");
+			$('#im_main').hide();
+			$('#open_im').show();
+		});
+		$('#open_im').bind('click',function(e){
+			$('#main-im').css("height","272");
+			$('#im_main').show();
+			$(this).hide();
+		});
+		$('.go-top').bind('click',function(){
+			$(window).scrollTop(0);
+		});
+		$(".weixing-container").bind('mouseenter',function(){
+			$('.weixing-show').show();
+		})
+		$(".weixing-container").bind('mouseleave',function(){
+			$('.weixing-show').hide();
+		});
+	});
+</script>
+<!-- WPA Button Begin -->
+<!-- WPA Button End -->
+<!-- 代码部分 end-->
+<script type="text/javascript" src="__PUBLIC__/Adm/Resource/plugins/Public/shop/js/box.js"></script>
+<script>
+	function showMain() {
+		$(this).children().find('dl').hide();
+		addCheck($(this));
+		$(this).children('.p-main').slideDown(300);
+	}
+	function hiddenMain() {
+		removeCheck($(this));
+		$(this).children().find('dl').show();
+		$(this).children('.p-main').hide();
+	}
+</script>
+<script>
+		//设为选中状态
+		function addCheck(thisDom) {
+			thisDom.addClass("box-check");
+			var width = thisDom.width()-2;
+			var height = thisDom.height()-2;
+			var border="<div class='border-tops'></div><div class='border-bottoms'></div><div class='border-lefts'></div><div class='border-rights'></div>";
+			thisDom.append(border);
+			thisDom.find(".border-tops").animate({width:width},300);
+			thisDom.find(".border-bottoms").animate({width:width},300);
+			thisDom.find(".border-lefts").animate({height:height},300);
+			thisDom.find(".border-rights").animate({height:height},300);
+
+		}
+		//设为选中状态
+		function removeCheck(thisDom) {
+			thisDom.children().find(".border-tops").stop(true, false).animate({width:"0"},300);
+			thisDom.children().find(".border-bottoms").stop(true, false).animate({width:"0"},300);
+			thisDom.children().find(".border-lefts").stop(true, false).animate({height:"0"},300);
+			thisDom.children().find(".border-rights").stop(true, false).animate({height:"0"},300);
+			thisDom.children(".border-tops").remove();
+			thisDom.children(".border-bottoms").remove();
+			thisDom.children(".border-lefts").remove();
+			thisDom.children(".border-rights").remove();
+
+		}
+	</script>
+</body>
+</html>

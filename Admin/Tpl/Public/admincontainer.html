@@ -1,0 +1,15 @@
+<extend name="Public:header" />
+<block name="menu">
+	<iframe src="{$url}" style="width: 100%!important;" height="100%" frameborder="0" id="iframeId" scrolling='no'>
+	</iframe>
+	<script type="text/javascript">
+		$('#iframeId').attr('width',$('#iframeContainer').width());
+		$("#iframeId").load(function(){
+		var mainheight = $(this).contents().find("#iframeDiv").height();
+        // console.log(mainheight);
+		$(this).height(mainheight);
+		});
+	</script>
+
+</block>
+

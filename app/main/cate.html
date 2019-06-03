@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- meta标签设置-->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+     maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- app标题 -->
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/fontSize.js"></script>
+		<script src="../js/goods.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/home.css">
+		<link rel="stylesheet" href="../css/30.deaa7cd.css">
+		<link rel="stylesheet" href="../css/app.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.109bca465a.css" />
+		<link rel="stylesheet" type="text/css" href="../css/app.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/gomeplusUI.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+		<style type="text/css">
+			.search {
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				z-index: 11000000000;
+				position: fixed
+			}
+			
+			.search header {
+				left: 0;
+				right: 0;
+				padding-top: 0px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				position: relative;
+				border-bottom: 0px solid #e0e0e0;
+				background: #4c2664;
+			}
+			
+			.search a {
+				color: #fff;
+				text-align: left;
+				font-size: 15px;
+				display: -moz-box!important;
+				display: -webkit-box!important;
+				display: box!important;
+				display: -moz-flex!important;
+				display: -ms-flex!important;
+				display: -ms-flexbox!important;
+				display: flex!important;
+				display: flex;
+				display: -webkit-flex;
+				-ms-flex-align: center;
+				align-items: center;
+				-ms-flex-pack: center;
+				justify-content: center
+			}
+			
+			.search a span {
+				margin-left: 10px
+			}
+			
+			.search a.message {
+				position: relative;
+				text-align: right
+			}
+			
+			.message span {
+				background: red;
+				display: block;
+				width: 10px;
+				height: 10px;
+				position: absolute;
+				top: .3rem;
+				right: -.2rem;
+				border-radius: 9999px;
+				border: 1px solid hsla(0, 0%, 100%, .8)
+			}
+			
+			.search .iconfont {
+				font-size: 1.7rem
+			}
+			
+			.search .icon-down-arrow {
+				font-size: .9rem;
+				margin-left: .18rem;
+				font-weight: 700
+			}
+			
+			.search .input .icon-search {
+				font-size: 20px;
+				margin-right: 10px;
+			}
+			
+			.search .input a,
+			.search .mask {
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0
+			}
+			
+			.search .mask {
+				z-index: -1;
+				background: linear-gradient(180deg, rgba(0, 0, 0, .8) 0, transparent)
+			}
+			
+			body {
+				padding-top: 0px;
+				background: transparent;
+				position: relative;
+			}
+			
+			.sao {
+				position: absolute;
+				left: 10px;
+				bottom: 2px;
+				color: white;
+				font-size: 35px;
+			}
+		</style>
+	</head>
+
+	<body style="background: white;">
+		<div class="search">
+			<header style="background-color: #4c2664;">
+
+				<section class="input search_section" style="color: rgb(255, 255, 255);">
+					<a href="javacript:void(0);"></a> <i class="mui-icon mui-icon-search"></i>搜索商品或图片
+				</section>
+
+				<a class="message" href="javacript:void(0);" style="color: rgb(255, 255, 255);"><i class="iconfont icon-message"></i></a>
+			</header>
+			<div class="mask "></div>
+		</div>
+		<div class="ng-scope  pageClass" id="">
+
+			<div class="wrap " style="top:70px;">
+				<div class="category-nav">
+					<aside class="scroller" id="leftScroller">
+						<ol class="list">
+
+						</ol>
+					</aside>
+				</div>
+				<!-- category-nav part End -->
+				<div class="category-content">
+					<div class="category-box ">
+						<div class="scroller">
+							<div class="cat-list" data-index="0">
+
+								<div class="item  ">
+
+									<div class="tab-panel-item tab-active">
+										<div class="aui-list-theme list goods_list">
+
+										</div>
+										<div class="no-div-message" style="display: none;padding:5px 0">
+											<i style="font-size: 35px;" class="iconfont icon-biaoqingleiben"></i>
+											<p style="font-size: 15px;" >亲，此处没有内容～！</p>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<!-- category-content part End -->
+				</div>
+			</div>
+			<!--底部结算导航-->
+			<!-- <div class="cart ng-scope">
+        <div class="r"><a href="cart.html">去结算</a></div>
+        <div class="l ng-binding">
+            ￥<label id="totalmoney">0</label>
+        </div>
+        <i id="totalcartnumber" class="ng-binding cartnum">0</i>
+        <a href="cart.html"><img src="img/shop_cart01.png" alt="..."></a>
+    </div>-->
+			<!--/底部结算导航-->
+
+	</body>
+	<script type="text/javascript">
+		//		$('.mescroll').css('margin-top', '44px')
+	</script>
+
+	<script type="text/javascript">
+		//		function init() {
+		//			localStorage.setItem('tel_type', 0)
+		//			localStorage.setItem('keywords', '')
+		//			$('.goods_list a').remove()
+		//			var page_index = 0;
+		//			localStorage.setItem('page_index', page_index);
+		//			//			localStorage.setItem('category_id', 0)
+		//			//			mescroll.resetUpScroll();
+		//
+		//		}
+		//		init()
+		var mescroll;
+		$(function() {
+			init_exit_view()
+
+			//					console.log(category_id)
+			get_category_list(100000, setListData);
+
+			function setListData(data) {
+				console.log(data)
+
+				var status = data.status;
+				if(status == 1) {
+					info = data.data;
+					//					$('.category-nav .list li').remove();
+					$.each(info, function(index, content) {
+
+						var active = '';
+
+						if(index == 0) {
+
+						}
+						var length = $('.curr').length;
+
+						if(content.parent_id > 0 && content.class_layer == 2) {
+							if(length == 0) {
+								active = 'curr';
+								localStorage.setItem('category_id', content.id)
+								get_new_goods(1, 100000, setChildListData)
+							}
+							var item = '<li data-id="' + content.id + '" class="' + active + '" >';
+							item += ' 	<a href="javascript:;" title="热门分类">' + content.title + '</a>';
+							item += ' 	</li>';
+
+							$('.category-nav .list').append(item);
+						}
+
+					});
+					$(".category-nav li").on('click', function() {
+						$(".category-nav li").removeClass('curr')
+						$(this).addClass('curr')
+						var cate_id = $(this).attr('data-id')
+						localStorage.setItem('category_id', cate_id)
+						get_new_goods(1, 100000, setChildListData)
+
+					})
+
+				}
+			}
+
+			function setChildListData(data) {
+
+				var status = data.status;
+				if(status == 1) {
+					info = data.data;
+						$('.no-div-message').css('display', 'none');
+
+					$('.goods_list  .goods_item').remove();
+					if(info != null) {
+						var item = '';
+						$.each(info, function(index, content) {
+							localStorage.setItem('goods_id', $(this).attr('id'));
+							var title = content.category.substring(0, 2)
+							//						 						console.log(content.img)
+							var goods_detail = encodeURI(JSON.stringify(content));
+							item += '	<a style="width:46%" href="javascript:;" class="aui-list-theme-item goods_item" id="' + content.id + '" name="' + content.title + '">';
+							item += '<div class="aui-list-img">';
+							item += '	<img class="img" src="' + IP + content.img + '" alt="">';
+							item += '	</div>';
+							item += '<div class="aui-list-title">';
+							item += '	<h3 style="padding-bottom:10px;margin-bottom:10PX;margin-top:10px">' + content.title + '</h3>';
+							item += '<div class="aui-flex" style="padding:0">';
+							item += '<div class="aui-flex-box">';
+							item += '	<span  style="font-size:10px">￥' + content.price + '</span>';
+							item += '</div>';
+							item += '<div class="aui-list-right">';
+							item += '	<span>';
+							//						item += '    <img src="../images/user-logo-001.png" alt="">';
+							//						item += '    <img src="../images/user-logo-002.png" alt="">';
+							item += '  </span>';
+							item += '</div>';
+							item += '</div>';
+							item += '<div class="aui-flex aui-flex-pic">';
+							item += '	<div class="aui-flex-box">';
+							item += '	<span  style="font-size:10px">已兑换:' + content.sell_count + '</span>';
+							item += '	</div>';
+							item += '<div class="aui-list-right">';
+							item += '	<p>库存:' + content.stock + '</p>';
+							item += '</div>';
+							item += '</div>';
+							item += '</div>';
+							item += '</a>';
+
+						});
+						$('.goods_list').append(item);
+						$('.goods_item .img').css('height', $('.goods_item').width());
+
+					} else {
+						$('.no-div-message').css('display', 'block');
+
+					}
+					$(".goods_item").on('click', function() {
+
+						localStorage.setItem('goods_id', $(this).attr('id'));
+						localStorage.setItem('hot_id', $(this).attr('hot_id'));
+						localStorage.setItem('title', $(this).attr('name'));
+						localStorage.setItem('goods_detail', decodeURI($(this).attr('goods_detail')));
+						var myDate = new Date();
+						//获取当前年
+						var year = myDate.getFullYear();
+						//获取当前月
+						var month = myDate.getMonth() + 1;
+						//获取当前日
+						var date = myDate.getDate();
+						var h = myDate.getHours(); //获取当前小时数(0-23)
+						var m = myDate.getMinutes(); //获取当前分钟数(0-59)
+						var s = myDate.getSeconds();
+
+						var now = year + '-' + getNow(month) + "-" + getNow(date) + " " + getNow(h) + ':' + getNow(m) + ":" + getNow(s);
+						console.log(now)
+						openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+					});
+
+				}
+
+			}
+		});
+
+		function SiteSearch(divTgs) {
+			var str = $(divTgs).val();
+
+			if(str == '') {
+				//		weui.alert('请输入关键字');
+				//		return;
+			}
+
+			localStorage.setItem('keywords', str)
+			localStorage.setItem('page_index', 1)
+			mescroll.resetUpScroll();
+
+		}
+
+		function open_no_tel() {
+
+			openWindowWithTitle('未实名列表', 'no_name_tel.html');
+
+		}
+		window.addEventListener('update_tel_list', function(e) {
+
+			localStorage.setItem('tel_type', 0);
+		});
+		document.addEventListener('plusready', function() {
+			localStorage.setItem('StatusbarHeight', plus.navigator.getStatusbarHeight())
+			var head_height = localStorage.getItem('head_height')
+			var StatusbarHeight = localStorage.getItem('StatusbarHeight')
+			console.log(StatusbarHeight)
+			$('header').css('height', parseFloat(StatusbarHeight) + parseFloat(head_height))
+			$(".search").on('click', function() {
+
+				openWindowWithTitle('搜索', 'search.html')
+			})
+			$(".search_section").css('padding', 10)
+			$(".search_section").css('margin-top', parseFloat(StatusbarHeight) + 10)
+
+		}, false);
+		$(function() {
+
+		});
+	</script>
+
+</html>

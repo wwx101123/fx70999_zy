@@ -1,0 +1,302 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>留言反馈</title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link href="../css/user.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../scripts/jquery/PCASClass.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//初始化表单
+				var ServerIP = "";
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var IndexUrl = localStorage.getItem('IndexUrl');
+				var user_id = localStorage.getItem('user_id');
+
+				$('#user_id').val(user_id);
+
+				$('#feedbackForm').attr('url', PreUrl + "User/feedback");
+				//初始化发表留言表单
+				//				AjaxInitForm('#feedbackForm', '#btnSubmit', 0);
+			});
+			mui.plusReady(function() {
+
+			});
+			mui.init({
+				beforeback: function() {　　　
+					console.log('我要回去了')
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'goto_user');
+
+					return true;
+				}
+			});
+		</script>
+	</head>
+
+	<body style="background:#f5f5f5">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+				<form id="feedbackForm" name="feedbackForm" class="form-box" url="/plugins/feedback/ajax.ashx?action=add&amp;site=2" data-="[object Object]">
+					<div class="weui-panel weui-panel_access" style="margin: 10px;">
+						<div class="weui-panel__hd" style="padding: 6px 15px 6px;">发表留言</div>
+						<div class="weui-panel__bd">
+							<div class="weui-cells_form form-box">
+
+								<div class="weui-cell" style="display: none;">
+									<div class="weui-cell__hd">
+										<label class="weui-label">留言标题</label>
+									</div>
+									<div class="weui-cell__bd">
+										<input type="hidden" id="is_mobile" name="is_mobile" value="1" />
+										<input id="user_id" name="user_id" type="hidden" />
+										<input id="txtTitle" name="txtTitle" class="weui-input aa" type="text" value="留言标题" placeholder="请输入留言标题" data-validate="s">
+									</div>
+								</div>
+
+								<div class="weui-cell">
+									<div class="weui-cell__bd">
+										<textarea id="txtContent" name="txtContent" class="weui-textarea" placeholder="请输入留言内容" rows="3" data-validate="s"></textarea>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<div class="weui-btn-area">
+						<input style="background: #4c2664;
+    color: white;" id="btnSubmit" name="btnSubmit" onclick="feedback()" type="button" class="weui-btn weui-btn_primary" value="发表留言">
+					</div>
+				</form>
+				<!--编辑地址-->
+				<div class="mescroll" id="mescroll" style="margin: 10PX;    WIDTH: 95%;
+    BACKGROUND: WHITE;">
+				<div class="aui-flex b-line aui-flex-two">
+					<div class="aui-flex-fr"></div>
+				</div>
+				<div class="comment-box">
+					<ol class="comment-list">
+
+						<div class="nodata" style="display: none;">暂无记录...</div>
+					</ol>
+				</div></div>
+
+				<!--/编辑地址-->
+
+				<input id="turl" type="hidden" value="transferTob_list.html" />
+
+				<!--版权信息-->
+				<!--/版权信息-->
+
+				<!--底部导航-->
+
+				<!--/底部导航-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+	<script>
+		var count = 0;
+	</script>
+
+	<script type="text/javascript">
+		function init() {
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			mescroll.resetUpScroll();
+
+		}
+		var mescroll;
+		$(function() {
+
+			var scroll = $('#mui-scroll .mui-active');
+			//			document.querySelector('.mui-scroll').addEventListener('scroll', function(e) {
+			//				console.log(scroll.offset().left);
+			//			})
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = new MeScroll("mescroll", {
+				down: {
+					auto: false, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_user_feedback_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 1;
+				console.log('清空')
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.resetUpScroll();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					//					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				console.log(data)
+				var IP = localStorage.getItem('IP');
+				info = JSON.parse(data);
+
+				//				info = info.data;
+
+				$('.comment-list li').remove();
+				var status = info.status;
+				if(status == 1) {
+					var info = info.data;
+					if(info == null) {
+						$('.nodata').css('display', 'block');
+
+					}
+					$.each(info, function(index, content) {
+
+						var item = '<li>';
+						item += '	<div class="avatar" style="padding: 0;">';
+						item += '	<i class="iconfont icon-user-full"></i>';
+						item += '	</div>';
+						item += '	<div class="inner">';
+						item += '	<div class="meta">';
+						item += '		<span class="blue">' + content.title + '</span>';
+						item += '		<span class="time">' + content.add_time_str + '</span>';
+						item += '	</div>';
+						item += '	<p>' + content.content + '</p>';
+						item += '	</div>';
+						if(content.is_lock == 0) {
+							item += '<div class="answer">';
+							item += '<div class="meta">';
+							item += '	<span class="time">' + content.reply_time_str + '</span>';
+							item += '	<span class="blue">管理员回复：</span>';
+							item += '</div>';
+							item += '	<p> ' + content.reply_content + '</p>';
+							item += '</div>';
+						}
+						item += '</li>';
+						$('.comment-list').append(item);
+
+					});
+					////lang()
+
+				}
+
+			}
+			//			get_main_category_list(0, mescroll);
+
+		});
+	</script>
+
+</html>

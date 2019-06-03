@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<!-- meta标签设置-->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+     maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<!-- app标题 -->
+		<title>拨打电话</title>
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/fontSize.js"></script>
+		<script src="../js/custom.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/layout.css">
+		<link rel="stylesheet" href="../css/wcPop.css">
+		<link rel="stylesheet" href="../css/style.css">
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+	</head>
+
+	<body style="">
+    <div class="ng-scope">
+        <div class="loca ng-scope">
+            <a class="change ng-binding" href="address.html">蓝坤大厦<span>[切换]</span></a>
+        </div>
+        <div class="content ng-scope">
+            <aside style="height:663px">
+                <ul id="aside">
+                    <li class="table" data-cid="1" data-ident="0">
+                        <p>新品</p>
+                    </li>
+                    <li class="table active" data-cid="2" data-ident="0">
+                        <p>特卖</p>
+                    </li>
+                    <li class="table" data-cid="3" data-ident="1">
+                        <p>食品</p>
+                    </li>
+                    <li class="table" data-cid="4" data-ident="1">
+                        <p>饮品</p>
+                    </li>
+                    <li class="table" data-cid="5" data-ident="0">
+                        <p>雪糕</p>
+                    </li>
+                    <li class="table" data-cid="6" data-ident="1">
+                        <p>代购</p>
+                    </li>
+                    <li class="table" data-cid="7" data-ident="0">
+                        <p>槟榔</p>
+                    </li>
+                    <li class="table" data-cid="8" data-ident="0">
+                        <p>办公</p>
+                    </li>
+                    <li class="table" data-cid="9" data-ident="0">
+                        <p>生活</p>
+                    </li>
+                    <li class="table" data-cid="10" data-ident="0">
+                        <p>热饮</p>
+                    </li>
+                    <li class="table" data-cid="11" data-ident="0">
+                        <p>水果</p>
+                    </li>
+                </ul>
+            </aside>
+            <!-- 新品 -->
+            <div class="cate hide" id="cate_1">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 特卖 -->
+            <div class="cate hide" id="cate_2">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 食品 -->
+            <div class="cate hide" id="cate_3">
+                <div class="con">
+                    <img class="banner" src="img/cate/sushi.jpg" alt="">
+                    <ul>
+                        <li data-cid="301" data-ident="0">
+                            <img class="banner" src="img/cate/up1.jpg" alt="">
+                            <p>面包/糕点</p>
+                        </li>
+                        <li data-cid="302" data-ident="0">
+                            <img class="banner" src="img/cate/up2.jpg" alt="">
+                            <p>方便面</p>
+                        </li> 
+                        <li data-cid="303" data-ident="0">
+                            <img class="banner" src="img/cate/up3.jpg" alt="">
+                            <p>八宝粥</p>
+                        </li>
+                        <li data-cid="304" data-ident="0">
+                            <img class="banner" src="img/cate/up4.jpg" alt="">
+                            <p>卤蛋/火腿</p>
+                        </li>
+                        <li data-cid="305" data-ident="0">
+                            <img class="banner" src="img/cate/up5.jpg" alt="">
+                            <p>休闲食品</p>
+                        </li>
+                        <li data-cid="306" data-ident="0">
+                            <img class="banner" src="img/cate/up6.jpg" alt="">
+                            <p>口香糖</p>
+                        </li>
+                        <li data-cid="307" data-ident="0">
+                            <img class="banner" src="img/cate/up7.jpg" alt="">
+                            <p>辣味</p>
+                        </li>
+                        <li data-cid="308" data-ident="0">
+                            <img class="banner" src="img/cate/up8.jpg" alt="">
+                            <p>1元专区</p>
+                        </li>
+                        <li data-cid="309" data-ident="0">
+                            <img class="banner" src="img/cate/up9.jpg" alt="">
+                            <p>进口食品</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 饮品 -->
+            <div class="cate hide" id="cate_4">
+                <div class="con">
+                    <img class="banner" src="img/cate/yinpin.jpg" alt="">
+                    <ul>
+                        <li data-cid="401" data-ident="0">
+                            <img class="banner" src="img/cate/up10.jpg" alt="">
+                            <p>奶类</p>
+                        </li>
+                        <li data-cid="402" data-ident="0">
+                            <img class="banner" src="img/cate/up11.jpg" alt="">
+                            <p>碳酸饮料</p>
+                        </li>
+                        <li data-cid="403" data-ident="0">
+                            <img class="banner" src="img/cate/up12.jpg" alt="">
+                            <p>功能饮料</p>
+                        </li>
+                        <li data-cid="404" data-ident="0">
+                            <img class="banner" src="img/cate/up13.jpg" alt="">
+                            <p>饮用水</p>
+                        </li>
+                        <li data-cid="405" data-ident="0">
+                            <img class="banner" src="img/cate/up14.jpg" alt="">
+                            <p>茶饮/料</p>
+                        </li>
+                        <li data-cid="406" data-ident="0">
+                            <img class="banner" src="img/cate/up15.jpg" alt="">
+                            <p>热销饮料</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 雪糕 -->
+            <div class="cate hide" id="cate_5">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 代购 -->
+            <div class="cate hide" id="cate_6">
+                <div class="con">
+                    <img class="banner" src="img/cate/daigou.jpg" alt="">
+                    <ul>
+                        <li data-cid="601" data-ident="0">
+                            <img class="banner" src="img/cate/up16.jpg" alt="">
+                            <p>啤酒</p>
+                        </li>
+                        <li data-cid="602" data-ident="0">
+                            <img class="banner" src="img/cate/up17.jpg" alt="">
+                            <p>白酒</p>
+                        </li>
+                        <li data-cid="603" data-ident="0">
+                            <img class="banner" src="img/cate/up18.jpg" alt="">
+                            <p>红酒</p>
+                        </li>
+                        <li data-cid="604" data-ident="0">
+                            <img class="banner" src="img/cate/up19.jpg" alt="">
+                            <p>20元以下</p>
+                        </li>
+                        <li data-cid="605" data-ident="0">
+                            <img class="banner" src="img/cate/up20.jpg" alt="">
+                            <p>20元以上</p>
+                        </li>
+                        <li data-cid="606" data-ident="0">
+                            <img class="banner" src="img/cate/up21.jpg" alt="">
+                            <p>打火机</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 槟榔 -->
+            <div class="cate hide" id="cate_7">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 办公 -->
+            <div class="cate hide" id="cate_8">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 生活 -->
+            <div class="cate hide" id="cate_9">
+                <div class="con">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 热饮 -->
+            <div class="cate hide" id="cate_10">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+            <!-- 水果 -->
+            <div class="cate hide" id="cate_11">
+                <div class="con con_no">
+                    <ul></ul>
+                </div>
+            </div>
+
+            <section>
+                <ul id="lists_1" class="lists hide">
+                    <li price="2.98">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up1.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">无穷酱辣鸭翅23克</p>
+                            <p class="price">￥2.98</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.98">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up3.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">无穷酱辣鸭小腿30克</p>
+                            <p class="price">￥2.98</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="3.98">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up4.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">贤哥山野脆笋泡椒味90克</p>
+                            <p class="price">￥3.98</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="3.98">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up5.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">贤哥泡椒小鱼36克</p>
+                            <p class="price">￥3.98</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="3.68">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up6.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥原味夹心58克</p>
+                            <p class="price">￥3.68</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="4.60">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up7.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">乐事薯片岩烧海苔味40克</p>
+                            <p class="price">￥4.60</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="4.68">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up8.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">可比克薯片青瓜味45克</p>
+                            <p class="price">￥4.68</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="4.50">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up9.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">贤哥台式烤香肠香辣味40克</p>
+                            <p class="price">￥4.50</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="4.50">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up10.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">嘉士利果乐果香青柠味93克</p>
+                            <p class="price">￥4.50</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_2" class="lists show">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_301" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_302" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_401" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_402" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_5" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_601" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_602" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_7" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_8" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_9" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_10" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul id="lists_11" class="lists hide">
+                    <li price="6.80">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up11.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">奥利奥双心脆威化饼87克</p>
+                            <p class="price">￥6.80</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li price="2.48">
+                        <div class="l view">
+                            <a href="javacript:void(0);"><img src="img/lists/up2.jpg" class="img-responsive" alt="..."></a>
+                        </div>
+                        <div class="r">
+                            <p class="t">博味火鸡面香辣味80克</p>
+                            <p class="price">￥2.48</p>
+                            <div class="jifen">送积分：0</div>
+                            <div class="showaddcart">
+                                <img src="img/shop_cart02.png" class="img-responsive join" alt="...">
+                                <div class="num_con">
+                                    <img src="img/num_l.png" class="img-responsive num_l" alt="...">
+                                    <span class="number">0</span>
+                                    <img src="img/num_r.png" class="img-responsive num_r" alt="...">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--底部结算导航-->
+   <!-- <div class="cart ng-scope">
+        <div class="r"><a href="cart.html">去结算</a></div>
+        <div class="l ng-binding">
+            ￥<label id="totalmoney">0</label>
+        </div>
+        <i id="totalcartnumber" class="ng-binding cartnum">0</i>
+        <a href="cart.html"><img src="img/shop_cart01.png" alt="..."></a>
+    </div>-->
+    <!--/底部结算导航-->
+
+
+</body>
+	<script type="text/javascript">
+		$('.mescroll').css('margin-top', '44px')
+	</script>
+	<script type="text/javascript">
+		/** __公共函数 */
+		$(function() {
+			// 顶部添加按钮
+			$(".wc__headerBar").on("click", "#J__topbarAdd", function() {
+				$("#J__popupTopBar").show();
+			});
+			$("#J__popupTopBar").on("click", ".wrap__topbar-mask", function() {
+				$(this).parent().hide();
+			});
+			// 禁止长按弹出系统菜单
+			$(".wechat__panel").on("contextmenu", function(e) {
+				e.preventDefault();
+			});
+		});
+
+		/** __自定函数 */
+		$(function() {
+
+			//***2、通讯录-------------------------
+			// 右侧浮动条
+			$(".wc__addrFriend-floatletter").on("click", "em", function() {
+				var letter = $(this).text();
+				if($("#" + letter).length > 0) {
+					// 滚动到指定位置
+					//$("#J__addrFriendList").parent().animate({ scrollTop: $("#" + letter).position().top}, 300);
+					document.getElementById(letter).scrollIntoView();
+				}
+				$(".wc__addrFriend-showletter").text(letter).fadeIn(300);
+
+				setTimeout(function() {
+					$(".wc__addrFriend-showletter").fadeOut(300);
+				}, 500);
+			});
+
+		});
+	</script>
+
+	<script type="text/javascript">
+		function init() {
+			localStorage.setItem('tel_type', 0)
+			localStorage.setItem('keywords', '')
+			$('.goods_list a').remove()
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			//			localStorage.setItem('category_id', 0)
+			//			mescroll.resetUpScroll();
+
+		}
+		init()
+		var mescroll;
+		$(function() {
+
+			//			localStorage.setItem('category_id', 0)
+			//			$('.mescroll').css('top', $('#sliderSegmentedControl').height() + 44);
+			//获取商城类别
+
+			var size = 100000;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: false, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size,
+					lazyLoad: {
+						use: true, // 是否开启懒加载,默认false
+						attr: 'imgurl', // 网络地址的属性名 (图片加载成功会移除该属性): <img imgurl='网络图  src='占位图''/>
+						showClass: 'mescroll-lazy-in', // 图片加载成功的显示动画: 渐变显示,参见mescroll.css
+						delay: 100, // 列表滚动的过程中每500ms检查一次图片是否在可视区域,如果在可视区域则加载图片
+						offset: 200 // 超出可视区域200px的图片仍可触发懒加载,目的是提前加载部分图片
+					}
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					//					console.log(category_id)
+					get_user_team(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize 
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count); 
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				data = JSON.parse(data);
+				$('.wc__addrFriend-list .friend_list li').remove();
+				$('.wc__addrFriend-list .nodata').css('display', 'none');
+				var status = data.status;
+				if(status == 1) {
+					var info = data.data;
+
+					$('.active_count').html(data.active_count);
+					$('.no_active_count').html(data.no_active_count);
+
+					var pinyin = '';
+					if(info != null) {
+						$.each(info, function(index, content) {
+
+							if(pinyin != content.py) { 
+								pinyin = content.py;
+								var item = '<li id="' + content.py + '">';
+								item += '<h2 class="initial wc__borT">' + content.py + '</h2>';
+
+								$.each(info, function(index1, content1) {
+									if(content1.py == pinyin) {
+
+										item += '<div class="row flexbox flex-alignc wc__material-cell " view_user_id="' + content1.id + '" >';
+										item += '	<img class="uimg view_user" src="' + UploadUrl + content1.avatar + '">';
+										item += '	<div class="row_div1 view_user" view_user_id="' + content1.id + '" ><span class="name flex1">' + content1.user_name + '</span></div>';
+										item += '	<div class="row_div2" style="text-align: right;line-height:40px" ><img class="mobile" mobile="' + content1.user_id + '"  src="../images/phone.png" width="20px" ><img user_id="' + content1.id + '"  class="view"   src="../images/flows.png" width="20px" style="margin-left:10px;display:none" ></div>';
+										//									item += '	<div class="row_div2"><span class="money flex1">' + content.trade_money + '元</span><span class="name flex1">交易额</span></div>';
+										//									item += '	<div class="row_div2"><span class="money flex1">' + content.user_num + '人</span><span class="name flex1">盟友</span></div>';
+										item += '</div>'; 
+									}
+								})
+								item += '	</li>';
+								$('.wc__addrFriend-list .friend_list').append(item);
+							}
+						})
+
+						
+					} else {
+
+						$('.nodata').css('display', 'block');
+					}
+
+					$('.user_name').html(data.user.user_name);
+					$('.user_id').html(data.user.user_id);
+
+					$('.view').attr('view_user_id', data.user.id);
+					$('.my .mobile').attr('mobile', data.user.re_name);
+					$(".view").click(function() {
+						localStorage.setItem('view_user_id', $(this).attr('view_user_id'))
+						console.log($(this).attr('view_user_id'))
+						openWindowWithTitle('业绩查看', 'moneys.html');
+					});
+					$(".view_user").click(function() {
+						localStorage.setItem('view_user_id', $(this).attr('view_user_id'))
+						console.log($(this).attr('view_user_id'))
+						openWindowWithTitle('业绩查看', 'moneys.html');
+					});
+					$(".mobile").on('click', function() {
+							location.href = "tel:" + $(this).attr('mobile')
+						})
+					$('.avatar').attr('src', IP + '/' + data.user.avatar);
+				}
+			}
+
+		});
+
+		function SiteSearch(divTgs) {
+			var str = $(divTgs).val();
+
+			if(str == '') {
+				//		weui.alert('请输入关键字');
+				//		return;
+			}
+
+			localStorage.setItem('keywords', str)
+			localStorage.setItem('page_index', 1)
+			mescroll.resetUpScroll();
+
+		}
+
+		function open_no_tel() {
+
+			openWindowWithTitle('未实名列表', 'no_name_tel.html');
+
+		}
+		window.addEventListener('update_tel_list', function(e) {
+			 
+			localStorage.setItem('tel_type', 0);
+		});
+	</script>
+
+</html>

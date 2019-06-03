@@ -1,0 +1,150 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>规格管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>规格管理</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+
+
+
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.goods').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #goods').css('display','block')
+		$('.sidebar #spec_list').addClass('current')
+	});
+</script>
+
+
+<style type="text/css">
+.tablesaw-cell-content {
+	max-width: 100%;
+}
+</style>
+<style type="text/css">
+.tree-list .col-1 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-2 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-3 {
+	width: 52%;
+}
+
+.tree-list .col-4 {
+	width: 12%;
+}
+
+.tree-list .col-5 {
+	width: 12%;
+}
+
+.tree-list .col-6 {
+	width: 12%;
+	text-align: center;
+}
+</style>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<script src="__PUBLIC__/Adm/js/laymain.js"></script> <script
+	type="text/javascript">
+	
+</script>
+<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>规格列表</h5>
+			<div class="ibox-tools"></div>
+		</div>
+		<div class="ibox-content" style="display: block;">
+			<a href="spec_edit.html?action=add&id=0"
+				class="btn btn-success pull-right">新增规格</a>
+			<div class="tablesaw-bar mode-stack"></div>
+
+			<div class="table-container">
+
+				<table width="100%" border="0" cellspacing="0" cellpadding="0"
+					class="ltable">
+					<tr>
+						 
+						<th align="center" style="    text-align: center;" width="10%">名称</th>
+						<th align="left" width="50%">规格值</th>
+						<!-- <th align="left" width="10%">排序</th> -->
+						<th width="12%">操作</th>
+					</tr>
+					<foreach name="list" item="vo">
+
+					<tr>
+						 
+						<td style="    text-align: center;">{$vo.title}</td>
+						<td>
+						
+					<foreach name="vo.spec" item="vo1">
+						<span class="txt-box">{$vo1.title}</span>
+						
+					</foreach>
+						</td>
+						<td  ><a href="spec_edit.html?action=edit&id={$vo.id} ">修改</a>&nbsp<a class=" ajax-a" 
+										href="__URL__/spec_del/action/lock/id/{$vo.id}" info="本操作会删除本规格及规格值，是否继续？">删除</a></td>
+					</tr>
+					</foreach>
+
+				</table>
+
+			</div>
+ 
+			<script type="text/javascript">
+				layui.use('layer', function() {
+					$('.ajax-a').on('click', function() {
+						var self = $(this);
+						layer.confirm(self.attr('info'), {
+							shade : 0,
+							icon : 3,
+							title : '警告'
+						}, function(index) {
+							$url = self.attr('href');
+							$.get($url, function(data) {
+								if (data.status) {
+									layer.msg(data.info, {
+										time : 1000,
+										end : function() {
+											if (data.url) {
+												location.href = data.url;
+											} else {
+												location.reload();
+											}
+										}
+									});
+								} else {
+									layer.msg(data.info);
+								}
+							});
+						});
+						return false;
+					});
+				});
+			</script>
+		</div>
+	</div>
+</div>
+
+</block>

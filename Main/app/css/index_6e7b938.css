@@ -1,0 +1,65 @@
+/*!newwap:page/index/index.scss*/
+body {
+    background: url(../img/bg.png) 100% 100%;
+    background-size: 100% 100%;
+    margin: 0;
+}
+
+body #container {
+    display: block;
+    text-decoration: none
+}
+
+body #container .slogan-warpper {
+    padding-top: .84rem;
+    text-align: center;
+    height: 70%;
+}
+
+body #container .slogan-warpper img {
+    width: 3.78rem;
+    height: auto
+}
+
+body #container .cellphone-warpper {
+    padding-top: .4rem;
+    text-align: center
+}
+
+body #container .cellphone-warpper img {
+    width: 6.12rem;
+    height: auto
+}
+
+body #container .button-warpper {
+    position: absolute;
+    left: 25%;
+    bottom: 15%;
+    WIDTH: 50%;
+}
+
+body #container .button-warpper .button {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 40PX;
+    margin: 0 auto;
+    /* padding-left: .4rem; */
+    background: #fff;
+    border-radius: .82rem;
+    line-height: 40PX;
+    font-size: 20PX;
+    color: #F20;
+    text-align: center;
+}
+
+body #container .button-warpper .button:before {
+    position: absolute;
+    width: .64rem;
+    height: .64rem;
+    top: .08rem;
+    left: .46rem;
+    background: url(//s3.bytecdn.cn/huoshan/resource/newwap/static/image/index/icon_download@2x_8f0ec52.png) 0 center;
+    background-size: 100% auto;
+    content: ''
+}

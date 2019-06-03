@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>会员管理</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/page.css" rel="stylesheet">
+<style type="text/css">
+b {
+	display: none
+}
+
+td {
+	text-align: center
+}
+</style>
+
+</head>
+
+<body class="mainbody">
+	<form id="form1" runat="server">
+		<!--导航栏-->
+		 
+		<!--/导航栏-->
+
+		<!--工具栏-->
+		<div id="floatHead" class="toolbar-wrap">
+			<div class="toolbar">
+				<div class="box-wrap">
+					<a class="menu-btn"><i class="iconfont icon-more"></i></a>
+					<div class="l-list">
+						 
+						 <form class="form-inline title-form" name="form2" method="get" action="__ACTION__">
+						<div class="menu-list">
+						<div class="date-input">
+								<i class="iconfont icon-user-full"></i>
+							<input name="username" type="text" id="txtStartTime"
+								class="input " placeholder="用户账号或姓名查询"
+								value="{$username}">
+								</div>
+							<div class="date-input">
+								<i class="iconfont icon-date"></i><input name="time1"
+									type="text" id="time1" class="input rule-date-input"
+									placeholder="开始日期"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" value="{$S_Date}">
+							</div>
+							-
+							<div class="date-input">
+								<i class="iconfont icon-date"></i><input name="time2"
+									type="text" id="time2" class="input rule-date-input"
+									placeholder="结束日期"
+									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"value="{$E_Date}">
+							</div>
+
+						</div>
+						<button type="submit" class="btn btn-primary">查询</button>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			layui.use('laydate', function() {
+				var laydate = layui.laydate;
+				var start = {
+					// min: laydate.now(-2)
+					max : '2099-06-16 23:59:59',
+					istoday : false,
+					choose : function(datas) {
+						end.min = datas; //开始日选好后，重置结束日的最小日期
+						end.start = datas //将结束日的初始值设定为开始日
+					}
+				};
+
+				var end = {
+					min : laydate.now(),
+					max : '2099-06-16 23:59:59',
+					istoday : false,
+					choose : function(datas) {
+						start.max = datas; //结束日选好后，重置开始日的最大日期
+					}
+				};
+
+				$('#time1').on('click', function() {
+					start.elem = this;
+					laydate(start);
+				});
+				$('#time2').on('click', function() {
+					end.elem = this
+					laydate(end);
+				});
+			});
+		</script>
+		<!--/工具栏-->
+
+		<!--列表-->
+		<div class="table-container">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				class="ltable">
+				<tr>
+					 <th>序号</th>
+                            <th>用户账号</th>
+                            <th>姓名</th>
+                            <th>来源</th>
+                            <!-- <th>摘要</th> -->
+                            <th>说明</th>
+                            <th>金额</th>
+                            <th>时间</th>
+				</tr>
+				<volist name="list" id="vo">
+
+
+				<tr>
+					  <td><b class="tablesaw-cell-label">序号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                            <td><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content">{$vo['uid']|user_id}</span></td>
+                            <td><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo['user_name']}</span></td>
+                            <td><b class="tablesaw-cell-label">会员姓名</b><span class="tablesaw-cell-content">{$vo['user_id']}</span></td>
+                            <!-- <td><b class="tablesaw-cell-label">摘要</b><span class="tablesaw-cell-content">奖金</span></td> -->
+                            <td><b class="tablesaw-cell-label">说明</b><span class="tablesaw-cell-content">
+                            {$vo.bz}
+                           <!--  <switch name="vo.action_type">
+                                <case value="1">{$fee_s7[0]}</case>
+                                <case value="2">{$fee_s7[1]}</case>
+                                <case value="3">{$fee_s7[2]}</case>
+                                <case value="4">{$fee_s7[3]}</case>
+                                <case value="5">{$fee_s7[4]}</case>
+                                <case value="6">{$fee_s7[5]}</case>
+                                <case value="7">{$fee_s7[6]}</case>
+                                <case value="8">{$fee_s7[7]}</case>
+                                <case value="9">{$fee_s7[8]}</case>
+                                <case value="19">{$vo.bz}</case>
+                                <case value="21">会员充值-{$vo.type_str}</case>
+                                <case value="22">激活积分转出</case>
+                                <case value="23">注册积分转出</case>
+                                <case value="30">售出股票税收</case>
+                                <case value="31">售出股票奖金收入</case>
+                                <case value="32">售出股票进入复投账户</case>
+                                <case value="33">售出股票进入幸运积分</case>
+                                <case value="34">售出股票平台收入</case>
+                                <case value="100">{$vo.bz}</case>
+                                <case value="20">{$vo.bz}</case>
+                                <default />其他
+                            </switch> -->
+
+                            </span></td>
+                            <td><b class="tablesaw-cell-label">金额</b><span class="tablesaw-cell-content"><i>{$vo['epoints']}</i></span></td>
+                            <td><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p title="{$vo.e_date|date="Y-m-d H:i:s",###}">{$vo.pdt|date="Y-m-d H:i:s",###}</p></span></td>
+          
+				</tr>
+
+				</volist>
+			</table>
+		</div>
+		<!--/列表-->
+
+		<!--内容底部-->
+		{$page}
+		<!--/内容底部-->
+
+	</form>
+</body>
+</html>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script>
+<script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+
+	// 输入框失去焦点 ajax 保存
+	//	$('input[name^="field_"]').on('blur', function () {
+	function ajaxUpdateField(obj, field) {
+
+		var id = $(obj).attr('user_id');
+
+		var value = $(obj).val();
+
+		$.ajax({
+			type : 'POST',
+			data : {
+				id : id,
+				field : field,
+				value : value
+			},
+			url : "{:U('YouZi/UpdateField')}",
+			success : function(data) {
+				layer.msg('修改成功', {
+					icon : 1,
+					time : 1000
+				});
+			}
+		});
+	}
+</script>
+
+ 

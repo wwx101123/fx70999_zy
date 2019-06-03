@@ -1,0 +1,170 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>订单查询</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="__APP__">首页</a>
+                </li>
+                <li>
+                    <a>订单管理</a>
+                </li>
+                <li class="active">
+                    <strong>订单查询</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox-content m-b-sm border-bottom">
+            <div class="row">
+                <form method="post" action="?action=query" name="formq">
+                            <div class="col-sm-3">
+                                <div class="form-group" id="data_5">
+                                    <label class="control-label">日期</label>
+                                    <div class="input-daterange input-group" id="datepicker">
+                                        <input type="text" class=" form-control" name="time1" id="time1" placeholder="开始日期" value="<notempty name='time1'>{$time1}</notempty>">
+                                        <span class="input-group-addon">到</span>
+                                        <input type="text" class="form-control" name="time2" id="time2" placeholder="截止日期" value="<notempty name='time2'>{$time2}</notempty>">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-1">
+                                <div class="form-group">
+                                    <label class="control-label">点击查询</label>
+                                    <button type="submit" class="btn btn-primary">查询</button>
+                                </div>
+                            </div>
+                            <!--<div class="col-sm-4">
+                                <div class="form-group">
+                                    <label class="control-label" for="status">Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1" selected="">Enabled</option>
+                                        <option value="0">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>-->
+                            <script type="text/javascript">
+                                layui.use('laydate', function(){
+                                  var laydate = layui.laydate;
+                                      var start = {
+                                      // min: laydate.now(-2)
+                                      max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        end.min = datas; //开始日选好后，重置结束日的最小日期
+                                        end.start = datas //将结束日的初始值设定为开始日
+                                      }
+                                    };
+                                    
+                                    var end = {
+                                      min: laydate.now()
+                                      ,max: '2099-06-16 23:59:59'
+                                      ,istoday: false
+                                      ,choose: function(datas){
+                                        start.max = datas; //结束日选好后，重置开始日的最大日期
+                                      }
+                                    };
+                                    
+                                    $('#time1').on('click',function(){
+                                      start.elem = this;
+                                      laydate(start);
+                                    });
+                                    $('#time2').on('click',function(){
+                                      end.elem = this
+                                      laydate(end);
+                                    });
+                                });
+                            </script>
+
+                        </form>
+                    </div>
+
+                </div>
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>订单列表<span class="text-danger">（支付之前请完善个人资料里的收货信息）</span></h5>
+                        <div class="ibox-tools">
+                        </div>
+                    </div>
+                    <div class="ibox-content" style="display: block;">
+                        <table class="table table-hover" data-tablesaw-mode="stack">
+                            <thead>
+                                <tr>
+                                    <th>用户名</th>
+                                    <th>商品图片</th>
+                                    <th>商品名称</th>
+                                    <th>状态</th>
+                                    <th>时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <foreach name="list" item="vo">
+                                <tr>
+                                    <td>
+                                        <b class="tablesaw-cell-label">用户名</b>
+                                        <span class="tablesaw-cell-content">{$vo.user_id}</span>
+                                    </td>
+                                    <td>
+                                        <b class="tablesaw-cell-label">商品图片</b>
+                                        <span class="tablesaw-cell-content">
+                                        <a href="{$vo.img}" target="_blank">
+                                        <img src="{$vo.img}" width="60" height="60">
+                                        </a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <b class="tablesaw-cell-label">商品名称</b>
+                                        <span class="tablesaw-cell-content">{$vo.name}</span>
+                                    </td>
+                                     <td><b class="tablesaw-cell-label">状态</b>
+                                     <span class="tablesaw-cell-content">
+                                            <eq name="vo.get_ceng" value="0"><span class="label label-default">未发货</span></eq>
+                                            <eq name="vo.get_ceng" value="1"><span class="label label-info">已发货</span></eq>
+                                     </span></td>
+                                     <td title="2016-12-01 14:51:40"><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p>{$vo.pdt|date="Y-m-d H:i:s",###}</p></span></td>
+                                     <td><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                                        <eq name="vo.get_ceng" value="0">
+                                        <a href="{:U('Gouwu/baodanAc')}?action=send&id={$vo['id']}" class="btn-white btn btn-xs ajax-a" info="确定给会员发货吗？">发货 </a>
+                                        </eq>
+                                        </span>
+                                    </td>
+                                </tr>
+                                </foreach>
+                            </tbody>
+                        </table>
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                layui.use(['layer'],function() {
+                    $('.ajax-buy').on('click',function() {
+                        layer.confirm('确定要支付该订单吗？',{icon:3,title:'支付订单'},
+                            function(index) {
+                                var url=$('.ajax-buy').attr('url');
+                                // console.log($(this));
+                                // console.log(url);
+                                $.get(url,function(data) {
+                                    if (data.status) {
+                                        layer.msg(data.info,{end:function() {
+                                            if (data.url) {
+                                                location.href=data.url;
+                                            }else{
+                                                location.reload();
+                                            }
+                                        }});
+                                    }else{
+                                        layer.msg(data.info);
+                                    }
+                                })
+                                layer.close(index);
+                        });
+                    });
+                });
+            </script>
+        </block>

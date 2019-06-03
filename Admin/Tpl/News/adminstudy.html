@@ -1,0 +1,109 @@
+<extend name="Public:adminheader" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>新闻公告管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>后台管理</a>
+                </li>
+                <li class="active">
+                    <strong>新闻公告管理</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>新手教程列表</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content" style="display: block;">
+                <a href="{:U('News/News_add')}?type=1" class="btn btn-success pull-right">新增教程</a>
+                <div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-7205">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>标题</th> 
+                        <th>发布时间</th>
+                        <th>排序</th> 
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <foreach name="list" item="vo">
+                <tr>
+                    <td><b class="tablesaw-cell-label">编号</b><span class="tablesaw-cell-content">{$vo.id}</span></td>
+                    <td><b class="tablesaw-cell-label">公告标题</b><span class="tablesaw-cell-content">{$vo.title}</span></td> 
+                    <td><b class="tablesaw-cell-label">发布时间</b><span class="tablesaw-cell-content"><p title="2016-10-15">{$vo.create_time|date="Y-m-d H:i:s",###}</p></span></td>
+	<td><input id="{$vo.id}"
+								value="{$vo.sort_id}" style="WIDTH: 50px;    border: 1px solid black;"
+								onchange="ajaxUpdateField(this,'sort_id');"></td>
+
+                    <td><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+                        <a href="__URL__/News_edit/id/{$vo.id}">修改</a> | 
+                        <a href="{:U('News/NewsAC')}?action=del&id={$vo.id}" class="ajax-a" info="确定删除教程？">删除</a></span></td>
+                </tr>
+                </foreach>
+            </tbody>
+        </table>
+        {$page}
+        <script type="text/javascript">
+            layui.use('layer',function() {
+                  $('.ajax-a').on('click',function() {
+                    var self=$(this);
+                    layer.confirm(self.attr('info'),{shade:0,icon: 3, title:'警告'},function(index) {
+                      $url=self.attr('href');
+                      $.get($url,function(data) {
+                        if (data.status) {
+                          layer.msg(data.info,{time:1000,end:function() {
+                            if (data.url) {
+                              location.href=data.url;
+                            }else{
+                              location.reload();
+                            }
+                          }});
+                        }else{
+                          layer.msg(data.info);
+                        }
+                      });
+                    });
+                    return false;
+                  });
+            });
+            function ajaxUpdateField(obj, field) {
+
+        		var id = $(obj).attr('id');
+
+        		var value = $(obj).val();
+
+        		$.ajax({
+        			type : 'POST',
+        			data : {
+        				id : id,
+        				field : field,
+        				value : value
+        			},
+        			url : "{:U('News/UpdateField')}",
+        			success : function(data) {
+        				layer.msg('修改成功', {
+        					icon : 1,
+        					time : 1000
+        				});
+        			}
+        		});
+        	}
+        </script>
+    </div>
+</div>
+</div>
+
+</block>

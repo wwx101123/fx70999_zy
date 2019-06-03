@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		$("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		});
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form id="form1" method="post"  action="{:U('Reg/usersAdd')}">
+						<input type="hidden" name="temp1" value="haha"> <input
+							name="regfrom" type="hidden" value=""> <input
+							name="u_level" type="hidden" value="1">
+							<input name="shopid" type="hidden" id="shopid"
+									value="admin" class="form-control" required="">
+		<!--导航栏-->
+		<div class="location">
+			
+		</div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+			 
+			<dl>
+				<dt>用户账号</dt>
+				<dd>
+					<input ID="user_id"class="input normal" name="user_id"
+						datatype="n" sucmsg=" "  />  
+				</dd>
+			</dl>
+			 
+			<dl>
+				<dt>会员姓名</dt>
+				<dd>
+					<input ID="username"class="input normal"
+						datatype="/^[a-zA-Z0-9\-\_]{2,50}$/" errormsg="请填写正确的ID" name="username"
+						sucmsg=" "  value="{$rs.name}" /> 
+				</dd>
+			</dl>
+			<dl>
+				<dt>一级密码</dt>
+				<dd>
+					<input ID="pwd"class="input normal" name="pwd"
+						datatype="*1-100" sucmsg=" "  value="{$rs.title}" type="password"  /> <span
+						class="Validform_checktip">*默认密码：123456</span>
+				</dd>
+			</dl>
+			<dl>
+				<dt>推荐人编号</dt>
+				<dd>
+					<input ID="RID"class="input normal" name="RID"
+						datatype="*0-100" sucmsg=" "  value="{$zzc[2]}"  /> 
+				</dd>
+			</dl>
+			 
+
+		</div>
+		
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="submit" value="提交保存" class="btn "
+					onclick="btnSubmit_Click" /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+</body>
+</html>
+ 

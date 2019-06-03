@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>未激活列表 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/agent.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function() {
+				var user_id = localStorage.getItem('user_id');
+				if(user_id == 0 || user_id == null) {
+					location.href = 'login.html';
+				}
+
+			});
+		</script>
+	</head>
+
+	<body style="background: #f1f0f0!important;">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<!--订单列表-->
+				<div class="detail-list mescroll" id="mescroll">
+					<ul>
+						<!--取得一个DataTable-->
+
+						<div class="nodata" style="display: none;">暂无记录...</div>
+
+					</ul>
+				</div>
+
+				<!--分页页码-->
+				<div class="page-list">
+
+				</div>
+				<!--/分页页码-->
+
+				<input id="turl" type="hidden" value="useraddress.html" />
+				<!--存在跳转的URL值-->
+				<!--/订单列表-->
+			</div>
+
+			<!--版权信息-->
+			<!--/版权信息-->
+
+			<!--底部导航-->
+			<link rel="import" href="_footer.html" id="tmp" />
+			<script type="text/javascript">
+				$(function() {
+					var size = 10;
+					var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					var mescroll = initMeScroll("mescroll", {
+						down: {
+							auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+							callback: downCallback //下拉刷新的回调
+						}
+					});
+
+					function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+						//延时一秒,模拟联网
+
+						try {
+
+							get_menber(pageNum, pageSize, successCallback)
+						} catch(e) {
+							//联网失败的回调
+							errorCallback && errorCallback();
+						}
+
+					}
+					var page_index = 0;
+					localStorage.setItem('page_index', page_index);
+					/*下拉刷新的回调 */
+					function downCallback() {
+						var page_index = 0;
+						$('.detail-list ul li').remove()
+
+						//					page_index = parseInt(page_index) + 1;
+						localStorage.setItem('page_index', page_index);
+
+						var user_id = localStorage.getItem('user_id');
+						//联网加载数据
+						getListDataFromNet(page_index, size, function(data) {
+							//联网成功的回调,隐藏下拉刷新的状态
+							mescroll.endSuccess();
+							var curPageData = localStorage.getItem('ListData');
+							//设置列表数据
+							setListData(curPageData);
+							//			down();
+						}, function() {
+							//联网失败的回调,隐藏下拉刷新的状态
+							mescroll.endErr();
+						});
+					}
+
+					function setListData(data) {
+						console.log(data)
+						data = JSON.parse(data);
+						var status = data.status;
+						if(status == 1) {
+							var info = data.data;
+							if(info == null) {
+								$('.nodata').css('display', 'block');
+
+							}
+							if(info != null) {
+								$.each(info, function(index, content) {
+									var item = '<li style="background:white;margin:10px;BORDER-RADIUS: 10PX;" >';
+									item += '	<div class="detail-hd">';
+									item += '		<span class="fr" style="color: red;">' + content.level_str + ' </span><span class="fr" style="color:#999">  </span>';
+									item += '		<span>' + content.user_id + '</span>';
+									item += '	</div>';
+									item += '	<div class="detail-bd">';
+
+									item += '	</div>';
+									item += '	<div class="detail-ft">';
+									item += '		<p class="fr"></p>';
+									item += '		<p>	注册时间:' + content.rdt_str + ' &nbsp    </p>';
+									//					item += '		<p style="color:red">	   消费类型:【' + content.register_type_str + '】</p>';
+
+									item += '		<div class="ft-btn">';
+									item += '			<div class="btn-box">';
+									item += '			<a href="javascript:void(0)"   onclick="menberOpenUse(' + content.id + ');" class="order_info"   id="' + content.id + '">确认</a>';
+									item += '			<a href="javascript:void(0)"   onclick="menberDelUse(' + content.id + ');"  class="order_info"   id="' + content.id + '">删除</a>';
+
+									item += '		</div>';
+									item += '		</div>';
+									item += '	</div>';
+									item += '	</li>';
+
+									$('.detail-list ul').append(item);
+
+								});
+							}
+							mescroll.endSuccess();
+
+						}
+
+					}
+				});
+			</script>
+			<!--/底部导航-->
+		</div>
+	</body>
+
+</html>

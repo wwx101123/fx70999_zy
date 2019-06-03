@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/tiqu.css" />
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<section class="aui-scrollView " id="mescroll">
+			<div class="aui-step">
+				<ul class="aui-step-content">
+					<li class="aui-step-item aui-step-item-current">
+						<em class="aui-step-mark"></em>
+						<div class="aui-step-text">填写申请</div>
+					</li>
+					<li class="aui-step-item aui-step-item-current">
+						<em class="aui-step-mark"></em>
+						<div class="aui-step-text">微信打款</div>
+					</li>
+					<li class="aui-step-item aui-step-item-current-info">
+						<em class="aui-step-mark"></em>
+						<div class="aui-step-text">极速到账</div>
+					</li>
+
+				</ul>
+			</div>
+			<div class="aui-pro-complete b-line">
+				<i class="icon icon-tag"></i> 提现已完成
+			</div>
+
+			<div class="divHeight"></div>
+			<div class="aui-flex-header"></div>
+			
+			<!--<div class="aui-step-one">
+				<a href="javascript:;" class="aui-step-one-item">
+					<span>自营退货</span>
+					<span>09-21 22:12</span>
+				</a>
+				<a href="javascript:;" class="aui-step-one-item">
+					<span>系统处理</span>
+					<span>09-21 22:12</span>
+				</a>
+				<a href="javascript:;" class="aui-step-one-item aui-step-one-item-color">
+					<span>退款成功</span>
+					<span>09-21 22:45</span>
+				</a>
+			</div>-->
+			<div class="aui-flex-content">
+				<div class="aui-flex">
+					<div class="aui-flex-list">提现金额:</div>
+					<div class="aui-flex-box">
+						<h5 class="epoint"></h5>
+					</div>
+				</div>
+				<div class="aui-flex">
+					<div class="aui-flex-list">微信单号:</div>
+					<div class="aui-flex-box">
+						<h5 class="payment_no"></h5>
+					</div>
+				</div>
+				<div class="aui-flex">
+					<div class="aui-flex-list">订单号:</div>
+					<div class="aui-flex-box">
+						<h5 class="partner_trade_no"></h5>
+					</div>
+				</div>
+				<div class="aui-flex">
+					<div class="aui-flex-list">到账时间:</div>
+					<div class="aui-flex-box">
+						<h5 class="payment_time"></h5>
+					</div>
+				</div>
+			</div>
+		</section>
+	</body>
+
+</html>
+
+<script type="text/javascript">
+	$(function() {
+
+		var size = 10;
+		var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		var mescroll = initMeScroll("mescroll", {
+			down: {
+				auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+				callback: downCallback //下拉刷新的回调
+			}
+		});
+
+		function getListDataFromNet(tixian_id, successCallback, errorCallback) {
+			//延时一秒,模拟联网
+
+			try {
+
+				get_tixian_info(tixian_id, successCallback)
+			} catch(e) {
+				//联网失败的回调
+				errorCallback && errorCallback();
+			}
+
+		}
+		var page_index = 0;
+		localStorage.setItem('page_index', page_index);
+		/*下拉刷新的回调 */
+		function downCallback() {
+			var page_index = 0;
+
+			//					page_index = parseInt(page_index) + 1;
+			localStorage.setItem('page_index', page_index);
+
+			var tixian_id = localStorage.getItem('tixian_id');
+
+			//联网加载数据
+			getListDataFromNet(tixian_id, function(data) {
+				//联网成功的回调,隐藏下拉刷新的状态
+				mescroll.endSuccess();
+				var curPageData = localStorage.getItem('ListData');
+				console.log(curPageData)
+				//设置列表数据
+				setListData(curPageData);
+				//			down();
+			}, function() {
+				//联网失败的回调,隐藏下拉刷新的状态
+				mescroll.endErr();
+			});
+		}
+
+		function setListData(data) {
+			console.log(data)
+			var info = JSON.parse(data);
+			info = info.data;
+			$('.epoint').html(info.epoint);
+			$('.payment_time').html(info.payment_time);
+			$('.payment_no').html(info.payment_no);
+			$('.partner_trade_no').html(info.partner_trade_no);
+
+		}
+	});
+</script>

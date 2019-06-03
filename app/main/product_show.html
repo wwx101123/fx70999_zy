@@ -1,0 +1,218 @@
+
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+
+		<meta name="keywords" content="{model.seo_keywords}" />
+		<meta name="description" content="{model.seo_description}" />
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<style type="text/css">
+			img {
+				width: 100%;
+			}
+			
+			table {
+				width: 100%;
+			}
+			
+			p {
+				margin-bottom: 0px;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/product_cart.js"></script>
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			$(document).ready(function() {
+
+				get_goods_show();
+				get_Parameter()
+//				$('.page__bd').css('padding-top','20px')
+				//初始化规格事件
+
+			});
+		</script>
+	</head>
+
+	<body ontouchstart>
+		<div class="page">
+			<!--页面头部-->
+			<div class="header" style="display: none;" >
+				<a class="back" href="javascript:history.back();">
+					<i class="iconfont icon-arrow-left"></i>
+				</a>
+				<h3>购物商城</h3>
+				<div class="right" style="display: none;">
+					<a class="weui-cell_access weui-cell_link" onclick="showDialogBox('#category-box');">
+						<i class="iconfont icon-nav"></i>
+					</a>
+				</div>
+			</div>
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+				<!--商品幻灯片-->
+				<div id="slider" class="swiper-container">
+					<div class="swiper-wrapper">
+
+					</div>
+					<div class="pagination"></div>
+				</div>
+				<!--/商品幻灯片-->
+
+				<!--商品名称-->
+				<div class="weui-panel weui-panel_access" style="margin-top:0;">
+					<div class="weui-panel__bd">
+						<div class="goods-head">
+							<h2> </h2>
+							<p><span class="price"> </span>元</p>
+						</div>
+					</div>
+
+				</div>
+				<!--/商品名称-->
+
+				<!--参数选择-->
+				<div class="weui-panel weui-panel_access item-list">
+					<div class="weui-panel__bd">
+						<a id="selectSpecText" class="weui-cell weui-cell_access" href="javascript:;" onclick="showActionSheet();">
+							<div class="weui-cell__bd">
+								<p>选择规格、数量</p>
+							</div>
+							<div class="weui-cell__ft"></div>
+						</a>
+						<a class="weui-cell weui-cell_access" href="#commentList" style="display: none;">
+							<div class="weui-cell__bd">
+								<p>查看评论</p>
+							</div>
+							<div class="weui-cell__ft">共 0条评论</div>
+						</a>
+
+					</div>
+
+				</div>
+				<!--/参数选择-->
+
+				<!--商品参数-->
+				<div class="weui-panel weui-panel_access item-list">
+					<div class="weui-panel__hd">商品参数</div>
+					<div class="weui-panel__bd">
+						<div class="weui-cell weui-cell_access">
+							<div class="weui-cell__bd">
+								<p>货号：<span id="commodityGoodsNo"></span></p>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_access" style="display: none;">
+							<div class="weui-cell__bd">
+								<p>市场价：<s id="commodityMarketPrice"></s></p>
+							</div>
+						</div>
+						<div class="weui-cell weui-cell_access">
+							<div class="weui-cell__bd">
+								<p id="add_time"></p>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+				<!--/商品参数-->
+
+				<!--商品介绍-->
+				<div class="weui-panel weui-panel_access">
+					<div class="weui-panel__hd">商品介绍</div>
+					<div class="weui-panel__bd">
+						<div class="entry">
+
+						</div>
+					</div>
+				</div>
+				<!--/商品介绍-->
+
+				<!--网友评论-->
+				<!--<%if(model.is_msg==1)%>
+        <%template src="_comment_box.html"%>
+        <%/if%>-->
+				<!--/网友评论-->
+
+				<!--版权信息-->
+				<!-- <%template src="_copyright.html"%>-->
+				<!--/版权信息-->
+
+				<!--底部按钮-->
+				<div class="goods-btn-box">
+					<div class="wrap-box de_btn_wrap">
+						<div class="icon_btn icon_cart" id="gotoCart" onclick="gotoCart()">
+							<span class="add_num" style="display: none;" id="popone">+1</span>
+							<i class="icon"><span class="num cart-num shoppingCartCount" id="cartNum" style="display: none;" >2</span></i>
+							<span class="txt">购物车</span>
+						</div>
+						<a class="green" href="javascript:;" onclick="showActionSheet('buy','{config.webpath}','');">
+							<i class="iconfont icon-order"></i>
+							<span>立即购买</span>
+						</a>
+						<a style="background: #de181b;" class="red" href="javascript:;" onclick="showActionSheet('cart','{config.webpath}','');">
+							<i class="iconfont icon-cart"></i>
+							<span>加入购物车</span>
+						</a>
+						
+					</div>
+				</div>
+				<!--/底部按钮-->
+
+				<!--规格容器-->
+				<div>
+					<div class="weui-mask" id="specMask" style="display:none"></div>
+					<div class="weui-actionsheet spec-wrap" id="specActionsheet">
+						<div id="specActionsheetCancel" class="close">
+							<i class="iconfont icon-close"></i>
+						</div>
+						<div id="goodsSpecBox" class="spec-box">
+
+							<div class="btn-box">
+								<dt>购物数量<span>(库存<b id="commodityStockNum">{model.fields[stock_quantity]}</b>件)</span></dt>
+								<dd>
+									<input id="img_url" type="hidden" />
+									<input id="spec_text" type="hidden" />
+									<input id="price" type="hidden" />
+									<input id="goods_order_type" type="hidden" value="0" />
+									<input id="title" type="hidden" />
+									<input id="commodityChannelId" type="hidden" />
+									<input id="commodityArticleId" type="hidden" />
+									<input id="commodityGoodsId" type="hidden" value="0" />
+									<input id="commodityHot_id" type="hidden" value="0" />
+									<a class="reduce" href="javascript:;" onclick="addCartNum(-1);">-</a>
+									<input id="commoditySelectNum" class="input" type="text" value="1" maxValue="{model.fields[stock_quantity]}" onkeydown="return checkNumber(event);" />
+									<a class="subjoin" href="javascript:;" onclick="addCartNum(1);">+</a>
+								</dd>
+							</div>
+						</div>
+
+						<div class="weui-actionsheet__action">
+							<button id="confirmButton" class="weui-actionsheet__cell ">确定</button>
+						</div>
+					</div>
+				</div>
+				<!--规格容器-->
+			</div>
+			<!--/页面内容-->
+		</div>
+
+	</body>
+
+</html>

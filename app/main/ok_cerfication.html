@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+		<title></title>
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link href="../css/ok_cerficate.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" src="../js/upload.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<section class="aui-scrollView mescroll" id="mescroll">
+			<div class="aui-panel">
+				<a href="javascript:void(0);" class="aui-panel-cell">
+					<div class="aui-panel-cell-hd">
+						<img src="../images/user-logo.png" class="avatar" onclick="init_upload(this,'.avatar','头像',localStorage.getItem('user_id'))">
+					</div>
+					<div class="aui-panel-cell-bd">
+						<h4 id="user_name"></h4>
+						<p id="user_id"></p>
+					</div>
+					<div class="aui-panel-cell">
+						<img src="../images/cer.png" style="width: 30PX;">
+
+					</div>
+				</a>
+			</div>
+
+			<div class="divHeight"></div>
+			<!--<div class="task-details  mt-right">
+				<ul>
+					<li class="step-info-li   " style="color: red;text-align: left; margin-left: 20px;">
+						 
+
+					</li>
+				</ul>
+			</div>-->
+			<div class="aui-card-list">
+				<a href="javascript:void(0);" class="aui-panel-well" onclick="open_change_bank()">
+					<div class="aui-panel-well-hd">
+						<img src="../images/app_assets_images_home_nav_4.png" alt="">
+					</div>
+					<div class="aui-panel-well-bd">
+						<h4>结算银行</h4>
+					</div>
+					<div class="aui-panel-well-fr bank_name"></div>
+				</a>
+				<a href="javascript:void(0);" class="aui-panel-well" onclick="open_change_bank()">
+					<div class="aui-panel-well-hd">
+						<img src="../images/app_assets_images_home_nav_4.png" alt="">
+					</div>
+					<div class="aui-panel-well-bd">
+						<h4>结算卡号</h4>
+					</div>
+					<div class="aui-panel-well-fr bank_card"></div>
+				</a>
+				<a href="javascript:void(0);" class="aui-panel-well">
+					<div class="aui-panel-well-hd">
+						<img src="../images/app_assets_images_home_nav_10.png" alt="">
+					</div>
+					<div class="aui-panel-well-bd ">
+						<h4>身份证</h4>
+					</div>
+					<div class="aui-panel-well-fr card_no"></div>
+				</a>
+				<a href="javascript:void(0);" class="aui-panel-well" onclick="open_fenxiang()">
+					<div class="aui-panel-well-hd">
+						<img src="../images/app_assets_images_home_nav_2.png" alt="">
+					</div>
+					<div class="aui-panel-well-bd ">
+						<h4>分享链接</h4>
+					</div>
+					<div class="aui-panel-well-fr  "></div>
+				</a>
+
+			</div>
+		</section>
+
+	</body>
+
+	<script type="text/javascript">
+		var mescroll;
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(user_id, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_user_info(user_id, successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(user_id, function(data) {
+
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				var IP = localStorage.getItem('IP');
+
+				var user = JSON.parse(data);
+				user = user.data;
+				$('#user_id').html(user.user_id);
+				$('#user_name').html(user.user_name);
+				$('.card_no').html(user.card_no);
+				$('.bank_card').html(user.bank_card);
+				$('.bank_name').html(user.bank_name);
+				$('#name').val(user.name);
+				$('.alipay').html(user.alipay);
+
+				if(user.avatar != null && user.avatar != '') {
+
+					$('.avatar').attr('src', UploadUrl + user.avatar);
+				}
+
+				var tmpl = ' <div class="uploadimage-image-reupload">点击重新上传</div>'
+				if(user.card_img1 != null) {
+					var card_img1 = '<input type="hidden" class="card_img1" name="card_img1" id="card_img1" value="' + user.card_img1 + '">'
+
+					$('.card_img1_div .uploadimage-upload span').remove()
+					$('.card_img1_div .uploadimage-upload div').remove()
+
+					$('.card_img1_div .uploadimage-upload').css('background', 'url(' + IP + '/' + user.card_img1 + ')')
+					$('.card_img1_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img1_div .uploadimage-upload').append(tmpl)
+					$('#uploader_list').append(card_img1)
+				}
+				if(user.card_img2 != null) {
+					var card_img2 = '<input type="hidden" class="card_img2" name="card_img2" id="card_img2" value="' + user.card_img2 + '">'
+					$('.card_img2_div .uploadimage-upload span').remove()
+					$('.card_img2_div .uploadimage-upload div').remove()
+
+					$('.card_img2_div .uploadimage-upload').css('background', 'url(' + IP + '/' + user.card_img2 + ')')
+					$('.card_img2_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img2_div .uploadimage-upload').append(tmpl)
+					$('#uploaderzfbFiles_list').append(card_img2)
+				}
+
+				$('.button-success').click(function() {
+					open_shop_step3();
+				})
+				$('.card_img1_div').click(function() {
+					$('.card_img1_tip').css('display', 'block')
+				})
+				$('.card_img2_div').click(function() {
+					$('.card_img2_tip').css('display', 'block')
+				})
+				if(user.card_img1 != null) {
+
+					$('.card_img1_class').attr('src', '' + UploadUrl + '/' + user.card_img1 + '');
+					$('#card_img1').val(user.card_img1);
+				}
+
+				if(user.card_img2 != null) {
+
+					$('.card_img2_class').attr('src', '' + UploadUrl + '/' + user.card_img2);
+					$('#card_img2').val(user.card_img2);
+				}
+				if(user.card_img3 != null) {
+
+					$('.card_img3_class').attr('src', '' + UploadUrl + '/' + user.card_img3);
+					$('#card_img3').val(user.card_img2);
+				}
+				if(user.card_img4 != null) {
+
+					$('.card_img4_class').attr('src', '' + UploadUrl + '/' + user.card_img4);
+					$('#card_img4').val(user.card_img4);
+				}
+				var history_url = localStorage.getItem('history_url')
+				if(history_url != '') {
+
+					$('#history_url').val(history_url);
+				}
+				$('#history_url').val('');
+				if(user.auth_status == 1) {
+					$('.button-success').html('正在审核中');
+
+				}
+				if(user.auth_status == 2) {
+					$('.button-success').html('认证失败,重新提交');
+
+				}
+				if(user.auth_status == 0 && user.card_img4 != '' && user.card_img4 != null) {
+
+					$('.button-success').css('display', 'none');
+					$('#user_name').attr('readonly', 'readonly');
+					$('#card_no').attr('readonly', 'readonly');
+					$('#J_Address2').unbind('click');
+					$('.card_img1_class').removeAttr('onclick');
+					$('.card_img2_class').removeAttr('onclick');
+					$('.card_img3_class').removeAttr('onclick');
+					$('.card_img4_class').removeAttr('onclick');
+					$('#bank_card').attr('readonly', 'readonly');
+
+				}
+				$('.error').css('display', 'none')
+				if(user.auth_error != '' && user.auth_error != null) {
+
+					$('.error').css('display', 'block')
+					$('.error').html(user.auth_error);
+				}
+
+			}
+
+			window.addEventListener('update_user_auth_info', function(e) {
+
+				var data = localStorage.getItem('change_user');
+				if(data != null && data != '') {
+					setListData(data);
+				}
+			});
+		});
+	</script>
+	<script>
+		function upload_avatar() {
+			var user_id = localStorage.getItem('user_id');
+			var avatar_url = localStorage.getItem('avatar_url');
+			console.log(avatar_url)
+
+			var IP = localStorage.getItem('IP');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var IndexUrl = localStorage.getItem('IndexUrl');
+			var UploadUrl = localStorage.getItem('UploadUrl');
+
+			/**
+			 * 获取商品列表
+			 */
+			var avatarEdit_val = PreUrl + "User/avatarEdit";
+			$.ajax({
+				url: avatarEdit_val,
+				data: {
+					is_mobile: 1,
+
+					user_id: user_id,
+
+					avatar: avatar_url
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'POST', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+
+				success: function(data) {
+
+					localStorage.setItem('user', JSON.stringify(data.data));
+
+					console.log(JSON.stringify(data.userbank))
+					if(status == 1) {
+						mui.toast(data.msg)
+					} else {
+
+					}
+					////lang()
+
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(JSON.stringify(xhr));
+				}
+			});
+
+		}
+
+		function open_fenxiang() {
+
+			openWindowWithTitle('邀请盟友', 'recommend.html')
+		}
+
+		function open_change_bank() {
+
+			openWindowWithTitle('变更银行卡信息', 'change_bank.html')
+		}
+		window.addEventListener('update_user_avatar', function(e) {
+
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var avatar = localStorage.getItem('avatar')
+
+			if(avatar != null && avatar != '') {
+
+				$('.avatar').css('background-image', 'url(' + UploadUrl + avatar + ')');
+			}
+		});
+	</script>
+
+</html>

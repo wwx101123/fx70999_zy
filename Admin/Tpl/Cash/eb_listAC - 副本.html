@@ -1,0 +1,142 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<style>
+h4 {
+	margin-left: 18%;
+}
+.Agreement {
+	width: 90%;
+	height: 100px;
+	overflow: auto;
+	border: 1px solid #7F9DB9;
+	padding: 2px;
+	font-size: 12px;
+	line-height: 24px;
+	margin: 10px 0px;
+}
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>锁定购买</h2>
+    <ol class="breadcrumb">
+      <li> <a href="{:U('Index/index')}">首页</a> </li>
+      <li> <a>积分交易</a> </li>
+      <li class="active"> <strong>锁定购买</strong> </li>
+    </ol>
+  </div>
+</div>
+</block>
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="ibox float-e-margins">
+          <div class="ibox-title">
+            <h5>锁定购买 </h5>
+          </div>
+          <div class="ibox-content">
+            <div class="row">
+              <div class="col-sm-12">
+                <form id="sendForm" name="sendForm" action="__URL__/eb_list_AC" method="post">
+                  <table class="table">
+                    <tr>
+                      <td height="30">卖家姓名：</td>
+                      <td>{$rs['user_name']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">卖家银行卡号：</td>
+                      <td>{$bn['bank_card']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">卖家地址：</td>
+                      <td>{$bn['bank_address']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">卖家微信号：</td>
+                      <td>{$bn['qq']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">卖家联系电话：</td>
+                      <td>{$bn['user_tel']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">汇款金额：</td>
+                      <td>{$rs['money_two']}</td>
+                    </tr>
+                    <tr>
+                      <td height="30">&nbsp;</td>
+                      <td><label>
+                          <input name="agree" type="checkbox" id="agree" value="1" checked="checked" onpropertychange="change_fc()"/>
+                          我已经完成汇款，通知卖家确认。</label></td>
+                    </tr>
+                    <tr>
+                      <td height="30">图片：</td>
+                      <td><label>
+                          <input name="image" type="text" id="image" value="{$crs.sellbz}" size="50" maxlength="500" />
+                          外部地址请填写“http://”为开头的地址</label></td>
+                    </tr>
+                    <tr>
+                      <td height="30">本地上传：</td>
+                      <td><iframe src="__URL__/upload_add" width="350" height="30" scrolling="no" frameborder="0"></iframe>
+                        上传格式：jpg, gif, png, jpeg</td>
+                    </tr>
+                    <tr>
+                      <td height="30">凭证预览：</td>
+                      <td><img style="height:225px;width:330px;" id="imageShow" alt="商品图像" src="{$crs['sellbz']}"></td>
+                    </tr>
+                    <tr>
+                      <td height="30">验证码：</td>
+                      <td><input name="verify" id="verify" type="text" size="8" maxlength="4" />
+                        <img src="__APP__/Public/verify/" border="0" alt="点击刷新验证码" id="verifyImg" onclick="fleshVerify()" style="cursor:pointer" align="absmiddle" />&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td height="30">二级密码：</td>
+                      <td><input name="uspass" type="password" class="ipt" id="uspass" value="" maxlength="20"/></td>
+                    </tr>
+                    <tr>
+                      <td height="30"><input name="cid" type="hidden" id="cid" value="{$rs['id']}" /></td>
+                      <td><button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="sendTx"> 锁定购买</button></td>
+                    </tr>
+                    <script type="text/javascript">
+                            layui.use('layer',function() {
+                                $('#sendTx').on('click',function() {
+                                    var form=$('#sendForm');
+                                     $.post(form.attr('action'),form.serialize(),function(data) {
+                                         console.log(data);
+                                        if (data.status) {
+                                            layer.msg(data.info,{end:function() {
+                                                location.reload();
+                                            }})
+                                        }else{
+                                            layer.msg(data.info);
+                                        }
+                                     });
+                                });
+                            });
+                            </script>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script language="JavaScript">
+function change_fc(){
+	if(document.form1.agree.checked==true){
+		document.form1.Submit1.disabled=false;
+	}else{
+		document.form1.Submit1.disabled=true;
+	}
+}
+function fleshVerify(){
+//重载验证码
+var timenow = new Date().getTime();
+$('verifyImg').src= '__APP__/Public/verify/'+timenow;
+}	
+
+</script> 
+</block>

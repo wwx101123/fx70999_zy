@@ -1,0 +1,160 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>财务明细</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>财务管理</a>
+                </li>
+                <li class="active">
+                    <strong>财务明细</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+  <script src="__PUBLIC__/Adm/js/flickity-docs.min.js"></script><!-- 幻灯的JS -->
+  <style type="text/css">
+/*幻灯片的css*/
+.half-img {
+	width: 100%;
+}
+.flickity-viewport {
+	overflow: hidden;
+	position: relative;
+	cursor: -webkit-grab;
+	cursor: grab;
+}
+.flickity-enabled {
+	position: relative;
+	outline: none;
+}
+.hero-gallery {
+	background-size: cover;
+}
+.flickity-slider {
+	position: absolute;
+	width: 100%;
+}
+.hero-gallery__cell {
+	width: 100%;
+	color: white;
+}
+.flickity-prev-next-button:disabled {
+	opacity: 0.3;
+	cursor: auto;
+}
+.flickity-prev-next-button.previous {
+	left: 10px;
+}
+.flickity-prev-next-button.next {
+	right: 10px;
+}
+.flickity-prev-next-button {
+	position: absolute;
+	top: 50%;
+	width: 44px;
+	height: 44px;
+	border: none;
+	border-radius: 50%;
+	background: white;
+	background: hsla(0, 0%, 100%, 0.75);
+	cursor: pointer;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+.flickity-page-dots {
+	position: absolute;
+	width: 100%;
+	bottom: 10px;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	text-align: center;
+	line-height: 1;
+}
+.flickity-prev-next-button svg {
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	width: 60%;
+	height: 60%;
+}
+.flickity-prev-next-button .arrow {
+	fill: #333;
+}
+.flickity-prev-next-button svg {
+	position: absolute;
+	left: 20%;
+	top: 20%;
+	width: 60%;
+	height: 60%;
+}
+.flickity-page-dots .dot.is-selected {
+	opacity: 1;
+}
+.flickity-page-dots .dot {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin: 0 8px;
+	background: #fff;
+	border-radius: 50%;
+	opacity: 0.25;
+	cursor: pointer;
+}
+</style>
+  <div class="wrapper wrapper-content" style="padding-top: 20px;"> 
+    <!--<div class="container">-->
+    <div class="">
+      <div class="ibox-content">
+        <div class="table-responsive">
+          <table class="table table-striped" data-tablesaw-mode="stack">
+            <thead>
+              <tr>
+                <th>日期</th>
+                <th {$c_b[1]}>{$fee_s7[0]}</th>
+                <th {$c_b[2]}>{$fee_s7[1]}</th>
+                <th {$c_b[3]}>{$fee_s7[2]}</th>
+                <th {$c_b[4]}>{$fee_s7[3]}</th>
+                <th {$c_b[5]}>{$fee_s7[4]}</th>
+                <th {$c_b[6]}>{$fee_s7[5]}</th>
+                <th {$c_b[7]}>{$fee_s7[6]}</th>
+                <th {$c_b[8]}>{$fee_s7[7]}</th>
+                <th {$c_b[9]}>{$fee_s7[8]}</th>
+                <th {$c_b[0]}>{$b_b[0]}</th>
+                <th>明细</th>
+              </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+              <tr>
+                <td>{$vo['e_date']|date='Y-m-d H:i:s',###}</td>
+                <td {$c_b[1]}>{$vo.b1}</td>
+                <td {$c_b[2]}>{$vo.b2}</td>
+                <td {$c_b[3]}>{$vo.b3}</td>
+                <td {$c_b[4]}>{$vo.b4}</td>
+                <td {$c_b[5]}>{$vo.b5}</td>
+                <td {$c_b[6]}>{$vo.b6}</td>
+                <td {$c_b[7]}>{$vo.b7}</td>
+                <td {$c_b[8]}>{$vo.b8}</td>
+                <td {$c_b[9]}>{$vo.b9}</td>
+                <td {$c_b[0]}>{$vo['b0']}</td>
+                <td><a href="__URL__/financeShow/RDT/{$vo['s_date']}/PDT/{$vo['e_date']}/UserID/{$user_id}" title="这一期明细">明细</a></td>
+              </tr>
+			</volist>
+            </tbody>
+          </table>
+          {$page}
+        </div>
+      </div>
+    </div>
+  </div>
+</block>

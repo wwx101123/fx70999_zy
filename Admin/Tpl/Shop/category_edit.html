@@ -1,0 +1,310 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>类别管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>类别管理</a></li>
+			<li class="active"><strong>编辑类别</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.goods').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #goods').css('display', 'block')
+		$('.sidebar #category_list').addClass('current')
+	});
+</script><link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/bootstrap.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/style.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/css/demo.css">
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/webuploader-0.1.5/webuploader.css">
+
+
+
+
+<script type="text/javascript" src="__PUBLIC__/Adm/js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="__PUBLIC__/Adm/webuploader-0.1.5/webuploader.js"></script> <script
+	type="text/javascript">
+		window.webuploader = {
+			config : {
+				thumbWidth : 110, //缩略图宽度，可省略，默认为110
+				thumbHeight : 110, //缩略图高度，可省略，默认为110
+				wrapId : 'uploader', //必填
+			},
+			//处理客户端新文件上传时，需要调用后台处理的地址, 必填
+			uploadUrl : '__URL__/goods_fileupload',
+			//处理客户端原有文件更新时的后台处理地址，必填
+			updateUrl : '__URL__/goods_fileupdate',
+			//当客户端原有文件删除时的后台处理地址，必填
+			removeUrl : '__URL__/goods_filedel',
+			//初始化客户端上传文件，从后台获取文件的地址, 可选，当此参数为空时，默认已上传的文件为空
+			initUrl : '__URL__/category_fileinit/id/{$vo.id}/user_category_id/{$user_cate_id}',
+		}
+	</script> <script src="__PUBLIC__/Adm/webuploader-0.1.5/extend-webuploader.js"
+	type="text/javascript"></script>
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" style="min-height: 600px">
+			<form class="form-horizontal ajax-form" name="form1" id="form1"
+				method="post" action="__ACTION__">
+
+
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">类别名称：<i
+						class="text-danger">*</i></label>
+					<!--标题-->
+					<div class="col-sm-10">
+						<input name="title" type="text" value="{$vo.title}"
+							class="form-control" required="">
+					</div>
+				</div>
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属类别： <i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<select name="ddlParentId" id="ddlParentId" class="form-control">
+							<volist name="category" id="vvo" key="i"> <eq
+								name="vo.parent_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.title}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.title}</option>
+							</eq> </volist>
+						</select>
+					</div>
+				</div>
+				<eq name="user_id" value="1">
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">所属合伙人： <i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<select name="ddlUserId" id="ddlUserId" class="form-control">
+							<volist name="userlist" id="vvo" key="i"> <eq
+								name="vo.user_id" value="$vvo.id">
+							<option value="{$vvo.id}" selected>{$vvo.user_id}</option>
+							<else />
+							<option value="{$vvo.id}">{$vvo.user_id}</option>
+							</eq> </volist>
+						</select>
+					</div>
+				</div>
+				</eq>
+				<!-- <div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">排序数字：<i
+						class="text-danger">*</i></label>
+					标题
+					<div class="col-sm-10">
+						<input name="sort_id" type="text" value="{$vo.sort_id}"
+							class="form-control" required="">
+					</div>
+				</div> -->
+				<!-- <div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">首页显示：<i
+						class="text-danger">*</i></label>
+					<div class="controls">
+						<label class="checkboxs inline"> <input type="radio"
+							name="is_main" value="1"
+						<eq name="vo.is_main" value="1">checked</eq>>开启
+						</label> <label class="checkboxs inline"> <input type="radio"
+							name="is_main" value="0"
+						<eq name="vo.is_main" value="0">checked</eq>>关闭
+						</label>
+					</div>
+				</div> -->
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" style="padding-top: 0px;">图片上传：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<span style="color: red">*第一张为封面图，其他为详情页面图片，限制10张</span>
+					</div>
+
+
+
+					<div class="page-container">
+
+						<div id="uploader" class="wu-example">
+							<div class="queueList">
+								<div id="dndArea" class="placeholder">
+									<ul class="filelist">
+
+
+									</ul>
+									<div id="filePicker"></div>
+									<p>或将照片拖到这里</p>
+								</div>
+							</div>
+							<div class="statusBar" style="display: none">
+								<div class="progress">
+									<span class="text">0%</span> <span class="percentage"></span>
+								</div>
+								<div class="info"></div>
+								<div class="btns">
+									<div id="filePicker2"></div>
+									<div class="uploadBtn">开始上传</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="hr-line-dashed" style="display:none" ></div>
+				<div class="form-group" style="display:none" >
+					<label class="col-sm-2 control-label">logo：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+
+						<img id="img" name="img" width="200" height="200"
+							src="{$vo.img_url}"> <input type="text" placeholder=""
+							class="form-control" name="img22" value="{$vo.img_url}">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_b" width="350" height="30"
+								scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+				<eq name="vo.class_layer" value="1">
+
+
+
+				<div class="hr-line-dashed" style="display:none" ></div>
+				<div class="form-group" style="display:none" >
+					<label class="col-sm-2 control-label">分类广告图：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+
+						<img id="img" name="img" width="300" height="200" src="{$vo.img1}">
+
+
+						<input type="text" placeholder="" class="form-control" name="img1"
+							value="{$vo.img1}">
+						<p class="help-block">
+							<iframe src="__URL__/upload_add_img1" width="350" height="30"
+								scrolling="no" frameborder="0"></iframe>
+						</p>
+					</div>
+				</div>
+				</eq>
+				<div class="hr-line-dashed" style="display: none"></div>
+				<div class="form-group" style="display: none">
+					<label class="col-sm-2 control-label">内容：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<input type="hidden" name="cate_detail" id="cate_detail">
+						<textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<div class="col-sm-4 col-sm-offset-2">
+						<input type="hidden" name="id" value="{$vo.category_id}">
+						<input type="hidden" name="action" value="{$action}">
+						<input type="hidden" name="user_cate_id" value="{$vo.id}">
+						<button class="btn btn-primary ajax-submit" type="submit">编辑发布</button>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$("#checkbox").change(function() {
+							if ($('#checkbox').is(':checked')) {
+								$('#type').val(1);
+							} else {
+								$('#type').val(0);
+							}
+						});
+					});
+
+					layui
+							.use(
+									[ 'layedit', 'upload', 'layer', 'laydate' ],
+									function() {
+										var layedit = layui.layedit;
+										var layer = layui.layer;
+										layedit
+												.set({
+													uploadImage : {
+														url : '__APP__/Gouwu/upload_layedit_pp'
+													}
+												});
+										edit = layedit.build('demo'); //建立编辑器
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#cate_detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+														});
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#cate_detail')
+																	.val(
+																			layedit
+																					.getContent(edit));
+															form = $('.ajax-form');
+															$
+																	.post(
+																			form
+																					.attr('action'),
+																			form
+																					.serialize(),
+																			function(
+																					data) {
+																				// console.log(data);
+																				if (data.status) {
+																					layer
+																							.msg(
+																									data.info,
+																									{
+																										offset : '100px',
+																										end : function() {
+																											if (data.url) {
+																												location.href = data.url;
+																											} else {
+																												location
+																														.reload();
+																											}
+																										}
+																									});
+																				} else {
+
+																					layer
+																							.msg(data.info);
+																				}
+																			});
+															return false;
+														});
+									});
+				</script>
+			</form>
+		</div>
+	</div>
+</div>
+</block>

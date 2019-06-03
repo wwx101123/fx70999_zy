@@ -1,0 +1,221 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>二手互易购买订单管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>二手互易市场</a>
+                </li>
+                <li class="active">
+                    <strong>二手互易购买订单管理</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>订单列表</h5>
+                <div class="ibox-tools">
+                </div>
+            </div>
+            <div class="ibox-content" style="display: block;">
+                <div class="tablesaw-bar mode-stack"></div>
+                <table class="table table-hover" data-tablesaw-mode="stack">
+                    <thead>
+                        <tr>
+                            <th>订单号</th>
+                            <th>商品图片</th>
+                            <th>商品名称</th>
+                            <th>价格</th>
+                            <th>会员价格</th>
+                            <th>数量</th>
+                            <th>实际支付</th>
+                            <th>状态</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <foreach name="list" item="vo">             
+                        <tr>
+                            <td rowspan="">
+                                <b class="tablesaw-cell-label">订单号</b><span class="tablesaw-cell-content">{$vo.orderfield}</span>
+                            </td>
+
+                            <td>
+                                <b class="tablesaw-cell-label">商品图片</b>
+                                <span class="tablesaw-cell-content">
+                                    <a href="{$vo.img}" target="_blank">
+                                        <img src="{$vo.img}" width="60" height="60">
+                                    </a>
+                                </span>
+                            </td>
+                            <td>
+                                <b class="tablesaw-cell-label">商品名称</b>
+                                <span class="tablesaw-cell-content">{$vo.name}</span>
+                            </td>
+                            <td>
+                                <b class="tablesaw-cell-label">价格</b>
+                                <span class="tablesaw-cell-content"><i>{$vo.a_money}</i></span>
+                            </td>
+                            <td>
+                                <b class="tablesaw-cell-label">会员价格</b>
+                                <span class="tablesaw-cell-content"><i>{$vo.money}</i></span>
+                            </td>
+                            <neq name="v['orderfield']" value="$list[$k-2]['orderfield']">
+                               <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">数量</b><span class="tablesaw-cell-content">{$vo.shu}</span></td>
+                               <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">实际支付</b><span class="tablesaw-cell-content">{$vo.money}</span></td>
+                               <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">状态</b>
+                                <span class="tablesaw-cell-content">{$vo['ispay']|payStatus}
+                                    <eq name="vo.ispay" value="1">
+                                    <eq name="vo.isfh" value="0"><span class="label label-default">未发货</span></eq>
+                                    <eq name="vo.isfh" value="1"><span class="label label-info">已发货</span></eq>
+                                    <eq name="vo.isfh" value="2"><span class="label label-success">已收货</span></eq>
+                                    </eq>
+                                </span>
+                            </td>
+                            <td rowspan="{$vo.count}" title="2016-12-01 14:51:40"><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content"><p>{$vo.pdt|date="Y-m-d H:i:s",###}</p></span></td>
+                            <td rowspan="{$vo.count}"><b class="tablesaw-cell-label">操作</b>
+                            <span class="tablesaw-cell-content">
+                                <eq name="vo.ispay" value="0">
+                                <a href="{:U('Swap/pay')}?order={$vo.orderfield}" class="btn-white btn btn-xs ajax-a" info="确定支付？">支付</a>
+                                </eq>
+                                <a href="#" class="btn-white btn btn-xs showinfo" data-toggle="modal" data-target="#orderinfo" order="{$vo.orderfield}">查看</a>
+                                <eq name="vo.isfh" value="0">
+                                <else/>
+                                <eq name="vo.isfh" value="1">
+                                <a href="{:U('Swap/LogisticsAC')}?action=get&order={$vo.orderfield}" class="btn-white btn btn-xs ajax-a" info="确认收货？">确认</a>
+                                </eq>
+                                </eq>                                            
+                            </span>
+                        </td>
+                    </tr>
+                    </foreach>
+            </tbody>
+        </table>
+        {$page}
+        <script>
+            layui.use('layer',function function_name(argument) {
+                $(".send").on('click',function () {
+                    var order = $(this).attr('order')
+                    $('#modelorder').val(order);
+                });
+                $(".showinfo").on('click',function () {
+                    var order = $(this).attr('order')
+                    $.get('__URL__/getOrderInfo/order/'+order,function(data) {
+                        $('#name').html(data.user_id);
+                        $('#shouhuo').html(data.us_name);
+                        $('#time').html(data.pdt);
+                        $('#sendtime').html(data.fhdt);
+                        $('#money').html(data.cprice);
+                        $('#usertel').html(data.us_tel);
+                        $('#us_address').html(data.us_address);
+                        $('#status').html(data.ispay);
+                        $('#kuaidi').html(data.kuaidi);
+                        $('#sdanhao').html(data.danhao);
+                    })
+                });
+            });
+        </script>
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <form role="form" id="sendForm" method="post" action="__URL__/LogisticsAC" class="ajax-post">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">发货</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                            <input type="hidden" name="action" value="send">
+                            <input type="hidden" name="order" value="" id="modelorder">
+                            <div class="form-group"><label>快递类型</label>
+                                <select name="kuaidi"  class="form-control">
+                                    <option value="申通快递">申通快递</option>
+                                    <option value="圆通快递">圆通快递</option>
+                                    <option value="中通快递">中通快递</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>快递单号<span id="showName" style="color: #1ab394"></span></label>
+                                <input type="text" placeholder="" class="form-control" name="danhao" value="" id="danhao">
+                            </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                        <button type="submit" class="ladda-button ladda-button-demo btn btn-primary" id="sendUp"" data-style="zoom-in">确认发货</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal" id="orderinfo" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">订单信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover" data-tablesaw-mode="stack">
+                            <tbody>
+                            <tr>
+                                <th scope="row">会员名：</th>
+                                <td><span id="name"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">收获人：</th>
+                                <td><span id="shouhuo"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">联系电话：</th>
+                                <td><span id="usertel"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">收货地址：</th>
+                                <td><span id="us_address"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">订购时间：</th>
+                                <td><span id="time"></span></td>
+                            </tr>
+                            
+                            <tr>
+                                <th scope="row">发货时间：</th>
+                                <td><span id="sendtime"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">快递：</th>
+                                <td><span id="kuaidi"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">快递单号：</th>
+                                <td><span id="sdanhao"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">实际支付价格：</th>
+                                <td><span id="money"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">状态：</th>
+                                <td id="status"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">确定</button>
+                        <!-- <button type="submit" class="ladda-button ladda-button-demo btn btn-primary" id="sendUp"" data-style="zoom-in"></button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </block>

@@ -1,0 +1,173 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>资料修改</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="__APP__">首页</a>
+                    </li>
+                    <li>
+                        <a>资料管理</a>
+                    </li>
+                    <li class="active">
+                        <strong>资料修改</strong>
+                    </li>
+                </ol>
+            </div>
+        </div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>修改资料
+                            <small>（打<i class="text-danger">*</i> 号为必填项）</small>
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+                        <form class="form-horizontal ajax-post" name="form1" id="form1" method="post"
+                        action="__ACTION__">
+                        <input name="id" type="hidden" id="id" value="">
+                        <input style="margin-top:7px;" name="page" type="hidden" id="page" value="" class="dfinput">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户编号：<i class="text-danger">*</i></label>
+                            <div class="col-sm-10">
+                                <input name="user_id" type="text" value="{$user['user_id']}" class="form-control" required="" readonly/>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">会员姓名： <i class="text-danger">*</i></label>
+                            <div class="col-sm-10">
+                                <input name="username" type="text" id="realname" value="{$user['user_name']}" class="form-control" required="" readonly/>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">消费级别： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                {$user.u_level|getUserLevel=###}
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <p class="text-warning">个人信息修改</p>
+                            <!--<div class="form-group">
+                                <label class="col-sm-2 control-label"> 密保问题： <i>&nbsp;</i></label>
+                                <div class="col-sm-10">
+                                    <select name="wenti" id="" class="form-control" required>
+                                        <foreach name="wentilist" item="wenti">
+                                        <option value="{$wenti}" <eq name="user['wenti']" value="$wenti">selected</eq>>{$wenti}</option>
+                                        </foreach>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label"> 密保答案： <i>&nbsp;</i></label>
+                                <div class="col-sm-10">
+                                    <input name="daan" type="text" id="daan" class="form-control" size=25 maxlength="18" value="{$user['wenti_dan']}" required="">
+                                </div>
+                            </div>
+                            <div class="hr-line-dashed"></div>-->
+                        <div class="form-group" style="display: none">
+                            <label class="col-sm-2 control-label"> 身份证号码： <i>&nbsp;</i></label>
+
+                            <div class="col-sm-10">
+
+                                <input name="idcard" type="text" id="idcard" class="form-control" size=25 maxlength="18" value="{$user['user_code']}" readonly>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 手机号码： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="mobile" type="text" id="mobile" value="{$user['user_tel']}" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 开户银行： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <select name="bankname" id="bank" class="form-control">
+                                   	<option value="">请选择开户行</option>
+										<volist name='bank'  id='voo'><option <if condition="strtoupper($user['bank_name']) eq  strtoupper($voo)">selected </if>
+										value="{$voo}">{$voo}</option>
+
+										</volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">银行卡号： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+
+                                <input name="bankcard" type="text" id="zhanghao" size="35" class="form-control"
+                                maxlength="19" value="{$user['bank_card']}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed" style="display: none"></div>
+                        <div class="form-group" style="display: none">
+                            <label class="col-sm-2 control-label"> 开户姓名： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="huzhu" type="text" id="huzhu" class="form-control" value="{$user['name']}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed" style="display: none"></div>
+                        <div class="form-group" style="display: none">
+                            <label class="col-sm-2 control-label"> 开户行地址： <i></i></label>
+                            <div class="col-sm-10">
+                                <input name="bankaddress" type="text" id="bankaddress" class="form-control" size="35"
+                                value="{$user.bank_address}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <!-- <div class="form-group">
+                            <label class="col-sm-2 control-label"> 支付宝： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="alipay" type="text" id="alipay" class="form-control" size="35"
+                                value="">
+                            </div>
+                        </div> -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 收货人： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="nickname" type="text" id="nickname" class="form-control" size="35"
+                                value="{$user.nickname}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 收货地址： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="user_address" type="text" id="user_address" class="form-control" size="35"
+                                value="{$user.user_address}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label"> 电子邮箱： <i>&nbsp;</i></label>
+                            <div class="col-sm-10">
+                                <input name="email" type="text" id="email" class="form-control" size="35"
+                                value="{$user.email}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-warning" type="submit">修改</button>
+                                <button class="btn btn-white" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</block>

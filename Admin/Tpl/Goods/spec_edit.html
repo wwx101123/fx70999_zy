@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		/* $("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		}); */
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form class="form-horizontal ajax-post" name="form1" id="form1"
+		method="post" action="__ACTION__">
+		<input type="hidden" name="spec_id" value="{$vo.id}">
+		<!--导航栏-->
+		<div class="location"></div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+
+			<dl>
+				<dt>规格名称</dt>
+				<dd>
+					<input name="title" type="text" value="{$vo.title}"
+						class="form-control" required="">
+				</dd>
+			</dl>
+
+
+			<dl>
+				<dt>排序数字</dt>
+				<dd>
+					<input name="sort_id" type="text" value="{$vo.sort_id}"
+						class="form-control" required="">
+				</dd>
+			</dl>
+			<dl>
+				<dt>规格</dt>
+				<dd>
+					<a id="itemAddButton" class="icon-btn"><i
+						class="iconfont icon-add"></i><span>添加选项</span></a> 
+
+					<div class="table-container" style="padding-top: 10px;">
+						<table border="0" cellspacing="0" cellpadding="0"
+							class="border-table" width="82%">
+							<thead>
+								<tr>
+									<th width="12%">文字</th>
+									<!-- <th width="16%">图片</th> -->
+									<th width="12%">排序</th>
+									<th width="10%">操作</th>
+								</tr>
+							</thead>
+							<tbody id="item_box">
+
+								<foreach name="vo.spec" item="vo">
+
+
+								<tr class="td_c">
+									<td><input type="hidden" name="item_id[]" id="item_id"
+										value="{$vo.id}" /> <input type="hidden" name="item_title[]"
+										id="item_title" value="{$vo.title}" /> <span
+										class="item_title">{$vo.title}</span></td>
+
+
+									<td><input type="hidden" name="item_sortid[]"
+										id="item_sortid" value="{$vo.sort_id}" /> <span
+										class="item_sortid">{$vo.sort_id}</span></td>
+									<td><a title="编辑" class="img-btn"
+										onclick="showSpecDialog(this);"><i
+											class="iconfont icon-edit"></i></a> <a title="删除" class="img-btn"
+										onclick="delItemTr(this);"><i class="iconfont icon-delete"></i></a></td>
+								</tr>
+								</foreach>
+							</tbody>
+						</table>
+					</div>
+				</dd>
+			</dl>
+
+			<dl>
+				<dt>内容</dt>
+				<dd>
+					<input type="hidden" name="detail" id="detail">
+					<textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea>
+				</dd>
+			</dl>
+
+		</div>
+
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="submit" value="提交保存" class="btn "
+					onclick="btnSubmit_Click" /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			//初始化表单验证 
+			//添加按钮(点击绑定)
+			$("#itemAddButton").click(function() {
+				showSpecDialog();
+			});
+		});
+		//创建窗口
+		function showSpecDialog(obj) {
+			var objNum = arguments.length;
+			var d =  top.dialog({
+				width : 500,
+				height : 180,
+				title : '商品规格',
+				url : "{:U('Goods/dialog_spec')}",
+				onclose : function() {
+					var trHtml = this.returnValue;
+					if (trHtml.length > 0) {
+						$("#item_box").append(trHtml);
+					}
+				}
+			}).showModal();
+			//检查是否修改状态
+			if (objNum == 1) {
+				d.data = obj;
+			}
+		}
+
+		//删除节点
+		function delItemTr(obj) {
+			$(obj).parent().parent().remove();
+		}
+	</script>
+	<script>
+		$(function() {
+			$("#checkbox").change(function() {
+				if ($('#checkbox').is(':checked')) {
+					$('#type').val(1);
+				} else {
+					$('#type').val(0);
+				}
+			});
+		});
+
+		layui.use([ 'layedit', 'upload', 'layer', 'laydate' ], function() {
+			var layedit = layui.layedit;
+			var layer = layui.layer;
+			layedit.set({
+				uploadImage : {
+					url : '__APP__/Gouwu/upload_layedit_pp'
+				}
+			});
+			edit = layedit.build('demo'); //建立编辑器
+			$('.ajax-submit').on('click', function() {
+				$('#detail').val(layedit.getContent(edit));
+			});
+			$('.ajax-submit').on('click', function() {
+				$('#detail').val(layedit.getContent(edit));
+				form = $('.ajax-form');
+				$.post(form.attr('action'), form.serialize(), function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+	<script>
+		$(function() {
+			$("#checkbox").change(function() {
+				if ($('#checkbox').is(':checked')) {
+					$('#type').val(1);
+				} else {
+					$('#type').val(0);
+				}
+			});
+		});
+
+		layui.use([ 'layedit', 'upload', 'layer', 'laydate' ], function() {
+			var layedit = layui.layedit;
+			var layer = layui.layer;
+			layedit.set({
+				uploadImage : {
+					url : '__APP__/Gouwu/upload_layedit_pp'
+				}
+			});
+			edit = layedit.build('demo'); //建立编辑器
+			$('.ajax-submit').on('click', function() {
+				$('#cate_detail').val(layedit.getContent(edit));
+			});
+			$('.ajax-submit').on('click', function() {
+				$('#cate_detail').val(layedit.getContent(edit));
+				form = $('.ajax-form');
+				$.post(form.attr('action'), form.serialize(), function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+		});
+		//上传图片回调事件
+		function img_call_back(fileurl_tmp) {
+			$("#imagetext").val(fileurl_tmp);
+			$("#img_a").attr('href', fileurl_tmp);
+			$("#img_i")
+					.attr('onmouseover',
+							"layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+		}
+		// 上传商品图片成功回调函数
+		function call_back3(paths) {
+			var last_div = $(".goods_xc2:last").prop("outerHTML");
+			for (var i = 0; i < paths.length; i++) {
+				$(".goods_xc2:eq(0)").before(last_div); // 插入一个 新图片
+				$(".goods_xc2:eq(0)").find('a:eq(0)').attr('href', paths[i])
+						.attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+				$(".goods_xc2:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+				$(".goods_xc2:eq(0)").find('a:eq(1)').attr('onclick',
+						"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+				$(".goods_xc2:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+			}
+		}
+		//上传之后删除组图
+		function ClearPicArr2(obj, path) {
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/delupload')}",
+				data : {
+					action : "del",
+					filename : path
+				},
+				success : function() {
+					$(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+				}
+			});
+			// 删除数据库记录
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/del_goods_images')}",
+				data : {
+					filename : path
+				},
+				success : function() {
+				}
+			});
+		}
+	</script>
+</body>
+</html>
+

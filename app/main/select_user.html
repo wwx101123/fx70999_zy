@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mobileSelect.css" />
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<!--App自定义的css-->
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mobileSelect.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+	</head>
+
+	<body>
+
+		<div class="mui-content mescroll" style="background: white;" id="mescroll">
+
+			<div class="mui-content-padded">
+				<p id="info">当前选中的盟友为：空</p>
+			</div>
+
+			<ul class="mui-table-view mui-table-view-radio userlist snlist">
+
+			</ul>
+
+		</div>
+		<div id="xiadan" class="mui-btn mui-btn-primary button-success " style="z-index:1;height:50px;line-height:40PX;width: 100%;position: fixed;bottom: 0PX;">
+			选择盟友
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript">
+		/**
+		 * 参数说明
+		 * @param trigger(必填参数) 触发对象的id/class/tag
+		 * @param wheels(必填参数)  数据源,需要显示的数据
+		 * @param title 控件标题
+		 * @param position 初始化定位
+		 * @param callback 选择成功后触发的回调函数，返回indexArr(选中的选项索引)、data(选中的数据)
+		 * @param transitionEnd 每一次手势滑动结束后触发的回调函数,返回indexArr(当前选中的选项索引)、data(选中的数据)
+		 */
+	</script>
+	<script>
+		mui.init({
+			swipeBack: true //启用右滑关闭功能
+		});
+		mui.init({
+			beforeback: function() {　　　
+				localStorage.setItem('terminal_type', 1);
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_terminal_list');
+
+			}
+		});
+
+		var info = document.getElementById("info");
+		document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected', function(e) {
+			info.innerHTML = "当前选中的盟友为：" + e.detail.el.innerText;
+
+			$('.mui-card').remove();
+
+			localStorage.setItem('in_uid', e.detail.el.getAttribute('uid'))
+
+			localStorage.setItem('terminal_type', 3);
+			get_terminal_list(e.target);
+
+		});
+
+		var PreUrl = localStorage.getItem('PreUrl');
+		var myRecommendlist_val = PreUrl + "User/myRecommendlist";
+				console.log(myRecommendlist_val)
+		$.ajax({
+			url: myRecommendlist_val,
+			data: {
+				is_mobile: 1,
+				p: 1,
+				user_id: localStorage.getItem('user_id'),
+				page_index: 1,
+				page_size: 1000,
+				keywords: '',
+				type: 0
+			},
+			dataType: 'json', //服务器返回json格式数据
+			type: 'post', //HTTP请求类型
+			timeout: 10000, //超时时间设置为10秒；
+
+			success: function(data) {
+				//					data = JSON.parse(data);
+				var info = data.data;
+				if(info != null) {
+					var numArr1 = [];
+					$.each(info, function(index, content) {
+						numArr1.push(content.user_name);
+					});
+					//					var numArr1 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24'];
+                        
+					var mobileSelect3 = new MobileSelect({
+						trigger: '#xiadan',
+						title: '选择盟友',
+						wheels: [{
+							data: numArr1
+						}],
+						position: [0, 0, 0],
+						//transitionEnd:function(indexArr, data){
+						//    console.log(data);
+						//},
+						callback: function(indexArr, data) {
+							console.log(data)
+							localStorage.setItem('in_uid', info[indexArr].id)
+							$("#info").html("当前选中的盟友为：" + numArr1[indexArr]);
+
+						}
+					});
+				} else {
+					$('#xiadan').html('您没有盟友')
+					mui.toast('您没有盟友')
+				}
+
+			},
+			error: function(xhr, type, errorThrown) {
+				//异常处理；
+				console.log(type);
+			}
+		});
+
+		mui.plusReady(function() {
+			localStorage.setItem('sns', '');
+			localStorage.setItem('in_uid', 0);
+
+			var wv = plus.webview.currentWebview();
+			wv.setStyle({
+
+				titleNView: {
+
+					buttons: [{
+						"float": "right",
+						"fontSrc": "_www/fonts/mui.ttf", //wap2app内置字体文件
+						"text": "提交",
+						"onclick": "javascript:submit()",
+						"fontSize": '15px'
+					}]
+				}
+			});
+
+		});
+
+		function submit() {
+
+			var sn = localStorage.getItem('sns');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var IndexUrl = localStorage.getItem('IndexUrl');
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var add_user_terminal_out = PreUrl + "User/add_user_terminal_out";
+			if(sn == '' || sn == null) {
+				mui.toast('请选中人员后选中机器')
+				return;
+			}
+
+			var sn = sn.substring(0, sn.length - 1);
+			console.log(sn)
+			mui.confirm('开始下发,您确定吗？', function(e) {
+
+				$.ajax({
+					url: add_user_terminal_out,
+					data: {
+						is_mobile: 1,
+						user_id: localStorage.getItem('user_id'),
+						in_uid: localStorage.getItem('in_uid'),
+						sn: sn
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'POST', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+
+					success: function(data) {
+						var status = data.status;
+						if(status == 1) {
+							mui.alert(data.msg, function() {
+
+								mui.back();
+
+							});
+
+						} else {
+							mui.alert(data.msg);
+						}
+						//				weui.toast(data.msg);
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}, 'div');
+		}
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					auto: true, //是否在初始化时以上拉加载的方式自动加载第一页数据; 默认false
+					isBounce: false, //此处禁止ios回弹,解析(务必认真阅读,特别是最后一点): http://www.mescroll.com/qa.html#q10
+					callback: upCallback, //上拉回调,此处可简写; 相当于 callback: function (page) { upCallback(page); }
+					page: {
+						num: 0, //当前页 默认0,回调之前会加1; 即callback(page)会从1开始
+						size: size //每页数据条数,默认10
+					},
+					toTop: { //配置回到顶部按钮
+						src: "../img/mescroll-totop.png"
+					},
+					htmlNodata: '<p class="upwarp-nodata">暂无数据</p>',
+					noMoreSize: size
+				}
+			});
+
+			function getListDataFromNet(pageNum, pageSize, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					localStorage.setItem('tel_type', 0);
+					localStorage.setItem('terminal_type', 3);
+
+					get_terminal_list(pageNum, pageSize, successCallback);
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 1;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//联网加载数据
+				getListDataFromNet(page_index, size, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.resetUpScroll();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					console.log(223334444)
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			/*上拉加载的回调 */
+			function upCallback(page) {
+				var page_index = page.num;
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+				//					page_index = localStorage.getItem('page_index');
+				//联网加载数据
+				getListDataFromNet(page_index, page.size, function(curPageData) {
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据; 
+
+					var ListData = localStorage.getItem('ListData');
+
+					var data = JSON.parse(ListData);
+					//			mescroll.endBySize(list_count, total_count);
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//						 mescroll.endBySize(data.data.length, data.count); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+
+					mescroll.endSuccess(data.current_count);
+
+					//提示:curPageData.length必传的原因:
+					// 1.判断是否有下一页的首要依据: 当传的值小于page.size时,则一定会认为无更多数据.
+					// 2.比传入的totalPage, totalSize, hasNext具有更高的判断优先级
+					// 3.使配置的noMoreSize生效
+
+					//设置列表数据
+					var curPageData = localStorage.getItem('ListData');
+					setListData(curPageData, true);
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新和上拉加载的状态;
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				//				console.log(data)
+				//				data = JSON.parse(data);
+				//				var info = data.data;
+				//				$('.userlist .item').remove();
+				//				if(info != null) {
+				//					$.each(info, function(index, content) {
+				//
+				//						var item = '<li class="mui-table-view-cell item" uid=' + content.id + ' > ';
+				//						item += ' <a class="mui-navigate-right">';
+				//						item += ' 	' + content.user_name + '';
+				//						item += ' </a>';
+				//
+				//						item += ' </li>';
+				//
+				//						$('.userlist').append(item);
+				//
+				//					});
+				//
+				//				} else {
+				//					mui.toast('您没有盟友')
+				//				}
+
+				console.log(data)
+
+				data = JSON.parse(data);
+				var status = data.status;
+				if(status == 1) {
+					var info = data.data;
+					$('.snlist').find('.mui-card').remove()
+					if(info == null) {
+						$('.nodata').css('display', 'block');
+					}
+
+					if(info != null) {
+						$('.snlist').find('.mui-card').css('display', 'block')
+
+						var item = '<div class="mui-card" style="width:100%" >';
+						item += '<form class="mui-input-group"  >';
+
+						$.each(info, function(index, content) {
+
+							item += '<div class="mui-input-row mui-checkbox">';
+							item += ' <label>' + content.sn + '(型号:' + content.sn_type + ')</label>';
+							item += ' <input name="checkbox1" value="' + content.sn + '" type="checkbox" >';
+							item += ' </div>';
+
+						});
+						item += '	</form>';
+						item += '</div>';
+						$('.snlist').append(item);
+						mui('.mui-input-group').on('change', 'input', function() {
+							var sns = '';
+
+							var value = this.checked ? "true" : "false";
+							$.each($('.mui-input-group').find('input'), function(index, group) {
+
+								if(group.checked) {
+									sns = sns + group.value + ',';
+								}
+
+							});
+
+							localStorage.setItem('sns', sns);
+							console.log(sns)
+						});
+
+					}
+				}
+
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,1135 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>参数设置</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>参数设置</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu"> <script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display', 'block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.Operate').addClass('active')
+		$('.subnav').css('display', 'none')
+		$('.sidebar #Operate').css('display', 'block')
+		$('.sidebar #setParameter').addClass('current')
+	});
+</script>
+<style>
+#target {
+	min-height: 200px;
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+fieldset {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+#target .component {
+	border: 1px solid #fff;
+}
+
+legend {
+	display: block;
+	width: 100%;
+	padding: 0;
+	margin-bottom: 27px;
+	font-size: 19.5px;
+	line-height: 36px;
+	color: #333;
+	border: 0;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+.form-horizontal .control-label {
+	float: left;
+	width: 230px;
+	padding-top: 5px;
+	text-align: right;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+label, input, button, select, textarea {
+	font-size: 13px;
+	font-weight: normal;
+	line-height: 18px;
+}
+
+.form-horizontal .controls {
+	margin-left: 160px;
+}
+
+.input-xlarge {
+	width: 270px;
+}
+
+.form-horizontal .help-block {
+	margin-top: 6px;
+	margin-bottom: 10px;
+}
+
+textarea, input[type="text"], input[type="password"], input[type="datetime"],
+	input[type="datetime-local"], input[type="date"], input[type="month"],
+	input[type="time"], input[type="week"], input[type="number"], input[type="email"],
+	input[type="url"], input[type="search"], input[type="tel"], input[type="color"],
+	.uneditable-input {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+	-webkit-transition: border linear .2s, box-shadow linear .2s;
+	-moz-transition: border linear .2s, box-shadow linear .2s;
+	-ms-transition: border linear .2s, box-shadow linear .2s;
+	-o-transition: border linear .2s, box-shadow linear .2s;
+	transition: border linear .2s, box-shadow linear .2s;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"],
+	input[type="datetime-local"], input[type="date"], input[type="month"],
+	input[type="time"], input[type="week"], input[type="number"], input[type="email"],
+	input[type="url"], input[type="search"], input[type="tel"], input[type="color"],
+	.uneditable-input {
+	display: inline-block;
+	/* height: 18px; */
+	padding: 4px;
+	margin-bottom: 0;
+	font-size: 13px;
+	line-height: 18px;
+	color: #555;
+}
+
+.control-group {
+	margin-bottom: 10px;
+	border-bottom: 1px dashed #DDD;
+}
+
+#build {
+	padding-bottom: 100px;
+}
+
+.control-group textarea {
+	width: 250px;
+}
+
+.checkboxs {
+	margin-right: 15px;
+}
+</style>
+
+
+
+<div id="build">
+	<div class="form-group">
+		<!--筛选-->
+		<div class="col-sm-2">
+
+			<input class="btn btn-success" style="display: none" type="button"
+				onclick="window.location.href ='__URL__/setUserParameter'"
+				value="趴点设置"> <input class="btn btn-primary" type="button"
+				onclick="window.location.href ='__URL__/setBankParameter'"
+				value="银行设置">
+		</div>
+
+	</div>
+	<form class="form-horizontal ajax-form"
+		action="__URL__/setParameterSave" method="post" id="myform">
+		<fieldset>
+			<div id="legend" class="">
+				<legend class="">参数设置</legend>
+			</div>
+			<!--<div class="control-group">
+          <label class="control-label" for="input01">用户名前缀：</label>
+          <div class="controls">
+            <input type="text" placeholder="用户名前缀" class="input-xlarge" name="str17" value="{$fee_str17}">
+            <p class="help-block"></p>
+          </div>
+        </div>-->
+
+			<div class="control-group">
+				<label class="control-label" for="input01">注册级别：</label>
+				<div class="controls">
+					<input type="text" placeholder="正式会员" name="s10" value="{$fee_s10}"
+						class="input-xlarge">
+					<!-- <p class="help-block">用|分割</p> -->
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">升级扣除：</label>
+				<div class="controls">
+					<input type="text" placeholder="正式会员" name="reduse_point" value="{$reduse_point}"
+						class="input-xlarge">
+					<!-- <p class="help-block">用|分割</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">开放级别：</label>
+				<div class="controls">
+					<input type="text" placeholder="开放级别" name="open_level"
+						value="{$open_level}" class="input-xlarge">
+					<p class="help-block">用|分割,1显示0不显示</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">注册动态星级：</label>
+				<div class="controls">
+					<input type="text" placeholder="正式会员" name="active_level"
+						value="{$active_level}" class="input-xlarge">
+					<!-- <p class="help-block">用|分割</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">出局倍数：</label>
+				<div class="controls">
+					<input type="text" placeholder="出局倍数" name="cjbs" value="{$cjbs}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+
+			<div class="control-group">
+
+				<label class="control-label" for="input01">投资金额：</label>
+				<div class="controls">
+					<input type="text" placeholder="投资金额" name="s9" value="{$fee_s9}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">获得代理额度：</label>
+				<div class="controls">
+					<input type="text" placeholder="获得代理额度" name="agent_limit_money" value="{$agent_limit_money}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">空单金额：</label>
+				<div class="controls">
+					<input type="text" placeholder="空单金额" name="kong_money"
+						value="{$kong_money}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">分红天数：</label>
+				<div class="controls">
+					<input type="text" placeholder="分红天数" name="money_count"
+						value="{$money_count}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">每日释放百分比：</label>
+				<div class="controls">
+					<input type="text" placeholder="每日释放百分比"
+						name="every_limit_money_percent"
+						value="{$every_limit_money_percent}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每日分红(商城玩家【无额外额度】)：</label>
+				<div class="controls">
+					<input type="text" placeholder="每日分红" name="every_money"
+						value="{$every_money}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每日分红(商城玩家【有额外额度】)：</label>
+				<div class="controls">
+					<input type="text" placeholder="每日分红(商城玩家【有额外额度】)"
+						name="every_money_limit" value="{$every_money_limit}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每日分红(币玩家)：</label>
+				<div class="controls">
+					<input type="text" placeholder="每日分红(币玩家)" name="every_money_ssb"
+						value="{$every_money_ssb}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">最多分红天数：</label>
+				<div class="controls">
+					<input type="text" placeholder="最多分红天数" name="fenhong_max_day"
+						value="{$fenhong_max_day}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">额外金额分红：</label>
+				<div class="controls">
+					<input type="text" placeholder="额外金额分红" name="extra_fenhong"
+						value="{$extra_fenhong}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">代数奖励层数：</label>
+				<div class="controls">
+					<input type="text" placeholder="对碰奖励层数" name="award_num"
+						value="{$award_num}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">返还购物积分：</label>
+				<div class="controls">
+					<input type="text" placeholder="购物积分" name="buy_point"
+						value="{$buy_point}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">返还现金点值：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送现金点值" name="agent_use"
+						value="{$agent_use}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">返还股票点值：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送股票点值" name="live_gupiao"
+						value="{$live_gupiao}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">返还{$bi.ssb}：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送{$bi.ssb}" name="ssb"
+						value="{$ssb}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">注册赠送{$bi.ssb}：</label>
+				<div class="controls">
+					<input type="text" placeholder="注册赠送{$bi.ssb}" name="give_ssb"
+						value="{$give_ssb}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">{$bi.ssb}当前价格：</label>
+				<div class="controls">
+					<input type="text" placeholder="{$bi.ssb}当前价格" name="ssb_money"
+						value="{$ssb_money}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">{$bi.ssb}发行总量：</label>
+				<div class="controls">
+					<input type="text" placeholder="{$bi.ssb}发行总量" name="all_ssb_money"
+						value="{$all_ssb_money}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">{$bi.ssb}交易手续费：</label>
+				<div class="controls">
+					<input type="text" placeholder="{$bi.ssb}交易手续费" name="ssb_shouxu"
+						value="{$ssb_shouxu}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">奖金拨比：</label>
+				<div class="controls">
+					<input type="text" placeholder="奖金拨比" name="jjbb" value="{$jjbb}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+<div class="control-group" >
+
+				<label class="control-label" for="input01">抢购最低信用值：</label>
+				<div class="controls">
+					<input type="text" placeholder="奖金拨比" name="min_limit_money" value="{$min_limit_money}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">消费单数：</label>
+				<div class="controls">
+					<input type="text" placeholder="770" name="s2" value="{$fee_s2}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">配送比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="20" class="input-xlarge" name="s1"
+						value="{$fee_s1}">
+					<p class="help-block">百分比</p>
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">代数奖：</label>
+				<div class="controls">
+					<input type="text" placeholder="15|25|30|40|50"
+						class="input-xlarge" name="dai_money" value="{$dai_money}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">推荐奖：</label>
+				<div class="controls">
+					<input type="text" placeholder="15|25|30|40|50"
+						class="input-xlarge" name="s3" value="{$fee_s3}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display:none"> 
+
+				<label class="control-label" for="input01">临时会员众筹倍数：</label>
+				<div class="controls">
+					<input type="text" placeholder="临时会员众筹倍数" class="input-xlarge"
+						name="ls_crown_percent" value="{$ls_crown_percent}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group">
+
+				<label class="control-label" for="input01">赠送奖【{$bi.agent_use}】：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送奖"
+						class="input-xlarge" name="give_award" value="{$give_award}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display:none">
+
+				<label class="control-label" for="input01">赠送获得【{$bi.agent_use}】：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送奖"
+						class="input-xlarge" name="give_limit_money" value="{$give_limit_money}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none"> 
+
+				<label class="control-label" for="input01">赠送分成比例【{$bi.limit_money}】：</label>
+				<div class="controls">
+					<input type="text" placeholder="赠送分成比例" class="input-xlarge"
+						name="give_percent" value="{$give_percent}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">代付分成比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="代付分成比例" class="input-xlarge"
+						name="daifu_percent" value="{$daifu_percent}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">众筹爱心比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="众筹爱心比例" class="input-xlarge"
+						name="goods_love_percent" value="{$goods_love_percent}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">{$bi.agent_use}账户获得比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="众筹爱心比例" class="input-xlarge"
+						name="apat_percent" value="{$apat_percent}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			
+			
+			<div class="control-group" >
+				<label class="control-label" for="input01">安卓端下载链接：</label>
+				<div class="controls">
+					<input type="text" placeholder="安卓端下载链接" name="android_url" value="{$android_url}"
+						class="input-xlarge">
+					<!-- <p class="help-block">用|分割</p> -->
+				</div>
+			</div>
+			<div class="control-group" >
+				<label class="control-label" for="input01">苹果端下载链接：</label>
+				<div class="controls">
+					<input type="text" placeholder="苹果端下载链接" name="ios_url" value="{$ios_url}"
+						class="input-xlarge">
+					<!-- <p class="help-block">用|分割</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">推荐奖(股票点值)：</label>
+				<div class="controls">
+					<input type="text" placeholder="推荐奖(股票点值)" class="input-xlarge"
+						name="recommend_gupiao" value="{$recommend_gupiao}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">推荐奖(购物积分)：</label>
+				<div class="controls">
+					<input type="text" placeholder="推荐奖(购物积分)" class="input-xlarge"
+						name="recommend_order" value="{$recommend_order}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">部门奖(对碰奖)：</label>
+				<div class="controls">
+					<input type="text" placeholder="placeholder" class="input-xlarge"
+						name="s4" value="{$fee_s4}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">部门奖日封顶：</label>
+				<div class="controls">
+					<input type="text" placeholder="placeholder" class="input-xlarge"
+						name="str1" value="{$fee_str1}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每日封顶金额：</label>
+				<div class="controls">
+					<input type="text" placeholder="每日封顶碰数" name="day_num"
+						value="{$day_num}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每月封顶金额：</label>
+				<div class="controls">
+					<input type="text" placeholder="每月封顶" name="month_num"
+						value="{$month_num}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">每周封顶金额：</label>
+				<div class="controls">
+					<input type="text" placeholder="每周封顶" name="week_num"
+						value="{$week_num}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+<div class="control-group" >
+
+				<label class="control-label" for="input01">代理商奖励：</label>
+				<div class="controls">
+					<input type="text" placeholder="代理商奖励" name="agent_award"
+						value="{$agent_award}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" >
+
+				<label class="control-label" for="input01">代理商奖励【推荐人是代理商】：</label>
+				<div class="controls">
+					<input type="text" placeholder="代理商奖励【推荐人是代理商】" name="re_agent_award"
+						value="{$re_agent_award}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">代理商加权分红：</label>
+				<div class="controls">
+					<input type="text" placeholder="代理商加权分红" name="jiaquan1"
+						value="{$jiaquan1}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">经销商加权分红：</label>
+				<div class="controls">
+					<input type="text" placeholder="经销商加权分红" name="jiaquan2"
+						value="{$jiaquan2}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">分销商加权分红：</label>
+				<div class="controls">
+					<input type="text" placeholder="分销商加权分红" name="jiaquan3"
+						value="{$jiaquan3}" class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">级差奖励：</label>
+				<div class="controls">
+					<input type="text" placeholder="级差奖励" name="jicha" value="{$jicha}"
+						class="input-xlarge">
+					<!-- <p class="help-block">￥</p> -->
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">管理：</label>
+				<div class="controls">
+					<input type="text" placeholder="placeholder" class="input-xlarge"
+						name="s14" value="{$fee_s14}">
+					<p class="help-block">代数-比例(百分比)</p>
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">总收益封顶：</label>
+				<div class="controls">
+					<input type="text" placeholder="10|8|5|3" class="input-xlarge"
+						name="str5" value="{$fee_str5}">
+					<p class="help-block">倍 静态收益(现金点值)</p>
+				</div>
+			</div>
+
+			<!--        <div class="control-group">
+          <label class="control-label" for="input01">最高持股：</label>
+          <div class="controls">
+            <input type="text" placeholder="10" class="input-xlarge" name="s13" value="{$fee_s13}">
+            <p class="help-block">股</p>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="input01">可售卖封顶：</label>
+          <div class="controls">
+            <input type="text" placeholder="120|260" class="input-xlarge" name="s7" value="{$fee_s7}">
+            <p class="help-block">股</p>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <label class="control-label" for="input01">单次卖出:</label>
+          <div class="controls">
+            <input type="text" placeholder="10" class="input-xlarge" name="s12" value="{$fee_s12}">
+            <p class="help-block">股</p>
+          </div>
+        </div>-->
+
+			<!--<div class="control-group">
+          <label class="control-label" for="input01">三级分销：</label>
+          <div class="controls">
+            <div class="textarea">
+              <textarea type="" class="" name="s8">{$fee_s8}</textarea>
+            </div>
+            <p class="help-block"></p>
+          </div>
+        </div>-->
+
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">普通激活比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="普通激活比例" class="input-xlarge"
+						name="str6" value="{$fee_str6}">
+					<p class="help-block">百分比，剩余使用注册积分</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">复投激活比例：</label>
+				<div class="controls">
+					<input type="text" placeholder="复投激活比例" class="input-xlarge"
+						name="reg_futou" value="{$reg_futou}">
+					<p class="help-block">百分比，剩余使用复投积分</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+
+				<label class="control-label" for="input01">报单费：</label>
+				<div class="controls">
+					<input type="text" placeholder="5|100" class="input-xlarge"
+						name="s15" value="{$fee_s15}">
+					<p class="help-block">百分比</p>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label" for="input01">点值转换：</label>
+				<div class="controls">
+					<input type="text" placeholder="20|3700" class="input-xlarge"
+						name="s16" value="{$fee_s16}">
+					<p class="help-block">  {$bi.limit_money} 转  {$bi.give_limit_money}| {$bi.agent_limit_money} 转  {$bi.give_limit_money}</p>
+				</div>
+			</div>
+			<div class="control-group " style="display: none">
+				<label class="control-label" for="input01">转账手续：</label>
+				<div class="controls">
+					<input type="text" placeholder="转账手续费" class="input-xlarge"
+						name="zz_shouxu" value="{$zz_shouxu}">
+					<p class="help-block">激活点值手续费|{$bi.ssb}手续费</p>
+				</div>
+			</div>
+			<div class="control-group " style="display: none">
+				<label class="control-label" for="input01">充值手续：</label>
+				<div class="controls">
+					<input type="text" placeholder="充值手续费" class="input-xlarge"
+						name="cz_shouxu" value="{$cz_shouxu}">
+					<p class="help-block">手续费</p>
+				</div>
+			</div>
+			<!--
+        <div class="control-group">
+        <div class="control-group">
+          <label class="control-label" for="input01">第三轮出局累计：</label>
+          <div class="controls">
+            <input type="text" placeholder="10" class="input-xlarge" name="str18" value="{$fee_str18}">
+            <p class="help-block">元</p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Text input- ->
+          <label class="control-label" for="input01">第一轮重复业绩金额：</label>
+          <div class="controls">
+            <input type="text" placeholder="770" class="input-xlarge" name="s17" value="{$fee_s17}">
+            <p class="help-block">元</p>
+          </div>
+        </div>
+        <div class="control-group">
+          <!-- Text input- ->
+          <label class="control-label" for="input01">第三轮伞下见点奖：</label>
+          <div class="controls">
+            <input type="text" placeholder="3000" class="input-xlarge" name="str10" value="{$fee_str10}">
+            <p class="help-block">元</p>
+          </div>
+        </div>-->
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">提现日：</label>
+				<div class="controls">
+					<input type="text" placeholder="40|100" class="input-xlarge"
+						name="str11" value="{$fee_str11}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<!-- Text input-->
+				<label class="control-label" for="input01">动态进入复投积分：</label>
+				<div class="controls">
+					<input type="text" placeholder="5" class="input-xlarge"
+						name="str13" value="{$fee_str13}">
+					<p class="help-block">百分比</p>
+				</div>
+			</div>
+			<!--<div class="control-group">
+          <label class="control-label" for="input01">动态进入幸运积分：</label>
+          <div class="controls">
+            <input type="text" placeholder="1|2|3" class="input-xlarge" name="str14" value="{$fee_str14}">
+            <p class="help-block">百分比</p>
+          </div>
+        </div>-->
+
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">奖项名称：</label>
+				<div class="controls">
+					<input type="text" placeholder="奖金" class="input-xlarge" name="s18"
+						value="{$fee_s18}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<div class="control-group " style="display: none">
+				<label class="control-label" for="input01">提现手续：</label>
+				<div class="controls">
+					<input type="text" placeholder="5" class="input-xlarge"
+						name="str15" value="{$fee_str15}">
+					<p class="help-block">手续费</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">提现额度与倍数：</label>
+				<div class="controls">
+					<input type="text" placeholder="100|100" class="input-xlarge"
+						name="str19" value="{$fee_str19}">
+					<p class="help-block">提现额度-提现倍数</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">充值倍数：</label>
+				<div class="controls">
+					<input type="text" placeholder="充值倍数" class="input-xlarge"
+						name="recharge_bs" value="{$recharge_bs}">
+					<p class="help-block">充值倍数</p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">转换额度与倍数：</label>
+				<div class="controls">
+					<input type="text" placeholder="100|100" class="input-xlarge"
+						name="str16" value="{$fee_str16}">
+					<p class="help-block">转换额度-转换倍数</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">会员充值提示：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge" name="str20"
+						value="{$fee_str20}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">微信二维码图片：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge" name="str21"
+						value="{$fee_str21}">
+					<p class="help-block">
+						<iframe src="__URL__/upload_add_a" width="350" height="30"
+							scrolling="no" frameborder="0"></iframe>
+					</p>
+				</div>
+			</div>
+
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">支付宝二维码图片：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge" name="str22"
+						value="{$fee_str22}">
+					<p class="help-block">
+						<iframe src="__URL__/upload_add_b" width="350" height="30"
+							scrolling="no" frameborder="0"></iframe>
+					</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">前台视频1：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="video_url" value="{$video_url}">
+					<p class="help-block">
+						<iframe src="__URL__/upload_add_video" width="350" height="30"
+							scrolling="no" frameborder="0"></iframe>
+					</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">前台视频2：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="video_url2" value="{$video_url2}">
+					<p class="help-block">
+						<iframe src="__URL__/upload_add_video2" width="350" height="30"
+							scrolling="no" frameborder="0"></iframe>
+					</p>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">关闭网站提示：</label>
+				<div class="controls">
+					<div class="textarea">
+						<textarea type="" class="" name="str27">{$fee_str27}</textarea>
+					</div>
+					<p class="help-block">（200字内）</p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label">密码问题列表：</label>
+				<div class="controls">
+					<div class="textarea">
+						<textarea type="" class="" name="str24">{$fee_str24}</textarea>
+					</div>
+					<p class="help-block">（用|分割问题）</p>
+				</div>
+			</div>
+			<!--<div class="control-group">
+            <label class="control-label">报单产品显示：</label>
+            <div class="controls">
+              <label class="checkboxs inline">
+                <input type="radio" name="i5" value="1" <eq name="fee_i5" value="1">checked</eq>>开启 
+              </label>
+              <label class="checkboxs inline">
+                <input type="radio" name="i5" value="0"<eq name="fee_i5" value="0">checked</eq>>关闭
+              </label>
+              <p class="help-block">报单产品是否显示在商城页面</p>
+            </div>
+          </div>-->
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">登录页提示语：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge" name="str25"
+						value="{$fee_str25}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">每日报单上限：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge" name="str26"
+						value="{$fee_str26}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">ID跳跃值：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="user_add" value="{$user_add}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">价格参数：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="price_str" value="{$price_str}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="input01">超时打款(分钟)：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="jifen_time1" value="{$jifen_time1}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label" for="input01">超时确认(小时) ：</label>
+				<div class="controls">
+					<input type="text" placeholder="" class="input-xlarge"
+						name="jifen_time2" value="{$jifen_time2}">
+					<p class="help-block"></p>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">购物设置：</label>
+				<div class="controls">
+					<label class="checkboxs inline"> <input type="radio"
+						name="is_goods" value="1"
+					<eq name="is_goods" value="1">checked</eq>>开启
+					</label> <label class="checkboxs inline"> <input type="radio"
+						name="is_goods" value="0"
+					<eq name="is_goods" value="0">checked</eq>>关闭
+					</label>
+					<p class="help-block">开关 关闭时禁止全部购物</p>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label class="control-label">前台设置：</label>
+				<div class="controls">
+					<label class="checkboxs inline"> <input type="radio"
+						name="i3" value="1"
+					<eq name="fee_i3" value="1">checked</eq>>开启
+					</label> <label class="checkboxs inline"> <input type="radio"
+						name="i3" value="0"
+					<eq name="fee_i3" value="0">checked</eq>>关闭 (关闭前台会员登录！)
+					</label>
+				</div>
+			</div>
+			<div class="control-group" style="display: none">
+				<label class="control-label">网络结构图：</label>
+				<div class="controls">
+					<label class="checkboxs inline"> <input type="radio"
+						name="i4" value="1"
+					<eq name="fee_i4" value="1">checked</eq>>开启
+					</label> <label class="checkboxs inline"> <input type="radio"
+						name="i4" value="0"
+					<eq name="fee_i4" value="0">checked</eq>>关闭
+					</label>
+				</div>
+			</div>
+			<!--<div class="control-group">
+            <label class="control-label">积分支付：</label>
+            <div class="controls">
+              <label class="checkboxs inline">
+                <input type="radio" name="i2" value="1" <eq name="fee_i2" value="1">checked</eq>>开启 
+              </label>
+              <label class="checkboxs inline">
+                <input type="radio" name="i2" value="0"<eq name="fee_i2" value="0">checked</eq>>关闭
+              </label>
+              <p class="help-block">积分支付开关 关闭时禁止使用积分支付</p>
+            </div>
+          </div>-->
+			<div class="control-group">
+				<label class="control-label">提现设置：</label>
+				<div class="controls">
+					<label class="checkboxs inline"> <input type="radio"
+						name="i1" value="1"
+					<eq name="fee_i1" value="1">checked</eq>>开启
+					</label> <label class="checkboxs inline"> <input type="radio"
+						name="i1" value="0"
+					<eq name="fee_i1" value="0">checked</eq>>关闭
+					</label>
+					<p class="help-block">提现开关 关闭时禁止全部提现</p>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label">提现关闭提示：</label>
+				<div class="controls">
+					<div class="textarea">
+						<textarea type="" class="" name="close_tx_str">{$close_tx_str}</textarea>
+					</div>
+					<p class="help-block">（200字内）</p>
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="col-sm-2 control-label">内容：<i
+					class="text-danger">*</i></label>
+				<div class="col-sm-10">
+					<input type="hidden" name="RegisterProtocol" id="RegisterProtocol">
+					<textarea id="demo" style="display: none;">{$RegisterProtocol|htmlspecialchars_decode}</textarea>
+					<script>
+						$(function() {
+							$("#checkbox").change(function() {
+								if ($('#checkbox').is(':checked')) {
+									$('#type').val(1);
+								} else {
+									$('#type').val(0);
+								}
+							});
+						});
+
+						layui
+								.use(
+										[ 'layedit', 'upload', 'layer' ],
+										function() {
+											var layedit = layui.layedit;
+											var layer = layui.layer;
+											layedit
+													.set({
+														uploadImage : {
+															url : '__APP__/Gouwu/upload_layedit_pp'
+														}
+													});
+											edit = layedit.build('demo'); //建立编辑器
+
+											$('.ajax-submit')
+													.on(
+															'click',
+															function() {
+																$(
+																		'#RegisterProtocol')
+																		.val(
+																				layedit
+																						.getContent(edit));
+																form = $('.ajax-form');
+																$
+																		.post(
+																				form
+																						.attr('action'),
+																				form
+																						.serialize(),
+																				function(
+																						data) {
+																					// console.log(data);
+																					if (data.status) {
+																						layer
+																								.msg(
+																										data.info,
+																										{
+																											offset : '100px',
+																											end : function() {
+																												if (data.url) {
+																													location.href = data.url;
+																												} else {
+																													location
+																															.reload();
+																												}
+																											}
+																										});
+																					} else {
+																						layer
+																								.msg(data.info);
+																					}
+																				});
+																return false;
+															});
+										});
+					</script>
+				</div>
+			</div>
+
+
+
+			<div class="control-groups" style="margin-left: 160px;">
+				<input type="button" value="修改" class="btn btn-success ajax-submit">
+				<input type="reset" value="还原" class="btn btn-danger">
+			</div>
+
+		</fieldset>
+	</form>
+</div>
+</block>

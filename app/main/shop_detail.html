@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<title>
+			移动端商家自入驻-商家详情
+		</title>
+		<meta name="applicable-device" content="mobile">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+		<style>
+			.page-current header {}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+
+		<style type="text/css">
+			.step-info-li {
+				line-height: 2rem;
+				text-align: center;
+				font-size: .65rem;
+				color: #909090;
+				border-bottom: 1px solid #f0f0f0
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:2) {
+				.step-info-li {
+					border-bottom: .5px solid #f0f0f0
+				}
+			}
+			
+			@media screen and (-webkit-min-device-pixel-ratio:3) {
+				.step-info-li {
+					border-bottom: .333333px solid #f0f0f0
+				}
+			}
+			
+			.mt-right:after {
+				content: "";
+				background-image: url(../images/copyright.png);
+				display: block;
+				width: 3rem;
+				height: .725rem;
+				z-index: 1;
+				margin: 1.5rem auto;
+				background-size: 3rem .725rem;
+				text-align: center
+			}
+			
+			.task-details .color-success {
+				color: #94d77d
+			}
+			
+			.task-details .color-primary {
+				color: #999
+			}
+			
+			.task-details .status-warning {
+				color: #ff5a5a
+			}
+			
+			.task-details .status-waiting {
+				color: #fdb463
+			}
+			
+			.list-block .item-link .item-inner.no-toright {
+				background-image: none
+			}
+		</style>
+		<style type="text/css">
+			.task-introduction {
+				background: #fff
+			}
+			
+			.task-introduction .icon-shop {
+				width: 2rem;
+				height: 2rem;
+				background: url(../images/shop.png) no-repeat;
+				background-size: 100% 100%;
+				border-radius: 50%;
+			}
+			
+			.task-introduction .list-block .item-inner {
+				display: block
+			}
+			
+			.task-introduction .item-inner .shop-name {
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+				font-size: 0.8rem;
+				width: 100px;
+				margin-top: 8px;
+				margin-left: 10px;
+			}
+			
+			.task-introduction .item-inner .tags {
+				color: #9b9b9b;
+				font-size: .65rem
+			}
+		</style>
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/indexv2.min_7d046a5c.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+
+	</head>
+
+	<body style="min-height: 903px;" class=""><i style="display: none;"><i></i></i>
+
+		<div class="qq_menu_layer_v2" style="display:none;z-index:1005" id="__mqqmenu">
+		</div>
+		<div id="js_app_entrance_bar" style="position: relative;z-index: 99;"></div>
+		<div id="shop" class="wx_wrap">
+			<div class="site_header_background_image_outside">
+				<div class="shop_brand_image"><img src="http://img30.360buyimg.com/cms/jfs/t16936/264/1681570577/52086/e47956d7/5ad3fff1Ncf4ec060.png" alt=""></div>
+			</div>
+			<div class="site_header_background_image_inside">
+				<div class="shop_brand_image"><img src="http://img30.360buyimg.com/cms/jfs/t16936/264/1681570577/52086/e47956d7/5ad3fff1Ncf4ec060.png" alt=""></div>
+			</div>
+			<!---->
+			<div data-v-b66f5aa0="" class="site_header">
+				<div data-v-b66f5aa0="" class="site_header_inner">
+					<div data-v-b66f5aa0="" id="js_shop_profile" class="shop_profile">
+						<a data-v-b66f5aa0="" href="javacript:void(0);" class="shop_profile_link">
+							<div data-v-b66f5aa0="" class="shop_profile_logo"><img data-v-b66f5aa0="" src="http://img30.360buyimg.com/popshop/jfs/t26533/244/2135856509/20974/d51c8add/5bf8c8f4N2aa318a6.jpg" alt="" class="logo"></div>
+							<div data-v-b66f5aa0="" class="shop_profile_name title"></div>
+							<div data-v-b66f5aa0="" class="shop_profile_extra">
+								<div data-v-b66f5aa0="" class="stars dark"><span data-v-b66f5aa0="">店铺星级</span> <span data-v-b66f5aa0="" class="scope"><i data-v-b66f5aa0="" class="star"></i><i data-v-b66f5aa0="" class="star"></i><i data-v-b66f5aa0="" class="star"></i><i data-v-b66f5aa0="" class="star half"></i><i data-v-b66f5aa0="" class="star unfilled"></i></span></div>
+							</div>
+						</a>
+						<div data-v-b66f5aa0="" class="follow_panel">
+							<div data-v-2b247cc6="" data-v-b66f5aa0="" id="wd_shop_unfav_btn" ptag="7105.10.6" class="follow_button2 js_follow_button">
+								收藏
+							</div>
+							<!---->
+							<div data-v-b66f5aa0="" class="follow_number"><span class="fans_num"></span>人收藏</div>
+						</div>
+					</div>
+					<div data-v-b66f5aa0="" class="mshop_shortcut_button" style="">
+						<div id="m_common_header">
+							<header class="jd-header ">
+								<div class="jd-header-new-bar" id="jd_header_new_bar">
+									<div report-eventid="MCommonHead_Back" report-eventparam="https://shop.m.jd.com/" id="m_common_header_goback" class="jd-header-icon-back J_ping"><span></span></div>
+									<div class="jd-header-new-title"></div>
+									<div report-eventid="MCommonHead_NavigateButton" report-eventparam="https://shop.m.jd.com/" id="m_common_header_jdkey" class="jd-header-icon-new-shortcut J_ping"><span></span></div>
+								</div>
+							</header>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="site_content" style="margin-top: 25px;">
+				<div class="module_header_container" style="height: 50px;">
+					<div class="module_header_inner">
+						<div class="site_searchbar">
+
+							<div class="navbar">
+								<ul class="navbar_inner">
+									<li class="navbar_item cur hot ">
+										<div>精选</div>
+									</li>
+									<li class="navbar_item all">
+										<div>商品</div>
+									</li>
+									<li class="navbar_item new">
+										<div>新品</div>
+									</li>
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="module_content">
+					<div class="primary_section">
+						<!----><span data-v-c40370be="" class="scroll-position-maintainer"></span>
+						<div id="js_marketing_bar" class="marketing_bar">
+							<div class="shop_gift_modal_tips" style="display: none;">
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+
+						</div>
+						<!---->
+						<div id="js-shop-decoration-content" class="sub_section jd_shop_wrap">
+							<div data-component="template-markup-renderer"><span></span></div>
+							<div data-component="html-renderer">
+								<!--No html found-->
+							</div>
+							<div data-component="default-content" class="default_shop_content ">
+								<div data-component="content-panel">
+									<div class="section hot" style="display: block;">
+										<div class="heading">精选商品</div>
+										<div class="shop_mod_itemlist grid_layout">
+											<div class="shop_mod_itemlist_container">
+												<div class="shop_mod_itemlist grid_layout">
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="section all" style="display: none;">
+										<div class="heading">全部商品</div>
+										<div class="shop_mod_itemlist grid_layout">
+											<div class="shop_mod_itemlist_container">
+												<div class="shop_mod_itemlist grid_layout">
+
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="section new" style="display: none;">
+										<div class="heading">新品商品</div>
+										<div class="shop_mod_itemlist grid_layout">
+											<div class="shop_mod_itemlist_container">
+												<div class="shop_mod_itemlist grid_layout">
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!---->
+						</div>
+						<div>
+							<!---->
+							<!---->
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="search-layer" class="wei_sub_search_layer" style="width: 100%;">
+				<form action="" onsubmit="return false;">
+					<div class="wei_sub_search">
+						<div class="wei_search_input"><input type="text" id="search-layer-input" autocomplete="off"> <span id="search-layer-input-clear" class="wei_search_clear"></span></div>
+						<a href="javacript:void(0);" id="search-layer-button" ptag="7105.10.30" class="wei_search_btn">搜索</a>
+					</div>
+				</form>
+				<div id="shop-hot-keywords-panel">
+					<div class="wei_search_tags js-inner-wrapper" style="display: none;">
+						<p class="title">本店热搜</p>
+						<ul class="tag_list"></ul>
+					</div>
+				</div>
+				<div id="site-hot-keywords-panel">
+					<div class="wei_search_tags js-inner-wrapper" style="display: none;">
+						<p class="title">全站热搜</p>
+						<div ptag="7105.10.36" class="btn_change js-next">换一批</div>
+						<ul class="tag_list"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="js-overlay-container">
+				<!---->
+				<div data-v-681e9728="" class="marketing-dialog-section">
+					<div data-v-681e9728="" class="shop_active_gift">
+						<div class="shop_gift_modal" style="display: none;">
+							<div class="shop_gift_modal_inner">
+								<div class="shop_gift_modal_content">
+									<div class="shop_gift_modal_close_button"></div>
+									<!---->
+									<!---->
+									<!---->
+								</div>
+							</div>
+						</div>
+						<div class="shop_gift_modal" style="display: none;">
+							<div class="shop_gift_modal_share">
+								<p class="shop_gift_modal_share_title">邀请点这哦</p>
+							</div>
+						</div>
+					</div>
+					<!---->
+					<!---->
+				</div>
+				<div data-component="recommendation-popup" style="display: none;"></div>
+				<!---->
+			</div>
+		</div>
+
+		<!-- S 店铺基本信息 -->
+
+		<!-- E 店铺基本信息 -->
+
+		<!-- shop.env: 1 -->
+
+		<style>
+			/* TODO move below code into css file */
+			
+			#m_common_header .jd-header-new-bar {
+				background: transparent !important;
+				border: none !important;
+			}
+			
+			#m_common_header .jd-header-new-title {
+				margin: 0 40px !important;
+			}
+			/* header shortcut button */
+			
+			#m_common_header .jd-header-icon-new-shortcut span {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAGBAMAAABZSiGWAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMA1YAa/jDwcAAAADRJREFUCNdjMBJUZgACZkUhAyAF5qq4OIGYTC4uCkAKzBVxcQQxGV1cBIAUmIsphE0jpvEANmcJ93f66mkAAAAASUVORK5CYII=);
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center
+			}
+			/* header back button */
+			
+			#m_common_header .jd-header-icon-back span {
+				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAnCAMAAAA8TEgBAAAAM1BMVEUAAAD///////////////////////////////////////////////////////////////+3leKCAAAAEHRSTlMA1xKYCckcpuS+iHhqJLSCxbRsewAAAFxJREFUKM+100sOwCAIBFBbau2/3P+04srFEKOZyPKFBRkgYG1JxdFPVVFPU3E19ekaTWWCLqYXo3vR39Wb0fcwfRgNsSaJ3ZzXuRnHBDFv3nHzvOPFjnn7d/DTMiKkCcnaA15wAAAAAElFTkSuQmCC);
+				background-position: left center;
+				background-size: contain;
+				background-repeat: no-repeat
+			}
+			
+			#m_common_header form {
+				margin-left: 0;
+				margin-right: 0;
+				margin-top: -5px;
+			}
+		</style>
+
+		<script>
+			(function() {})();
+		</script>
+
+		<!-- #include virtual="/sinclude/cssi/fd/h5/base/gb/mod_aside_v2_js.shtml" -->
+		<div id="rvc_verify_div"></div>
+
+		<!-- shop.env: 1 -->
+
+		<style>
+			/* body的margin被M店铺通用头样式设置为0，需要恢复。 */
+			
+			body {
+				margin: 0 auto;
+			}
+		</style>
+
+		<style type="text/css">
+			.wxsq_topTips {
+				position: relative;
+				padding: 8px 35px 8px 8px;
+				background: #fffad0;
+				font-size: 10px;
+				margin-bottom: 45px;
+			}
+			
+			.wxsq_topTips span {
+				display: block;
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+				position: absolute;
+				top: 0;
+				right: 0;
+				color: #3985ff;
+				text-align: center;
+			}
+		</style>
+
+	</body>
+
+</html>
+<script type="text/javascript">
+	$(function() {
+		//初始化表单
+		localStorage.setItem('set_address', 0);
+		var ServerIP = "";
+		var IP = localStorage.getItem('IP');
+		var PreUrl = localStorage.getItem('PreUrl');
+		var user = localStorage.getItem('user');
+		user = JSON.parse(user);
+		$('#user_id').val(localStorage.getItem('user_id'));
+		$('#is_shopping').val(localStorage.getItem('is_shopping'));
+		$('#editForm').attr('url', PreUrl + "Goods/user_address_edit");
+
+		var user_id = localStorage.getItem('user_id')
+		get_seller_info(user_id, successCallback);
+
+	});
+
+	function successCallback(data) {
+
+		var $target = $('#J_Address2');
+
+		var status = data.status;
+		if(status == 1) {
+			var info = data.data;
+
+			if(info != null) {
+				$('.logo').attr('src', IP + '/' + info.img);
+				$('#img_url').val(info.img);
+				$('.title').html(info.title);
+				$('.fans_num').html(info.fans_num);
+				$('#seller_id').val(info.id);
+
+				if(info.status == 0) {
+					$('#btnSubmit').val('已审核')
+
+				}
+				console.log(info.status)
+				if(info.status == 1) {
+					$('#btnSubmit').val('等待审核')
+					$('#btnSubmit').attr('disable', 'disabled')
+
+				}
+				if(info.province == null) {
+
+				} else {}
+			} else {}
+
+			$(".navbar_item").on('click', function() {
+				$('.navbar_item').removeClass('cur')
+				$(this).addClass('cur')
+				$('.section').css('display', 'none')
+				$('.section:eq(' + $(this).index() + ')').css('display', 'block')
+
+			});
+			$('.all .shop_mod_itemlist .shop_mod_item').remove();
+			var goods = data.hot;
+			$.each(goods, function(index, content) {
+
+				var item = '<div data-sku="30566488393" class="shop_mod_item" id="' + content.id + '"name="' + content.title + '">';
+				item += '	<div class="shop_mod_item_inner">';
+				item += '	<a href="javacript:void(0);">';
+				item += '	<div class="cover"><img class="img" src="' + IP + content.img + '">';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<div class="detail">';
+				item += '<div class="name">';
+				item += '	<!---->' + content.title + '</div>';
+				item += '<!---->';
+				item += '<!---->';
+				item += '<div class="section_price"><span class="price">¥ <span class="int">' + content.price + '</span></span>';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<!---->';
+				item += '	</div>';
+				item += '</a>';
+				item += '<!---->';
+				item += '</div>';
+				item += '</div>';
+
+				$('.hot .shop_mod_itemlist').append(item);
+			});
+			//
+			var goods = data.all;
+			$.each(goods, function(index, content) {
+
+				var item = '<div data-sku="30566488393" class="shop_mod_item" id="' + content.id + '"name="' + content.title + '">';
+				item += '	<div class="shop_mod_item_inner">';
+				item += '	<a href="javacript:void(0);">';
+				item += '	<div class="cover"><img class="img" src="' + IP + content.img + '">';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<div class="detail">';
+				item += '<div class="name">';
+				item += '	<!---->' + content.title + '</div>';
+				item += '<!---->';
+				item += '<!---->';
+				item += '<div class="section_price"><span class="price">¥ <span class="int">' + content.price + '</span></span>';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<!---->';
+				item += '	</div>';
+				item += '</a>';
+				item += '<!---->';
+				item += '</div>';
+				item += '</div>';
+
+				$('.all .shop_mod_itemlist').append(item);
+			});
+			var goods = data.new;
+			$.each(goods, function(index, content) {
+				var item = '<div data-sku="30566488393" class="shop_mod_item" id="' + content.id + '"name="' + content.title + '">';
+				item += '	<div class="shop_mod_item_inner">';
+				item += '	<a href="javacript:void(0);">';
+				item += '	<div class="cover"><img class="img" src="' + IP + content.img + '">';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<div class="detail">';
+				item += '<div class="name">';
+				item += '	<!---->' + content.title + '</div>';
+				item += '<!---->';
+				item += '<!---->';
+				item += '<div class="section_price"><span class="price">¥ <span class="int">' + content.price + '</span></span>';
+				item += '	<!---->';
+				item += '</div>';
+				item += '<!---->';
+				item += '	</div>';
+				item += '</a>';
+				item += '<!---->';
+				item += '</div>';
+				item += '</div>';
+
+				$('.new .shop_mod_itemlist').append(item);
+			});
+
+			$('.shop_mod_item .img').css('height', $('.goods_item').width());
+			$(".shop_mod_item").on('click', function() {
+				localStorage.setItem('goods_id', $(this).attr('id'));
+				localStorage.setItem('hot_id', $(this).attr('hot_id'));
+				localStorage.setItem('title', $(this).attr('name'));
+				localStorage.setItem('update_goods_show', 1)
+				console.log($(this).attr('id'))
+
+				mui.back();
+			});
+
+		}
+		//lang()
+
+	}
+	mui.init({
+		beforeback: function() {　　　
+			var list = plus.webview.currentWebview().opener();　　
+			mui.fire(list, 'update_goods_show');
+
+		}
+	});
+</script>

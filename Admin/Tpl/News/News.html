@@ -1,0 +1,64 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+      <h2>新闻公告</h2>
+      <ol class="breadcrumb">
+        <li>
+          <a href="{:U('Index/index')}">首页</a>
+        </li>
+        <li>
+          <a>信息管理</a>
+        </li>
+        <li class="active">
+          <strong>新闻公告</strong>
+        </li>
+      </ol>
+    </div>
+  </div>
+</block>
+
+<block name="menu">
+  <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="ibox-content m-b-sm border-bottom">
+      <div class="p-xs">
+        <div class="pull-left m-r-md">
+          <i class="fa fa-globe text-navy mid-icon"></i>
+        </div>
+        <h2>新闻公告</h2>
+        <span>系统近期公布的相关新闻和公告</span>
+      </div>
+    </div>
+    <foreach name="list" item="vo" key="k">
+    <div class="vote-item">
+      <div class="row">
+        <div class="col-md-10">
+          <div class="vote-actions">
+            <a href="#">
+              <i class="fa fa-chevron-up"> </i>
+            </a>
+            <div>{$k+1}</div>
+            <a href="#">
+              <i class="fa fa-chevron-down"> </i>
+            </a>
+          </div>
+          <a href="__URL__/News_show/id/{$vo.id}" class="vote-title">{$vo.title}</a>
+            <div class="vote-info">
+              <!-- <i class="fa fa-eye"></i> <a href="#">浏览量 (5)</a> -->
+              <i class="fa fa-clock-o"></i> <a href="#">{$vo.create_time|date="Y-m-d H:i:s",###}</a>
+              <i class="fa fa-user"></i> <a href="#">{$vo.user_id}</a>
+            </div>
+          </div>
+          <div class="col-md-2 ">
+            <div class="vote-icon visible-lg-block">
+              <i class="fa fa-newspaper-o"> </i>
+            </div>
+          </div>
+        </div>
+      </div>
+      </foreach>
+        <div style="margin-top: 10px;"></div>
+        {$page}
+      </div>
+
+    </block>

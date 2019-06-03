@@ -1,0 +1,209 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>综合统计</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>综合统计</a></li>
+			<li class="active"><strong>综合统计</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5>综合统计</h5>
+				</div>
+				<div class="ibox-content">
+					<form class="form-horizontal ajax-post" name="form1" id="form1"
+						method="post" action="{:U('Gupiao/setGPSave')}">
+						<input type="hidden" name="temp1" value="haha"> <input
+							name="regfrom" type="hidden" value="">
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态1星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count1}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态1星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count1}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态2星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count2}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态2星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count2}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态3星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count3}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态3星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count3}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态4星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count4}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态4星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count4}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态5星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count5}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态5星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count5}</div>
+						</div>
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态6星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count6}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态6星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count6}</div>
+						</div>
+
+
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 动态7星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$active_count7}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 静态7星人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$static_count7}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 总业绩：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_money}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台现金点值总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_use}</div>
+						</div>
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台注册积分总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_cash}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台激活积分总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_kt}</div>
+						</div>
+
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台复投积分总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_xf}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台幸运积分总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_cf}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台购物点值总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_buy_point}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 平台总股票数量：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_live_gupiao}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 配股列表未配股总人数：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$count1}</div>
+						</div>
+						<div class="hr-line-dashed"></div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label"> 当前股价未配股总额：<i
+								class="text-danger">*</i></label>
+							<div class="col-sm-5">{$all_agent_gp}</div>
+						</div> 
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</block>

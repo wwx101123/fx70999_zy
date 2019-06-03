@@ -1,0 +1,440 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>项目管理</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>项目管理</a></li>
+			<li class="active"><strong>编辑项目</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+
+<block name="menu">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" style="min-height: 600px">
+
+			<link rel="stylesheet" type="text/css"
+				href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/jquery/Validform_v5.3.2_min.js"></script>
+			<script type="text/javascript" charset="utf-8"
+				src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+
+
+			<link rel="stylesheet" type="text/css"
+				href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+			<link href="__PUBLIC__/Adm/Resource/style.css" rel="stylesheet">
+
+			<script type="text/javascript">
+				$(function() { 
+					 //创建商品规格
+			        $(".spec-btn").click(function () {
+			            showSpecDialog();
+			        });
+					//绑定品牌按钮
+			        $("#specAddButton").click(function () {
+			            var liObj = $(this).parent();
+			            var d = dialog({
+			                id: 'specDialogId',
+			                padding: 0,
+			                title: "规格关联",
+			                url: '{:U('Goods/dialog_category_spec')}'
+			            }).showModal();
+			            //将容器对象传进去
+			            d.data = liObj;
+			        });
+			        //赋值规格市场价格
+			        $("#field_control_market_price").blur(function () {
+			            $("#div_spec_container").find("input[id='spec_market_price']").val($(this).val());
+			        });
+			        //赋值规格销售价格
+			        $("#field_control_sell_price").blur(function () {
+			            $("#div_spec_container").find("input[id='spec_sell_price']").val($(this).val());
+			        });
+				});
+
+				//创建窗口
+				 //初始化规格窗口
+    function showSpecDialog() {
+		var hide_spec_id=	'';		 
+		 $(".hide_spec_id").each(function(){
+			 hide_spec_id+=$(this).val()+','
+			  });	
+		 hide_spec_id+=0;
+		 
+		 if(hide_spec_id==0)
+		 {
+			 dialog({
+	                title: '提示',
+	                content: '请先关联规格！',
+	                okValue: '确定',
+	                ok: function () { },
+	                onclose: function () {
+	                    $("#txtTitle", currDocument).focus();
+	                }
+	            }).showModal( );
+	            return false;
+		 }
+		 
+        var d = dialog({
+            id: 'specDialogId',
+            padding: 0,
+            title: "商品规格",
+            url:'{:U('Goods/dialog_article_spec')}?hide_spec_id='+hide_spec_id
+        }).showModal();
+        //将容器对象传进去
+        d.data = $("#item_box");
+    }
+				 //删除附件节点
+			    function delNode(obj) {
+			        $(obj).parent().remove();
+			    }
+				//删除节点
+				function delUrlNode(obj) {
+					$(obj).parent().parent().remove();
+				}
+				 //计算出最小的市场价格
+			    function countMarketPrice(obj) {
+			        var objName = $(obj).attr("name");
+			        var minValue = parseFloat($(obj).val());
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                if (parseFloat($(this).val()) < minValue) {
+			                    minValue = parseFloat($(this).val());
+			                }
+			            }
+			        });
+			        $("#field_control_market_price").val(minValue);
+			    }
+			    //计算最小的销售价格
+			    function countSellPrice(obj) {
+			        var objName = $(obj).attr("name");
+			        var minValue = parseFloat($(obj).val());
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                if (parseFloat($(this).val()) < minValue) {
+			                    minValue = parseFloat($(this).val());
+			                }
+			            }
+			        });
+			        $("#field_control_sell_price").val(minValue);
+			    }
+			    //计算库存总数量
+			    function countStockQuantity(obj) {
+			        var objName = $(obj).attr("name");
+			        var countValue = 0;
+			        $("input[name='" + objName + "']").each(function () {
+			            if ($(this).val().length > 0) {
+			                countValue += parseFloat($(this).val());
+			            }
+			        });
+			        $("#field_control_stock_quantity").val(countValue);
+			    }
+			</script>
+			<div id="floatHead" class="content-tab-wrap">
+				<div class="content-tab">
+					<div class="content-tab-ul-wrap">
+						<ul>
+							<li><a class="selected" href="javascript:;">基本信息</a></li>
+
+							<li><a href="javascript:;">相册</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<form class="form-horizontal ajax-form" name="form1" id="form1"
+					method="post" action="__ACTION__">
+
+					<input type="hidden" name="id" id="id" value="{$vo.id}">
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">任务标题：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="title" type="text" value="{$vo.title}"
+								class="form-control" required="">
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">公众号：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="public_number" type="text"
+								value="{$vo.public_number}" class="form-control" required="">
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">链接：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="link_url" type="text" value="{$vo.link_url}"
+								class="form-control" required="">
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">被投人：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="user_name" type="text" value="{$vo.user_name}"
+								class="form-control" required="">
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">所属类别： <i
+							class="text-danger">*</i></label>
+						<div class="col-sm-10">
+							<select name="ddlParentId" id="ddlParentId" class="form-control">
+								<volist name="category" id="vvo" key="i"> <eq
+									name="vo.category_id" value="$vvo.id">
+								<option value="{$vvo.id}" selected>{$vvo.title}</option>
+								<else />
+								<option value="{$vvo.id}">{$vvo.title}</option>
+								</eq> </volist>
+							</select>
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">最大份数：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="num" ID="num" type="text" value="{$vo.num}"
+								class="form-control" required="">
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">任务佣金：<i
+							class="text-danger">*</i></label>
+						<!--标题-->
+						<div class="col-sm-10">
+							<input name="user_price" ID="user_price" type="text"
+								value="{$vo.user_price}" class="form-control" required="">
+							<input name="zd_money" ID="zd_money" type="hidden"
+								value="{$vo.zd_money}"> <input name="money" ID="money"
+								type="hidden" value="{$vo.money}">
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">开始时间：<i
+							class="text-danger">*</i></label>
+						<div class="col-sm-10">
+							<input name="start_time" type="text"
+								value="{$vo.start_time|date='Y-m-d H:i:s',###}"
+								class="form-control" required=""
+								onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+						</div>
+					</div>
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">结束时间：<i
+							class="text-danger">*</i></label>
+						<div class="col-sm-10">
+							<input name="end_time" type="text"
+								value="{$vo.end_time|date='Y-m-d H:i:s',###}"
+								class="form-control" required=""
+								onclick="layui.laydate({elem: this, istime: true, format: 'YYYY-MM-DD hh:mm:ss'})">
+						</div>
+					</div>
+
+
+
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">项目介绍：<i
+							class="text-danger">*</i></label>
+						<div class="col-sm-10">
+							<input type="hidden" name="sub_title" id="sub_title">
+							<textarea id="demo1" style="display: none;">{$vo.sub_title|htmlspecialchars_decode}</textarea>
+						</div>
+					</div>
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">项目详情：<i
+							class="text-danger">*</i></label>
+						<div class="col-sm-10">
+							<input type="hidden" name="remark" id="remark">
+							<textarea id="demo2" style="display: none;">{$vo.remark|htmlspecialchars_decode}</textarea>
+						</div>
+					</div>
+
+
+
+
+					<div class="hr-line-dashed"></div>
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-2">
+							<button class="btn btn-primary ajax-submit" type="submit">编辑发布</button>
+						</div>
+					</div>
+					<script>
+					$(function() {
+						$("#checkbox").change(function() {
+							if ($('#checkbox').is(':checked')) {
+								$('#type').val(1);
+							} else {
+								$('#type').val(0);
+							}
+						});
+					});
+
+					layui
+							.use(
+									[ 'layedit', 'upload', 'layer', 'laydate' ],
+									function() {
+										var layedit = layui.layedit;
+										var layer = layui.layer;
+										layedit
+												.set({
+													uploadImage : {
+														url : '__APP__/Gouwu/upload_layedit_pp'
+													}
+												});
+										edit1 = layedit.build('demo1'); //建立编辑器
+										edit2 = layedit.build('demo2');
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#remark')
+																	.val(
+																			layedit
+																					.getContent(edit2));
+															
+															$('#sub_title')
+															.val(
+																	layedit
+																			.getContent(edit1));
+															
+														});
+										$('.ajax-submit')
+												.on(
+														'click',
+														function() {
+															$('#remark')
+															.val(
+																	layedit
+																			.getContent(edit2));
+													
+													$('#sub_title')
+													.val(
+															layedit
+																	.getContent(edit1));
+															form = $('.ajax-form');
+															$
+																	.post(
+																			form
+																					.attr('action'),
+																			form
+																					.serialize(),
+																			function(
+																					data) {
+																				// console.log(data);
+																				if (data.status) {
+																					layer
+																							.msg(
+																									data.info,
+																									{
+																										offset : '100px',
+																										end : function() {
+																											if (data.url) {
+																												location.href = data.url;
+																											} else {
+																												location
+																														.reload();
+																											}
+																										}
+																									});
+																				} else {
+
+																					layer
+																							.msg(data.info);
+																				}
+																			});
+															return false;
+														});
+									});
+				</script>
+				</form>
+			</div>
+			<div class="tab-content form-horizontal" style="display: none">
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">任务图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<div class="photo-list">
+							<ul>
+
+								<foreach name="vo.project_albums" item="v">
+								<li>
+									<div class="img-box " onclick="lookImg(this);">
+										<img src="{$v.path}" bigsrc="{$v.path}">
+									</div>
+								</li>
+								</foreach>
+
+
+
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="hr-line-dashed"></div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">投手图片：<i
+						class="text-danger">*</i></label>
+					<div class="col-sm-10">
+						<div class="photo-list">
+							<ul>
+
+								<foreach name="vo.project_user_albums" item="item">
+								<li>
+									<div class="img-box " onclick="lookImg(this);">
+										<img src="{$item.path}" bigsrc="{$item.path}">
+										<span class="remark"><i>{$item.user_name}</i></span> 
+									</div><a href="javascript:;"  >{$item.add_time_str}</a>
+								</li>
+								</foreach>
+                              <if condition="$vo.project_user_albums_count eq 0">
+无
+</if>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+	</div>
+</div>
+</block>

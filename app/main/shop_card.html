@@ -1,0 +1,642 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<meta name="applicable-device" content="mobile" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no,viewport-fit=cover">
+
+		<link rel="stylesheet" href="../css/style3.css" />
+
+		<style>
+			.page-current header {}
+			
+			.contentInner {
+				position: relative;
+			}
+			
+			.readonly_layout {
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0);
+				z-index: 100;
+			}
+		</style>
+		<style type="text/css">
+			.img-title-h5 {
+				padding-top: .75rem;
+				text-align: center;
+				font-size: .7rem;
+				color: #6a6a6a;
+				height: 1.45rem;
+			}
+			
+			.red {
+				color: red;
+			}
+			
+			.aui-palace-grid-text h2 {
+				font-size: 10px;
+			}
+		</style>
+		<!-- 安卓webview 后退强制刷新解决方案 START -->
+		<input type="hidden" id="SERVER_TIME" value="1533391596247" />
+		<!-- 安卓webview 后退强制刷新解决方案 END -->
+
+		<link href="../css/sm.css?source=11" rel="stylesheet">
+		<link href="../css/base.32e41245.css?source=11" rel="stylesheet">
+		<script src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/upload.js"></script>
+		<style type="text/css">
+			.image-view-container {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				z-index: 101;
+				margin: auto
+			}
+			
+			.image-view-container .image-content {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				width: 100%
+			}
+			
+			.image-view-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				background-color: rgba(0, 0, 0, .5);
+				z-index: 100
+			}
+		</style>
+	</head>
+	<script>
+		mui.plusReady(function() {
+			var UploadUrl = localStorage.getItem('UploadUrl');
+			var user = localStorage.getItem('user');
+			user = JSON.parse(user);
+			$('#user_id').val(user.id);
+			var seller = localStorage.getItem('seller');
+			var seller_id = localStorage.getItem('seller_id');
+
+			var huikui_id = localStorage.getItem('huikui_id');
+			$('#huikui_id').val(huikui_id);
+			var seller_type = localStorage.getItem('seller_type');
+			$('#seller_type').val(seller_type);
+
+			if(seller_type == 1) {
+
+			}
+			$('.button-success').click(function() {
+				console.log($('#seller_type').val())
+				open_shop_step3();
+			})
+			seller = JSON.parse(seller);
+			if(seller != null && seller != '') {
+				console.log(seller)
+				$('#seller_id').val(seller.id);
+				$('#card_no').val(seller.card_no);
+				$('#credit_mobile').val(seller.credit_mobile);
+				$('#seller_type').val(seller.seller_type);
+				$('#phone').val(seller.phone);
+				var tmpl = ' <div class="uploadimage-image-reupload">点击重新上传</div>'
+				if(seller.card_img1 != null) {
+					var card_img1 = '<input type="hidden" class="card_img1" name="card_img1" id="card_img1" value="' + seller.card_img1 + '">'
+
+					$('.card_img1_div .uploadimage-upload span').remove()
+					$('.card_img1_div .uploadimage-upload div').remove()
+
+					$('.card_img1_div .uploadimage-upload').css('background', 'url(' + IP + '/' + seller.card_img1 + ')')
+					$('.card_img1_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img1_div .uploadimage-upload').append(tmpl)
+					$('#uploader_list').append(card_img1)
+				}
+				if(seller.card_img2 != null) {
+					var card_img2 = '<input type="hidden" class="card_img2" name="card_img2" id="card_img2" value="' + seller.card_img2 + '">'
+					$('.card_img2_div .uploadimage-upload span').remove()
+					$('.card_img2_div .uploadimage-upload div').remove()
+
+					$('.card_img2_div .uploadimage-upload').css('background', 'url(' + IP + '/' + seller.card_img2 + ')')
+					$('.card_img2_div .uploadimage-upload').css('background-size', '100% 100%')
+					$('.card_img2_div .uploadimage-upload').append(tmpl)
+					$('#uploaderzfbFiles_list').append(card_img2)
+				}
+
+				$('.card_img1_div').click(function() {
+					$('.card_img1_tip').css('display', 'block')
+				})
+				$('.card_img2_div').click(function() {
+					$('.card_img2_tip').css('display', 'block')
+				})
+				if(seller.card_img1 != null) {
+					console.log(UploadUrl + seller.card_img1)
+					$('.card_img1_class').attr('src', '' + UploadUrl + '/' + seller.card_img1 + '');
+					$('#card_img1').val(seller.card_img1);
+				}
+
+				if(seller.card_img2 != null && seller.card_img2 != '') {
+
+					$('.card_img2_class').attr('src', '' + UploadUrl + '/' + seller.card_img2);
+					$('#card_img2').val(seller.card_img2);
+				}
+				if(seller.card_img3 != null && seller.card_img3 != '') {
+
+					$('.card_img3_class').attr('src', '' + UploadUrl + '/' + seller.card_img3);
+					$('#card_img3').val(seller.card_img3);
+				}
+				if(seller.card_img4 != null && seller.card_img4 != '') {
+
+					$('.card_img4_class').attr('src', '' + UploadUrl + '/' + seller.card_img4);
+					$('#card_img4').val(seller.card_img4);
+				}
+				if(seller.card_img5 != null && seller.card_img5 != '') {
+
+					$('.card_img5_class').attr('src', '' + UploadUrl + '/' + seller.card_img5);
+					$('#card_img5').val(seller.card_img5);
+				}
+				if(seller.card_img6 != null && seller.card_img6 != '') {
+
+					$('.card_img6_class').attr('src', '' + UploadUrl + '/' + seller.card_img6);
+					$('#card_img6').val(seller.card_img6);
+				}
+				if(seller.card_img8 != null && seller.card_img8 != '') {
+
+					$('.card_img8_class').attr('src', '' + UploadUrl + '/' + seller.card_img8);
+					$('#card_img8').val(seller.card_img8);
+				}
+				if(seller.card_img7 != null && seller.card_img7 != '') {
+
+					$('.card_img7_class').attr('src', '' + UploadUrl + '/' + seller.card_img7);
+					$('#card_img7').val(seller.card_img7);
+				}
+				if(seller.card_img9 != null && seller.card_img9 != '') {
+
+					$('.card_img9_class').attr('src', '' + UploadUrl + '/' + seller.card_img9);
+					$('#card_img9').val(seller.card_img9);
+				}
+				if(seller.card_img10 != null && seller.card_img10 != '') {
+
+					$('.card_img10_class').attr('src', '' + UploadUrl + '/' + seller.card_img10);
+					$('#card_img10').val(seller.card_img10);
+				}
+				if(seller.card_img11 != null && seller.card_img11 != '') {
+
+					$('.card_img11_class').attr('src', '' + UploadUrl + '/' + seller.card_img11);
+					$('#card_img11').val(seller.card_img11);
+				}
+				if(seller.card_img12 != null && seller.card_img12 != '') {
+
+					$('.card_img12_class').attr('src', '' + UploadUrl + '/' + seller.card_img12);
+					$('#card_img12').val(seller.card_img10);
+				}
+				if(seller.card_img13 != null && seller.card_img13 != '') {
+
+					$('.card_img13_class').attr('src', '' + UploadUrl + '/' + seller.card_img13);
+					$('#card_img13').val(seller.card_img13);
+				}
+				if(seller.card_img14 != null && seller.card_img14 != '') {
+
+					$('.card_img14_class').attr('src', '' + UploadUrl + '/' + seller.card_img14);
+					$('#card_img14').val(seller.card_img14);
+				}
+			}
+
+			//
+			//				var history_url = localStorage.getItem('history_url')
+			//				if(history_url != '') {
+			//
+			//					$('#history_url').val(history_url);
+			//				} 
+
+		});
+
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_auth_info');
+
+			}
+		});
+	</script>
+	<style type="text/css">
+		.chooseBtn {
+			display: none;
+		}
+		
+		.choose-label {
+			box-shadow: #ccc 0px 0px 0px 1px;
+			width: 40px;
+			height: 20px;
+			display: inline-block;
+			border-radius: 20px;
+			position: relative;
+			background-color: #bdbdbd;
+			overflow: hidden;
+		}
+		
+		.choose-label:before {
+			content: '';
+			position: absolute;
+			left: 0;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			border-radius: 20px;
+			background-color: #fff;
+			z-index: 20;
+			-webkit-transition: all 0.5s;
+			transition: all 0.5s;
+		}
+		
+		.chooseBtn:checked+label.choose-label:before {
+			left: 20px;
+		}
+		
+		.chooseBtn:checked+label.choose-label {
+			background-color: #51ccee;
+		}
+	</style>
+
+	<body>
+
+		<form id="editForm" name="editForm" class="form-box">
+			<input id="history_url" name="history_url" type="hidden" value="" />
+			<input id="user_id" name="user_id" type="hidden" />
+			<input id="seller_id" name="seller_id" type="hidden" />
+			<input id="huikui_id" name="huikui_id" type="hidden" value="0" />
+			<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+			<input type="hidden" id="seller_type" class="seller_type" name="seller_type" />
+
+			<!-- 把头部提出来，设置成fixed，防止1像素闪烁问题 -->
+			<!--页面头部-->
+
+			<!--/页面头部-->
+			<style>
+				.red {
+					color: red;
+				}
+				
+				.aui-palace-grid-icon {
+					width: 100px;
+					height: 60px;
+				}
+			</style>
+			<!-- 店铺信息首屏-start -->
+
+			<div class="mui-card">
+				<div class="header">
+					<h3>必传项目</h3>
+				</div>
+
+				<div class="mui-collapse-content">
+					<div class="width96 center hidden">
+						<div class="aui-palace aui-palace-two">
+							<a href="javascript:;" class="aui-palace-grid card_img1_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/app_assets_images_mine_authentication_id_face.png" class="card_img1_class" onclick="init_upload(this,'.card_img1','上传身份证正面')">
+									<input type="hidden" id="card_img1" class="card_img1" name="card_img1" /></div>
+								<div class="aui-palace-grid-text">
+									<h2>身份证正面</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<span class="red">必传</span>
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid card_img2_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/app_assets_images_mine_authentication_id_back.png" class="card_img2_class" onclick="init_upload(this,'.card_img2','上传身份证背面')">
+									<input type="hidden" id="card_img2" class="card_img2" name="card_img2" /></div>
+								<div class="aui-palace-grid-text">
+									<h2>身份证背面</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<span class="red">必传</span>
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid card_img3_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/app_assets_images_mine_authentication_handle.png" class="card_img3_class" onclick="init_upload(this,'.card_img3','上传手持身份证正面照片')">
+									<input type="hidden" id="card_img3" class="card_img3" name="card_img3" />
+
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2>手持身份证正面照片</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<span class="red">必传</span>
+								</div>
+							</a>
+							<!--<a href="javascript:;" class="aui-palace-grid">
+														<div class="aui-palace-grid-icon">
+															<img src="../images/app_assets_images_mine_authentication_handle.png" class="card_img4_class" onclick="init_upload(this,'.card_img4')">
+															<input type="hidden" id="card_img4" class="card_img4" name="card_img4" />
+
+														</div>
+														<div class="aui-palace-grid-text">
+															<h2>手持身份证反面照片</h2>
+														</div>
+														<div class="aui-palace-grid-text">
+															<span class="red">必传</span>
+														</div>
+													</a>-->
+
+							<a href="javascript:;" class="aui-palace-grid card_img7_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/tjsh_04.png" class="card_img7_class" onclick="init_upload(this,'.card_img7','上传银行卡正面')">
+									<input type="hidden" id="card_img7" class="card_img7" name="card_img7" />
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2>银行卡正面</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<span class="red">必传</span>
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid card_img8 card_img8_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/tjsh_05.png" class="card_img8_class" onclick="init_upload(this,'.card_img8','上传银行卡反面')">
+									<input type="hidden" id="card_img8" class="card_img8" name="card_img8" />
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2>银行卡反面</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<span class="red">必传</span>
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid card_img9_a">
+								<div class="aui-palace-grid-icon">
+									<img src="../images/bankcard_positive.png" class="card_img9_class" onclick="init_upload(this,'.card_img9','上传信用卡')">
+									<input type="hidden" id="card_img9" class="card_img9" name="card_img9" />
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2>信用卡</h2>
+								</div>
+								<div class="aui-palace-grid-text">
+									<!--<span class="red">必传</span>-->
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-card content2_div">
+				<div class="header select_type ">
+					<h3>选传项目</h3>
+					<input type="checkbox" name="sex" id="male" class="chooseBtn chooseBtn1" />
+					<label for="male" class="choose-label" style="position: absolute;
+    right: 10px;
+    top: 10px;"></label>
+				</div>
+				<script>
+					$(".chooseBtn1").change(function() {
+						var is_check = $(this).prop('checked');
+						if(is_check) {
+							$('.content2').css('display', 'block')
+						} else {
+
+							$('.content2').css('display', 'none')
+						}
+
+					});
+				</script>
+				<div class="mui-collapse-content aui-palace-two content2" style="display: none;">
+					<a href="javascript:;" class="aui-palace-grid card_img13_a">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/card1.png" class="card_img13_class" onclick="init_upload(this,'.card_img13','上传营业执照')">
+							<input type="hidden" id="card_img13" class="card_img13" name="card_img13" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img13_title">营业执照</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img13_red">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid card_img5_a" style="display: none;">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/bankcard_positive.png" class="card_img5_class" onclick="init_upload(this,'.card_img5','上传手持银行卡正面')">
+							<input type="hidden" id="card_img5" class="card_img5" name="card_img5" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img5_title">手持银行卡正面</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img5_red">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid card_img6_a" style="display: none;">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/bankcard_reserve.png" class="card_img6_class" onclick="init_upload(this,'.card_img6','上传手持银行卡反面')">
+							<input type="hidden" id="card_img6" class="card_img6" name="card_img6" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img6_title">手持银行卡反面</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img6_red">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid card_img14_a" style="display: none;">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/card1.png" class="card_img14_class" onclick="init_upload(this,'.card_img14','上传营业执照')">
+							<input type="hidden" id="card_img14" class="card_img14" name="card_img14" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img14_title">营业执照</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img14_red">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/card2.png" class="card_img10_class" onclick="init_upload(this,'.card_img10','上传经营场所照片')">
+							<input type="hidden" id="card_img10" class="card_img10" name="card_img10" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>经营场所照片</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img10_h2">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/card3.png" class="card_img11_class" onclick="init_upload(this,'.card_img11','上传门头照')">
+							<input type="hidden" id="card_img11" class="card_img11" name="card_img11" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img11_title">门头照</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img11_h2">(选填)</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/11.png" class="card_img12_class" onclick="init_upload(this,'.card_img12','上传收银台照片')">
+							<input type="hidden" id="card_img12" class="card_img12" name="card_img12" />
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>收银台照片</h2>
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2 class="card_img12_h2">(选填)</h2>
+						</div>
+					</a>
+
+				</div>
+
+			</div>
+
+			<!--<li class="item-content">
+										<div class="item-inner">
+											<div class="item-title label">现用电话</div>
+											<div class="item-input">
+												<input type="text" placeholder="请输入现用电话" name="phone" id="phone">
+											</div>
+										</div>
+									</li>-->
+
+			</div>
+
+			<!-- 店铺信息首屏-end -->
+			<div class="mui-content-padded">
+				<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success" style="color: white;">确认提交</a>
+			</div>
+
+		</form>
+
+		<script>
+			$('.sure').addClass('mui-active')
+		</script>
+		<link href="../css/sm.css?source=11" rel="stylesheet">
+
+		<!--<div class="bar bar-standard bar-footer">
+			<div class="btns">
+				<a class="button button-fill button-success">确认提交</a>
+			</div>
+		</div>-->
+
+		<!--	<div class="mui-content-padded">
+			<a id="addAddressB" class="mui-btn mui-btn-primary mui-btn-block button-success">确认提交</a>
+		</div>-->
+	</body>
+	<script type="text/javascript">
+		var seller_type = localStorage.getItem('seller_type')
+		console.log(seller_type)
+		if(seller_type == 2) {
+			$(".chooseBtn1").trigger('click')
+			$('.content2').css('display', 'block')
+			$('.content2_div').css('display', 'none')
+			$('.card_img3_a').css('display', 'none')
+			$('.card_img9_a').css('display', 'none')
+			$('.card_img10_h2').html('必传')
+			$('.card_img10_h2').css('color', 'red')
+			$('.card_img11_h2').html('必传')
+			$('.card_img11_title').html('结算人站门头照')
+			$('.card_img11_h2').css('color', 'red')
+			$('.card_img12_h2').html('必传')
+			$('.card_img12_h2').css('color', 'red')
+
+			init_img()
+		}
+		if(seller_type == 1) {
+			$(".chooseBtn1").trigger('click')
+			$('.content2').css('display', 'block')
+			$('.select_type').css('display', 'none')
+			$('.card_img10_h2').html('必传')
+			$('.card_img10_h2').css('color', 'red')
+			$('.card_img11_h2').html('必传')
+			$('.card_img11_title').html('结算人站门头照')
+			$('.card_img11_h2').css('color', 'red')
+			$('.card_img12_h2').html('必传')
+			$('.card_img12_h2').css('color', 'red')
+
+			$('.card_img14_a').css('display', 'block');
+			$('.card_img13_a').css('display', 'block');
+			$('.card_img13_a').find('img').attr('src', '../images/1.png')
+			$('.card_img13_a').find('.card_img13_title').html('特约商户支付服务协议(1)');
+			$('.card_img13_a').find('.card_img13_red').html('')
+			$('.card_img13_a').find('.card_img13_red').css('color', 'red')
+			$('.card_img5_a').css('display', 'block');
+			$('.card_img5_a').find('img').attr('src', '../images/1.png')
+			$('.card_img5_a').find('.card_img5_title').html('特约商户支付服务协议(2)');
+			$('.card_img5_a').find('.card_img5_red').html('')
+			$('.card_img5_a').find('.card_img5_red').css('color', 'red')
+			$('.card_img6_a').css('display', 'block');
+			$('.card_img6_a').find('img').attr('src', '../images/2.png')
+			$('.card_img6_a').find('.card_img6_title').html('商户信息表');
+			$('.card_img6_a').find('.card_img6_red').html('')
+			$('.card_img6_a').find('.card_img6_red').css('color', 'red')
+			init_img()
+		}
+		if(seller_type == 0) {
+
+			$('.card_img10_h2').html('必传')
+			$('.card_img10_h2').css('color', 'red')
+			$('.card_img11_h2').html('必传')
+			$('.card_img11_h2').css('color', 'red')
+			$('.card_img12_h2').html('必传')
+			$('.card_img12_h2').css('color', 'red')
+
+			init_img()
+		}
+
+		function init_img() {
+
+			var IP = localStorage.getItem('IP');
+			if(IP.indexOf("test") >= 0) {
+
+				$("#card_img1").val('测试')
+				$("#card_img2").val('测试')
+				$("#card_img3").val('测试')
+				$("#card_img4").val('测试')
+				$("#card_img5").val('测试')
+				$("#card_img6").val('测试')
+				$("#card_img7").val('测试')
+				$("#card_img8").val('测试')
+				$("#card_img9").val('测试')
+				$("#card_img10").val('测试')
+				$("#card_img11").val('测试')
+				$("#card_img12").val('测试')
+			}
+		}
+		window.addEventListener('update_upload_img', function(e) {
+
+			var upload_obj_id = localStorage.getItem('upload_obj_id');
+			var avatar = localStorage.getItem('avatar');
+
+			var IP = localStorage.getItem('IP');
+			console.log(upload_obj_id)
+			if(avatar != null && avatar != "") {
+				$('' + upload_obj_id + '_class').attr('src', IP + '/' + avatar)
+				upload_obj_id = upload_obj_id.replace('.', '')
+				$('#' + upload_obj_id).val(avatar);
+			} else {
+
+				//				$('' + upload_obj_id).attr('src', '../images/icon_upload_photo.png')
+			}
+		});
+	</script>
+
+</html>

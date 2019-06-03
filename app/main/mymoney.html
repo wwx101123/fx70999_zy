@@ -1,0 +1,379 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>积分明细 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style4.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/usermoney.css" />
+		<link rel="stylesheet" type="text/css" href="../css/flows.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/weui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<style>
+			.aui-flex-box-bd {
+				-webkit-box-flex: 1;
+				-webkit-flex: 1;
+				flex: 1;
+				min-width: 0;
+			}
+			
+			.aui-flex-box-fr {
+				text-align: right;
+				color: #ef4352;
+				padding-right: 20px;
+				position: relative;
+				font-size: 0.8rem;
+			}
+			
+			.aui-flex-box-fr:after {
+				content: " ";
+				display: inline-block;
+				height: 9px;
+				width: 9px;
+				border-width: 1px 1px 0 0;
+				border-color: #a7a7a7;
+				border-style: solid;
+				-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				position: relative;
+				top: -2px;
+				position: absolute;
+				top: 50%;
+				margin-top: -5px;
+				right: 2px;
+				border-radius: 1px;
+			}
+			
+			.aui-flex-box:after {
+				content: '';
+				position: absolute;
+				z-index: 0;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 1px;
+				border-bottom: 1px solid #e8e8e8;
+				-webkit-transform: scaleY(0.5);
+				transform: scaleY(0.5);
+				-webkit-transform-origin: 0 100%;
+				transform-origin: 0 100%;
+			}
+			
+			.aui-flex-box-bd h2 {
+				position: relative;
+				width: 104px;
+				font-size: 0.9rem;
+				font-weight: normal;
+				color: white;
+				padding-bottom: 10px;
+			}
+			
+			.aui-flex-box-bd h3 {
+				font-size: 2rem;
+				color: white;
+				padding-bottom: 10px;
+			}
+			
+			.aui-flex-box-bd p {
+				font-size: 0.9rem;
+				font-weight: normal;
+				color: #333333;
+			}
+			
+			.aui-flex-box-bd p em {
+				font-style: normal;
+			}
+			
+			.aui-flex-box-fr- {
+				color: white;
+				position: absolute;
+				font-size: 15px;
+				right: 10%;
+				top: 20%;
+				border: 1px solid #d8dde3;
+				border-radius: 10%;
+				width: 100px;
+				text-align: center;
+				line-height: 30px;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #f3f3f3;height: 100%; margin: 0">
+		<div class="page mescroll" id="mescroll" style="padding-top:0% ;">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<div class="page__bd">
+				<!--订单列表-->
+				<div class="aui-wer-box">
+					<div class="aui-flex-box-bd" style="padding-top:5% ;">
+						<h2 style="width: 100%;
+    text-align: center;
+    padding: 0;font-size: 20px;">总资产(元) <i class="icon icon-eye"></i>
+                        </h2>
+						<h3 style="text-align: center; padding: 10px;font-size: 20px;" class="agent_use">0</h3>
+						<p>
+						</p>
+
+					</div>
+					<div class="open_tixian aui-flex-box-fr-" style="display: none;">去提现</div>
+					<div class="shouyi_bg aui-wer-box-item" style="MARGIN: 0px;    min-height: 50px;
+    height: 60px;">
+						<!--<span class="user_icon">交易数据</span>-->
+
+						<div class="today">
+
+							<div class="today_title">
+								<span class="tip  ">当月收入</span>
+								<span class="shouyi_tip month_shop_count money1">0.00</span>
+							</div>
+							<div class="today_title">
+								<span class="tip  ">当月提现</span>
+								<span class="shouyi_tip month_shop_active_count money2">0.00</span>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<div class="aui-mobile-ad" style="margin-top:10%;">
+			</div>
+			<div class="aui-mobile-list aui-mobile-list-two">
+
+				<div class="aui-palace my_cate_item">
+					<a href="javascript:;" class="aui-palace-grid open_tixian" url="mymoney.html">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/tx.png" alt="">
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>微信提现</h2>
+						</div>
+					</a>
+
+					<a href="javascript:;" class="aui-palace-grid open_tixian_list" url="pwdEdit.html">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/record.png" alt="">
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>提现记录</h2>
+						</div>
+					</a>
+
+					<a href="javascript:;" class="aui-palace-grid open_shouyi_money" url="card.html">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/fenrun.png" alt="">
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>我的收益</h2>
+						</div>
+					</a>
+					<a href="javascript:;" class="aui-palace-grid open_detail_money" url="card.html">
+						<div class="aui-palace-grid-icon">
+							<img src="../images/zd.png" alt="">
+						</div>
+						<div class="aui-palace-grid-text">
+							<h2>账单详情</h2>
+						</div>
+					</a>
+				</div>
+
+			</div>
+			<div class="aui-list-items">
+				<div class="aui-flex">
+					<div class="aui-flex-box">
+						<h3></h3>
+					</div>
+				</div>
+				<link rel="stylesheet" type="text/css" href="../css/chart.css" />
+
+			</div>
+			<div id="container" style=" height: 50%;background: white; margin-left: 3%;margin-right: 3%;
+"></div>
+			<script type="text/javascript" src="../js/echarts/echarts.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+			<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+		</div>
+
+	</body>
+	<script type="text/javascript">
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(user_id, successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+					get_user_info(user_id, successCallback, 1)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+
+				//联网加载数据
+				getListDataFromNet(user_id, function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+
+				console.log(data)
+				var user = data;
+				var info = JSON.parse(user);
+				info = info.data
+				console.log(info.money1)
+				console.log(info.shui_money)
+				console.log(info.pos_fx_sum)
+				console.log(info.pos_fx_shui_sum)
+				
+				$('.money1').html((parseFloat(info.money1) + parseFloat(info.pos_fx_sum) + parseFloat(info.pos_fx_shui_sum) + parseFloat(info.shui_money)).toFixed(2));
+				$('.money2').html(info.money2);
+				$('.agent_use').html(info.agent_use);
+
+				$('.open_tixian').click(function() {
+
+					//					location.href = "userorder.html"
+					openWindowWithTitle('提现', "tiqu.html");
+
+				});
+				$('.open_tixian_list').click(function() {
+
+					//					location.href = "userorder.html"
+					openWindowWithTitle('提现记录', "tixian_list.html");
+
+				});
+				$('.open_detail_money').click(function() {
+
+					//					location.href = "userorder.html"
+					openWindowWithTitle('我的账单', "detail_money.html");
+
+				});
+				$('.open_shouyi_money').click(function() {
+
+					//					location.href = "userorder.html"
+					openWindowWithTitle('收益明细', "useralldetailmoney.html");
+
+				});
+
+				var dom = document.getElementById("container");
+				var myChart = echarts.init(dom);
+				var app = {};
+				option = null;
+				app.title = '环形图';
+				var weatherIcons = {
+					'Sunny': './data/asset/img/weather/sunny_128.png',
+					'Cloudy': './data/asset/img/weather/cloudy_128.png',
+					'Showers': './data/asset/img/weather/showers_128.png'
+				};
+
+				option = {
+					title: {
+						text: '本月统计',
+						left: 'center'
+					},
+					tooltip: {
+						trigger: 'item',
+						formatter: "{b} : {c} ({d}%)"
+					},
+					legend: {
+						// orient: 'vertical',
+						// top: 'middle',
+						bottom: 10,
+						left: 'center',
+						data: ['分润', '提现', '返现'/*, '个税'*/]
+					},
+					series: [{
+						type: 'pie',
+						radius: '65%',
+						center: ['50%', '50%'],
+						selectedMode: 'single',
+						data: [ 
+							{
+								value: info.fen_money,
+								name: '分润'
+							},
+							{
+								value: info.money2,
+								name: '提现'
+							},
+							{
+								value: info.fan_money,
+								name: '返现'
+							}
+							/*,
+							{
+								value: info.shui_money*-1,
+								name: '个税'
+							}*/
+						],
+						itemStyle: {
+							emphasis: {
+								shadowBlur: 10,
+								shadowOffsetX: 0,
+								shadowColor: 'rgba(0, 0, 0, 0.5)'
+							}
+						}
+					}]
+				};
+
+				if(option && typeof option === "object") {
+					myChart.setOption(option, true);
+				}
+
+			}
+		});
+	</script>
+
+</html>

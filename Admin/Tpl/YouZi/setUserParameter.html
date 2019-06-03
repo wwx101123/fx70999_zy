@@ -1,0 +1,157 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>趴点设置</h2>
+		<ol class="breadcrumb">
+			<li><a href="{:U('Index/index')}">首页</a></li>
+			<li><a>后台管理</a></li>
+			<li class="active"><strong>趴点设置</strong></li>
+		</ol>
+	</div>
+</div>
+</block>
+<block name="menu">
+<div class="wrapper wrapper-content animated fadeInRight">
+	<!-- <div class="alert alert-success">
+            <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+            点击用户账号可<strong>登录会员前台</strong>
+        </div> -->
+	<div class="ibox float-e-margins">
+		<div class="ibox-title">
+			<h5>会员列表</h5>
+
+		</div>
+		<div class="col-sm-12 ibox-content">
+			<form class="form-inline title-form" name="qfrm" method="post"
+				action="?action=query">
+				<div class="form-group">
+					<label for="username"></label> <input type="text"
+						class="form-control" id="username" name="username"
+						placeholder="用户账号或姓名查询" value="{$user_id}">
+				</div>
+				<!--  <div class="form-group">
+                                <label for="tjrname"></label>
+                                <input type="text" class="form-control" id="tjrname" name="tjrname" placeholder="分享人编号查询" value="{$re_id}">
+                            </div> -->
+
+				<button type="submit" class="btn btn-primary">查询</button>
+			</form>
+		</div>
+		<form class="form-inline title-form" name="qfrm" method="post"
+			action="__URL__/setUserParameterSave">
+			<div class="ibox-content" style="display: block;">
+				<div class="row wrapper border-bottom white-bg page-heading">
+					<div class="col-sm-12">
+						<button type="button" class="btn btn-primary"
+							onclick="window.location.href ='__URL__/setParameter'">参数设置</button>
+
+
+						<button type="submit" class="btn btn-primary">保存</button>
+
+					</div>
+				</div>
+				<script type="text/javascript">
+					layui.use('laydate', function() {
+						var laydate = layui.laydate;
+						var start = {
+							// min: laydate.now(-2)
+							max : '2099-06-16 23:59:59',
+							istoday : false,
+							choose : function(datas) {
+								end.min = datas; //开始日选好后，重置结束日的最小日期
+								end.start = datas //将结束日的初始值设定为开始日
+							}
+						};
+
+						var end = {
+							min : laydate.now(),
+							max : '2099-06-16 23:59:59',
+							istoday : false,
+							choose : function(datas) {
+								start.max = datas; //结束日选好后，重置开始日的最大日期
+							}
+						};
+
+						$('#time1').on('click', function() {
+							start.elem = this;
+							laydate(start);
+						});
+						$('#time2').on('click', function() {
+							end.elem = this
+							laydate(end);
+						});
+					});
+				</script>
+				<div class="tablesaw-bar mode-stack"></div>
+				<table class="table table-hover tablesaw-stack"
+					data-tablesaw-mode="stack" id="table-1166">
+					<thead>
+						<tr>
+							<!--<th></th>-->
+							<th>激活时间</th>
+							<th>会员ID</th>
+							<th>用户账号</th>
+							<th>会员姓名</th>
+
+							<th>趴点</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<volist name="list" id="vo">
+						<tr>
+							<!--<td><b class="tablesaw-cell-label"></b><input type="checkbox" name="id[]" value="{$vo['id']}" class="btn2" /></td>-->
+							<td><b class="tablesaw-cell-label">激活时间 </b><span
+								class="tablesaw-cell-content">{$vo['pdt']|date="Y-m-d
+									H:i:s",###}</span></td>
+							<td><b class="tablesaw-cell-label">会员ID</b><span
+								class="tablesaw-cell-content">{$vo.user_number}</span></td>
+							<td><b class="tablesaw-cell-label">用户账号</b><span
+								class="tablesaw-cell-content"><a
+									href="{:U('User/userInfo')}?id={$vo.id}" target="_blank"> <span
+										class="rankcolor_1">{$vo.user_id}</span>
+										<p></p>
+								</a></span></td>
+							<td><b class="tablesaw-cell-label">会员姓名</b><span
+								class="tablesaw-cell-content">{$vo.user_name}</span></td>
+
+							<td><b class="tablesaw-cell-label">趴点</b><span
+								class="tablesaw-cell-content"> <input type="hidden"
+									name="user_ids[]" value="{$vo.id}"> <input
+									type="input" name="register_awards[]"
+									value="{$vo.register_award}"></span></td>
+
+
+						</tr>
+						</volist>
+						<!--<tr> 
+                        <td colspan="18">
+                            <span class="tablesaw-cell-content">
+                            <input name="全选" type="button" class="btn btn-xs" id="全选" onclick="CheckAll(this.form)" value="全选" />
+                            <input type="submit" class="btn btn-xs btn-outline btn-danger" name="action"  value="配股" onclick="{if(confirm('确定为选中的会员配股?')){return true;}return false;}">
+                        </span></td>
+                    </tr>-->
+					</tbody>
+				</table>
+
+				{$page}
+			</div>
+		</form>
+	</div>
+</div>
+
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script> <script language="JavaScript">
+	ifcheck = true;
+	function CheckAll(form) {
+		for (var i = 0; i < form.elements.length - 1; i++) {
+			var e = form.elements[i];
+			e.checked = ifcheck;
+		}
+		ifcheck = ifcheck == true ? false : true;
+	}
+</script> </block>

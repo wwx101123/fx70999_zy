@@ -1,0 +1,121 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>充值管理</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>后台管理</a>
+                </li>
+                <li class="active">
+                    <strong>会员充值</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+<script type="text/javascript">
+	$(function() {
+
+		$('.sidebar').css('display','block')
+		$('.navbar-nav li').removeClass('active')
+		$('.navbar-nav li.caiwu').addClass('active')
+		$('.subnav').css('display','none')
+		$('.sidebar #caiwu').css('display','block')
+		$('.sidebar #adminCurrencyRecharge').addClass('current')
+	});
+</script>
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>充值双闪币
+                    <small class="text-danger"> 注意！负数为扣款</small>
+                </h5>
+            </div>
+            <div class="ibox-content">
+                <form class="form-horizontal ajax-post" name="form1" id="form1" method="post" action="__URL__/adminCurrencyRechargeSSBAdd">
+                     
+                    <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">货币类型： <i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+
+                            <select name="stype" id="stype" class="form-control"> 
+                                <option value="7" selected>双闪币</option> 
+                                <!-- <option value="1" >现金点值</option> -->
+                                
+                               <!--  <option value="3">复投积分</option>
+                                <option value="4">幸运积分</option> -->
+                                <option value="5" style="display:none">股票</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                     <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">会员类型： <i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+
+                            <select name="usertype" id="usertype" class="form-control"> 
+                                <option value="1" selected>1000</option> 
+                                <option value="2" selected>3000</option> 
+                                <option value="3" selected>9000</option> 
+                                <option value="4" selected>18000</option> 
+                                <!-- <option value="1" >现金点值</option> -->
+                                
+                               <!--  <option value="3">复投积分</option>
+                                <option value="4">幸运积分</option> --> 
+                            </select>
+                        </div>
+                    </div>
+                    
+                     <div class="hr-line-dashed"></div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">充值比例：<i class="text-danger">*</i></label>
+                        <div class="col-sm-10">
+                            <input name="percent" type="text" value="" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                  
+
+                    <div class="form-group hidden">
+                        <label class="col-sm-2 control-label">备注： <i class="text-danger">*</i></label>
+
+                        <div class="col-sm-10">
+
+                            <textarea type="text" name="memo" class="form-control"> </textarea>
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed hidden"></div>
+
+                    <div class="form-group hidden">
+                        <label class="col-sm-2 control-label">是否显示： </label>
+
+                        <div class="col-sm-10">
+                            <label class="checkbox-inline"> <input type="radio" name="is_show" value="0" checked=""> 否 </label>
+                            <label class="checkbox-inline"> <input type="radio" name="is_show" value="1"> 是 </label>
+
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed hidden"></div>
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <button class="btn btn-primary submit" type="button" onclick="ExePostBack(this,'确定充值?','#form1')">充值</button>
+                            <button class="btn btn-white" type="button"  onclick="location.href='__URL__/adminCurrencyRecharge'">取消</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</block>

@@ -1,0 +1,127 @@
+<extend name="Public:adminheader" />
+<block name="breadcrumb">
+	<div class="row wrapper border-bottom white-bg page-heading">
+		<div class="col-lg-10">
+			<h2>产品分类</h2>
+			<ol class="breadcrumb">
+				<li>
+					<a href="{:U('Index/index')}">首页</a>
+				</li>
+				<li>
+					<a>后台管理</a>
+				</li>
+				<li>
+					<a>产品管理</a>
+				</li>
+				<li class="active">
+					<strong>产品分类</strong>
+				</li>
+			</ol>
+		</div>
+	</div>
+</block>
+
+<block name="menu">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>产品分类</h5>
+			</div>
+			<div class="ibox-content">
+				<a href="{:U('Gouwu/cptype_add')}" class="btn btn-primary">添加分类</a>
+				<div class="tablesaw-bar mode-stack"></div><table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-9771">
+
+				<thead>
+					<tr>
+						<th width="100">编号</th>
+						<th>分类名称</th>
+						<th width="200">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				<volist name="list" id="vo">
+				<tr class="odd-box">
+					<td><b class="tablesaw-cell-label">编号</b><span class="tablesaw-cell-content">{$vo['id']}</span></td>
+					<td><b class="tablesaw-cell-label">分类名称</b><span class="tablesaw-cell-content">
+						<b>{$vo['tpname']}</b></span>
+					</td>
+					<td><b class="tablesaw-cell-label">操作</b><span class="tablesaw-cell-content">
+						<a href="__URL__/cptype_edit/EDid/{$vo['id']}">修改</a> |
+						<a href="{:U('Gouwu/cptype_opear')}?action=del&id={$vo.id}" class="ajax-a" info="确定删除该分类？">删除</a></span>
+					</td>
+				</tr>
+				</volist>
+					</tbody>
+				</table>
+				{$page}
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		layui.use('layer',function() {
+			  $('.ajax-a').on('click',function() {
+			    var self=$(this);
+			    layer.confirm(self.attr('info'),{icon: 3, title:'警告'},function(index) {
+			      $url=self.attr('href');
+			      $.get($url,function(data) {
+			        if (data.status) {
+			          layer.msg(data.info,{time:1000,end:function() {
+			            if (data.url) {
+			              location.href=data.url;
+			            }else{
+			              location.reload();
+			            }
+			          }});
+			        }else{
+			          layer.msg(data.info);
+			        }
+			      });
+			    });
+			    return false;
+			  });
+		});
+	</script>
+</block>
+<!-- <include file="Public:header" />
+<div class="ncenter_box">
+<div class="accounttitle"><h1>产品分类管理 </h1></div>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr align="left">
+	<td><input type="button" name="action" value="管理产品" onClick="window.location='__URL__/pro_index/'" class="btn1"></td>
+</tr>
+</table>
+<table width="100%" class="tab3" border="0" cellpadding="3" cellspacing="0" id="tb1">
+<form action="__URL__/cptype_zz" method="post" name="form3" id="form3">
+<tr align="center">
+	<th width="10%" ></th>
+	<th width="10%" nowrap >序号</th>
+	<th width="60%" nowrap align="left">&nbsp; 分类名</th>
+	<th width="20%" nowrap >操作</th>
+	</tr>
+<volist name="list" id="vo">
+<tr align="center"> 
+	<td><div align="center">
+	  <input type="checkbox" name="checkbox[]" value="{$vo['id']}" class="">
+	  </div></td>
+	<td>{$vo['id']}</td>
+	<td nowrap align="left">{$vo['tpname']}</td>
+	<td><a href="__URL__/cptype_edit/EDid/{$vo['id']}">编辑</a></td>
+	</tr>
+</volist>
+<tr><input name="allcheckboxs" type="hidden" value="">
+	<td colspan=4>
+    <input name="全选" type="button" class="btn1" id="全选" onclick="CheckAll(this.form)" value="全选" />&nbsp; &nbsp;
+	  <input type="submit" name="action" value="添加" onClick="return allcheckbox();" class="btn1">&nbsp; &nbsp;
+	  <input type="submit" name="action" value="删除" onClick="return allcheckbox();" class="btn1"></td>
+</tr>
+</form>
+</table>
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+<tr align="center">
+	<td>{$page}</td>
+</tr>
+</table>
+</div>
+</body>
+</html>
+ -->

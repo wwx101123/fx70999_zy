@@ -1,0 +1,835 @@
+/* DIRECTIONAL NAV
+ ================================================== */
+.sangar-slideshow-container > .default div > span.sangar-arrow-right {
+	background: url("images/right-arrow.png");
+	right: 0px;	
+}
+
+.sangar-slideshow-container > .default div > span.sangar-arrow-left {
+	background: url("images/left-arrow.png");
+	left: 0px;
+}
+
+.sangar-slideshow-container > .default div > span.sangar-arrow-down {
+	background: url("images/down-arrow.png");
+	bottom: 10px;	
+}
+
+.sangar-slideshow-container > .default div > span.sangar-arrow-up {
+	background: url("images/up-arrow.png");
+	top: 10px;
+}
+
+/* PAGINATION NAV
+ ================================================== */
+.sangar-slideshow-container > .default ul.sangar-pagination-bullet > li {
+	float: left;
+	margin-left: 10px;
+	cursor: pointer;
+	color: #BBBBBB;	
+	width: 18px;
+	height: 18px;
+	overflow: hidden;
+	padding:0px;
+	
+	-webkit-border-radius: 90px;
+	-moz-border-radius: 90px;
+	border-radius: 90px;
+	background-color: #4C4C4C;
+	box-sizing: content-box;
+}
+
+.sangar-slideshow-container > .default ul.sangar-pagination-bullet > li.sangar-pagination-active {
+	color: #616161;
+	background-color: #D3D3D3;
+	margin-left:auto;
+	margin-right:auto;
+	margin-left: 10px;
+	border: 5px solid #4C4C4C;
+	width: 8px;
+	height: 8px;
+}
+
+/**
+ * sangar-pagination-content-horizontal 
+ */
+.sangar-slideshow-container > .default ul.sangar-pagination-content-horizontal > li {
+	padding: 15px 0;
+	text-align: center;
+    color: #FFF;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-content-horizontal > li.sangar-pagination-active {
+	background-color: #A64E48;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li.sangar-pagination-active {
+	background: none;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li.sangar-pagination-active > img {  	
+	border:2px solid white;
+	margin: -2px;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-content-horizontal > li:hover {
+    background-color: #A64E48;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li:hover {
+    background: none;
+}
+
+/** 
+ * sangar-pagination-content-vertical 
+ */
+.sangar-slideshow-container > .default ul.sangar-pagination-content-vertical > li {
+	padding: 15px 0;
+	text-align: center;
+    color: #FFF;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li {
+	padding: 5px 0;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-content-vertical > li.sangar-pagination-active {
+	background-color: #A64E48;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li.sangar-pagination-active {
+	background: none;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li.sangar-pagination-active > img {  	
+	border:2px solid white;
+	margin: -2px;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-content-vertical > li:hover {
+    background-color: #A64E48;
+}
+.sangar-slideshow-container > .default ul.sangar-pagination-type-image > li:hover {
+    background: none;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title></title>
+
+    <html lang="zh-CN">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<meta charset="UTF-8">
+<title></title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<link rel="shortcut icon" href="../../Resource/plugins/hplus/favicon.ico">
+<link href="../../Resource/plugins/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+<link href="../../Resource/plugins/hplus/css/font-awesome.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="../../Resource/plugins/hplus/tablesaw/tablesaw.css">
+
+<link href="../../Resource/plugins/hplus/css/animate.min.css" rel="stylesheet">
+<link href="../../Resource/plugins/hplus/css/style_inspina.css" rel="stylesheet">
+<link href="../../Resource/plugins/hplus/css/xin.css" rel="stylesheet">
+<link href="../../Resource/plugins/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+
+<link href="../../Resource/plugins/hplus/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+
+<!-- Gritter -->
+<link href="../../Resource/plugins/hplus/js/plugins/gritter/jquery.gritter.css" rel="stylesheet">
+
+<link href="../../Resource/plugins/hplus/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
+<!--<link href="../../Resource/plugins/hplus/blueimp/blueimp-gallery.min.css" rel="stylesheet">-->
+
+<!--<link rel="stylesheet" type="text/css" href="../../Resource/plugins/hplus/css/plugins/markdown/bootstrap-markdown.min.css" />-->
+
+<link rel="stylesheet" type="text/css" href="../../Resource/plugins/hplus/css/plugins/simditor/simditor.css" />
+
+<link href="../../Resource/plugins/hplus/slick/slick.css" rel="stylesheet">
+<link href="../../Resource/plugins/hplus/slick/slick-theme.css" rel="stylesheet">
+
+<!--<link href="../../Resource/plugins/assets/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">-->
+
+
+<link href="../../Resource/plugins/assets/plugins/jQuery-city/css/city-picker.css" rel="stylesheet" type="text/css" />
+
+<!-- Ladda style -->
+<link href="../../Resource/plugins/hplus/css/plugins/ladda/ladda-themeless.min.css" rel="stylesheet">
+
+<!-- Sweet Alert -->
+<link href="../../Resource/plugins/hplus/css/plugins/sweetalert/sweetalert.css" rel="stylesheet">
+
+<!-- Switchery -->
+<link href="../../Resource/plugins/hplus/css/plugins/switchery/switchery.css" rel="stylesheet">
+<style>
+    /*@media (max-width: 1200px) {*/
+        .container{
+            width: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        .wrapper-content{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .top-navigation .wrapper.wrapper-content{
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    /*}*/
+    @media screen and (max-width: 767px) {
+        .table-responsive > .table > tbody > tr > td, .table-responsive > .table > tbody > tr > th, .table-responsive > .table > tfoot > tr > td, .table-responsive > .table > tfoot > tr > th, .table-responsive > .table > thead > tr > td, .table-responsive > .table > thead > tr > th {
+            white-space: inherit;
+        }
+    }
+    @media (min-width: 768px){
+        .top-navigation{
+            margin-top:87px;overflow: scroll;
+        }
+        #topMenu{
+            z-index: 1000;width: 100%;position: fixed;top:0px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .container{
+            width: 100%;
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+    @media (max-width: 900px) {
+        #pc-top{
+            display: none;
+        }
+    }
+    @media (max-width: 768px) {
+       /* .top-navigation .navbar-collapse{
+            position: absolute;
+            min-height: 100%;
+            z-index: 1000;
+            background: #fff;
+            transition: transform .15s ease-in-out,width .15s ease-in-out;
+            transform: translate(-160px, 0);
+        }
+        .top-navigation .in{
+            transform: translate(0, 0);
+        }*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="../../Resource/plugins/hplus/js/jquery.min.js?v=2.1.4"></script>
+<script src="../../Resource/plugins/hplus/js/bootstrap.min.js?v=3.3.6"></script>
+
+<!--<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>-->
+
+<!-- bootstrap-table-->
+
+<script src="../../Resource/plugins/hplus/js/plugins/toastr/toastr.min.js"></script>
+
+<script src="../../Resource/plugins/hplus/tablesaw/dependencies/respond.js"></script><![endif]-->
+<script src="../../Resource/plugins/hplus/tablesaw/dependencies/jquery.js"></script>
+<script src="../../Resource/plugins/hplus/tablesaw/tablesaw.js"></script>
+<script src="../../Resource/plugins/hplus/tablesaw/tablesaw-init.js"></script>
+
+<script src="../../Resource/plugins/hplus/js/plugins/gritter/jquery.gritter.min.js"></script>
+
+<script src="../../Resource/plugins/hplus/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<script src="../../Resource/plugins/hplus/blueimp/jquery.blueimp-gallery.min.js"></script>
+
+
+<!--<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/markdown/markdown.js"></script>-->
+<!--<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/markdown/to-markdown.js"></script>-->
+<!--<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/markdown/bootstrap-markdown.js"></script>-->
+<!--<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/markdown/bootstrap-markdown.zh.js"></script>-->
+
+<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/simditor/module.js"></script>
+<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/simditor/uploader.js"></script>
+<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/simditor/hotkeys.js"></script>
+<script type="text/javascript" src="../../Resource/plugins/hplus/js/plugins/simditor/simditor.js"></script>
+
+<!-- slick carousel-->
+<script src="../../Resource/plugins/hplus/slick/slick.min.js"></script>
+
+<!--<link href="../../Resource/plugins/assets/plugins/bootstrap-select/js/bootstrap-select.js" rel="stylesheet">-->
+
+<!-- 鐪佸競鍖烘彃浠�-->
+<script src="../../Resource/plugins/assets/plugins/jQuery-city/js/city-picker.data.js"></script>
+<script src="../../Resource/plugins/assets/plugins/jQuery-city/js/city-picker.js"></script>
+<script src="../../Resource/plugins/assets/plugins/jQuery-city/js/main.js"></script>
+
+<!-- Ladda -->
+<script src="../../Resource/plugins/hplus/js/plugins/ladda/spin.min.js"></script>
+<script src="../../Resource/plugins/hplus/js/plugins//ladda/ladda.min.js"></script>
+<script src="../../Resource/plugins/hplus/js/plugins/ladda/ladda.jquery.min.js"></script>
+
+<!-- Sweet alert -->
+<script src="../../Resource/plugins/hplus/js/plugins/sweetalert/sweetalert.min.js"></script>
+
+<!-- Switchery -->
+<script src="../../Resource/plugins/hplus/js/plugins/switchery/switchery.js"></script>
+
+<!-- StickUp -->
+<!--<script src="../../Resource/plugins/hplus/js/plugins/stickUp.js"></script>-->
+
+
+
+<!-- toastr -->
+<script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "400",
+            "hideDuration": "1000",
+            "timeOut": "7000",
+            "extendedTimeOut": "3000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+        function showToastrMessage(text,type){
+                switch (type) {
+                    case 'success':
+                        toastr.success(text);break;
+                    case 'error':
+                        toastr.error(text);break;
+                    default :
+                        toastr.info(text);break;
+                }
+        }
+</script>
+<script>
+    function showSweetAlert(title,msg,type,my_function) {
+            swal({
+            title:title,
+            text: msg,
+            type: type,
+            confirmButtonText: "纭畾",
+            cancelButtonText: "鍙栨秷"
+        },my_function);
+
+    }
+</script>
+<script>
+    function sendAjax(buttonId,goPage){
+        var thisTicket = "#"+buttonId;
+        var l = $(thisTicket).ladda();
+
+        // Start loading
+        l.ladda('start');
+        setTimeout(function () {
+            $.ajax({
+                url: goPage,
+                type: "post",
+                dataType: "json",
+                data: $("#sendForm").serialize(),
+                error: function (msg) {
+                    showSweetAlert('', msg, 'error');
+                },
+                success: function (msg) {
+                    if (msg.resultType != 1) {
+                        showSweetAlert('', msg.msg, 'error')
+                    } else {
+                        showSweetAlert("", msg.msg, "success",function (isConfirm) {
+                            location.href = msg.toUrl;
+                        });
+                        setTimeout(function () {
+                            location.href = msg.toUrl;
+                        },2000);
+                    }
+                    l.ladda('stop');
+                }
+            });
+        }, 500);
+    }
+</script>
+
+</head>
+
+<body class="top-navigation">
+
+<div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+        <!--瀵艰埅-->
+        <style type="text/css">
+    .bk-toolBar {
+        line-height: 36px;
+        background-color: #2a333a;
+    }
+    .pull-left {
+        float: left!important;
+    }
+    .bk-toolBar>ul,li,dl,dt,dd{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .bk-toolBar>ul>li {
+        display: inline-block;
+        height: 100%;
+        color: #7c8187;
+    }
+    .bk-toolBar>ul>li p {
+        margin: 0;
+    }
+    .bk-toolBar>.btn.btn-skew {
+        -webkit-transform: skew(-20deg);
+        -moz-transform: skew(-20deg);
+        -o-transform: skew(-20deg);
+        transform: skew(-20deg);
+    }
+    .bk-toolBar>.btn.btn-skew span {
+        -webkit-transform: skew(20deg);
+        -moz-transform: skew(20deg);
+        -o-transform: skew(20deg);
+        transform: skew(20deg);
+    }
+</style>
+
+<div class="row border-bottom white-bg" id="topMenu">
+    <div class="bk-toolBar clearfix" id="pc-top">
+        <ul class="pull-left" id="topMenuPrice">
+            <li><p>&nbsp;&nbsp;<i class="fa fa-fire"></i>&nbsp;娆㈣繋鎮紒 <span class="text-warning">鎾掔殑</span></p></li>
+            <li><p>&nbsp;&nbsp;杩欐槸鎮ㄧ <span class="text-warning">3</span> 娆＄櫥褰曠郴缁�</p></li>
+            <li><p>&nbsp;&nbsp;鎮ㄤ笂娆＄殑鐧诲綍鏃堕棿鏄� <span class="text-warning">2016-11-21 14:53:40</span> 鍦板潃 <span class="text-warning"></span></p></li>
+            <li><p>&nbsp;&nbsp;鏈鐧诲綍IP <span class="text-warning">113.16.149.242</span></p></li>
+            <!--         <li><p>&nbsp;&nbsp;DAO/CNY锛�<b id="T_daoLastPrice" class="text-primary">--<i class="fa fa-arrow-up fa-fw"></i></b></p></li> -->
+        </ul>
+
+        <ul class="pull-right" id="topMenuNav" style="margin-top:1px;margin-right: 20px;">
+            <li id="menuNew"><a href="announces.php" target="_self"><span class="text-warning">淇℃伅璧勮<span class="badge"></span></span></a></li>
+        </ul>
+        <a id="btnRecommed" role="button" class="btn btn-primary btn-skew btn-sm pull-right" style="margin-top:4px;margin-right: 20px;" target="_self">
+            <span><i class="fa fa-clock-o" ></i> <span id="timer"></span></span>
+            <script language="javascript">
+                document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 鏄熸湡'+'鏃ヤ竴浜屼笁鍥涗簲鍏�'.charAt(new Date().getDay());
+                setInterval("document.getElementById('timer').innerHTML=new Date().toLocaleString()+' 鏄熸湡'+'鏃ヤ竴浜屼笁鍥涗簲鍏�'.charAt(new Date().getDay());",1000);
+            </script>
+        </a>
+    </div>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="#" class="navbar-brand"></a>
+        </div>
+                <div class="navbar-collapse collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a aria-expanded="false" role="button" href="__APP__"><i class="fa fa-home" style="font-size: 1.2em;"></i>棣栭〉</a>
+                </li>
+                                                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="userview.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-paper-plane"></i>璧勬枡绠＄悊<span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                                                <li><a href="userview.php">璧勬枡鏌ョ湅</a></li>
+                                                <li><a href="zledit.php">璧勬枡淇敼</a></li>
+                                                <li><a href="pwdedit.php">瀵嗙爜淇敼</a></li>
+                                            </ul>
+                </li>
+                                                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="recommended_query.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i>鍥㈤槦绠＄悊<span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                                                <li><a href="applystore.php">浼氬憳鍗囩骇</a></li>
+                                                <li><a href="dtusers_1.php">瀹夌疆缃戠粶</a></li>
+                                                <li><a href="tjnets_1.php">鍒嗕韩缁撴瀯</a></li>
+                                                <li><a href="userreg.php">浼氬憳鐢宠</a></li>
+                                                <li><a href="myhy11.php">鏈浼氬憳</a></li>
+                                                <li><a href="myhy.php">宸插浼氬憳</a></li>
+                                                <li><a href="applycenter.php">搴楅暱鐢宠</a></li>
+                                            </ul>
+                </li>
+                                                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="salaryquery.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-money"></i>璐㈠姟绠＄悊<span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                                                <li><a href="salaryquery.php">濂栭噾鏄庣粏</a></li>
+                                                <li><a href="e_government.php">鐜伴噾绉垎</a></li>
+                                                <li><a href="moneyzz.php">濂栭噾杞嚭</a></li>
+                                                <li><a href="moneyzz1.php">濂栭噾杞叆</a></li>
+                                                <li><a href="transfer.php">濂栭噾杞崲</a></li>
+                                                <li><a href="txadd.php">濂栭噾鎻愮幇</a></li>
+                                            </ul>
+                </li>
+                                                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="order.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-shopping-cart"></i>璁㈠崟绠＄悊<span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                                                <li><a href="order.php">浜у搧璁㈣喘</a></li>
+                                                <li><a href="orderlist.php">璁㈠崟鏌ヨ</a></li>
+                                                <li><a href="mygoodscart.php">鎴戠殑璐墿杞�</a></li>
+                                            </ul>
+                </li>
+                                                <li class="dropdown">
+                    <a aria-expanded="false" role="button" href="announces.php" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-newspaper-o"></i>淇℃伅绠＄悊<span class="caret"></span></a>
+                    <ul role="menu" class="dropdown-menu">
+                                                <li><a href="announces.php">鏂伴椈鍏憡</a></li>
+                                                <li><a href="writemail.php">鎴戣鐣欒█</a></li>
+                                                <li><a href="mailbox.php">鏀跺埌鐣欒█</a></li>
+                                            </ul>
+                </li>
+                                            </ul>
+            <ul class="nav navbar-top-links navbar-right">
+                <li>
+                    <a href="logout.php">
+                        <i class="fa fa-sign-out"></i>瀹夊叏閫€鍑�
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<script type="text/javascript">
+    jQuery(function($) {
+        $(document).ready( function() {
+            //enabling stickUp on the '.navbar-wrapper' class
+//            $('#topMenu').stickUp();
+        });
+    });
+
+</script>
+<!--<script>
+    $(function () {
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, { color: '#1AB394' }, { size: 'small' });
+    })
+</script>-->
+<!-- BEGIN SIDEBAR -->
+<!--<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+                <h2>璧勬枡鏌ョ湅</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="__APP__">棣栭〉</a>
+            </li>
+            <li>
+                <a>璧勬枡绠＄悊</a>
+            </li>
+            <li class="active">
+                <strong>璧勬枡鏌ョ湅</strong>
+            </li>
+        </ol>
+    </div>
+</div>-->
+<!-- END SIDEBAR -->
+        <!--瀵艰埅EEnd-->
+        <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>璧勬枡鏌ョ湅</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="__APP__">棣栭〉</a>
+                        </li>
+                        <li>
+                            <a>璧勬枡绠＄悊</a>
+                        </li>
+                        <li class="active">
+                            <strong>璧勬枡鏌ョ湅</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        <div class="container">
+            <div class="wrapper wrapper-content animated fadeInRight">
+
+
+                <div class="row m-b-lg m-t-lg">
+                    <div class="col-md-6">
+
+                        <div class="profile-image">
+                            <img src="../../Resource/plugins/hplus/img/man.jpg" class="img-circle circle-border m-b-md" alt="profile">
+                        </div>
+                        <div class="profile-info">
+                            <div class="">
+                                <div>
+                                    <h2 class="no-margins">
+                                        鎾掔殑                                    </h2>
+                                    <h4>閾跺崱</h4>
+                                    <small>
+                                        缂栧彿锛歛s                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <table class="table small m-b-xs">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <strong>鍒嗕韩浜�</strong> z56006961                                </td>
+                                <td>
+                                    <strong>鎺ョ偣浜�</strong> z56006961                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>甯傚満浣嶇疆</strong>
+                                    B鍖�                                </td>
+                                <td>
+                                    <strong>娉ㄥ唽鏃堕棿</strong>
+                                    2016-11-17 00:00                                </td>
+                            </tr>
+                            <tr>
+                                                               <!-- <td>
+                                    <strong>32</strong> Friends
+                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        <small>璐︽埛浣欓</small>
+                        <h2 class="no-margins">锟�0.00</h2>
+                        <div id="sparkline1"></div>
+                    </div>
+
+
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-3">
+
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>鍩烘湰淇℃伅</h3>
+
+                                <p class="small">
+                                                                        <br/>
+                                                                        韬唤璇佸彿锛�                                                                        <br/>
+                                                                        鎵嬫満鍙风爜锛�                                                                        <br/>
+                                                                        <br/>
+                                                                    </p>
+
+                                <p class="small font-bold">
+                                    <span><i class="fa fa-circle text-navy"></i> 鍦ㄧ嚎</span>
+                                </p>
+
+                            </div>
+                        </div>
+
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>宸叉縺娲讳細鍛�</h3>
+                                <p class="small">
+                                    姝ゅ鏄剧ず鎮ㄦ渶鍚庢敞鍐屾縺娲荤殑6浣嶄細鍛橈紝鍏蜂綋璇︽儏璇疯繘鍏モ€滃凡婵€娲讳細鍛樷€濇煡鐪�
+                                </p>
+                                <div class="user-friends">
+                                                                    </div>
+                            </div>
+                        </div>
+
+                       <!-- <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>Personal friends</h3>
+                                <ul class="list-unstyled file-list">
+                                    <li><a href=""><i class="fa fa-file"></i> Project_document.docx</a></li>
+                                    <li><a href=""><i class="fa fa-file-picture-o"></i> Logo_zender_company.jpg</a></li>
+                                    <li><a href=""><i class="fa fa-stack-exchange"></i> Email_from_Alex.mln</a></li>
+                                    <li><a href=""><i class="fa fa-file"></i> Contract_20_11_2014.docx</a></li>
+                                    <li><a href=""><i class="fa fa-file-powerpoint-o"></i> Presentation.pptx</a></li>
+                                    <li><a href=""><i class="fa fa-file"></i> 10_08_2015.docx</a></li>
+                                </ul>
+                            </div>
+                        </div>-->
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>鍐欓偖浠�</h3>
+
+                                <p class="small">
+                                    鍙戦€侀偖浠剁粰绠＄悊鍛�
+                                </p>
+                                <form id="sendForm">
+                                <div class="form-group">
+                                    <label>鍙戦€佺粰</label>
+                                    <select class="form-control" name="username">
+                                                                                <option value="admin">admin</option>
+                                                                                <option value="admin2016">admin2016</option>
+                                                                            </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>鏍囬</label>
+                                    <input type="text" class="form-control" placeholder="璇疯緭鍏ユ爣棰�" name="title">
+                                </div>
+                                <div class="form-group">
+                                    <label>鍐呭</label>
+                                    <textarea class="form-control" placeholder="璇疯緭鍏ユ偍鐨勪俊鎭�" rows="3" name="content"></textarea>
+                                </div>
+                                    <input type="hidden" name="totype" value="1">
+                                    <input type="hidden" name="action" value="send_ajax">
+                                <button class="ladda-button ladda-button-demo btn btn-primary btn-block" data-style="zoom-in" id="sendMail" type="submit">鍙戦€�</button>
+                                    <script>
+                                        $(document).ready(function (){
+
+                                            var l = $( '#sendMail' ).ladda();
+
+                                            l.click(function(){
+                                                // Start loading
+                                                l.ladda( 'start' );
+                                                setTimeout(function(){
+                                                    $.ajax({
+                                                        url:"writemail.php",
+                                                        type:"post",
+                                                        dataType:"text",
+                                                        data:$("#sendForm").serialize(),
+                                                        error:function(msg){
+                                                            showSweetAlert('',msg,'error');
+                                                        },
+                                                        success:function(msg){
+                                                            if(msg!=1){
+                                                                showSweetAlert('',msg,'warning')
+                                                            }else{
+                                                                showSweetAlert("", "鍙戦€佹垚鍔�", "success");
+                                                            }
+                                                            l.ladda('stop');
+                                                        }
+                                                    });
+                                                },500);
+                                            });
+                                        });
+                                    </script>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h3>鍥㈤槦鍒楄〃</h3>
+                                <p class="small"><i class="fa fa-hand-o-up"></i>
+                                    姝ゅ鏄剧ず鎮ㄥ洟闃熺殑鍓�6浣嶄細鍛橈紝鍏蜂綋璇︽儏璇疯繘鍏モ€滄垜鐨勫洟闃熲€濇煡鐪�
+                                </p>
+                                <ul class="sortable-list connectList agile-list" id="inprogress">
+                                    
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                    <div class="col-lg-4 m-b-lg">
+                        <div id="vertical-timeline" class="vertical-container light-timeline no-margins">
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-briefcase"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h3>閾惰璐︽埛淇℃伅</h3>
+                                    <p>
+                                        寮€鎴烽摱琛岋細                                    </p>
+                                    <p>
+                                        閾惰鍗″彿锛�                                    </p>
+                                    <p>
+                                        寮€鎴峰鍚嶏細                                    </p>
+                                    <p>
+                                        寮€鎴疯鍦板潃锛�                                    </p>
+                                   <!-- <a href="#" class="btn btn-sm btn-primary"> More info</a>
+                                    <span class="vertical-date">
+                                            Today <br>
+                                            <small>Dec 24</small>
+                                        </span>-->
+                                </div>
+                            </div>
+
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon yellow-bg">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h3>涓昏鑱旂郴鏂瑰紡</h3>
+                                    <p>
+                                        鏀粯瀹濓細                                    </p>
+                                    <p>
+                                        QQ锛�                                    </p>
+                                    <p>
+                                        鐢靛瓙鐢靛瓙閭锛�                                    </p>
+                                    <p>
+                                        寰俊鍙凤細                                    </p>
+                                   <!-- <a href="#" class="btn btn-sm btn-success"> Download document </a>
+                                    <span class="vertical-date">
+                                            Today <br>
+                                            <small>Dec 24</small>
+                                        </span>-->
+                                </div>
+                            </div>
+
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon lazur-bg">
+                                    <i class="fa fa-coffee"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h3>鏀惰揣淇℃伅</h3>
+                                    <p>
+                                        鏀惰揣浜猴細                                    </p>
+                                    <p>
+                                        鏀惰揣浜哄湴鍧€锛�                                    </p>
+                                   <!-- <a href="#" class="btn btn-sm btn-info">Read more</a>
+                                    <span class="vertical-date"> Yesterday <br><small>Dec 23</small></span>-->
+                                </div>
+                            </div>
+
+                            <div class="vertical-timeline-block">
+                                <div class="vertical-timeline-icon navy-bg">
+                                    <i class="fa fa-file-text"></i>
+                                </div>
+
+                                <div class="vertical-timeline-content">
+                                    <h3>鍏朵粬淇℃伅</h3>
+                                    <p>
+                                        閭紪锛�                                    </p>
+                                    <p>
+                                        鍑虹敓鏃ユ湡锛�0                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="footer">
+    <div class="pull-right">
+        <strong></strong>
+    </div>
+    <div>
+        <strong>Copyright</strong> All Rights Reserved. &copy; 2006-2017
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

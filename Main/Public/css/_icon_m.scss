@@ -1,0 +1,48 @@
+/*
+* ç§»å¨ç å°å¾æ 
+* @date 2016-04-18
+* @auther limingyue
+*/
+.i {
+  background-image: url(../images/m_icons.png);
+  background-repeat: no-repeat;
+  image-rendering: -webkit-optimize-contrast;
+  /*è§£å³å¨chromeä¸å°å¾æ çé®é¢*/
+  display: inline-block; 
+ }
+.icon {
+  display: inline-block;
+}
+.i-edit, .i-delete-s{
+  width: 0.85rem;
+  height: 0.85rem;
+  background: url(../images/edit.png) no-repeat;
+  background-size: 0.85rem 0.85rem;
+}
+.i-delete-s {
+  background: url(../images/delete_s.png) no-repeat;
+  background-size: 0.85rem 0.85rem;
+}
+.i-error {
+  width: 0.9rem;
+  height: 0.9rem;
+  background: url(../images/nav-error.png) no-repeat;
+  background-size: 0.8rem 0.8rem;
+}
+.i-ok {
+  width: 0.9rem;
+  height: 0.9rem;
+  background: url(../images/nav-ok.png) no-repeat;
+  background-size: 0.8rem 0.8rem;
+}
+.i-wait {
+  width: 0.9rem;
+  height: 0.9rem;
+  background: url(../images/nav-wait.png) no-repeat;
+  background-size: 0.8rem 0.8rem;
+}
+
+
+
+// WEBPACK FOOTER //
+// ./src/sass/page/open_store_h5/src/sass/basic/_icon_m.scss

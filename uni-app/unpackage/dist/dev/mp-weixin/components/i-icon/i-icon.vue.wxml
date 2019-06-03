@@ -1,0 +1,1 @@
+<template name="da68de78"><text bindtap="handleProxy" data-eventid="{{'da68de78-0'}}" data-comkey="{{$k}}" class="_text Mda68de78 {{['icon icon-' + type]}}" style=" {{('color:' + color + ';' + 'font-size:' + fontSize + ';')}}"></text></template>

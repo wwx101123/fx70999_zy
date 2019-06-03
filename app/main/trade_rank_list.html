@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>直推列表 </title>
+		<meta name="keywords" content="{site.seo_keyword}" />
+		<meta name="description" content="{site.seo_description}" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/rank.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+		<div class="page mescroll" id="mescroll">
+			<!--<ul class="ques-card-list trade_rank_list">
+
+			</ul>-->
+			<div class="content">
+				<div class="tab1">
+					<ul class="phb">
+
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		$(function() {
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			var mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				}
+			});
+
+			function getListDataFromNet(successCallback, errorCallback) {
+				//延时一秒,模拟联网
+
+				try {
+
+					get_trade_rank_list(successCallback)
+				} catch(e) {
+					//联网失败的回调
+					errorCallback && errorCallback();
+				}
+
+			}
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var page_index = 0;
+				$('.goods_list .goods_item').remove()
+				$('.phb li').remove()
+				$('.tab1 dl').remove()
+				//					page_index = parseInt(page_index) + 1;
+				localStorage.setItem('page_index', page_index);
+
+				var user_id = localStorage.getItem('user_id');
+				//联网加载数据
+				getListDataFromNet(function(data) {
+					//联网成功的回调,隐藏下拉刷新的状态
+					mescroll.endSuccess();
+					var curPageData = localStorage.getItem('ListData');
+					//设置列表数据
+					setListData(curPageData);
+					//			down();
+				}, function() {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				});
+			}
+
+			function setListData(data) {
+				console.log(data)
+
+				info = JSON.parse(data);
+				info = info.data;
+				var IP = localStorage.getItem('IP');
+				$('.phb li').remove()
+				$('.tab1 dl').remove()
+				$('.trade_rank_list li').remove();
+				if(info != null) {
+					var item = '';
+//					$.each(info, function(index, content) {
+//						var rank = '';
+//						if(index == 0) {
+//							rank = 'ques-card-list-noe';
+//
+//						}
+//						if(index == 1) {
+//							rank = 'ques-card-list-two';
+//
+//						}
+//						if(index == 2) {
+//							rank = 'ques-card-list-three';
+//
+//						}
+//						console.log(IP + content.avatar)
+//						item += '<li class="' + rank + '">';
+//						item += ' <div class="ques-list-box clearfix">';
+//						item += '  <div class="ques-list-head">';
+//						item += '   <div class="ques-list-image">';
+//						item += '    <img src="' + IP + '/' + content.avatar + '" alt="">';
+//						item += '   </div>';
+//						item += '   </div>';
+//						item += '  <div class="ques-list-name">';
+//						item += '     <div class="ques-list-name-head">' + content.user_name + '</div>';
+//						item += '  <div class="ques-list-name-text"> 交易量: ' + content.team_trade_money + '</div>';
+//						item += ' </div>';
+//						item += '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>';
+//						item += '  </div>';
+//						item += '   </li>';
+//
+//					});
+//
+//					$('.trade_rank_list').append(item);
+
+					var item = '';
+					$.each(info, function(index, content) {
+						var rank = '';
+						if(index < 3) {
+							rank = 'ques-card-list-noe';
+
+							console.log(IP + content.avatar)
+							item += '<li >';
+							item += '<p class="face">';
+							item += '	<img src="' + IP + '/' + content.avatar + '">';
+							item += '</p>'; 
+							item += '<p class="no" style="background:url(../images/icon-top-00' + (index + 1) + '.png);background-size:100% 100%" >';
+							item += '	';
+							item += '</p>';
+							item += '<p class="name0">';
+							item += '	' + content.user_name + '';
+							item += '</p>';
+							item += '<p class="danshu">';
+							item += '	 交易量: ' + content.team_trade_money + '';
+							item += '</p>';
+							item += '	</li>';
+						}
+
+					});
+					$('.phb').append(item);
+
+					var item = '';
+					$.each(info, function(index, content) {
+						var rank = '';
+						if(index > 3) {
+							item += '<dl class="bzb"  >';
+							item += '<dt class="d1">' + (index ) + '</dt>';
+							item += '<dd class="c1"><img src="' + IP + '/' + content.avatar + '"></dd>';
+							item += '<dd class="c2"><i class="fl">' + content.user_name + '</i><i class="fr">交易量: ' + content.team_trade_money + '</i></dd>';
+							item += '</dl>';
+
+						}
+
+					});
+
+					$('.tab1').append(item);
+
+				}
+
+				info = JSON.parse(data);
+				info = info.terminal_rank_list;
+				var IP = localStorage.getItem('IP');
+
+				$('.terminal_rank_list li').remove();
+				if(info != null) {
+					var item = '';
+					$.each(info, function(index, content) {
+						var rank = '';
+						if(index == 0) {
+							rank = 'ques-card-list-noe';
+
+						}
+						if(index == 1) {
+							rank = 'ques-card-list-two';
+
+						}
+						if(index == 2) {
+							rank = 'ques-card-list-three';
+
+						}
+						console.log(IP + content.avatar)
+						item += '<li class="' + rank + '">';
+						item += ' <div class="ques-list-box clearfix">';
+						item += '  <div class="ques-list-head">';
+						item += '   <div class="ques-list-image">';
+						item += '    <img src="' + IP + '/' + content.avatar + '" alt="">';
+						item += '   </div>';
+						item += '   </div>';
+						item += '  <div class="ques-list-name">';
+						item += '     <div class="ques-list-name-head">' + content.user_name + '</div>';
+						item += '  <div class="ques-list-name-text"> 激活量: ' + content.terminal_count + '</div>';
+						item += ' </div>';
+						item += '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>';
+						item += '  </div>';
+						item += '   </li>';
+
+					});
+
+					$('.terminal_rank_list').append(item);
+
+				}
+
+				console.log($('body').css('margin-top'))
+				info = JSON.parse(data);
+				info = info.slider;
+				$('.swiper-wrapper .swiper-slide').remove();
+				var height = $('.swiper-container').height();
+				var goods_albums = info;
+				//				console.log(goods_albums)
+				if(goods_albums != null) {
+					if(goods_albums.length > 1) {
+						$.each(goods_albums, function(index, content) {
+							//							console.log(IP + content.img)
+							var item = '	 <div class="swiper-slide"> ';
+							item += '<a href="javascript:void(0)">	<img src="' + IP + content.img + '"  style="height:200px"/></a> </div>';
+
+							$('.swiper-wrapper').append(item);
+
+						});
+					}
+					var mySwiper = new Swiper('.swiper-container', {
+						calculateHeight: true,
+						resizeReInit: true,
+						pagination: ".pagination",
+						autoplay: 5000,
+						paginationClickable: true,
+						autoplayDisableOnInteraction: false
+					});
+				}
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>栏目分类</title>
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/css/page.css" rel="stylesheet">
+<style type="text/css">
+.tree-list .col-1 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-2 {
+	width: 6%;
+	text-align: center;
+}
+
+.tree-list .col-3 {
+	width: 52%;
+	text-align: left;
+}
+
+.tree-list .col-4 {
+	width: 12%;
+	text-align: center;
+}
+
+.tree-list .col-5 {
+	width: 12%;
+	text-align: center;
+}
+
+.tree-list .col-6 {
+	width: 12%;
+	text-align: center;
+}
+
+b {
+	display: none
+}
+
+td {
+	text-align: center
+}
+</style>
+<script type="text/javascript">
+	layui.use('layer', function() {
+
+	});
+</script>
+<script type="text/javascript">
+	$(function() {
+		initCategoryHtml('.tree-list', 1); //初始化分类的结构
+		$('.tree-list').initCategoryTree(true); //初始化分类的事件
+	});
+
+    function ajaxUpdateField(obj, field) {
+
+		var id = $(obj).attr('id');
+
+		var value = $(obj).val();
+
+		$.ajax({
+			type : 'POST',
+			data : {
+				id : id,
+				field : field,
+				value : value
+			},
+			url : "{:U('Goods/CateUpdateField')}",
+			success : function(data) {
+				layer.msg('修改成功', {
+					icon : 1,
+					time : 1000
+				});
+			}
+		});
+	}
+</script>
+</head>
+
+<body class="mainbody">
+	<form id="form1" runat="server">
+		<!--导航栏-->
+		<div class="location">
+			<a href="javascript:history.back(-1);" class="back"><i
+				class="iconfont icon-up"></i><span>返回上一页</span></a> <a
+				href="../center.aspx" class="home"><i class="iconfont icon-home"></i><span>首页</span></a>
+			<i class="arrow iconfont icon-arrow-right"></i> <span>内容管理</span> <i
+				class="arrow iconfont icon-arrow-right"></i> <span>栏目类别</span>
+		</div>
+		<!--/导航栏-->
+
+		<!--工具栏-->
+		<div id="floatHead" class="toolbar-wrap">
+			<div class="toolbar">
+				<div class="box-wrap">
+					<a class="menu-btn"><i class="iconfont icon-more"></i></a>
+					<div class="l-list">
+						<ul class="icon-list">
+							<li><a href="category_edit.html?action=add&id=0"><i
+									class="iconfont icon-close"></i><span>新增</span></a></li>
+
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/工具栏-->
+
+		<!--列表-->
+		<div class="table-container">
+			<div class="tree-list">
+				<div class="thead">
+					<div class="col col-2">编号</div>
+					<div class="col col-3">类别名称</div>
+					<div class="col col-5">排序</div>
+					<div class="col col-6">操作</div>
+				</div>
+				<ul>
+					<foreach name="list" item="vo">
+					<li class="layer-{$vo.class_layer}">
+						<div class="tbody">
+
+							<div class="col col-2">{$vo.id}</div>
+							<div class="col index col-3">
+								<a href="category_edit.html?action=edit&id={$vo.id}">{$vo.title}</a>
+							</div>
+							<div class="col col-5">
+								<input  ID="{$vo.id}" value="{$vo.sort_id}" Class="sort"
+									onkeydown="return checkNumber(event);"	onchange="ajaxUpdateField(this,'sort_id');">
+
+
+							</div>
+							<div class="col col-6">
+								<a href="category_edit.html?action=edit&id={$vo.id}">修改</a> <a
+									class=" ajax-a"
+									href="__URL__/category_del/action/lock/id/{$vo.id}"
+									info="本操作会删除本类别及下属子类别，是否继续？">删除</a>
+							</div>
+						</div>
+					</li>
+					</foreach>
+				</ul>
+				{$page}
+			</div>
+		</div>
+
+	</form>
+</body>
+</html>

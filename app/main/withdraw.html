@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+
+	<head lang="en">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="format-detection" content="email=no" />
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="../css/mui.min.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<script type="text/javascript" src="../js/common1.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" src="../js/user.js"></script>
+		<script type="text/javascript" src="../js/weixin_login.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<link rel="stylesheet" href="../css/withdraw.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<title>提现</title>
+		<script>
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					//普通示例
+					var userPicker = new $.PopPicker();
+					userPicker.setData([{
+							value: '1',
+							text: '银行卡T+1'
+						}
+						//					, {
+						//						value: '2',
+						//						text: '微信'}
+						//						, {
+						//							value: '3',
+						//							text: '支付宝'
+						//						}
+					]);
+					var showUserPickerButton = doc.getElementById('showUserPicker');
+					var showUserPicker = doc.getElementById('showUserPicker');
+					var userResult = doc.getElementById('s_type');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							userResult.value = items[0].value;
+
+							showUserPicker.innerText = items[0].text;
+							console.log(showUserPicker.innerText)
+
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+	</head>
+
+	<body>
+		<form id="editForm" name="editForm">
+			<input id="user_id" name="user_id" type="hidden" />
+			<input id="register_phone" name="register_phone" type="hidden" />
+			<div class="mui-content page__bd mescroll" id="mescroll">
+				<div class="mui-input-row">
+					<label>用户姓名</label>
+					<input type="text" name="title" class="mui-input user_name" placeholder="请输入用户姓名">
+				</div>
+				<div class="mui-input-row">
+					<label>可提现金额</label>
+					<input readonly="readonly" type="text" name="agent_kt" class="mui-input agent_kt" placeholder="可提现金额">
+				</div>
+				<div class="mui-input-row">
+					<label>提现方式</label>
+					<button id='showUserPicker' class="mui-btn mui-btn-block" type='button' style="float: left;
+    border: 0;
+    font-size: 13px; margin: 0; line-height: 30px;width:50%;TEXT-ALIGN: LEFT;
+    padding: 10px 0px;background: white;">银行卡T+1 </button>
+
+					<!--	<input readonly="readonly" type="text" id="showUserPicker" value="银行卡T+1"  class="mui-input showUserPicker" >-->
+
+				</div>
+				<div class="mui-input-row">
+					<label>本次提现金额</label>
+					<input type="text" name="money" id="money" class="mui-input-clear" placeholder="本次提现金额">
+				</div>
+				<li class="df pr30 pl30" style="display: none;"><input type="text" id="pass" name="pass" placeholder="请输入短信验证码" /><span id="get">获取验证码</span></li>
+			</div>
+			<input onclick="add_tixian(this,'#s_type')" type="submit" value="确认提现" id="btnSubmit" name="btnSubmit" />
+			<input type="button" style="display: none;" value="微信授权" id="union_url_btn" name="btnSubmit" />
+
+			<input id="union_url" name="union_url" class="union_url" type="hidden" />
+			<input id="s_type" name="s_type" class="s_type" type="hidden" value="1" />
+			<input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+			<input id="turl" type="hidden" value="tixian_list.html" />
+		</form>
+		<p>提现手续费：2.00元（手续费从提现金额中扣除，因此 2元以下无法提现）</p>
+
+		<script type="text/javascript">
+			$(function() {
+				var size = 10;
+				var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+				var mescroll = initMeScroll("mescroll", {
+					down: {
+						auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+						callback: downCallback //下拉刷新的回调
+					}
+				});
+
+				function getListDataFromNet(user_id, successCallback, errorCallback) {
+					//延时一秒,模拟联网
+
+					try {
+
+						get_user_info(user_id, successCallback)
+					} catch(e) {
+						//联网失败的回调
+						errorCallback && errorCallback();
+					}
+
+				}
+				var page_index = 0;
+				localStorage.setItem('page_index', page_index);
+				/*下拉刷新的回调 */
+				function downCallback() {
+					var page_index = 0;
+					$('.goods_list .goods_item').remove()
+
+					//					page_index = parseInt(page_index) + 1;
+					localStorage.setItem('page_index', page_index);
+
+					var user_id = localStorage.getItem('user_id');
+					//联网加载数据
+					getListDataFromNet(user_id, function(data) {
+						//联网成功的回调,隐藏下拉刷新的状态
+						mescroll.endSuccess();
+						var curPageData = localStorage.getItem('ListData');
+						//设置列表数据
+						setListData(curPageData);
+						//			down();
+					}, function() {
+						//联网失败的回调,隐藏下拉刷新的状态
+						mescroll.endErr();
+					});
+				}
+
+				function setListData(data) {
+					var user = localStorage.getItem('user');
+					var info = JSON.parse(user);
+
+					$('#register_phone').val(info.user_id);
+					$('.user_name').val(info.user_name);
+					$('.agent_kt').val(info.agent_use);
+					var PreUrl = localStorage.getItem('PreUrl');
+					var url = PreUrl + 'Reg/union_frm.html?id=' + info.id
+					$('.union_url').val(url);
+					
+
+					$('#union_url_btn').click(function() {
+						console.log($('.union_url').val())
+						copyShareUrl($('.union_url').val());
+					});
+
+				}
+			});
+		</script>
+
+		<script>
+			$(function() {
+				$("select").change(function() {
+					if($(this).val() != "default") {
+						$(this).css("paddingLeft", "0.68rem");
+					} else {
+						$(this).css("paddingLeft", "0");
+					}
+					switch($(this).val()) {
+						case "工行":
+							$(this).css("backgroundImage", "url(images/bank.png)");
+							break;
+						default:
+							$(this).css("backgroundImage", "url()");
+							break;
+					}
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

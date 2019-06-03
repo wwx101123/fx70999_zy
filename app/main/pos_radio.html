@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<script src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="../css/app.css" />
+	</head>
+
+	<body>
+
+		<div class="mui-content" style="margin-top: 40PX;">
+			<div class="search-box" style="padding: 0;margin: 0; position: fixed;top: 0; width: 100%;z-index: 100000000000; ">
+				<div class="input-box">
+					<input id="keywords" name="keywords" type="text" placeholder="输入SN编号快速搜索" onkeydown="if(event.keyCode==13){SiteSearch('#keywords');return false};">
+					<a href="javascript:;" onclick="SiteSearch('#keywords');">
+						<i class="mui-icon mui-icon-search"></i>
+					</a>
+				</div>
+			</div>
+
+			<ul class="mui-table-view mui-table-view-radio poslist">
+
+			</ul>
+
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script>
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_select_pos');
+
+			}
+		});
+		var info = document.getElementById("info");
+		document.querySelector('.mui-table-view.mui-table-view-radio').addEventListener('selected', function(e) {
+			//			info.innerHTML = "当前选中的为：" + e.detail.el.innerText;
+
+			localStorage.setItem('select_pos', e.detail.el.innerText)
+		});
+
+		function test() {
+			var select_pos = localStorage.getItem('select_pos');
+			if(select_pos == '') {
+				mui.toast('请选择一台机器')
+				return;
+			}
+			mui.back();
+		}
+		mui.plusReady(function() {
+			localStorage.setItem('select_pos', '')
+			localStorage.setItem('pos_keywords', '');
+			$('.poslist').css('margin-top', $('.search-box').height() + $('.mui-content-padded').height() + 10)
+			$('.poslist').css('z-index', 1000);
+
+			var wv = plus.webview.currentWebview();
+			wv.setStyle({
+
+				titleNView: {
+
+					buttons: [{
+						"float": "right",
+						"fontSrc": "_www/fonts/mui.ttf", //wap2app内置字体文件
+						"text": "确认",
+						"onclick": "javascript:test()",
+						"fontSize": '15px'
+					}]
+				}
+			});
+			var pos_keywords = localStorage.getItem('pos_keywords');
+			init(pos_keywords);
+
+			$('#keywords').bind('input propertychange', function() {
+				var pos_keywords = $(this).val();
+				localStorage.setItem('pos_keywords', pos_keywords);
+				init(pos_keywords);
+
+			});
+		});
+
+		function init(pos_keywords) {
+			localStorage.setItem('select_pos', '')
+
+			$('.poslist li').remove();
+			var user_terminal = localStorage.getItem('user_terminal');
+			var seller_type = localStorage.getItem('seller_type');
+			console.log(user_terminal)
+
+			user_terminal = JSON.parse(user_terminal);
+
+			//普通示例 
+			var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+			var index; //用index来记住给你的那个默认值的下标
+
+			if(user_terminal != null) {
+				var List = user_terminal;
+				for(var i = 0; i < List.length; i++) {
+					if(List[i].sn.indexOf(pos_keywords) >= 0) {
+						if(seller_type == 2) {
+							seller_type = 1;
+						}
+						if(seller_type == List[i].terminal_type) {
+
+							shopList1.push({
+
+								value: List[i].id,
+								text: List[i].sn,
+								sn_type: List[i].sn_type
+
+							})
+						}
+					}
+
+				}
+				$.each(shopList1, function(index, content) {
+
+					var item = '<li class="mui-table-view-cell">';
+					item += '<a class="mui-navigate-right">';
+					item += content.text + '(型号:' + content.sn_type + ')';
+					item += '</a>';
+					item += '</li>';
+
+					$('.poslist').append(item);
+				})
+
+			} else {
+
+			}
+
+		}
+	</script>
+
+</html>

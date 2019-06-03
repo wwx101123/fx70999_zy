@@ -1,0 +1,124 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<style>
+h4{ margin-left:18%;}
+.Agreement{width:90%; height:100px; overflow:auto; border:1px solid #7F9DB9; padding:2px; font-size:12px; line-height:24px; margin:10px 0px;}
+</style>
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>买入积分</h2>
+            <ol class="breadcrumb">
+                <li>
+                <a href="{:U('Index/index')}">首页</a>
+                </li>
+                <li>
+                    <a>积分交易</a>
+                </li>
+                <li class="active">
+                    <strong>订单确认</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>订单确认</h5>
+                        </div>
+                        <div class="ibox-content p-xl">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5>买入需知：</h5>
+                                    <address>
+                                        请注意对方的银行信息。汇款时与卖家确认！<br>
+                                        如需修改信息请到资料修改栏中修改并完善 &nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('User/userEdit')}" title="点击完善银行信息" style="color:#1ab394"><i class="fa fa-hand-o-right"  id="editTips"></i> 完善信息</a><br>
+                                                                                
+                                    </address>
+                                </div>
+
+                                <div class="col-sm-6 text-right">
+                                    <span>卖家姓名： <strong>{$rs.user_name}</strong></span>
+                                    <address>
+                                        银行名称：{$bn.bank_name}<br>
+                                        银行卡号：{$bn.bank_card}<br>
+                                        银行地址：{$bn.bank_address}<br>
+                                        手机号码：{$bn.user_tel}<br>
+                                    </address>
+                                    <!--<p>
+                                        <span><strong>卖出日期：</strong>{:date("Y-m-d")}</span><br/>
+                                    </p>-->
+                                </div>
+                            </div>
+                            
+                            <table class="table invoice-total">
+                                <tbody>
+                                <tr>
+                                    <td><strong>委托额度 :</strong></td>
+                                    <td>{$rs.money}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>兑换额度 :</strong></td>
+                                    <td>{$rs.money}</td>
+                                </tr>
+                                <form id="sendForm" action="__URL__/eb_buy_AC" method="post">
+                                <tr>
+                                    <td><strong>验证码 :</strong></td>
+                                    <td>
+                                         <input name="verify" id="verify" type="text" size="8" maxlength="4" />
+      <img src="__APP__/Public/verify/" border="0" alt="点击刷新验证码" id="verifyImg" onclick="fleshVerify()" style="cursor:pointer" align="absmiddle" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>二级密码 :</strong></td>
+                                    <td>
+                                        <input name="password" type="password" value="" id="password" placeholder="在此填写二级密码"><input name="cid" type="hidden" id="cid" value="{$rs['id']}" />
+                                    </td>
+                                </tr>
+                                </form>
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="sendTx"><i class="fa fa-cny"></i> 确认购买</button>
+                            </div>
+                            <script type="text/javascript">
+                            layui.use('layer',function() {
+                                $('#sendTx').on('click',function() {
+                                    var form=$('#sendForm');
+                                     $.post(form.attr('action'),form.serialize(),function(data) {
+                                         console.log(data);
+                                        if (data.status) {
+                                            layer.msg(data.info,{end:function() {
+                                                location.reload();
+                                            }})
+                                        }else{
+                                            layer.msg(data.info);
+                                        }
+                                     });
+                                });
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script language="JavaScript">
+function change_fc(){
+	if(document.form1.agree.checked==true){
+		document.form1.Submit1.disabled=false;
+	}else{
+		document.form1.Submit1.disabled=true;
+	}
+}
+function fleshVerify(){
+var timenow = new Date().getTime();
+$('verifyImg').src= '__APP__/Public/verify/'+timenow;
+}
+</script>
+</block>

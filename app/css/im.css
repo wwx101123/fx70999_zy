@@ -1,0 +1,43 @@
+.dot {
+    bottom: 20%;
+    right: 4%;
+    position: absolute;
+    font-style: normal;
+    width: 6px;
+    height: 6px;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    background-color: #e4393c;
+}
+
+.dot::before {
+    /* content: ""; */
+    /* display: inline-block; */
+    /* vertical-align: middle; */
+    width: 0;
+    /* height: 100%; */
+    /* margin-top: 1px; */
+}
+
+.dot.booking {
+    width: auto;
+    height: auto;
+    top: 2px;
+    left: 50%;
+    margin-left: 8px;
+    padding: 0 4px;
+    height: 12px;
+    border-radius: 14px
+}
+
+.dot.dot_num {
+    box-sizing: border-box;
+    width: auto;
+    min-width: 20px;
+    padding: 0 4px;
+    height: 20px;
+    border-radius: 14px;
+}

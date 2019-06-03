@@ -1,0 +1,65 @@
+<extend name="Public:adminheader" />
+<block name="menu">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
+			<div class="ibox-title">
+				<h5>财务明细</h5>
+				<div class="ibox-tools">
+				</div>
+			</div>
+			<div class="ibox-content" style="display: block;">
+				<div class="tablesaw-bar mode-stack"></div>
+				<table class="table table-hover tablesaw-stack" data-tablesaw-mode="stack" id="table-3258">
+					<thead>
+						<tr>
+							<th>用户账号</th>
+							<th>金额</th>
+							<th>时间</th>
+							<th>备注</th>
+                   		</tr>
+               </thead>
+
+               <tbody>
+				<volist name="list" id="vo">
+               	<tr>
+               		<td><b class="tablesaw-cell-label">用户账号</b><span class="tablesaw-cell-content">{$vo.user_id}</span></td>
+               		<td><b class="tablesaw-cell-label">金额</b><span class="tablesaw-cell-content">{$vo.epoints}</span></td>
+               		<td><b class="tablesaw-cell-label">时间</b><span class="tablesaw-cell-content">
+               		<if condition="($vo['action_type'] eq 3)">
+					<gt name="vo['act_pdt']" value="0">
+					{$vo.act_pdt|date='Y-m-d H:i:s',###}
+					<else/>
+					{$vo.pdt|date='Y-m-d H:i:s',###}
+					</gt>
+					<else/>
+					{$vo.pdt|date='Y-m-d H:i:s',###}
+					</if></span></td>
+               		<td><b class="tablesaw-cell-label">明细</b><span class="tablesaw-cell-content"><eq name="vo['action_type']" value="$vo.bz">
+					 <eq name="vo['action_type']" value="1">{$fee_s7[0]}</eq>
+					 <eq name="vo['action_type']" value="2">{$fee_s7[1]}</eq>
+					 <eq name="vo['action_type']" value="3">{$fee_s7[2]}</eq>
+					 <eq name="vo['action_type']" value="4">{$fee_s7[3]}</eq>
+					 <eq name="vo['action_type']" value="5">{$fee_s7[4]}</eq>
+					 <eq name="vo['action_type']" value="6">{$fee_s7[5]}</eq>
+					 <eq name="vo['action_type']" value="7">{$fee_s7[6]}</eq>
+					 <eq name="vo['action_type']" value="8">{$fee_s7[7]}</eq>
+					 <eq name="vo['action_type']" value="9">{$fee_s7[8]}</eq>
+					 <!--<eq name="vo['action_type']" value="8">税收</eq>-->
+					 <eq name="vo['action_type']" value="18">积分提现</eq>
+					 <eq name="vo['action_type']" value="19">开通会员</eq>
+					 <eq name="vo['action_type']" value="20">货币转账</eq>
+					 <eq name="vo['action_type']" value="21">货币充值</eq>
+					 <eq name="vo['action_type']" value="31">股票(股)交易收入</eq>
+					 <else/>{$vo.bz}</eq></span></td>
+               	</tr>
+               	</volist>
+               </tbody>
+
+           </table>
+		<div class="row grey-bg">
+		{$page}
+		</div>
+       </div>
+   </div>
+   </div>
+</block>

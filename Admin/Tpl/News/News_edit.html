@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>编辑后台导航</title>
+<meta name="viewport"
+	content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/scripts/artdialog/ui-dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/icon/iconfont.css" />
+<link rel="stylesheet" type="text/css"
+	href="__PUBLIC__/Adm/skin/default/style.css" />
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/jquery/jquery.nicescroll.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/scripts/artdialog/dialog-plus-min.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/layindex.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/laymain.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="__PUBLIC__/Adm/js/common.js"></script>
+<link href="__PUBLIC__/Adm/css/main.css" rel="stylesheet">
+<link href="__PUBLIC__/Adm/layui/css/layui.css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/layui/layui.js"></script>
+<link
+	href="__PUBLIC__/Adm/Resource/plugins/hplus/css/font-awesome.min.css"
+	rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Adm/js/global.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		//初始化表单验证
+		/* $("#form1").initValidform();
+		//初始化上传控件
+		$(".upload-img").InitUploader({
+			sendurl : "../../tools/upload_ajax.ashx",
+			swf : "../../scripts/webuploader/uploader.swf"
+		}); */
+	});
+</script>
+</head>
+
+<body class="mainbody">
+	<form class="form-horizontal ajax-post ajax-form" name="form1" id="form1"
+		method="post" action="__ACTION__">
+		<input name="type" id="type" type="hidden" value="{$type}">
+						<input type="hidden" name="id" value="{$vo.id}">
+		<!--导航栏-->
+		<div class="location"></div>
+		<div class="line10"></div>
+		<!--/导航栏-->
+
+		<!--内容-->
+		<div id="floatHead" class="content-tab-wrap">
+			<div class="content-tab">
+				<div class="content-tab-ul-wrap">
+					<ul>
+						<li><a class="selected" href="javascript:;">基本信息</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="tab-content">
+
+			<dl>
+				<dt>标题</dt>
+				<dd>
+				<input name="title" type="text" value="{$vo.title}"
+							class="input normal" required="">
+				</dd>
+			</dl>
+
+
+			<dl>
+				<dt>跳转链接</dt>
+				<dd>
+				<input name="link_url" type="text" value="{$vo.link_url}" class="input normal"
+							 >
+				</dd>
+			</dl><dl>
+				<dt>				封面</dt>
+				<dd>
+				<dd class="opt">
+							<div class="input-file-show">
+								<span class="show"> <a id="img_a" target="_blank"
+									class="nyroModal" rel="gal" href="{$vo.img}"> <i id="img_i"
+										class="fa fa-picture-o"
+										onMouseOver="layer.tips('<img src={$vo.img}>',this,{tips: [1, '#fff']});"
+										onMouseOut="layer.closeAll();"></i>
+								</a>
+								</span> <span class="type-file-box"> <input type="text"
+									id="imagetext" name="img" value="{$vo.img}"
+									class="type-file-text"> <input type="button"
+									name="button" id="button1" value="点击上传"
+									class="type-file-button"> <input class="type-file-file"
+									onClick="GetUploadify(1,'','goods','img_call_back')" size="30"
+									title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+								</span>
+							</div>
+							<span class="err"></span>
+
+							<p class="notic">请上传图片格式文件</p>
+				</dd>
+			</dl>
+			 
+
+			<dl class="form-group">
+				<dt class="col-sm-2 control-label">内容：</dt>
+				<dd class="col-sm-10">
+					<input type="hidden" name="detail" id="detail">
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__//Resource/plugins/ueditor/ueditor.config.js"></script>
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__//Resource/plugins/ueditor/ueditor.all.min.js">
+						
+					</script>
+					<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+					<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+					<script type="text/javascript" charset="utf-8"
+						src="__PUBLIC__/Resource/plugins/ueditor/lang/zh-cn/zh-cn.js"></script>
+					<script id="editor" type="text/plain" style="height: 500px;">{$vo.content|htmlspecialchars_decode}</script>
+					<!-- <textarea id="demo" style="display: none;">{$vo.content|htmlspecialchars_decode}</textarea> -->
+				</dd>
+			</dl>
+
+		</div>
+
+		<!--/内容-->
+
+		<!--工具栏-->
+		<div class="page-footer">
+			<div class="btn-wrap">
+				<input name="btnSubmit" type="button" value="提交保存" class="btn ajax-submit"
+					  /> <input name="btnReturn" type="button"
+					value="返回上一页" class="btn yellow"
+					onclick="javascript:history.back(-1);" />
+			</div>
+		</div>
+		<!--/工具栏-->
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			//初始化表单验证 
+			//添加按钮(点击绑定)
+			$("#itemAddButton").click(function() {
+				showSpecDialog();
+			});
+		});
+		//创建窗口
+		function showSpecDialog(obj) {
+			var objNum = arguments.length;
+			var d =  top.dialog({
+				width : 500,
+				height : 180,
+				title : '商品规格',
+				url : "{:U('Goods/dialog_spec')}",
+				onclose : function() {
+					var trHtml = this.returnValue;
+					if (trHtml.length > 0) {
+						$("#item_box").append(trHtml);
+					}
+				}
+			}).showModal();
+			//检查是否修改状态
+			if (objNum == 1) {
+				d.data = obj;
+			}
+		}
+
+		//删除节点
+		function delItemTr(obj) {
+			$(obj).parent().parent().remove();
+		}
+	</script>
+	<script>
+	layui.use('layer', function() {
+		var ue = UE.getEditor('editor');
+
+	});
+		$(function() {
+			$("#checkbox").change(function() {
+				if ($('#checkbox').is(':checked')) {
+					$('#type').val(1);
+				} else {
+					$('#type').val(0);
+				}
+			});
+		});
+
+		layui.use([ 'layedit', 'upload', 'layer', 'laydate' ], function() {
+			var layedit = layui.layedit;
+			var layer = layui.layer;
+			layedit.set({
+				uploadImage : {
+					url : '__APP__/Gouwu/upload_layedit_pp'
+				}
+			}); 
+			edit = layedit.build('demo'); //建立编辑器
+			$('.ajax-submit').on('click', function() {
+				$('#detail').val(UE.getEditor('editor').getContent());
+				form = $('.ajax-form');
+				$.post(form.attr('action'), form.serialize(), function(data) {
+					// console.log(data);
+					if (data.status) {
+						layer.msg(data.info, {
+							offset : '100px',
+							end : function() {
+								if (data.url) {
+									location.href = data.url;
+								} else {
+									location.reload();
+								}
+							}
+						});
+					} else {
+
+						layer.msg(data.info);
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+	<script>
+		 
+		//上传图片回调事件
+		function img_call_back(fileurl_tmp) {
+			$("#imagetext").val(fileurl_tmp);
+			$("#img_a").attr('href', fileurl_tmp);
+			$("#img_i")
+					.attr('onmouseover',
+							"layer.tips('<img src=" + fileurl_tmp + ">',this,{tips: [1, '#fff']});");
+		}
+		// 上传商品图片成功回调函数
+		function call_back3(paths) {
+			var last_div = $(".goods_xc2:last").prop("outerHTML");
+			for (var i = 0; i < paths.length; i++) {
+				$(".goods_xc2:eq(0)").before(last_div); // 插入一个 新图片
+				$(".goods_xc2:eq(0)").find('a:eq(0)').attr('href', paths[i])
+						.attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+				$(".goods_xc2:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+				$(".goods_xc2:eq(0)").find('a:eq(1)').attr('onclick',
+						"ClearPicArr2(this,'" + paths[i] + "')").text('删除');
+				$(".goods_xc2:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+			}
+		}
+		//上传之后删除组图
+		function ClearPicArr2(obj, path) {
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/delupload')}",
+				data : {
+					action : "del",
+					filename : path
+				},
+				success : function() {
+					$(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+				}
+			});
+			// 删除数据库记录
+			$.ajax({
+				type : 'GET',
+				url : "{:U('Uploadify/del_goods_images')}",
+				data : {
+					filename : path
+				},
+				success : function() {
+				}
+			});
+		}
+	</script>
+</body>
+</html>
+

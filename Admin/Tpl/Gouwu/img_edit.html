@@ -1,0 +1,245 @@
+<extend name="Public:adminheader" />
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight" class="clearfix">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>图片编辑
+                        <small></small>
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal ajax-form layui-form" action="{:U('Gouwu/img_edit_save')}" method="post" enctype="multipart/form-data" name="form1">
+						<input type="hidden" name="cid" value="{$pro.id}" >
+                        
+
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">图片名称： </label>
+                            <div class="col-sm-10">
+                                <input name="title" type="text" id="title" value="{$pro.title}" class="form-control" required="">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">类型： </label>
+
+                            <div class="col-sm-10">
+                                <input type="radio" name="isreg" value="0" title="外部" checked="">
+                                <input type="radio" name="isreg" value="1" title="内部">
+                            </div>
+                        </div>
+						<div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">图片： </label>
+
+                            <div class="col-sm-10" id="proimgs">
+                                <input type="file" name="file" id="proimg" class="layui-upload-file form-control"> &nbsp;
+                                <label class="layui-btn" id="showImg">预览图片</label>
+                                </div>
+                                <input type="hidden" value="{$pro.img_url}" id="proimgurl" name="image">
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">说明： </label>
+                            <div class="col-sm-10">
+                                <input type="hidden" name="detail" id="detail">
+                                <textarea name="content" id="demo" style="display: none;">{$pro.content}</textarea>
+                            <script>
+                                layui.use(['layedit','upload','layer'], function(){
+                                  var layedit = layui.layedit;
+                                  var layer = layui.layer;
+                                  layedit.set({
+                                      uploadImage: {
+                                        url: '__URL__/upload_layedit_pp'
+                                      }
+                                    });
+                                   edit=layedit.build('demo'); //建立编辑器
+                                   $('.ajax-submit').on('click',function () {
+                                       $('#detail').val(layedit.getContent(edit));
+                                   });
+                                  layui.upload({
+                                    url: '__URL__/upload_fengcai_pp'
+                                    ,elem: '#proimg' //指定原始元素，默认直接查找class="layui-upload-file"
+                                    // ,method: 'get' //上传接口的http类型
+                                    ,success: function(res){
+                                        var PUBLIC="__"+"PUBLIC__";
+                                        var str=res.url;
+                                      $('#proimgurl').val(str.replace(PUBLIC,'__PUBLIC__'));
+                                      $('#showImg').removeClass('layui-hide');
+                                      return false;
+                                    }
+                                  });
+                                  $('#showImg').on('click',function() {
+                                      layer.open({
+                                          type: 1,
+                                          title: false,
+                                          offset: '300px',
+                                          closeBtn: 0,
+                                          area: 'auto',
+                                          maxWidth:'500px',
+                                          skin: 'layui-layer-nobg', //没有背景色
+                                          shadeClose: true,
+                                          content: "<img src='"+$('#proimgurl').val()+"'>"
+                                        });
+                                  })
+                                  $('.ajax-submit').on('click',function() {
+                                    form=$('.ajax-form');
+                                    $.post(form.attr('action'),form.serialize(),
+                                        function(data) {
+                                            // console.log(data);
+                                            if (data.status) {
+                                                layer.msg(data.info,{offset:'100px',end:function() {
+                                                if (data.url) {
+                                                    location.href=data.url;
+                                                }else{
+                                                    location.reload();
+                                                }
+                                            }});
+                                            }else{
+                                                layer.msg(data.info);
+                                            }
+                                        });
+                                    return false;
+                                });
+                                });
+                            </script>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <input type="hidden" name="id" value="">
+                                <input type="hidden" name="pageno" value="">
+                                <input class="btn btn-warning ajax-submit" type="submit" id="but" value="添加" name="but">
+                                <button class="btn btn-white" onclick="history.go(-1)">取消</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--     <script>
+        function frmchk(frm){
+            if (frm.productname.value=="")
+            {
+                alert("请输入产品名称");
+                frm.productname.focus();
+                return false;
+            }
+            if (frm.topid.value=="")
+            {
+                alert("请选择分类");
+                frm.topid.focus();
+                return false;
+            }
+        }
+        $(function(){
+            $("#topid").change(function(){
+                var param1 = "action=getCategory&id="+$("#topid").val()+"&date="+new Date();
+                var param2 = "action=getGoodSize&id="+$("#topid").val()+"&date="+new Date();
+                $.ajax({
+                    url:"Config/jq_ajax.php",
+                    type:"post",
+                    dataType:"json",
+                    data:param1,
+                    success:function(data){
+                        var dataArray=eval(data);
+                        $("#categoryid").empty();
+                        for(var i = 0; i<dataArray.length;i++){
+                            //console.log(dataArray[i]["name"]);
+                            $("#categoryid").append("<option value="+dataArray[i]["id"]+">"+dataArray[i]["name"]+"</option>");
+                        }
+                        //$("#result").html(str);
+                    }
+                });
+                $.ajax({
+                    url:"Config/jq_ajax.php",
+                    type:"post",
+                    dataType:"json",
+                    data:param2,
+                    success:function(data){
+                        var dataArray=eval(data);
+                        $("#goodSize").empty();
+                        for(var i = 0; i<dataArray.length;i++){
+                            $("#goodSize").append("<input name=goods_size[]  onclick=check() type=checkbox value="+dataArray[i]["name"]+" />"+dataArray[i]["name"]);
+                        }
+                        //$("#result").html(str);
+                    }
+                });
+            });
+        });
+        function check(){
+            var chk_size =[];
+            $("input:checkbox[name='goods_size[]']:checked").each(function(){
+                chk_size.push($(this).val());
+            });
+            var chk_color =[];
+            $("input[name='goods_color[]']:checked").each(function(){
+                chk_color.push($(this).val());
+            });
+            $("#nums").empty();
+            $("#proimgs").empty();
+            $("#scprices").empty();
+            $("#prices").empty();
+            $("#nums").attr("rowspan",4);
+            var s = 0;
+            if(chk_color.length > 0 || chk_size.length > 0){
+                if(chk_size.length>0 && chk_color.length > 0){
+                    var html = "<table class=table-d cellpadding=0 width=100% cellspacing=0 ><tr><td>颜色</td><td>尺寸</td><td>产品图片</td><td>市场价</td><td>会员价格</td><td>数量</td><tr>"
+                    for(var i = 0; i<chk_color.length; i++){
+                        for(var j = 0 ; j < chk_size.length; j++){
+                            html += "<tr><td width=100>"+chk_color[i]+"</td><td width=100>"+chk_size[j]+"</td><td>";
+                            var index=html.indexOf("<input name=proimg_"+i+" type=file id=proimg />");
+                            if(index<0){
+                                html +="<input name=proimg_"+i+" type=file id=proimg />"
+                            }
+                            html += "</td><td><input name=scprice_"+s+" size=5 type=text id=scprice style='border:1px solid #39aef5' />&nbsp;元</td><td><input name=price_"+s+"  size=5 type=text id=price style='border:1px solid #39aef5' />&nbsp;元</td><td><input name=num_"+s+" size=5 type=text id=num  style='border:1px solid #39aef5'/></td><tr>"
+                            s++;
+                        }
+                    }
+                }else{
+                    if(chk_size.length > 0){
+                        var html = "<table class=table-d cellpadding=0 width=100% cellspacing=0 ><tr><td>尺寸</td><td>产品图片</td><td>市场价</td><td>会员价格</td><td>数量</td><tr>"
+                        for(var j = 0 ; j < chk_size.length; j++){
+                            html += "<tr><td width=100>"+chk_size[j]+"</td><td>";
+                            var index=html.indexOf("<input name=proimg_0 type=file id=proimg />");
+                            if(index<0){
+                                html +="<input name=proimg_0 type=file id=proimg />"
+                            }
+                            html += "</td><td><input name=scprice_"+s+" size=5 type=text id=scprice  style='border:1px solid #39aef5'/>&nbsp;元</td><td><input name=price_"+s+"  size=5 type=text id=price  style='border:1px solid #39aef5'/>&nbsp;元</td><td><input name=num_"+s+" size=5 type=text id=num  style='border:1px solid #39aef5'/></td><tr>"
+                            s++;
+                        }
+                    }
+                    if(chk_color.length > 0){
+                        var html = "<table class=table-d cellpadding=0 width=100% cellspacing=0 ><tr><td>颜色</td><td>产品图片</td><td>市场价</td><td>会员价格</td><td>数量</td><tr>"
+                        for(var i = 0; i<chk_color.length; i++){
+                            html += "<tr><td width=100>"+chk_color[i]+"</td><td>";
+                            var index=html.indexOf("<input name=proimg_"+i+" type=file id=proimg />");
+                            if(index<0){
+                                html +="<input name=proimg_"+i+" type=file id=proimg />"
+                            }
+                            html += "</td><td><input name=scprice_"+s+" size=5 type=text id=scprice  style='border:1px solid #39aef5'/>&nbsp;元</td><td><input name=price_"+s+"  size=5 type=text id=price  style='border:1px solid #39aef5'/>&nbsp;元</td><td><input name=num_"+s+" size=5 type=text id=num  style='border:1px solid #39aef5'/></td><tr>"
+                            s++;
+                        }
+
+                    }
+                }
+                html += "</table>"
+                $("#nums").append(html);
+            }else{
+                $("#nums").attr("rowspan",0);
+                $("#nums").append("<input name=num type=text id=num /> <span>*</span>");
+                $("#scprices").append("<input name=scprice type=text id=scprice />元");
+                $("#prices").append("<input name=price type=text id=price />元 <span>*</span>");
+                $("#proimgs").append("<input name=proimg type=file id=proimg />");
+            }
+        }
+    </script> -->
+</block>

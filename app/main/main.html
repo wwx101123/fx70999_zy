@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/home.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/goods.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/idangerous.swiper-2.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/idangerous.swiper.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script>
+			function update_version(data) {
+				console.log(data)
+				data = decodeURI(data);
+				data = JSON.parse(data);
+				//data.url='http://posadmintest.super-nba.com/app/android/android.apk'
+				var tip = data.update_tip;
+				//			if(plus.runtime.appid != 'HBuilder') {
+				$('.update_mode .btn').css("background", 'transparent');
+				$('.mod_alert_mask').css('display', 'block');
+				$('.update_mode ').css('display', 'block');
+				//			}
+				//			$('#ui_btn_confirm').css("background", '#eaacac');
+				$('.tips_list li').remove();
+
+				$.each(tip, function(index, content) {
+
+					var item = '	 <li class="tips_list_item">' + content + '</li>';
+					$('.tips_list').append(item);
+				});
+				$('#ui_btn_confirm').click(function(e) {
+					console.log(data.url)
+					if(mui.os.ios) {
+						location.href = data.url
+
+					} else {
+
+						//					$('#ui_btn_confirm').css("background", '#eaacac');
+						$('#ui_btn_confirm').html("正在更新");
+						//					$('#ui_btn_confirm').css("color", 'white');
+						console.log(data.url)
+						var dtask = plus.downloader.createDownload(data.url, {
+							method: 'GET'
+						}, function(d, status) {
+							if(status == 200) {
+								//							plus.nativeUI.closeWaiting();
+
+								$('#ui_btn_confirm').html("100%");
+								$('.progress_div').css("width", '100%');
+								$('#ui_btn_confirm').html("下载完成，请安装！");
+								sleep(1000);
+								var path = d.filename; //_downloads yijietong.apk
+								console.log(d.filename);
+								$('#update').css('display', 'block');
+								$('.updateProDiv').css('display', 'none');
+								//							plus.nativeUI.closeWaiting();
+								plus.runtime.install(path); // 安装下载的apk文件
+							} else {
+								alert('Download failed:' + status);
+							}
+						});
+						dtask.start();
+						dtask.addEventListener('statechanged', (task) => {
+
+							if(!dtask) {
+								return;
+							}
+
+							// no default
+
+							switch(task.state) {
+
+								case 1:
+
+									console.log('开始下载');
+
+									break;
+
+								case 2:
+
+									console.log('链接到服务器...');
+
+									break;
+
+								case 3:
+									var progressVal = 0; //写成局部变量试试
+
+									progressVal = parseInt((task.downloadedSize / task.totalSize) * 100);
+									console.log(progressVal);
+									$('.progress_div').css("width", progressVal + "%");
+									$('#ui_btn_confirm').html("正在下载" + progressVal + "%");
+									//								_this.precent = progressVal;
+
+									break;
+
+								case 4:
+
+									console.log('监听下载完成');
+
+									break;
+
+							}
+
+						});
+						//					var i = setInterval(function() {
+						//						var totalSize = dtask.totalSize;
+						//						if(totalSize == 0) {
+						//							totalSize = 100000000000;
+						//						}
+						//						console.log(totalSize);
+						//						var downloadedSize = dtask.downloadedSize;
+						//						var percent = downloadedSize / totalSize;
+						//
+						//						$('.progress_div').css("width", parseInt(percent * 100) + "%");
+						//						$('#ui_btn_confirm').html("正在下载" + parseInt(percent * 100) + "%");
+						//
+						//						$('#proDownFile').attr('value', downloadedSize);
+						//						$('#proDownFile').attr('max', totalSize);
+						//					}, 5000); //1000为1秒钟
+					}
+				});
+
+			}
+
+			var ver;
+			//休眠方法
+			function sleep(numberMillis) {
+				var now = new Date();
+				var exitTime = now.getTime() + numberMillis;
+				while(true) {
+					now = new Date();
+					if(now.getTime() > exitTime)
+						return;
+				}
+			}
+		</script>
+		<style>
+			#viewport * {
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.weui-grid:before {
+				border-right: 0px solid #d9d9d9;
+			}
+			
+			.select_city {
+				float: right;
+				margin-left: 15PX;
+				font-size: 15px;
+				COLOR: WHITE;
+			}
+			
+			.city_icon {
+				background: url(../images/地址.png);
+				background-size: 100% 100%;
+				width: 20px;
+				height: 20px;
+				float: right;
+				margin-right: 5px;
+				margin-top: 10px;
+			}
+			
+			.my_cate_item_logo {
+				width: 50px;
+				height: 50PX;
+			}
+			
+			.swiper_wrap {
+				position: relative;
+				width: 70%;
+				height: 35px;
+				margin: 0 auto;
+				overflow: hidden;
+			}
+			
+			.ul {
+				position: relative;
+				top: 0;
+				left: 0;
+				float: left;
+				color: #444;
+				font-size: 14px;
+				margin-top: 1px;
+			}
+			
+			.ul li {
+				line-height: 45px;
+				padding-left: 24px;
+			}
+			
+			.lt {
+				position: absolute;
+				left: -1px;
+				top: 7px;
+				font-family: "宋体";
+				font-weight: bold;
+				color: #AAAAAA;
+			}
+			
+			.gt {
+				position: absolute;
+				right: 26px;
+				top: 7px;
+				font-family: "宋体";
+				font-weight: bold;
+				color: #AAAAAA;
+			}
+			
+			.swiper_wrap .font_inner a {
+				color: #444;
+			}
+			
+			.swiper_wrap a:hover {
+				color: #FA9101;
+			}
+			
+			.update_progress {
+				display: block;
+				position: relative;
+				/* 进度条背景颜色 */
+				color: #333333;
+				height: 40px;
+				/* 高度 */
+				line-height: 40px;
+				/* 必须和高度一致，文本才能垂直居中 */
+			}
+			
+			.progress_div {
+				display: block;
+				position: fixed;
+				/* 进度条背景颜色 */
+				color: #333333;
+				height: 40px;
+				/* 高度 */
+				line-height: 40px;
+				width: 0px;
+				bottom: 0px;
+				background: #bb808b
+			}
+			
+			.mod_alert .btn_1 {
+				color: black;
+			}
+			
+			.biao {
+				width: 12PX;
+				margin-top: 3px;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f1f0f0!important;">
+		<div class="mod_alert mod_alert_offline_pay  show fixed update_mode" style="display: none;"><i class="icon"></i>
+			<p>发现新版本</p>
+			<ul class="tips_list">
+				<li class="tips_list_item">1、分享图片模式</li>
+				<li class="tips_list_item">2、已知BUG</li>
+			</ul>
+
+			<div style="width: 100%;" class="update_progress">
+				<p class="btns">
+					<a href="javascript:;" id="ui_btn_confirm" class="btn btn_1">立即更新</a>
+				</p>
+				<div class="progress_div"></div>
+			</div>
+
+		</div>
+		<div class="mod_alert_mask show" style="display: none;"></div>
+		<div>
+			<div id="mainBanner" class="main_banner">
+
+				<div id="slider" class="swiper-container">
+					<div class="swiper-wrapper">
+
+					</div>
+					<div class="pagination"></div>
+				</div>
+
+			</div>
+			<div class="my_section" id="myActivity" style=" border: 0;">
+				<ul class="my_cate">
+
+				</ul>
+			</div>
+			<div class="leiji tixian_list vueBox" style="margin-top: 5px;border: 0;display: none;"><span style="  float: left;margin-left: 10PX;color:#009bff ;"></span><img style="float: left;" src="../images/jd-news-tit.png" width="20px">
+
+				<div class="swiper_wrap">
+					<ul class="font_inner ul marquee_box" style="height: 120px; top:0px;">
+
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="ques-section-card" onclick="open_trade_rank_list(0)" style="display: none;">
+				<div class="ques-card-head ques-card-bul ">
+					<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100%" xml:space="preserve">
+						<defs>
+							<pattern id="water" width=".25" height="1.1" patternContentUnits="objectBoundingBox">
+								<path fill="#fff" d="M0.25,1H0c0,0,0-0.659,0-0.916c0.083-0.303,0.158,0.334,0.25,0C0.25,0.327,0.25,1,0.25,1z"></path>
+							</pattern>
+							<g id="eff">
+								<rect fill="url(#water)" x="-260.016" y="0" width="1200" height="120" opacity="0.3">
+									<animate attributeType="xml" attributeName="x" from="-300" to="0" repeatCount="indefinite" dur="10s"></animate>
+								</rect>
+								<rect fill="url(#water)" y="5" width="1600" height="125" opacity="0.3" x="-51.2983">
+									<animate attributeType="xml" attributeName="x" from="-400" to="0" repeatCount="indefinite" dur="13s"></animate>
+								</rect>
+							</g>
+						</defs>
+						<use xlink:href="#eff" opacity="1" style="mix-blend-mode:normal;"></use>
+					</svg>
+				</div>
+				<div class="ques-card-title ques-card-title-top ">每日资讯</div>
+				<ul class="ques-card-list trade_rank_list">
+
+				</ul>
+			</div>
+			<div class=" mescroll" id="mescroll">
+				<div class="tab-panel-item tab-active">
+					<div class=" goods_list ">
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</body>
+	<script>
+		(function() {
+
+			localStorage.setItem('is_trade', 0)
+		})();
+	</script>
+	<script type="text/javascript">
+		mui.plusReady(function() {
+			plus.screen.lockOrientation("portrait-primary");
+		});
+
+		$(function() {
+			localStorage.setItem('category_id', 0)
+			localStorage.setItem('pin_order_id', 0)
+
+			var user_id = localStorage.getItem('user_id');
+			if(user_id == 1) {
+				$('.chat').attr('url', 'chat_list.html');
+				$('.chat').find('p').html('我是客服');
+			}
+
+			$('.userdetailmoney').click(function() {
+				//					mui.toast($(this).attr('url'))
+				localStorage.setItem('seller_id', 0)
+				openWindowWithTitle('收益', $(this).attr('url'));
+
+			});
+			//						get_Parameter()
+
+		});
+	</script>
+	<script type="text/javascript">
+		$(function() {
+			init_exit_view()
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+			get_goods_list(1, 1000000, setListData)
+
+			function setListData(data) {
+				localStorage.setItem('huikui_sn', '');
+				console.log(data)
+				data1 = data;
+				if(data1.status == 0) {
+					exit();
+				}
+
+				$('.login-tab').css('margin-top', $('.mui-bar').height())
+
+				$('.mui-scroll-wrapper').css('margin-bottom', $('.mui-bar').height() * 2)
+				$('#shoppingCartCount').html(localStorage.getItem('shoppingCartCount'));
+				$('.ui-tags-tit a').click(function() {
+					$('.ui-tags-tit a').removeClass('active')
+					$(this).addClass('active');
+
+					$('.ui-tags-ct li').css('display', 'none')
+					$('.ui-tags-ct li:eq(' + $(this).index() + ')').css('display', 'block')
+
+				})
+
+				var city = localStorage.getItem('select_city');
+				if(city != '' && city != null) {
+					$('.select_city').html(city)
+				}
+
+				user = (data);
+
+				//				var _53code = document.createElement("script");
+				//				_53code.src = "https://tb.53kf.com/code/code/10000079/1?u_cust_id="+user.id+"&u_cust_name="+user.user_name+"&u_custom_info=123456";
+				//				var s = document.getElementsByTagName("script")[0];
+				//				s.parentNode.insertBefore(_53code, s);
+				if(user != null && $('.marquee_box li').length == 0) {
+					$('.marquee_box').css('display', 'block')
+					$('.tixian_list').css('display', 'block')
+					var item = '';
+
+					$('.marquee_box li').remove();
+					$.each(user.form, function(index, content) {
+
+						item += '  <li>';
+						item += ' 	<a href="###">' + content.title + '</a>';
+						item += ' </li>';
+
+					});
+
+					$('.marquee_box').append(item);
+
+					init_marquee_box();
+				}
+
+				info = (data);
+				info = info.slider;
+				$('.swiper-wrapper .swiper-slide').remove();
+				var height = $('.swiper-container').height();
+				var goods_albums = info;
+				//				console.log(goods_albums)
+				if(goods_albums != null) {
+					if(goods_albums.length > 1) {
+						$.each(goods_albums, function(index, content) {
+							//							console.log(IP + content.img)
+							var item = '	 <div class="swiper-slide"> ';
+							item += '<a href="javascript:void(0)">	<img src="' + IP + content.img + '"  style="height:200px"/></a> </div>';
+
+							$('.swiper-wrapper').append(item);
+
+						});
+					}
+					var mySwiper = new Swiper('.swiper-container', {
+						calculateHeight: true,
+						resizeReInit: true,
+						pagination: ".pagination",
+						autoplay: 5000,
+						paginationClickable: true,
+						autoplayDisableOnInteraction: false
+					});
+
+					$('.swiper-slide').click(function() {
+
+						//						localStorage.setItem('is_login', 1)
+						//						openWindowWithTitle('积分兑换', 'jifen.html')
+
+					})
+
+				}
+				info = (data);
+				info = info.category;
+				var category = info;
+				$('.my_cate li').remove();
+
+				$.each(category, function(index, content) {
+
+					var item = '	<li class="my_cate_item" main_title="'+content.title+'"  category_id="'+content.id+'">';
+					item += '<a href="javascript:void(0);"  class="my_cate_item_url  select_type"> <span class="my_cate_item_logo"> <img src="' + IP + content.img_url + '"> </span>';
+					item += '<p class="my_cate_item_name">' + content.title + '</p>';
+					item += '</a>';
+					item += '	</li>';
+
+					$('.my_cate').append(item);
+				});
+				$(".my_cate_item").on('click', function() {
+					var title = $(this).attr('main_title')
+					var category_id = $(this).attr('category_id')
+					localStorage.setItem('is_cate', 1)
+					localStorage.setItem('is_login', 0)
+					localStorage.setItem('category_id', category_id)
+					openWindowWithTitle(title, 'goods.html')
+				});
+				info = (data);
+				info = info.data;
+				var goods = info;
+
+				$('.goods_item').remove();
+
+				$.each(goods, function(index, content) {
+
+					var item = '<a href="javascript:;" class="aui-list-theme-item goods_item"  id="' + content.id + '" name="' + content.title + '" >';
+					item += '<div class="aui-list-img"> <img class="img" src="' + IP + content.img + '" alt=""> </div>';
+					item += '<div class="aui-list-title">';
+					item += '	<h3>' + content.title + '</h3>';
+					item += '<!--<div class="aui-flex">';
+					item += '	<div class="aui-flex-box"> <span>￥56.00</span></div>';
+					item += '	<div class="aui-list-right"> <span>  </span></div>';
+					item += '</div>-->';
+					item += '<div class="aui-flex aui-flex-pic" style="margin-top:10px" >';
+					item += '	<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_zun.png" /> <span style="color:#ffb909">' + content.price + '</span><span style="color:#ab9b72;opacity: 0.5;"></span> </div>';
+					item += '<div class="aui-list-right">';
+//					item += '	<span>￥' + content.market_price + '</span>';
+					item += '</div>';
+					item += '</div>';
+					item += '<div class="aui-flex aui-flex-pic">';
+					item += '<div class="aui-flex-box"><img class="biao" src="../images/ic_bg_market.png" /> <span>' + content.market_price + '</span><span style="color:#de614f;opacity: 0.5;"></span> </div>';
+					item += '<div class="aui-list-right">';
+					item += '	<p>月销:' + content.sell_count + '</p>';
+					item += '</div>';
+					item += '</div>';
+					item += '</div>';
+					item += '	</a>';
+
+					$('.goods_list').append(item);
+				});
+
+				$('.goods_item .img').css('height', $('.goods_item').width());
+				$(".goods_item").on('click', function() {
+					localStorage.setItem('goods_id', $(this).attr('id'));
+					localStorage.setItem('hot_id', $(this).attr('hot_id'));
+					localStorage.setItem('title', $(this).attr('name'));
+					localStorage.setItem('is_login', 0)
+
+					openWindowWithTitle($(this).attr('name'), 'goods_show.html')
+				});
+			}
+		});
+
+		function update_trade_rank(info) {
+			info = decodeURI(info)
+			console.log(info)
+			info = JSON.parse(info)
+			$('.trade_rank_list li').remove();
+			if(info != null) {
+				var item = '';
+				$.each(info, function(index, content) {
+					var rank = '';
+					if(index == 0) {
+						rank = 'ques-card-list-noe';
+
+					}
+					if(index == 1) {
+						rank = 'ques-card-list-two';
+
+					}
+					if(index == 2) {
+						rank = 'ques-card-list-three';
+
+					}
+
+					item += '<li class="' + rank + '">';
+					item += ' <div class="ques-list-box clearfix">';
+					item += '  <div class="ques-list-head">';
+					item += '   <div class="ques-list-image">';
+					item += '    <img src="' + IP + '/' + content.avatar + '" alt="">';
+					item += '   </div>';
+					item += '   </div>';
+					item += '  <div class="ques-list-name">';
+					item += '     <div class="ques-list-name-head">' + content.user_name + '</div>';
+					item += '  <div class="ques-list-name-text"> 交易量: ' + content.team_trade_money + '</div>';
+					item += ' </div>';
+					item += '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>';
+					item += '  </div>';
+					item += '   </li>';
+
+				});
+
+				$('.trade_rank_list').append(item);
+
+			}
+			//			$('.trade2_rank_list li').remove();
+			//			if(info2 != null) {
+			//				var item = '';
+			//				$.each(info2, function(index, content) {
+			//					var rank = '';
+			//					if(index == 0) {
+			//						rank = 'ques-card-list-noe';
+			//
+			//					}
+			//					if(index == 1) {
+			//						rank = 'ques-card-list-two';
+			//
+			//					}
+			//					if(index == 2) {
+			//						rank = 'ques-card-list-three';
+			//
+			//					}
+			//
+			//					item += '<li class="' + rank + '">';
+			//					item += ' <div class="ques-list-box clearfix">';
+			//					item += '  <div class="ques-list-head">';
+			//					item += '   <div class="ques-list-image">';
+			//					item += '    <img src="' + IP + '/' + content.avatar + '" alt="">';
+			//					item += '   </div>';
+			//					item += '   </div>';
+			//					item += '  <div class="ques-list-name">';
+			//					item += '     <div class="ques-list-name-head">' + content.user_name + '</div>';
+			//					item += '  <div class="ques-list-name-text"> 交易量: ' + content.team_trade_money + '</div>';
+			//					item += ' </div>';
+			//					item += '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>';
+			//					item += '  </div>';
+			//					item += '   </li>';
+			//
+			//				});
+			//
+			//				$('.trade2_rank_list').append(item);
+			//
+			//			}
+		}
+
+		function update_terminal_rank(info) {
+			info = decodeURI(info)
+			info = JSON.parse(info)
+			var IP = localStorage.getItem('IP');
+
+			$('.terminal_rank_list li').remove();
+			if(info != null) {
+				var item = '';
+
+				$.each(info, function(index, content) {
+					var rank = '';
+					if(index == 0) {
+						rank = 'ques-card-list-noe';
+
+					}
+					if(index == 1) {
+						rank = 'ques-card-list-two';
+
+					}
+					if(index == 2) {
+						rank = 'ques-card-list-three';
+
+					}
+
+					item += '<li class="' + rank + '">';
+					item += ' <div class="ques-list-box clearfix">';
+					item += '  <div class="ques-list-head">';
+					item += '   <div class="ques-list-image">';
+					item += '    <img src="' + IP + '/' + content.avatar + '" alt="">';
+					item += '   </div>';
+					item += '   </div>';
+					item += '  <div class="ques-list-name">';
+					item += '     <div class="ques-list-name-head">' + content.user_name + '</div>';
+					item += '  <div class="ques-list-name-text"> 激活量: ' + content.terminal_count + '</div>';
+					item += ' </div>';
+					item += '<span class="ques-list-name-icon item-icon00' + (index + 1) + '">' + (index + 1) + '</span>';
+					item += '  </div>';
+					item += '   </li>';
+
+				});
+
+				$('.terminal_rank_list').append(item);
+
+			}
+		}
+		var autoTimer;
+
+		function init_marquee_box() {
+			//1文字轮播(2-5页中间)开始
+
+			$(".font_inner li:eq(0)").clone(true).appendTo($(".font_inner")); //克隆第一个放到最后(实现无缝滚动)
+			var liHeight = $(".swiper_wrap").height(); //一个li的高度
+			//获取li的总高度再减去一个li的高度(再减一个Li是因为克隆了多出了一个Li的高度)
+			var totalHeight = ($(".font_inner li").length * $(".font_inner li").eq(0).height()) - liHeight;
+			$(".font_inner").height(totalHeight); //给ul赋值高度
+			var index = 0;
+			var autoTimer = 0; //全局变量目的实现左右点击同步
+			var clickEndFlag = true; //设置每张走完才能再点击
+
+			function tab() {
+				$(".font_inner").stop().animate({
+					top: -index * liHeight
+				}, 400, function() {
+					clickEndFlag = true; //图片走完才会true
+					if(index == $(".font_inner li").length - 1) {
+						$(".font_inner").css({
+							top: 0
+						});
+						index = 0;
+					}
+				})
+			}
+
+			function next() {
+				index++;
+				if(index > $(".font_inner li").length - 1) { //判断index为最后一个Li时index为0
+					index = 0;
+				}
+				tab();
+			}
+
+			function prev() {
+				index--;
+				if(index < 0) {
+					index = $(".font_inner li").size() - 2; //因为index的0 == 第一个Li，减二是因为一开始就克隆了一个LI在尾部也就是多出了一个Li，减二也就是_index = Li的长度减二
+					$(".font_inner").css("top", -($(".font_inner li").size() - 1) * liHeight); //当_index为-1时执行这条，也就是走到li的最后一个
+				}
+				tab();
+			}
+			//切换到下一张
+			$(".swiper_wrap .gt").on("click", function() {
+				if(clickEndFlag) {
+					next();
+					clickEndFlag = false;
+				}
+			});
+			//切换到上一张
+			$(".swiper_wrap .lt").on("click", function() {
+				if(clickEndFlag) {
+					prev();
+					clickEndFlag = false;
+				}
+			});
+			clearInterval(autoTimer);
+			//自动轮播
+			autoTimer = setInterval(next, 2000);
+			$(".font_inner a").hover(function() {
+				clearInterval(autoTimer);
+			}, function() {
+				autoTimer = setInterval(next, 2000);
+			})
+
+			//鼠标放到左右方向时关闭定时器
+			$(".swiper_wrap .lt,.swiper_wrap .gt").hover(function() {
+				clearInterval(autoTimer);
+			}, function() {
+				autoTimer = setInterval(next, 3000);
+			})
+			//1文字轮播(2-5页中间)结束
+		}
+		window.addEventListener('lockOrientation', function(e) {
+
+			plus.screen.lockOrientation("portrait-primary");
+			console.log(434444)
+
+			plus.navigator.setFullscreen(false);
+			//			$('body').css('padding-top','20px')
+		});
+	</script>
+
+	<script>
+		function open_yeji() {
+
+			localStorage.setItem('is_trade', 1)
+
+			openWindowWithTitle('交易明细', 'useralldetailmoney.html')
+		}
+
+		function open_yeji_detail() {
+
+			openWindowWithTitle('业绩详情', 'user_yeji_detail.html')
+		}
+
+		function open_trade_rank_list(seller_type) {
+			localStorage.setItem('trade_type', seller_type)
+			openWindowWithTitle('直营交易量排行榜', 'trade_rank_list.html')
+		}
+
+		function open_terminal_rank_list() {
+
+			openWindowWithTitle('激活量排行榜', 'terminal_rank_list.html')
+		}
+	</script>
+
+</html>

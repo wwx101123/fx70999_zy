@@ -1,0 +1,76 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>密码修改</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="{:U('Index/index')}">首页</a>
+            </li>
+            <li>
+                <a>资料管理</a>
+            </li>
+            <li class="active">
+                <strong>密码修改</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+</block>
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>密码修改
+                        </h5>
+                    </div>
+                    <div class="ibox-content">
+
+                    <form role="form" class="form-horizontal ajax-post" action="__ACTION__" name="sendForm" id="sendForm" method="post">
+                            <input type='hidden' name='fromurl1' value=""/>
+                            <input type='hidden' name='action' value="edit_ajax"/>
+                            <div class="form-group">
+                                <label for="pwd" class="col-sm-2 control-label">一级新密码：</label>
+                                <div class="col-sm-10">
+                                    <input name="pwd" type="password" placeholder="输入一级新密码" id="pwd"
+                                    class="form-control">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="repwd" class="col-sm-2 control-label">确认一级新密码：</label>
+                                <div class="col-sm-10">
+                                    <input name="repwd" type="password" placeholder="确认一级新密码" id="repwd" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pwd1" class="col-sm-2 control-label">二级新密码：</label>
+                                <div class="col-sm-10">
+                                    <input name="pwd1" type="password" placeholder="输入二级新密码" id="pwd1"
+                                    class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="repwd1" class="col-sm-2 control-label">确认二级新密码：</label>
+                                <div class="col-sm-10">
+                                    <input name="repwd1" type="password" placeholder="确认二级新密码" id="repwd1"
+                                    class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="ladda-button ladda-button-demo btn btn-primary" data-style="expand-left" type="submit" id="sendPwd">确认修改</button>
+                                    <button class="btn btn-white" type="button" onclick="history.go(-1)">取消</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</block>

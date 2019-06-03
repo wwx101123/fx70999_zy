@@ -1,0 +1,151 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+    <div class="row wrapper border-bottom white-bg page-heading">
+        <div class="col-lg-10">
+            <h2>会员升级</h2>
+            <ol class="breadcrumb">
+                <li>
+                    <a href="__APP__">首页</a>
+                </li>
+                <li>
+                    <a>团队管理</a>
+                </li>
+                <li class="active">
+                    <strong>会员升级</strong>
+                </li>
+            </ol>
+        </div>
+    </div>
+</block>
+
+<block name="menu">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>升级申请</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-sm-6 b-r"><h3 class="m-t-none m-b">{$frs['user_id']}</h3>
+                                <p>{$level[$frs['u_level']-1]}</p>
+                                <form role="form" id="sendForm" action="__URL__/MenberJinjiConfirm">
+                                    <input type="hidden" name="imgurl" id="imgurl">
+                                    <div class="form-group"><label>可申请级别</label>
+                                    <empty name="isUp">
+                                        <select name="torank"  class="form-control" disabled="">
+                                            <option  value="2">未达到升级要求</option>
+                                        </select>
+                                    <else/>
+                                        <select name="ulevel"  class="form-control">
+                                            <volist name="sx1" id="vo">
+											<egt name="key" value="$frs['u_level']" >
+											<option value="{$key+1}">{$level[$key]} - {$sx1[$key]}</option>
+											</egt>
+											</volist>
+                                        </select>
+                                    </empty>
+                                    </div>
+                                    
+                                        </form>
+                                    </div>
+                                    <div class="col-sm-6"><h4>确认升级</h4>
+                                    
+                                    
+                                    
+                                        <p>点击下方按钮进行升级申请</p>
+                                        
+                            <button id="sendUp" type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">申请</button>
+                                        
+                                        
+                                        
+                                        
+                                  </div>
+                              </div>
+                              <script type="text/javascript">
+                                        layui.use(['upload','layer'], function(){
+                                          layui.upload({
+                                              url: "{:U('Gouwu/upload_fengcai_pp')}"
+                                              ,success: function(res){
+                                                layer.msg(res.info);
+                                                    var PUBLIC="__"+"PUBLIC__";
+                                                    var str=res.url;
+                                                  $('#imgurl').val(str.replace(PUBLIC,'__PUBLIC__'));
+                                                  $('#showImg').removeClass('layui-hide');
+                                                  return false;
+                                              }
+                                            }); 
+                                            $('.btn-show').on('click',function() {
+                                              layer.open({
+                                                  type: 1,
+                                                  title: false,
+                                                  offset: '300px',
+                                                  closeBtn: 0,
+                                                  area: 'auto',
+                                                  maxWidth:'500px',
+                                                  skin: 'layui-layer-nobg', //没有背景色
+                                                  shadeClose: true,
+                                                  content: "<img src='"+$('#img').val()+"'>"
+                                                });
+                                          });
+                                            $('#sendUp').on('click',function() {
+                                                console.log(1);
+                                                $.post($('#sendForm').attr('action')
+                                                    ,$('#sendForm').serialize(),
+                                                    function(data) {
+                                                        if (data.status) {
+                                                            layer.msg(data.info,{end:function() {
+                                                                location.reload();
+                                                            }});
+                                                        }else{
+                                                            layer.msg(data.info);
+                                                        }
+                                                    });
+                                                return false;
+                                            });
+                                        });
+                                </script>
+                              <div class="alert alert-success" Ss>
+                                升级申请记录
+                            </div>
+                            <table class="table table-hover" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th>原级别</th>
+                                        <th>申请级别</th>
+                                        <th>升级金额</th>
+                                        <th>升级时间</th>
+                                        <th>审核时间</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <empty name='list'>
+                                    <tr>
+                                        <td>暂无数据</td>
+                                    </tr>
+                                    <else/> 
+                                    <volist name="list" id="vo">
+                                        <tr>
+                                            <td>{$level[$vo['u_level']-1]}</td>
+                                            <td>{$level[$vo['up_level']-1]}</td>
+                                            <td>{$vo['money']+$vo['money_two']}</td>
+                                            <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
+                                            <td><notempty name="vo.pdt">{$vo.pdt|date='Y-m-d H:i:s',###}</notempty></td>
+                                            <td>
+                                                <eq name="vo.is_pay" value="0"><span class="label label-default">未审核</span></eq>
+                                                <eq name="vo.is_pay" value="1"><span class="label label-success">通过</span></eq>
+                                                <eq name="vo.is_pay" value="2"><span class="label label-danger">拒绝</span></eq>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                    </empty>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </block>

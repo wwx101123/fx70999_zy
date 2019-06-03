@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport" />
+		<meta content="yes" name="apple-mobile-web-app-capable" />
+		<meta content="black" name="apple-mobile-web-app-status-bar-style" />
+		<meta content="telephone=no" name="format-detection" />
+		<link href="../css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../css/user.css" rel="stylesheet" type="text/css" />
+		<link href="../css/mui.min.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="../aui/css/aui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/index.min_e69bc1e2.css" />
+		<link rel="stylesheet" type="text/css" href="../css/my.min_fbd6649a.css" />
+		<script type="text/javascript" src="../js/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/seller.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/order.js"></script>
+		<script type="text/javascript" src="../js/upload.js"></script>
+		<link rel="stylesheet" href="../css/mescroll.min.css">
+		<link rel="stylesheet" href="../css/mescroll-option.css">
+		<script src="../js/mescroll-option.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mescroll.min.js" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/aui-toast.js"></script>
+		<style>
+			.mescroll {
+				position: fixed;
+				top: 0px;
+				bottom: 0;
+				height: auto;
+				overflow-x: hidden;
+				/*如设置bottom:50px,则需height:auto才能生效*/
+			}
+			
+			.dot_num {
+				display: none;
+			}
+			
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6 {
+				line-height: 30px;
+				margin-top: 0px;
+				margin-bottom: 0px;
+			}
+			
+			.remain_time {
+				text-align: center;
+				float: left;
+				background: #E44864;
+				padding-left: 2%;
+				padding-right: 2%;
+				height: 20PX;
+				color: white;
+				margin-left: 10px;
+				border-radius: 10px 10px 10px 10px;
+			}
+			
+			.daojishi {
+				font-size: 12px;
+			}
+			
+			.status_btn {
+				font-size: 12PX;
+				float: right;
+				text-align: center;
+				background: #E44864;
+				color: white;
+				width: 50PX;
+				border-radius: 5px 5px 5px 5px;
+			}
+			
+			.status_btn.no {
+				background: #b8b5b5;
+			}
+			
+			.chuai {
+				display: none;
+				width: 240px;
+				height: 160px;
+				background: url(../images/chuai.png) no-repeat center center;
+				background-size: cover;
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				margin-left: -120px;
+				margin-top: -80px;
+				border-radius: 4px;
+				z-index: 100;
+			}
+			
+			.chuai p {
+				color: #ffe401;
+				font-size: 14px;
+				margin-top: 120px;
+				text-align: center;
+			}
+			
+			.chuai_box {
+				display: none;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.5);
+				text-align: center;
+				text-align: -webkit-center;
+				z-index: 100;
+			}
+			
+			.hong {
+				display: none;
+				width: 240px;
+				height: 240px;
+				background: url(../images/hongbao.png) no-repeat center center;
+				background-size: cover;
+				position: fixed;
+				left: 50%;
+				top: 50%;
+				margin-left: -120px;
+				margin-top: -80px;
+				border-radius: 4px;
+				z-index: 100;
+			}
+			
+			.hong p {
+				color: black;
+				font-size: 14px;
+				margin-top: 40%;
+				margin-left: 10%;
+				text-align: center;
+			}
+			
+			.hong_box {
+				display: none;
+				width: 100%;
+				position: fixed;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				background: rgba(0, 0, 0, 0.5);
+				text-align: center;
+				text-align: -webkit-center;
+				z-index: 100;
+				display: none;
+			}
+			
+			.aui-arrow-right {
+				background-color: rgba(255, 255, 255, 0.3);
+				color: #0b0000;
+				position: relative;
+				border-radius: 20px 0 0 20px;
+				font-size: 0.9rem;
+				padding: 0.3rem 1.2rem 0.3rem 1rem;
+				margin-right: -20px;
+			}
+			
+			.aui-arrow-right:after {
+				content: " ";
+				display: inline-block;
+				height: 6px;
+				width: 6px;
+				border-width: 2px 2px 0 0;
+				border-color: #fff;
+				border-style: solid;
+				-webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+				position: relative;
+				top: -2px;
+				position: absolute;
+				top: 50%;
+				margin-top: -4px;
+				right: 8px;
+				border-radius: 1px;
+			}
+			
+			.aui-arrow-right h3 {
+				color: #fdfbfe;
+				font-size: 0.9rem;
+				font-weight: normal;
+			}
+			
+			.aui-palace-grid-text img {
+				margin: 0 auto;
+				display: none;
+				margin-top: 10px;
+			}
+			
+			.my_cate_item {
+				width: 94%;
+			}
+			
+			.my_cate_item_name {
+				text-align: left;
+				font-size: 13px;
+			}
+		</style>
+	</head>
+
+	<body style="background: #f5f5f5;">
+
+		<div style="margin-top: 0px;" class="page__bd mescroll" id="mescroll">
+
+			<section class="">
+				<div class="aui-mer-list">
+					<div class="aui-flex-box">
+						<div class="aui-flex-box-hd">
+							<img src="../images/user.png" alt="" class="avatar"  onclick="set_upload(this,localStorage.getItem('user_id'))" >
+						</div>
+						<div class="aui-flex-box-bd">
+							<h2 class="username"></h2>
+							<p><span class="aui-person">
+                                    <!--<i class="icon icon-vip"></i>-->
+                                    <span class="u_level"></span>
+
+								</span>
+							</p>
+						</div>
+						<div class="aui-arrow-right menberOpenUse">
+							<h3>开通</h3>
+						</div>
+					</div>
+					<div class="aui-with-bg">
+						<div class="aui-palace clearfix money_list">
+							<a href="javascript:;" class="aui-palace-grid point buy_point_div" type="buy_point">
+								<div class="aui-palace-grid-icon">
+									<span class="buy_point_str"></span>
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2 class="buy_point"></h2>
+									<img src="../images/jiemao.png" width="20px" />
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid point agent_use_div" type="agent_use">
+								<div class="aui-palace-grid-icon">
+									<span class="agent_use_str"></span>
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2 class="agent_use"></h2>
+									<img src="../images/jiemao.png" width="20px" />
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid point agent_cash_div" type="agent_cash">
+								<div class="aui-palace-grid-icon">
+									<span class="agent_cash_str"></span>
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2 class="agent_cash"></h2>
+									<img src="../images/jiemao.png" width="20px" />
+								</div>
+							</a>
+							<a href="javascript:;" class="aui-palace-grid point agent_kt_div" type="ssb" style="display: none;">
+								<div class="aui-palace-grid-icon">
+									<span class="ssb_str"></span>
+								</div>
+								<div class="aui-palace-grid-text">
+									<h2 class="ssb"></h2>
+									<img src="../images/jiemao.png" width="20px" />
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="aui-ad-bar recommend" style="background: transparent;PADDING-LEFT:15PX;padding-right: 15PX;">
+					<img src="../images/ad-cn-001.png" alt="">
+				</div>
+				<div class="order usergoodslist">
+					<div class="aui-flex b-line aui-flex-two">
+						<div class="aui-flex-box">我的商品</div>
+						<div class="aui-flex-fr">查看全部</div>
+					</div>
+					<div class="aui-palace aui-palace-two usergoods ">
+						<a href="javascript:;" class="aui-palace-grid" type="2" url="usergoodslist.html">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-001.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>待审核</h2>
+							</div>
+						</a>
+						<a href="javascript:;" class="aui-palace-grid" type="3" url="usergoodslist.html">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-002.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>已审核</h2>
+							</div>
+						</a>
+						<a href="javascript:;" class="aui-palace-grid" type="4" url="usergoodslist.html">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-003.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>审核不通过</h2>
+							</div>
+						</a>
+
+					</div>
+				</div>
+				<div class="order ">
+					<div class="aui-flex b-line aui-flex-two">
+						<div class="aui-flex-box">我的订单</div>
+						<div class="aui-flex-fr">查看全部</div>
+					</div>
+					<div class="aui-palace aui-palace-two my_orders">
+						<a href="javascript:;" class="aui-palace-grid" type="2">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-001.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>待付款</h2>
+							</div>
+						</a>
+						<a href="javascript:;" class="aui-palace-grid" type="3">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-002.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>待收货</h2>
+							</div>
+						</a>
+						<a href="javascript:;" class="aui-palace-grid" type="4">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-003.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>待评价</h2>
+							</div>
+						</a>
+						<a href="javascript:;" class="aui-palace-grid" type="5">
+							<div class="aui-palace-grid-icon">
+								<img src="../images/icon-mo-004.png" alt="">
+							</div>
+							<div class="aui-palace-grid-text">
+								<h2>退换货</h2>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="aui-icon-box my_cate_item" style="margin: 10px;
+    background: white; border-radius: 10px; ">
+					<!--<a class="aui-flex-box" href="javascript:;" onclick="recommend()">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">在线签到
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>-->
+					<a class="aui-flex-box apply_seller" href="javascript:;" url="apply_seller.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">申请店铺
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box sell" href="javascript:;" url="create.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">我要寄售
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box" href="javascript:;" url="mygoods.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">我的兑换
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box" href="javascript:;" url="useraddress.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">收货地址
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a href="javascript:;" class="aui-flex-box" url="tiqu.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">我要提现
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a href="javascript:;" class="aui-flex-box" url="bank.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-01.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">个人信息
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box" href="javascript:;" url="feedback.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-02.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">在线留言
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<!--<a class="aui-flex-box" href="javascript:;" url="recommend.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-03.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">分享
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>-->
+					<a class="aui-flex-box" href="javascript:;" url="notice_list.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-03.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">系统公告
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box" href="javascript:;" url="shop_list.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-03.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">好友管理
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<!--<a class="aui-flex-box" href="javascript:;" url="usershoporder.html">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-03.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">商家订单
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>-->
+					<a class="aui-flex-box" href="javascript:;" onclick="exit_btn(this,1)">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-04.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">切换账号
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+					<a class="aui-flex-box" href="javascript:;" onclick="exit_btn(this,0)">
+						<div class="aui-flex-box-hd">
+							<img src="../images/icon-item-04.png" alt="">
+						</div>
+						<div class="aui-flex-box-bd my_cate_item_name">退出
+						</div>
+						<div class="aui-flex-box-fr"></div>
+					</a>
+				</div>
+			</section>
+
+		</div>
+		<div id="blink">可进货:<span id="all_money"></span>
+			<div class="arrow-bottom arrow-box">
+				<b class="bottom"><i class="bottom-arrow1"></i><i class="bottom-arrow2"></i></b>
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		var user_id = localStorage.getItem('user_id')
+		get_seller_info(user_id, sellerCallback);
+
+		function sellerCallback(data) {
+			localStorage.setItem('goods_id', 0)
+			
+
+			$('.sell').css('display', 'none')
+			$('.usergoodslist').css('display', 'none')
+			var $target = $('#J_Address2');
+
+			var status = data.status;
+			console.log(data.msg)
+			if(status == 1) {
+				var info = data.data;
+				if(info.status == 0) {
+
+					$('.apply_seller').css('display', 'none')
+					$('.sell').css('display', 'flex')
+					$('.usergoodslist').css('display', 'block')
+				}
+
+			} else {
+				$('.apply_seller').css('display', 'none')
+				$('.sell').css('display', 'flex')
+				$('.usergoodslist').css('display', 'block')
+			}
+			//lang()
+
+		}
+
+		function successCallback(data) {
+
+			var $target = $('#J_Address2');
+
+			var status = data.status;
+			if(status == 1) {
+				var info = data.data;
+				console.log(info)
+				if(info != null) {
+					$('#txtAcceptName').val(info.accept_name);
+					$('#txtAddress').val(info.address);
+					$('#txtMobile').val(info.phone);
+					$('#txtTelphone').val(info.telphone);
+					$('#title').val(info.title);
+					$('#city-picker').val(info.area);
+					$('#area').val(info.area);
+					$('#seller_id').val(info.id);
+					$('#is_default').val(info.is_default);
+
+					if(info.status == 0) {
+						$('#btnSubmit').val('已审核')
+
+					}
+					console.log(info.status)
+					if(info.status == 1) {
+						$('#btnSubmit').val('等待审核')
+						$('#btnSubmit').attr('disable', 'disabled')
+
+					}
+					if(info.province == null) {
+
+					} else {
+
+						$target.citySelect({
+							provance: info.province,
+							city: info.city,
+							area: info.area
+						});
+
+						$target.val(info.province + info.city + info.area)
+						$('#txtProvince').val(info.province);
+						$('#txtCity').val(info.city);
+						$('#txtArea').val(info.area);
+
+					}
+				} else {
+					$target.citySelect();
+				}
+
+				$target.on('click', function(event) {
+					event.stopPropagation();
+					$target.citySelect('open');
+				});
+
+				$target.on('done.ydui.cityselect', function(ret) {
+					$(this).val(ret.provance + ' ' + ret.city + ' ' + ret.area);
+					$('#txtProvince').val(ret.provance);
+					$('#txtCity').val(ret.city);
+					$('#txtArea').val(ret.area);
+				});
+
+			}
+			//lang()
+
+		}
+
+		function init_check_pwd2() {
+			var check_password2 = localStorage.getItem('check_password2');
+			console.log(check_password2)
+			$('.money_list .point').unbind('click')
+			if(check_password2 == 0) {
+				$('.money_list h2').css('display', 'none');
+				$('.money_list img').css('display', 'block');
+			}
+			if(check_password2 == 1) {
+				$('.money_list h2').css('display', 'block');
+				$('.money_list img').css('display', 'none');
+				$('.money_list .point').click(function() {
+					var my_cate_item_name = $(this).find('span').html();
+					console.log(my_cate_item_name)
+					var title = my_cate_item_name;
+					var url = $(this).attr('url');
+					var point_type = $(this).attr('type');
+					localStorage.setItem('point_type', point_type)
+
+					openWindowWithTitle(title + '明细', 'pointflows.html');
+
+				});
+			} else {
+				$('.money_list .point').click(function() {
+
+					openWindowWithTitle('验证二级密码', 'checkpwd2.html');
+
+				});
+			}
+		}
+		var mescroll;
+		$(function() {
+			init_exit_view()
+			//			$('.active').click(function() {
+			//				 console.log(23456)
+			//				user_active(mescroll);
+			//			});
+			$('.active_daili_btn').click(function() {
+				localStorage.setItem('autoBackButton', true)
+
+				openWindowWithTitle('升级代理商', 'daili_confirm.html')
+
+				//				user_active(mescroll);
+			});
+			//			})
+			//获取商城类别
+
+			var size = 10;
+			var isIOS = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+			mescroll = initMeScroll("mescroll", {
+				down: {
+					auto: true, //是否在初始化完毕之后自动执行下拉回调callback; 默认true
+					callback: downCallback //下拉刷新的回调
+				},
+				up: {
+					use: false
+				}
+			});
+
+			var page_index = 0;
+			localStorage.setItem('page_index', page_index);
+			/*下拉刷新的回调 */
+			function downCallback() {
+				var user_id = localStorage.getItem('user_id');
+				localStorage.setItem('is_get_tiqu', 1);
+				get_user_info(user_id, init_view);
+
+			}
+
+			/*上拉加载的回调 */
+
+			function init_view() {
+
+				var user = localStorage.getItem('user');
+				console.log(user)
+				var info = JSON.parse(user);
+
+				$('.money_list .aui-palace-grid').css('width', '33%');
+				$('.dot_num').css('display', 'none');
+				$('.money_list').css('display', 'block');
+
+				$('.username').html(info.user_id);
+				$('.agent_use').html(info.agent_use);
+				$('.agent_cash').html(info.agent_cash);
+				$('.agent_kt').html(info.agent_kt);
+				$('.buy_point').html(info.buy_point);
+
+				$('.ssb').html(info.ssb);
+				$('.limit_money').html(info.limit_money);
+				$('.live_gupiao').html(info.live_gupiao);
+				$('.u_level').html('' + info.uLevel);
+				$('.agent_cash_str').html(info.bi.agent_cash);
+				$('.agent_use_str').html(info.bi.agent_use);
+				$('.agent_kt_str').html(info.bi.agent_kt);
+				$('.buy_point_str').html(info.bi.buy_point);
+				$('.limit_money_str').html(info.bi.limit_money);
+				$('.ssb_str').html(info.bi.ssb);
+				init_check_pwd2()
+				$('.menberOpenUse').css('display', 'none');
+				if(info.is_pay == 0) {
+
+					$('.menberOpenUse').css('display', 'block');
+				}
+
+				update_order_num(encodeURI(JSON.stringify(info)));
+				var UploadUrl = localStorage.getItem('UploadUrl');
+				if(info.avatar != null && info.avatar != '') {
+
+					$('.avatar').attr('src', UploadUrl + info.avatar);
+				}
+				$('.my_cate_item a').click(function() {
+					localStorage.setItem('goods_id', 0)
+					var user = localStorage.getItem('user');
+					var info = JSON.parse(user);
+					localStorage.setItem('select_address', 0)
+					var my_cate_item_name = $(this).find('.my_cate_item_name').html()
+					var title = $.trim(my_cate_item_name);
+					var url = $(this).attr('url');
+					var onclick = $(this).attr('onclick');
+					if(onclick != 'exit()') {
+						if(url == '' || url == null) {
+							//							mui.toast('暂未开放')
+						}
+					}
+					if(url == 'exit') {} else {
+
+						openWindowWithTitle(title, url);
+					}
+				});
+				$('.usergoods a').click(function() {
+					var my_cate_item_name ='我的商品'
+					var title = my_cate_item_name;
+					console.log(title);
+
+					var url = $(this).attr('url');
+					var order_select_type = $(this).attr('order_select_type');
+					localStorage.setItem('order_select_type', order_select_type)
+
+					openWindowWithTitle(title, url);
+
+				});
+				$('.need_order_num').click(function() {
+
+					var trade_ids = $(this).attr('trade_ids');
+					localStorage.setItem('trade_id', trade_ids)
+					var url = $(this).attr('url');
+					console.log(url)
+					openWindowWithTitle('审核资助', url);
+
+				});
+				$('.recommend').click(function() {
+
+					openWindowWithTitle('邀请盟友', 'recommend_images.html');
+
+				});
+
+				$('.userorder a').click(function() {
+					var my_cate_item_name = $(this).find('.title').html()
+					var title = my_cate_item_name;
+					console.log(title);
+					var url = $(this).attr('url');
+					var order_select_type = $(this).attr('order_select_type');
+					localStorage.setItem('order_select_type', order_select_type)
+
+					openWindowWithTitle(title, url);
+
+				});
+				$('.userhelporder a').click(function() {
+					var my_cate_item_name = $(this).find('.title').html()
+					var title = my_cate_item_name;
+					console.log(title);
+					var url = $(this).attr('url');
+					var order_select_type = $(this).attr('order_select_type');
+					localStorage.setItem('order_select_type', order_select_type)
+
+					openWindowWithTitle(title, url);
+
+				});
+				$('.usertradeorder a').click(function() {
+					var my_cate_item_name = $(this).find('.title').html()
+					var title = my_cate_item_name;
+					console.log(title);
+					var url = $(this).attr('url');
+					var order_select_type = $(this).attr('order_select_type');
+					localStorage.setItem('order_select_type', order_select_type)
+
+					openWindowWithTitle(title, url);
+
+				});
+
+				$('.active_btn').css('display', 'none')
+				$('.active_daili_btn').css('display', 'none')
+				//				if(info.u_level != 2) {
+				//					$('.live_gupiao_div').css('display', 'none')
+				//					$('.money_list .aui-palace-grid').css('width', '50%')
+				////					$('.is_agent').css('display', 'none')
+				//					$('.agent_tip').html('团队明细')
+				//					//					<!--$('.active_daili_btn').css('display', 'block')-->
+				//
+				//				}
+				//				if(info.u_level == 2) {
+				//
+				//					$('.live_gupiao_div').css('display', 'block')
+				//					$('.is_agent').css('display', 'block')
+				//					$('.agent_tip').html('团队明细')
+				//					$('.money_list .aui-palace-grid').css('width', '33%')
+				//
+				//				}
+				if(info.is_pay == 0) {
+
+					$('.active_btn').css('display', 'block')
+
+				}
+				localStorage.setItem('no_read_notice_count', info.notice_no_read_count)
+
+				if(info.notice_no_read_count > 0) {
+					$('.notice_num').css('display', 'block')
+				}
+				$('.tiqu_list').html('')
+				var text = '';
+				var remain_time = 0;
+				if(info.tiqu_list != null) {
+					$.each(info.tiqu_list, function(index, content) {
+						if(content.complete_time > 0 && content.status == 0) {
+
+							if(content.is_tiqu == 0 && content.is_tiqu_btn == 0) {
+
+								remain_time = content.remain_tiqu_award_time;
+							}
+							if(content.is_tiqu == 0 && content.is_tiqu_btn == 1) {
+
+								if(content.award_agent_use > 0) {
+
+									text = content.award_agent_use + content.agent_use_str + '';
+								}
+								if(content.award_limit_money > 0) {
+
+									text = content.award_limit_money + content.limit_money_str + '';
+								}
+								remain_time = content.remain_tiqu_time;
+
+							}
+
+						}
+						var item = '  <div class="aui-flex b-line aui-flex-two  " style="padding: 5px;">';
+						item += ' <a href="javascript:;" class="aui-palace-grid" order_select_type="1" url="usergoodslist.html" style="width: 100%;">';
+						item += ' <div class="aui-cou-img" style="float: left;">';
+						item += ' <img src="../images/time.png" alt="">';
+						item += ' </div>';
+						item += ' <div class="aui-flex-box daojishi" style="float: inherit;"><span style="float: left;margin-left: 5px;">倒计时:</span>';
+						item += ' 	<div style="float: left;" class="remain_time" remain_time="' + remain_time + '"> <span style="float:right" class="order_box_hd_label"><span id="day_show"></span><span></span><span id="hour_show"></span><span></span><span id="minute_show"></span><span></span><span id="second_show"></span><span></span></span>';
+
+						item += ' </div>';
+						item += ' </div>';
+						if(text != '') {
+							item += ' <div class="aui-flex-box" style="float: inherit;"><span style="float: left;margin-left: 5px;font-size:12px">获得:' + text + '</span>';
+
+							item += ' 	</div>';
+						}
+						if(text != '') {
+							item += ' <div class=" title status_btn yes"  onclick="trade_tiqu(this,1)"  trade_id="' + content.id + '"   payment="' + content.payment + '" >提取</div>';
+						} else {
+							item += ' <div class=" title status_btn no">未到时</div>';
+						}
+						item += ' </a>';
+						item += ' </div>';
+						$('.tiqu_list').append(item)
+
+					});
+				}
+				$('.remain_time').each(function() {
+					console.log($(this).attr('remain_time'))
+					trade_timer($(this).attr('remain_time'), this)
+				});
+				$('.chuai_box').click(function() {
+
+					var PreUrl = localStorage.getItem('PreUrl');
+					var chuai_box_val = PreUrl + "User/chuai_money";
+					$.ajax({
+						url: chuai_box_val,
+						data: {
+							user_id: localStorage.getItem('user_id'),
+							is_mobile: 1
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							var status = data.status;
+							mui.toast(data.msg)
+							if(status == 1) {
+								$('.chuai_box').css('display', 'none')
+								$('.hong_box').css('display', 'block')
+								$('.hong').css('display', 'block')
+								$('.hong_money').html(data.money);
+
+							} else {
+								mui.toast(data.msg)
+								return;
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(type);
+						}
+					});
+
+				});
+				$('.menberOpenUse').click(function() {
+					mui.confirm('开通会员，您确定吗？', function(e) {
+						if(e.index == 1) {
+
+							$.ajax({
+								url: menberAC_val,
+								data: {
+									is_mobile: 1,
+									id: localStorage.getItem('user_id'),
+									user_id: localStorage.getItem('user_id'),
+									action: 'confirm'
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'POST', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+
+								success: function(data) {
+									var status = data.status;
+									if(status == 1) {
+										mui.alert(data.msg, function() {
+
+											location.reload();
+
+										});
+
+									} else {
+										mui.toast(data.msg);
+									}
+								},
+								error: function(xhr, type, errorThrown) {
+									//异常处理；
+									console.log(type);
+								}
+							});
+						}
+					}, 'div');
+				});
+				$('.hong_box').click(function() {
+					$('.chuai_box').css('display', 'none')
+					$('.chuai').css('display', 'none')
+					$('.hong_box').css('display', 'none')
+				});
+				$('.chuai_box').css('display', 'none')
+				$('.chuai').css('display', 'none')
+				$('.hong_box').css('display', 'none')
+
+				if(info.hong_count > 0) {
+
+					$('.chuai').css('display', 'block')
+					$('.chuai_box').css('display', 'block')
+					$('.hong_box').css('display', 'none')
+				}
+				//				$('.need_order_num').css('display', 'block')
+				$('.need_order_num').css('left', '40%')
+
+				mescroll.endSuccess();
+			}
+
+		});
+		var trade_interval;
+		var intDiff = parseInt(60); //倒计时总秒数量
+		function trade_timer(intDiff, obj) {
+			goods_interval = setInterval(function() {
+				var day = 0,
+					hour = 0,
+					minute = 0,
+					second = 0; //时间默认值        
+				if(intDiff > 0) {
+					day = Math.floor(intDiff / (60 * 60 * 24));
+					hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+					minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+					second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+				}
+				if(hour <= 9) hour = '0' + hour;
+				if(minute <= 9) minute = '0' + minute;
+				if(second <= 9) second = '0' + second;
+
+				if(intDiff == 0) {
+					$(obj).find('#day_show').css("display", 'none');
+					$(obj).find('#hour_show').css("display", 'none');
+					$(obj).find('#minute_show').css("display", 'none');
+					$(obj).find('#second_show').html('');
+					clearInterval(goods_interval);
+					//					location.reload()
+					//					check_order($(obj).find('.time-item').attr('order_id'), $(obj).find('.time-item').attr('goods_id'));
+
+				} else {
+					$(obj).find('#day_show').html(day + "天");
+					$(obj).find('#hour_show').html('<s id="h"></s>' + hour + '时');
+					$(obj).find('#minute_show').html('<s></s>' + minute + '分');
+					$(obj).find('#second_show').html('<s></s>' + second + '秒');
+				}
+
+				intDiff--;
+			}, 1000);
+
+			var timer = setInterval(goods_interval, 1000);
+		}
+
+		function update_order_num(info) {
+
+			info = decodeURI(info)
+
+			info = JSON.parse(info)
+
+			$('.order_num1').css('display', 'none')
+			$('.order_num2').css('display', 'none')
+			$('.order_num3').css('display', 'none')
+			$('.order_num4').css('display', 'none')
+			$('.order_num5').css('display', 'none')
+			$('.order_num6').css('display', 'none')
+			$('.order_num1').html(info.order_num1);
+			$('.order_num2').html(info.order_num2);
+			$('.order_num3').html(info.order_num3);
+			$('.order_num4').html(info.order_num4);
+			$('.order_num5').html(info.order_num5);
+			$('.order_num6').html(info.order_num6);
+			if(info.order_num1 > 0) {
+				$('.order_num1').css('display', 'block')
+			}
+			if(info.order_num2 > 0) {
+				$('.order_num2').css('display', 'block')
+			}
+			if(info.order_num3 > 0) {
+				$('.order_num3').css('display', 'block')
+			}
+			if(info.order_num4 > 0) {
+				$('.order_num4').css('display', 'block')
+			}
+			if(info.order_num5 > 0) {
+				$('.order_num5').css('display', 'block')
+			}
+			if(info.order_num6 > 0) {
+				$('.order_num6').css('display', 'block')
+			}
+
+			$('.help_order_num1').css('display', 'none')
+			$('.help_order_num2').css('display', 'none')
+			$('.help_order_num3').css('display', 'none')
+			$('.help_order_num1').html(info.help_order_num1);
+			$('.help_order_num2').html(info.help_order_num2);
+			$('.help_order_num3').html(info.help_order_num3);
+
+			if(info.help_order_num1 > 0) {
+				$('.help_order_num1').css('display', 'block')
+			}
+			if(info.help_order_num2 > 0) {
+				$('.help_order_num2').css('display', 'block')
+			}
+			if(info.help_order_num3 > 0) {
+				$('.help_order_num3').css('display', 'block')
+			}
+
+			$('.crown_order_num1').css('display', 'none')
+			$('.crown_order_num2').css('display', 'none')
+			$('.crown_order_num3').css('display', 'none')
+			$('.crown_order_num4').css('display', 'none')
+			$('.crown_order_num1').html(info.crown_order_num1);
+			$('.crown_order_num2').html(info.crown_order_num2);
+			$('.crown_order_num3').html(info.crown_order_num3);
+			$('.crown_order_num4').html(info.crown_order_num4);
+
+			if(info.crown_order_num1 > 0) {
+				$('.crown_order_num1').css('display', 'block')
+			}
+			if(info.crown_order_num2 > 0) {
+				$('.crown_order_num2').css('display', 'block')
+			}
+			if(info.crown_order_num3 > 0) {
+				$('.crown_order_num3').css('display', 'block')
+			}
+			if(info.crown_order_num4 > 0) {
+				$('.crown_order_num4').css('display', 'block')
+			}
+
+			$('.goods_num1').css('display', 'none')
+			$('.goods_num2').css('display', 'none')
+			$('.goods_num3').css('display', 'none')
+			$('.goods_num1').html(info.goods_num1);
+			$('.goods_num2').html(info.goods_num2);
+			$('.goods_num3').html(info.goods_num3);
+
+			if(info.goods_num1 > 0) {
+				$('.goods_num1').css('display', 'block')
+			}
+			if(info.goods_num2 > 0) {
+				$('.goods_num2').css('display', 'block')
+			}
+			if(info.goods_num3 > 0) {
+				$('.goods_num3').css('display', 'block')
+			}
+			$('.need_order_num').css('display', 'none')
+			if(info.need_order_num > 0) {
+				$('.need_order_num').css('display', 'block')
+				console.log(info.id)
+				console.log(info.trade_ids)
+				$('.need_order_num').attr('trade_ids', info.trade_ids)
+
+			}
+			$('.my_orders a').click(function() {
+				var type = $(this).attr('type')
+				if(type == 6) {
+					location.href = "userbackorder.html"
+					return;
+				}
+				localStorage.setItem('order_select_type', type);
+
+				//					location.href = "userorder.html"
+				openWindowWithTitle('商城订单', "userorder.html");
+
+			});
+		}
+
+		function init_user_money(info) {
+
+			info = decodeURI(info)
+			console.log(info)
+			info = JSON.parse(info)
+			$('.agent_use').html(info.agent_use);
+			$('.agent_cash').html(info.agent_cash);
+			$('.limit_money').html(info.limit_money);
+
+		}
+
+		function init_user_order_num(order_num) {
+
+			update_order_num(order_num);
+
+		}
+
+		function open_employ_list() {
+
+			openWindowWithTitle('雇佣列表', 'employ_list.html')
+		}
+
+		function apply_agent_function() {
+			openWindowWithTitle('明细', 'agent_detail.html')
+			return;
+
+			var user = localStorage.getItem('user')
+			user = JSON.parse(user);
+			if(user.u_level == 3) {
+
+				openWindowWithTitle('代理商', 'recommend_list.html')
+
+			} else {
+				var toast = new auiToast();
+				var txt = '需要消耗' + user.dai_money + user.bi.agent_use + '申请代理商';
+
+				mui.confirm(txt + '，您确定吗？', function(e) {
+					if(e.index == 1) {
+						toast.loading({
+							title: "提交成功",
+							duration: 2000
+						}, function(ret) {
+							$.ajax({
+								url: apply_agent_val,
+								data: {
+									user_id: localStorage.getItem('user_id'),
+									is_mobile: 1
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+
+								success: function(data) {
+									var status = data.status;
+
+									toast.hide();
+
+									if(status == 1) {
+
+										mui.toast(data.msg)
+									} else {
+										mui.toast(data.msg)
+										return;
+									}
+
+								},
+								error: function(xhr, type, errorThrown) {
+									//异常处理；
+									console.log(type);
+								}
+							});
+
+						});
+
+					}
+				}, 'div');
+			}
+		}
+		var user_id = localStorage.getItem('user_id');
+
+		function upload_avatar() {
+			var user_id = localStorage.getItem('user_id');
+			var avatar_url = localStorage.getItem('avatar_url');
+			console.log(avatar_url)
+
+			var IP = localStorage.getItem('IP');
+			var PreUrl = localStorage.getItem('PreUrl');
+			var IndexUrl = localStorage.getItem('IndexUrl');
+			var UploadUrl = localStorage.getItem('UploadUrl');
+
+			/**
+			 * 获取商品列表
+			 */
+			var avatarEdit_val = PreUrl + "User/avatarEdit";
+			$.ajax({
+				url: avatarEdit_val,
+				data: {
+					is_mobile: 1,
+
+					user_id: user_id,
+
+					avatar: avatar_url
+				},
+				dataType: 'json', //服务器返回json格式数据
+				type: 'POST', //HTTP请求类型
+				timeout: 10000, //超时时间设置为10秒；
+
+				success: function(data) {
+
+					localStorage.setItem('user', JSON.stringify(data.data));
+
+					console.log(JSON.stringify(data.userbank))
+					if(status == 1) {
+						mui.toast(data.msg)
+					} else {
+
+					}
+					////lang()
+
+				},
+				error: function(xhr, type, errorThrown) {
+					//异常处理；
+					console.log(JSON.stringify(xhr));
+				}
+			});
+
+		}
+		window.addEventListener('check_password2', function(e) {
+
+			init_check_pwd2();
+		});
+		window.addEventListener('update_user_avatar', function(e) {
+			console.log(222222)
+			var avatar = localStorage.getItem('avatar')
+			if(avatar != null && avatar != '') {
+
+				$('.avatar').attr('src', UploadUrl + avatar);
+			}
+		});
+		window.addEventListener('update_notice_num', function(e) {
+			$('.notice_num').css('display', 'none')
+
+			if(no_read_notice_count > 0) {
+				$('.notice_num').css('display', 'block')
+			}
+
+		});
+		window.addEventListener('trade_is_goods', function(e) {
+
+			var trade_is_goods = localStorage.getItem('trade_is_goods')
+			console.log(trade_is_goods)
+			if(trade_is_goods > 0) {
+				localStorage.setItem('trade_is_goods', 0)
+				var webview = plus.webview.getWebviewById('index.html');
+
+				webview.evalJS('click_shop();')
+			}
+
+		});
+
+		function init_trade_money(all_money) {
+
+			$('#blink').css('display', 'none')
+			all_money = parseFloat(all_money)
+			if(all_money > 0) {
+
+				$('#blink').css('display', 'block')
+				$('#all_money').html(all_money)
+
+			}
+			localStorage.setItem('all_money', all_money)
+
+		}
+	</script>
+
+</html>

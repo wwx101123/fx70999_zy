@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>会员注册 </title>
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/new_file.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jquery-weui.css" />
+
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<style type="text/css">
+			.TPL:before {
+				border-top: 0px solid #e5e5e5;
+			}
+			
+			input[type=text],
+			input[type=password] {
+				border: 0;
+			}
+		</style>
+		<script type="text/javascript">
+			$(function() {
+				var ServerIP = "";
+				var FID = localStorage.getItem('FID');
+				$('#FID').val(FID);
+				var user_id = localStorage.getItem('user_id');
+				$('#register_id').val(user_id);
+
+				var TPL = localStorage.getItem('TPL');
+
+				if(TPL == '' || TPL == null) {
+					TPL = 0;
+				}
+
+				if(TPL == 0) {
+					$('#TPL0').prop("checked", true);
+					$('#TPL1').prop("checked", false);
+					$('#TPL').val(0);
+				}
+				if(TPL == 1) {
+
+					$('#TPL1').prop("checked", true);
+					$('#TPL0').prop("checked", false);
+					$('#TPL').val(1);
+				}
+
+				get_Parameter();
+			});
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'ready_login');
+
+				}
+			});
+
+			$(function() {
+				var IP = localStorage.getItem('IP');
+				var PreUrl = localStorage.getItem('PreUrl');
+				var IndexUrl = localStorage.getItem('IndexUrl');
+				$('#regForm').attr('url', PreUrl + "Reg/usersAdd");
+				console.log(PreUrl)
+
+				//初始化验证表单
+				$('#btnSubmit').on('click', function() {
+
+					$.ajax({
+						url: $('#regForm').attr('url'),
+						data: $('#regForm').serialize(),
+						dataType: 'json', //服务器返回json格式数据
+						type: 'POST', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒； 
+
+						success: function(data) {
+
+							console.log(JSON.stringify(data))
+							if(data.status == 1) { //成功
+								$("#btnSubmit").val(data.msg)
+								mui.toast(data.msg)
+								console.log(JSON.stringify(data.user))
+								localStorage.setItem('user', JSON.stringify(data.user));
+								mui.back();
+
+							} else { //失败
+								mui.toast(data.msg)
+								$("#btnSubmit").val("重新提交");
+								$("#btnSubmit").prop("disabled", false);
+
+							}
+
+							////lang()
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//异常处理；
+							console.log(JSON.stringify(xhr));
+						}
+					});
+
+				});
+
+			});
+
+			(function($, doc) {
+
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+
+					var userbank = localStorage.getItem('level');
+					userbank = JSON.parse(userbank);
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+					var index; //用index来记住给你的那个默认值的下标
+					var List = userbank;
+					for(var i = 0; i < List.length; i++) {
+						shopList1.push({
+
+							value: List[i].id, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+							text: List[i].label,
+							phone: List[i].value,
+							saddress: List[i].value, //地址                     
+
+						})
+
+					}
+					userPicker.setData(shopList1);
+
+					var showUserPickerButton = doc.getElementById('get_level_select');
+					var userResult = doc.getElementById('u_level');
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							console.log(2222)
+							showUserPickerButton.value = (items[0].text);
+							console.log(JSON.stringify(items[0]))
+							userResult.value = (items[0].value);
+						});
+					}, false);
+
+				});
+			})(mui, document);
+		</script>
+		<script type="text/javascript" charset="utf-8" src="../js/register-validate.js"></script>
+
+	</head>
+
+	<body style="background-color:white">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<form id="regForm" name="regForm" method="post"><input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input name="shopid" type="hidden" id="shopid" value="admin" readonly="readonly" class="form-control" required="">
+					<input id="passopen" name="pwd1" type="hidden" value="222222" />
+					<input id="register_id" name="register_id" type="hidden" />
+					<input id="register_type" name="register_type" type="hidden" value="1" />
+					<input id="u_level" name="u_level" type="hidden" value="1" />
+					<input id="get_level" name="get_level" type="hidden" value="1" />
+					<input id="regcp" name="regcp" type="hidden" value="0" />
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>手机号</span></div>
+							<div class="div_c_r"><input type="text" name="user_id" id="user_id" placeholder="请输入手机号">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f is_yzm " style="display: none;">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">验证码</span>
+							</div>
+							<div class="div_c_r">
+								<input type="text" style="width: 60%; float: left;" name="sjyzm" id="sjyzm" placeholder="请输入验证码">
+
+								<span style="line-height: 50px;height: 50px;color: #E44864;font-size: 12px;" class="sms-btn default-bg-color" onclick="sendSMS(this,'#user_id','register')" tapmode id="sendmsg2">获取验证码</span>
+								<!--<input class="yuying" id="dynamic" value="46s" type="button" disabled="disabled">-->
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>会员昵称</span></div>
+							<div class="div_c_r"><input type="text" name="nickname" id="nickname" placeholder="请输入会员昵称">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">登录密码</span>
+							</div>
+							<div class="div_c_r"><input type="password" name="pwd" id="password" value="" placeholder="登录密码至少6位">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>确认密码</span></div>
+							<div class="div_c_r"><input type="password" name="txtPassword1" id="txtPassword1" value="" placeholder="确认登陆密码">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f" style="display: none;">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>姓名</span></div>
+							<div class="div_c_r"><input type="text" name="username" id="username" placeholder="请输入姓名">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f" style="display: none;" >
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>会员级别</span></div>
+							<div class="div_c_r"><input type="text" readonly="readonly" id="get_level_select" value="" placeholder="请选择级别">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>邀请人</span></div>
+							<div class="div_c_r"><input type="text" name="RID" id="RID" value="" placeholder="请输入邀请人">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<!--<a class="login_go_div" id="btnSubmit" name="btnSubmit"style="background: #E44864;color: #fff;margin-top: 3rem;">注册</a>-->
+					<button id="btnSubmit" name="btnSubmit" type="button" class="login_go_div">注册</button>
+				</form>
+				<!--会员注册-->
+				<form class="form-box" url="" style="display: none">
+					<div class="weui-cells weui-cells_form" style="margin-top: 0PX;">
+						<div class="weui-cell" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员ID号</label>
+							</div>
+							<div class="weui-cell__bd">
+
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">用户帐号</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="user_id" name="user_id" type="text" value="" class="weui-input" placeholder="输入用户帐号" data-validate="s" />
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">会员姓名</label>
+							</div>
+							<div class="weui-cell__bd">
+
+								<input id="username" name="username" type="text" value="" class="weui-input" placeholder="输入会员姓名" data-validate="s" />
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label for="" class="weui-label">登录密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="txtPassword" name="pwd" type="password" value="" class="weui-input" placeholder="请输入登录密码" />
+
+							</div>
+						</div>
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">确认密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="txtPassword1" name="txtPassword1" type="password" value="" class="weui-input" placeholder="请再次输入密码" value="1" />
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">交易密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="pwd1" name="pwd1" type="password" value="" class="weui-input" placeholder="请输入交易密码" value="1" />
+
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">确认密码</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="repwd1" name="repwd1" type="password" value="1" class="weui-input" placeholder="请再次输入密码" value="1" />
+							</div>
+						</div>
+
+						<div class="weui-cell weui-check_label">
+							<div class="weui-cell__hd">
+								<label class="weui-label">推荐编号</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="RID" name="RID" type="text" value="" class="weui-input" placeholder="推荐编号" data-validate="s" />
+							</div>
+						</div>
+						<!--<div class="weui-cell weui-check_label" style="display: none;">
+							<div class="weui-cell__hd">
+								<label class="weui-label">接点编号</label>
+							</div>
+							<div class="weui-cell__bd">
+								<input id="FID" name="FID" type="text" class="weui-input" placeholder="接点编号" data-validate="s" />
+							</div>
+						</div>-->
+
+					</div>
+
+					<!--开启注册协议-->
+					<label for="chkAgree" class="weui-agree">
+                <input id="chkAgree" name="chkAgree" type="checkbox" class="weui-agree__checkbox" />
+                <span class="weui-agree__text">
+                    我已阅读并接受<a href="javascript:;" onclick="showWindow('#regrules');">《注册许可协议》</a>
+                    <div id="regrules" title="注册许可协议" style="display:none;"></div>
+                </span>
+            </label>
+					<!--/开启注册协议-->
+
+					<div class="weui-btn-area">
+						<input id="btnSubmit" name="btnSubmit" type="submit" class="weui-btn weui-btn_primary" value="立即注册" />
+					</div>
+				</form>
+				<!--/会员注册-->
+
+				<!--版权信息-->
+
+				<!--/版权信息-->
+
+				<!--底部导航-->
+				<!--<link rel="import" href="_footer.html" id="tmp" />
+				<script>
+					$('body').append(tmp.import.body.innerHTML);
+				</script>-->
+				<!--/底部导航-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+
+</html>

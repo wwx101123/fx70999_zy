@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+		<title>会员注册 </title>
+		<link rel="stylesheet" type="text/css" href="../css/validate.css" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/demo2.css" />
+		<script type="text/javascript" charset="utf-8" src="../js/mui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="../css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="../css/jquery-weui.css" />
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+
+		<script type="text/javascript" charset="utf-8" src="../js/zepto.min.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/common.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/base.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/user.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate.js"></script>
+		<script type="text/javascript" charset="utf-8" src="../js/mvalidate-extend.js"></script>
+		<script src="../js/mui.picker.js"></script>
+		<script src="../js/mui.poppicker.js"></script>
+		<style type="text/css">
+			.TPL:before {
+				border-top: 0px solid #e5e5e5;
+			}
+			
+			input[type=text],
+			input[type=password] {
+				border: 0;
+			}
+			
+			html {
+				font-size: 125%;
+			}
+			
+			@media only screen and (min-width: 481px) {
+				html {
+					font-size: 188%!important;
+				}
+			}
+			
+			@media only screen and (min-width: 561px) {
+				html {
+					font-size: 218%!important;
+				}
+			}
+			
+			@media only screen and (min-width: 641px) {
+				html {
+					font-size: 250%!important;
+				}
+			}
+			
+			body,
+			div,
+			span,
+			applet,
+			object,
+			iframe,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p,
+			blockquote,
+			pre,
+			a,
+			abbr,
+			acronym,
+			address,
+			big,
+			cite,
+			code,
+			del,
+			dfn,
+			em,
+			img,
+			ins,
+			kbd,
+			q,
+			s,
+			samp,
+			small,
+			strike,
+			strong,
+			tt,
+			var,
+			b,
+			u,
+			i,
+			center,
+			dl,
+			dt,
+			dd,
+			ol,
+			ul,
+			li,
+			fieldset,
+			form,
+			label,
+			legend,
+			table,
+			caption,
+			tbody,
+			tfoot,
+			thead,
+			tr,
+			th,
+			td,
+			article,
+			aside,
+			canvas,
+			details,
+			embed,
+			figure,
+			figcaption,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			output,
+			ruby,
+			section,
+			summary,
+			time,
+			mark,
+			audio,
+			video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 1em;
+				font: inherit;
+				vertical-align: baseline;
+				font-family: "Microsoft YaHei"
+			}
+			
+			body {
+				font-family: "Microsoft YaHei";
+				font-size: 0.7rem;
+				color: #333;
+				line-height: 0.7rem;
+				width: 100%;
+			}
+			
+			em {
+				font-style: normal
+			}
+			
+			li {
+				list-style: none
+			}
+			
+			a {
+				text-decoration: none;
+				outline: 0;
+				color: #333;
+			}
+			
+			img {
+				border: none;
+				vertical-align: top;
+			}
+			
+			table {
+				border-collapse: collapse;
+			}
+			
+			input,
+			textarea {
+				font-family: "Microsoft YaHei";
+				padding: 0;
+			}
+			
+			textarea {
+				resize: none;
+				overflow: auto;
+			}
+			
+			textarea:focus {
+				outline: none;
+			}
+			
+			input:focus {
+				outline: none;
+			}
+			
+			.clear {
+				zoom: 1
+			}
+			
+			.clear:after {
+				content: "";
+				display: block;
+				clear: both;
+			}
+			
+			.fl {
+				float: left
+			}
+			
+			.fr {
+				float: right
+			}
+			/**/
+			
+			header {
+				padding: 0.7rem 0px;
+				text-align: center;
+				font-size: 0.9rem;
+				border-bottom: 1px solid #f5f5f5;
+			}
+			
+			.logo {
+				width: 55%;
+				margin: 2rem auto 1rem auto;
+			}
+			
+			.div_f {
+				border-bottom: 1px solid #E8E8E8;
+				background-color: #fff;
+				border: 1px solid #E7E7E7;
+				margin-left: 3%;
+				margin-right: 3%;
+				margin-top: 5%;
+				border-radius: 10px;
+			}
+			
+			.div_c_l {
+				float: left;
+				margin: 16px;
+				font-size: 15px;
+				font-weight: 500;
+				width: 25%;
+				border-right: 1px solid #E7E7E7;
+			}
+			
+			.div_c_l span {
+				line-height: 20px;
+				padding: 0 5px;
+				width: 60px;
+			}
+			
+			.div_c_r {
+				float: left;
+				/* padding: 5px;*/
+				width: 65%;
+				/*  width: calc(100% - 100px);*/
+			}
+			
+			.yuying {
+				float: right;
+				text-align: center;
+				font-size: 12px;
+				padding: 0px 9px;
+				background: #E44864;
+				color: #fff;
+				border: 0;
+				height: 48px;
+				margin: 0px !important;
+			}
+			
+			.div_c_r input {
+				border: 0px;
+				margin: 5px;
+				float: left;
+				line-height: 28px;
+				font-size: 15px;
+				text-align: right;
+				padding-right: 5px;
+				/*width: 100%;*/
+				outline: none;
+				text-align: left;
+				padding: 5px;
+				width: 52%;
+			}
+			
+			.btn_1 {
+				border: none;
+				margin: 40px 0 0px 0;
+				width: 100%;
+				height: 3em;
+				background-color: #E44864;
+				border-radius: 0px;
+				font-size: 0.8rem;
+				color: #FFFFFF;
+				outline: none;
+				-webkit-tap-highlight-color: transparent;
+			}
+			
+			.layui-m-layercont {
+				padding: 15px 30px !important;
+			}
+			
+			.layui-m-layer0 .layui-m-layerchild {
+				width: 50% !important;
+			}
+		</style>
+		<script type="text/javascript">
+			(function($, doc) {
+
+				$.init();
+				$.ready(function() {
+					/**
+					 * 获取对象属性的值
+					 * 主要用于过滤三级联动中，可能出现的最低级的数据不存在的情况，实际开发中需要注意这一点；
+					 * @param {Object} obj 对象
+					 * @param {String} param 属性名
+					 */
+					var _getParam = function(obj, param) {
+						return obj[param] || '';
+					};
+					var userbank = localStorage.getItem('userbank');
+					console.log(userbank)
+
+					userbank = JSON.parse(userbank);
+					//普通示例
+					var userPicker = new $.PopPicker();
+					var shopList1 = []; //可以选择的列表实际上是一个数组。我们用shopList1来表
+
+					var index; //用index来记住给你的那个默认值的下标
+					var List = userbank;
+					for(var i = 0; i < List.length; i++) {
+						shopList1.push({
+
+							value: List[i].label, //mui给的例子中只写了value和text。实际上我们可以写很多自己命名的变量
+							text: List[i].label,
+							phone: List[i].value,
+							saddress: List[i].value, //地址                     
+
+						})
+
+					}
+					userPicker.setData(shopList1);
+					var showUserPickerButton = doc.getElementById('bank_name_select');
+					var userResult = doc.getElementById('bank_name');
+					var bank = doc.getElementById('bank');
+
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							localStorage.setItem('bank', items[0].text)
+							userResult.value = (items[0].text);
+						});
+					}, false);
+
+				});
+			})(mui, document);
+			$(function() {
+				var ServerIP = "";
+
+				//				get_Parameter();
+				var user = localStorage.getItem('user');
+				var info = JSON.parse(user);
+
+				$('#user_id').val(info.user_id);
+			});
+			mui.init({
+				beforeback: function() {　　　
+					var list = plus.webview.currentWebview().opener();　　
+					mui.fire(list, 'ready_login');
+
+				}
+			});
+		</script>
+
+	</head>
+
+	<body style="background-color:white">
+		<div class="page">
+			<!--页面头部-->
+
+			<!--/页面头部-->
+
+			<!--页面内容-->
+			<div class="page__bd">
+
+				<form id="regForm" name="regForm" method="post"><input id="is_mobile" name="is_mobile" type="hidden" value="1" />
+					<input name="shopid" type="hidden" id="shopid" value="admin" readonly="readonly" class="form-control" required="">
+					<input id="passopen" name="pwd1" type="hidden" value="222222" />
+					<input id="register_id" name="register_id" type="hidden" />
+					<input id="register_type" name="register_type" type="hidden" value="1" />
+					<input id="u_level" name="u_level" type="hidden" value="0" />
+					<input id="regcp" name="regcp" type="hidden" value="0" />
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>姓名</span></div>
+							<div class="div_c_r"><input type="text"  name="bank_username" id="bank_username" placeholder="请输入持卡人">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">选择银行</span>
+							</div>
+							<div class="div_c_r" id="bank_name_select"><input type="text" readonly="readonly" name="bank_name" id="bank_name" value="" placeholder="请选择银行">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span style="width:70px;">银行卡号</span>
+							</div>
+							<div class="div_c_r"><input type="text" name="bank_card" id="bank_card" value="" placeholder="请输入银行卡号">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<div class="div_f">
+						<div class="div_col" id="me">
+							<div class="div_c_l"><span>支行名称</span></div>
+							<div class="div_c_r"><input type="text" name="bank_address" id="bank_address" value="" placeholder="请支行名称">
+
+							</div>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+
+					<!--<a class="login_go_div" id="btnSubmit" name="btnSubmit"style="background: #E44864;color: #fff;margin-top: 3rem;">注册</a>-->
+					<button id="btnSubmit" name="btnSubmit" type="button" onclick="bankEdit()" class="login_go_div">确认提交</button>
+				</form>
+				<!--会员注册-->
+
+			</div>
+			<!--/页面内容-->
+
+		</div>
+	</body>
+	<script type="text/javascript">
+		init()
+
+		function init() {
+			mui.init({
+				pullRefresh: {
+					container: '.page__bd',
+					down: {
+						style: 'circle',
+						color: localStorage.getItem('color'),
+						auto: true,
+						callback: down
+					}
+				}
+			});
+
+		}
+
+		function init_view() {
+			var user = localStorage.getItem('user');
+			var info = JSON.parse(user);
+			var UploadUrl = localStorage.getItem('UploadUrl');
+
+			$('#bank_username').val(info.user_name);
+			$('#bank_name').val(info.bank_name);
+			$('#bank_card').val(info.bank_card);
+			$('#bank_address').val(info.bank_address);
+
+		}
+
+		function down() {
+
+			var user_id = localStorage.getItem('user_id');
+			get_user_info(user_id, init_view)
+			mui('.page__bd').pullRefresh().endPulldown();
+		}
+		window.addEventListener('update_user_addr_book_list', function(e) {
+			var set_address = localStorage.getItem('set_address');
+			if(set_address == 1) {
+				mui('.page__bd').pullRefresh().pulldownLoading();
+				console.log(2222)
+			}
+		});
+		mui.init({
+			beforeback: function() {　　　
+				var list = plus.webview.currentWebview().opener();　　
+				mui.fire(list, 'update_user_addr_book_list');
+
+			}
+		});
+	</script>
+
+</html>

@@ -1,0 +1,144 @@
+<extend name="Public:header" />
+<block name="breadcrumb">
+<style>
+h4 {
+	margin-left: 18%;
+}
+.Agreement {
+	width: 90%;
+	height: 100px;
+	overflow: auto;
+	border: 1px solid #7F9DB9;
+	padding: 2px;
+	font-size: 12px;
+	line-height: 24px;
+	margin: 10px 0px;
+}
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>锁定购买</h2>
+    <ol class="breadcrumb">
+      <li> <a href="{:U('Index/index')}">首页</a> </li>
+      <li> <a>积分交易</a> </li>
+      <li class="active"> <strong>锁定购买</strong> </li>
+    </ol>
+  </div>
+</div>
+</block>
+<block name="menu">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>锁定购买</h5>
+                        </div>
+                        <div class="ibox-content p-xl">
+                            <div class="row">
+                                
+                                <div class="col-sm-12 text-right">
+                                    <span>卖家姓名： <strong>{$rs.user_name}</strong></span>
+                                    <address>
+                                        卖家银行名称：{$bn.bank_name}<br>
+                                        卖家银行卡号：{$bn.bank_card}<br>
+                                        卖家银行地址：{$bn.bank_address}<br>
+                                        卖家手机号码：{$bn.user_tel}<br>
+                                    </address>
+                                    <!--<p>
+                                        <span><strong>卖出日期：</strong>{:date("Y-m-d")}</span><br/>
+                                    </p>-->
+                                </div>
+                            </div>
+                            
+                            <table class="table invoice-total">
+                                <tbody>
+                                <tr>
+                                    <td><strong>汇款额度 :</strong></td>
+                                    <td>{$rs.money}</td>
+                                </tr>
+                                <form id="sendForm" action="__URL__/eb_list_AC" method="post">
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td><label>
+										  <input name="agree" type="checkbox" id="agree" value="1" checked="checked" onpropertychange="change_fc()"/>
+										  我已经完成汇款，通知卖家确认。</label></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>图片 :</strong></td>
+                                    <td>
+                                         <input name="image" type="text" id="image" value="{$crs.sellbz}" size="50" maxlength="500" />
+										 <!--  外部地址请填写“http://”为开头的地址 -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>本地上传 :</strong></td>
+                                    <td>
+                                         <iframe src="__URL__/upload_add" width="350" height="30" scrolling="no" frameborder="0"></iframe>
+										上传格式：jpg, gif, png, jpeg
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>凭证预览 :</strong></td>
+                                    <td>
+                                         <img style="height:225px;width:330px;" id="imageShow" alt="商品图像" src="{$crs['sellbz']}">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>验证码 :</strong></td>
+                                    <td>
+                                         <input name="verify" id="verify" type="text" size="8" maxlength="4" />
+      <img src="__APP__/Public/verify/" border="0" alt="点击刷新验证码" id="verifyImg" onclick="fleshVerify()" style="cursor:pointer" align="absmiddle" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>二级密码 :</strong></td>
+                                    <td>
+                                        <input name="password" type="password" value="" id="password" placeholder="在此填写二级密码"><input name="cid" type="hidden" id="cid" value="{$rs['id']}" />
+                                    </td>
+                                </tr>
+                                </form>
+                                </tbody>
+                            </table>
+                            <div class="text-right">
+                                <button class="ladda-button ladda-button-demo btn btn-primary" data-style="zoom-in" id="sendTx"><i class="fa fa-cny"></i> 确认购买</button>
+                            </div>
+                            <script type="text/javascript">
+                            layui.use('layer',function() {
+                                $('#sendTx').on('click',function() {
+                                    var form=$('#sendForm');
+                                     $.post(form.attr('action'),form.serialize(),function(data) {
+                                         console.log(data);
+                                        if (data.status) {
+                                            layer.msg(data.info,{end:function() {
+                                                location.reload();
+                                            }})
+                                        }else{
+                                            layer.msg(data.info);
+                                        }
+                                     });
+                                });
+                            });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script language="JavaScript">
+function change_fc(){
+	if(document.form1.agree.checked==true){
+		document.form1.Submit1.disabled=false;
+	}else{
+		document.form1.Submit1.disabled=true;
+	}
+}
+function fleshVerify(){
+var timenow = new Date().getTime();
+$('verifyImg').src= '__APP__/Public/verify/'+timenow;
+}
+</script>
+</block>
+
