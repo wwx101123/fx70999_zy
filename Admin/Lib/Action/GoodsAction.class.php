@@ -4940,7 +4940,7 @@ else if ($type == 5) {
         ->field('  t.*')
         ->where('  t.type=0 AND t.stock>0')
         ->order(' t.sort_id asc')
-        ->limit(10)
+        
         ->select();
         foreach ($item_list as $key1 => $goods1) {
             $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
