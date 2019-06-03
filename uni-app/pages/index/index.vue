@@ -17,7 +17,7 @@
 				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage(item.id)">
 					<image :src="item.src" />
 				</swiper-item>
-			</swiper> 
+			</swiper>
 			<!-- 自定义swiper指示器 -->
 			<view class="swiper-dots">
 				<text class="num">{{swiperCurrent+1}}</text>
@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" tab-class="text-center bg-white wuc-tab " :tab-style="CustomBar"
-		 select-class="text-blue" @change="tabChange"  style="background: white;" ></wuc-tab>
+		 select-class="text-blue" @change="tabChange" style="background: white;"></wuc-tab>
 
 		<!-- 分类 -->
 		<view v-show="false" class="cate-section" v-if="cateList.length > 0">
@@ -42,7 +42,7 @@
 			<image src="/static/temp/ad1.jpg" mode="scaleToFill"></image>
 		</view> -->
 
-		  
+
 
 		<!-- 猜你喜欢 -->
 
@@ -895,8 +895,7 @@
 	.guess-section {
 		display: flex;
 		flex-wrap: wrap;
-		padding: 0 30upx;
-		background: #fff;
+		background: #f5f5f5;
 
 		.guess-item {
 			display: flex;
@@ -904,9 +903,15 @@
 			flex: 1;
 			max-width: 50%;
 			min-width: 40%;
-			padding-bottom: 40upx;
-
-			&:nth-child(2n+1) {
+			margin-top: 20upx;
+			margin-left: 20upx;
+			padding: 20upx;
+			background: white;
+			border-radius: 5px;
+-webkit-box-shadow: #c7c7c7 0px 0px 18px;
+  -moz-box-shadow: #c7c7c7 0px 0px 18px;
+  box-shadow: #c7c7c7 0px 0px 18px;
+			&:nth-child(2n+2) {
 				margin-right: 20upx;
 			}
 		}

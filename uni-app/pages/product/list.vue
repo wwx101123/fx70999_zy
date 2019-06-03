@@ -425,18 +425,23 @@
 	/* 商品列表 */
 	.goods-list {
 		display: flex;
-		flex-wrap: wrap;
-		padding: 0 30upx;
+		flex-wrap: wrap; 
 		background: #fff;
 
 		.goods-item {
 			display: flex;
 			flex-direction: column;
-			width: 48%;
-			padding-bottom: 40upx;
+			width: 46%;
+			margin-top: 20upx;
+						margin-left: 20upx;
+						padding: 20upx;
+						background: white;
+						border-radius: 5px;
+			-webkit-box-shadow: #c7c7c7 0px 0px 18px;
+			  -moz-box-shadow: #c7c7c7 0px 0px 18px;
+			  box-shadow: #c7c7c7 0px 0px 18px;
 
-			&:nth-child(2n+1) {
-				margin-right: 4%;
+			&:nth-child(2n+1) { 
 			}
 		}
 
