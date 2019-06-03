@@ -4926,6 +4926,26 @@ else if ($type == 5) {
             $dui_cart_money = 0;
         }
         
+        
+        
+        
+        
+        $item=ARRAY();
+        $item['id']=0;
+        $item['name']='全部';
+        $item['item_list']=[];
+        
+        
+        $category[]=$item;
+        
+        
+        
+        
+        
+        
+        
+        
+        
         $data = array();
         $data['seller'] = $seller;
         $data['data'] = $category;
