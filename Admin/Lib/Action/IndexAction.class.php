@@ -15,7 +15,7 @@ class IndexAction extends CommonAction
         
         if ($is_need == 1) {
             $data = $_POST;
-            $android_version = '4.8';
+            $android_version = '4.9';
             $ios_version = '1.0';
             $user_id = $data['user_id'];
             file_put_contents('user_id.txt', $user_id . '----2222');
