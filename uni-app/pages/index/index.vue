@@ -900,17 +900,18 @@
 		.guess-item {
 			display: flex;
 			flex-direction: column;
-			flex: 1;
-			max-width: 50%;
-			min-width: 40%;
+			float:left;
+			width: 46%;
+
 			margin-top: 20upx;
 			margin-left: 20upx;
 			padding: 20upx;
 			background: white;
 			border-radius: 5px;
--webkit-box-shadow: #c7c7c7 0px 0px 18px;
-  -moz-box-shadow: #c7c7c7 0px 0px 18px;
-  box-shadow: #c7c7c7 0px 0px 18px;
+			-webkit-box-shadow: #c7c7c7 0px 0px 18px;
+			-moz-box-shadow: #c7c7c7 0px 0px 18px;
+			box-shadow: #c7c7c7 0px 0px 18px;
+
 			&:nth-child(2n+2) {
 				margin-right: 20upx;
 			}
