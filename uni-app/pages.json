@@ -18,7 +18,7 @@
 							"disabled": true,
 							"placeholderColor": "#606266"
 						},
-						"buttons": [{
+						"buttons": [/* {
 								"fontSrc": "/static/yticon.ttf",
 								"text": "\ue60d",
 								"fontSize": "26",
@@ -34,7 +34,7 @@
 								"background": "rgba(0,0,0,0)",
 								"redDot": true
 							}
-						]
+						 */]
 					}
 				}
 			}
