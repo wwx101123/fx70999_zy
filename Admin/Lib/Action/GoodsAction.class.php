@@ -1489,17 +1489,17 @@ class GoodsAction extends CommonAction
                 
                 $item_list = null;
                 
-                // $item_list = M('goods')->where('category_id=' . $goods['id'] . ' AND type=0 AND stock>0')
-                // ->order(' id desc')
-                // ->limit(10)
-                // ->select();
-                // foreach ($item_list as $key1 => $goods1) {
-                // $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
-                // $item_list[$key1]['url'] = 'goods_show.html';
-                // $sell_count = 0;
-                // $item_list[$key1]['sell_count'] = $sell_count;
-                // $item_list[$key1]['percent'] = 90;
-                // }
+                $item_list = M('goods')->where('category_id=' . $goods['id'] . ' AND type=0 AND stock>0')
+                ->order(' id desc')
+                
+                ->select();
+                foreach ($item_list as $key1 => $goods1) {
+                $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
+                $item_list[$key1]['url'] = 'goods_show.html';
+                $sell_count = 0;
+                $item_list[$key1]['sell_count'] = $sell_count;
+                $item_list[$key1]['percent'] = 90;
+                }
                 
                 $category[$key]['name'] = $goods['title'];
                 $category[$key]['item_list'] = $item_list;
