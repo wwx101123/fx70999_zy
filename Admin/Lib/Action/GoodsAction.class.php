@@ -3180,7 +3180,7 @@ class GoodsAction extends CommonAction
                // copy_goods($goods, $userModel['id'], $item['quantity']);
             }
 //             if ($payment_id == 2) {
-            $money_count = $item['quantity'] * $goods['price']*$fee_rs['i2'];
+            $money_count = $item['quantity'] * $goods['price']*$fee_rs['i1'];
                 give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
 //             }
         }
