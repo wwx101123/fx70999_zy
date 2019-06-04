@@ -39,7 +39,7 @@
 			</view>
 
 		</view>
-		<view class="cu-list menu-avatar eva-section">
+		<view class="cu-list menu-avatar eva-section"   v-if="seller!=null"    >
 			<view class="cu-item b-b">
 				<view class="cu-avatar round lg" style="background-image:url(../../static/logo.png);"></view>
 				<view class="content flex-sub">

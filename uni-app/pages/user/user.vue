@@ -117,25 +117,25 @@
 				<view class="list">
 					<view class="box" @click="navTo('/pages/shop/goods_list')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/3.png"></image>
 						</view>
 						<view class="text">店铺商品</view>
 					</view>
 					<view class="box" @click="navTo('/pages/shop/dui_list')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/4.png"></image>
 						</view>
 						<view class="text">兑换商品</view>
 					</view>
 					<view class="box" @click="navTo('/user/user/tiqu')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/8.png"></image>
 						</view>
 						<view class="text">我要提现</view>
 					</view>
 					<view class="box" @click="navTo('/user/user/bank')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/5.png"></image>
 						</view>
 						<view class="text">个人信息</view>
 					</view>
@@ -153,25 +153,25 @@
 
 					<view class="box" @click="navTo('/user/user/password')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/7.png"></image>
 						</view>
 						<view class="text">密码修改</view>
 					</view>
 					<view class="box" @click="navTo('/pages/address/address')">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/2.png"></image>
 						</view>
 						<view class="text">地址管理</view>
 					</view>
 					<view class="box" v-if="isShow" @click="update_version">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/6.png"></image>
 						</view>
 						<view class="text">检查版本</view>
 					</view>
 					<view class="box" @click="toLogout">
 						<view class="img">
-							<image src="../../static/img/user/bank.png"></image>
+							<image src="../../static/img/user/1.png"></image>
 						</view>
 						<view class="text">退出登录</view>
 					</view>
@@ -755,13 +755,13 @@
 
 				.img {
 					width: 23vw;
-					height: 10.5vw;
+					height: 9vw;
 					display: flex;
 					justify-content: center;
 
 					image {
-						width: 9vw;
-						height: 9vw;
+						width: 6.5vw;
+						height:  6.5vw;
 					}
 				}
 
@@ -769,7 +769,7 @@
 					width: 100%;
 					display: flex;
 					justify-content: center;
-					font-size: 26upx;
+					font-size: 22upx;
 					color: #3d3d3d;
 				}
 			}
