@@ -4908,7 +4908,7 @@ else if ($type == 5) {
                 ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
                 ->field('  t.*')
                 ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=0 AND t.stock>0')
-                ->order(' t.sort_id asc')
+                ->order(' t.sort_id asc,t.addtime desc ')
                 ->limit(10)
                 ->select();
             foreach ($item_list as $key1 => $goods1) {
@@ -4965,7 +4965,7 @@ else if ($type == 5) {
         ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
         ->field('  t.*')
         ->where('  t.type=0 AND t.stock>0')
-        ->order(' t.sort_id asc')
+        ->order(' t.sort_id asc,t.addtime desc ')
         
         ->select();
         foreach ($item_list as $key1 => $goods1) {
