@@ -4184,6 +4184,16 @@ function GetActionType($ActionType)
 function copy_goods($goods, $uid, $stock)
 {
     $count = M('goods')->where('pid=' . $goods['id'] . ' and user_id=' . $uid)->count();
+    
+    
+    
+    $seller = M('seller')->where('user_id=' . $uid)->find();
+    
+    
+    
+    
+    $goods['shop_id'] = $seller['id'];
+    
     if ($count > 0) {
         
         M('goods')->where('pid=' . $goods['id'] . ' and user_id=' . $uid)->setInc('stock', $stock);
