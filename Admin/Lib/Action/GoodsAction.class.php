@@ -3182,6 +3182,16 @@ class GoodsAction extends CommonAction
             // if ($payment_id == 2) {
             $money_count = $item['quantity'] * $goods['price'] * $fee_rs['i1'];
             give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
+            
+            
+            //商家获得奖励
+            $sellerModel = M('fck')->where('id=' . $goods['user_id'])->find();
+            $money_count=$item['quantity'] * $goods['price'] * $goods['agent_use']*0.01;
+            seller_award($money_count, $sellerModel['id'], $sellerModel['user_id']);
+            
+            
+            
+            
             // }
         }
         

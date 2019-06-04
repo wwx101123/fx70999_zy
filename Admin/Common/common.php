@@ -4187,12 +4187,15 @@ function copy_goods($goods, $uid, $stock)
     
     
     
+    $i3 = M('fee')->where('id=1')->getField('i3');
     $seller = M('seller')->where('user_id=' . $uid)->find();
     
     
     
     
     $goods['shop_id'] = $seller['id'];
+    
+    $goods['agent_use'] =$i3;
     
     if ($count > 0) {
         
@@ -4225,8 +4228,8 @@ function seller_award($money_count, $myid, $inUserID)
 {
     $fck = D('Fck');
     if ($money_count > 0) {
-        $jjbz = "赠送" . $money_count . '-' . C('agent_cash');
-        $usqlc = "agent_cash=agent_cash+" . $money_count;
+        $jjbz = "商家获得奖励" . $money_count . '-' . C('agent_use');
+        $usqlc = "agent_use=agent_use+" . $money_count;
         // 加到记录表
         $fck->execute("UPDATE __TABLE__ set " . $usqlc . "  where id=" . $myid);
         
