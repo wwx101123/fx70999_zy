@@ -153,15 +153,16 @@ td {
 				<td><span class="tablesaw-cell-content">{$vo.market_price}</span></td>
 				<td><span class="tablesaw-cell-content">{$vo.price}</span></td>
 				<EQ name="type" value="0">
-					<td><span class="tablesaw-cell-content">{$vo.limit_money}</span></td>
-					</EQ><td> <input ID="{$vo.id}" value="{$vo.sort_id}" Class="sort"
+				<td><span class="tablesaw-cell-content">{$vo.limit_money}</span></td>
+				</EQ>
+				<td><input ID="{$vo.id}" value="{$vo.sort_id}" Class="sort"
 					onkeydown="return checkNumber(event);"
 					onchange="ajaxSortUpdateField(this,'sort_id');"></td>
 				<EQ name="type" value="0">
 				<td>
 					<div class="btn-tools">
-						<a id="rptList1_lbtnIsTop_0" title="设置置顶"<eq
-								name="vo.is_top" value="1">class="selected"</eq>
+						<a id="rptList1_lbtnIsTop_0" title="设置置顶"<eq name="vo.is_top"
+								value="1">class="selected"</eq>
 							href="{:U('Goods/GoodsTop')}?is_top={$vo.is_top}&id={$vo.id}"><i
 							class="iconfont icon-top"></i></a> <a id="rptList1_lbtnIsRed_0"
 							title="设置推荐"<eq name="vo.is_red" value="1">class="selected"</eq>
