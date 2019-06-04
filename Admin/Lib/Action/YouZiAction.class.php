@@ -6803,6 +6803,7 @@ class YouZiAction extends CommonAction
         $this->assign('str15', $bank['str15']);
         $this->assign('i1', $bank['i1']);
         $this->assign('i2', $bank['i2']);
+        $this->assign('i3', $bank['i3']);
         $this->assign('str19', $bank['str19']);
         $this->assign('str2', $bank['str2']);
         $this->assign('str13', $bank['str13']);
@@ -6832,6 +6833,7 @@ class YouZiAction extends CommonAction
         $money_count = I('post.money_count');
         $i1 = I('post.i1');
         $i2 = I('post.i2');
+        $i3 = I('post.i3');
         $s1 = I('post.s1');
         $s2 = I('post.s2');
         $s3 = I('post.s3');
@@ -6899,6 +6901,7 @@ class YouZiAction extends CommonAction
         $fck->where('id=1')->setField('money_count', $money_count);
         $fck->where('id=1')->setField('i1', $i1);
         $fck->where('id=1')->setField('i2', $i2);
+        $fck->where('id=1')->setField('i3', $i3);
         $fck->where('id=1')->setField('str13', $str13);
         
         for ($i = 0; $i < count($payment_id); $i ++) {
