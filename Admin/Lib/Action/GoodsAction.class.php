@@ -4980,5 +4980,154 @@ else if ($type == 5) {
         $data['status'] = 1;
         $this->ajaxReturn($data);
     }
+    
+    
+    
+    function dui_list()
+    {
+        $slider = ARRAY();
+        
+        $fee = M('fee');
+        
+        $goods_images = $fee->where('id=1')->getField('str29');
+        
+        if (! empty($goods_images)) {
+            $goods_images = explode(",", $goods_images);
+            
+            // $list = array();
+            
+            foreach ($goods_images as $key => $rs) {
+                $item = array();
+                $item['img'] = $rs;
+                $item['src'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $rs;
+                $item['background'] = 'rgb(203, 87, 60)';
+                
+                $slider[] = $item;
+            }
+        }
+        
+        $slider1 = ARRAY();
+        $slider1[0]['img'] = __ROOT__ . '/Public/Images/slides/4.png';
+        
+        $slider2 = ARRAY();
+        $slider2[0]['img'] = __ROOT__ . '/Public/Images/slides/7.png';
+        $slider2[1]['img'] = __ROOT__ . '/Public/Images/slides/8.png';
+        $slider2[2]['img'] = __ROOT__ . '/Public/Images/slides/9.png';
+        $category = M('article_category')->where(array(
+            'parent_id' => 0,
+            'is_lock' => 0
+        ))->select();
+        
+        foreach ($category as $key => $goods) {
+            $cate_list = M('article_category')->where('parent_id=' . $goods['id'])
+            ->order('   id desc')
+            ->limit(100)
+            ->select();
+            $category[$key]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods['img_url'];
+            
+            $item_list = null;
+            
+            $item_list = M('goods')->alias('t')
+            ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+            ->field('  t.*')
+            ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=1 AND t.stock>0')
+            ->order(' t.sort_id asc')
+            ->limit(10)
+            ->select();
+            foreach ($item_list as $key1 => $goods1) {
+                $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
+                $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
+                $item_list[$key1]['url'] = 'goods_show.html';
+                $sell_count = 0;
+                $item_list[$key1]['sell_count'] = $sell_count;
+                $item_list[$key1]['percent'] = 90;
+            }
+            
+            $category[$key]['name'] = $goods['title'];
+            $category[$key]['item_list'] = $item_list;
+            $category[$key]['item_list_count'] = count($item_list);
+            $category[$key]['cate_list'] = $cate_list;
+            $category[$key]['child'] = $cate_list;
+        }
+        
+        // 获取头条新闻
+        $form = M('form')->field('id,title')
+        ->alias('t')
+        ->where(" t.type=0  and t.user_id=0   ")
+        ->select();
+        $category_item = M('article_category')->where(array(
+            'id' => $category_id
+        ))->find();
+        if ($category_item != NULL) {
+            $cate_slider = $category_item['slide'];
+            $cate_slider = explode(",", $cate_slider);
+        }
+        
+        $video_img = $fee->where('id=1')->getField('str30');
+        
+        $dui_cart = M('dui_cart')->where(array(
+            'user_id' => $user_id
+        ))->select();
+        $dui_cart_money = M('dui_cart')->where(array(
+            'uid' => $user_id
+        ))->sum('price*quantity');
+        if ($dui_cart_money == null) {
+            $dui_cart_money = 0;
+        }
+        
+        
+        
+        
+        
+        $item=ARRAY();
+        $item['id']=0;
+        $item['name']='全部商品';
+        
+        
+        $item_list = M('goods')->alias('t')
+        ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+        ->field('  t.*')
+        ->where('  t.type=0 AND t.stock>0')
+        ->order(' t.sort_id asc')
+        
+        ->select();
+        foreach ($item_list as $key1 => $goods1) {
+            $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
+            $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
+            $item_list[$key1]['url'] = 'goods_show.html';
+            $sell_count = 0;
+            $item_list[$key1]['sell_count'] = $sell_count;
+            $item_list[$key1]['percent'] = 90;
+        }
+        $item['item_list']=$item_list;
+        
+        
+        $category[]=$item;
+        
+        
+        
+        $category= array_reverse ($category);
+        
+        
+        
+        
+        
+        $data = array();
+        $data['seller'] = $seller;
+        $data['data'] = $category;
+        $data['current_count'] = count($category);
+        $data['all_count'] = count($category);
+        $data['category'] = $category;
+        $data['form'] = $form;
+        $data['dui_cart'] = $dui_cart;
+        $data['dui_cart_money'] = $dui_cart_money;
+        $data['cate_slider'] = $cate_slider;
+        $data['video_img'] = $video_img;
+        $data['slider'] = $slider;
+        $data['slider1'] = $slider1;
+        $data['slider2'] = $slider2;
+        $data['status'] = 1;
+        $this->ajaxReturn($data);
+    }
 }
 ?>

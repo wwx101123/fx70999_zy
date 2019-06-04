@@ -34,6 +34,7 @@ const dui_cart_goods_delete = PreUrl + "Goods/dui_cart_goods_delete";
 const dui_cart_goods_update = PreUrl + "Goods/dui_cart_goods_update";
 const dui_shop = PreUrl + "Goods/dui_shop";
 const main = PreUrl + "Goods/main";
+const dui_list = PreUrl + "Goods/dui_list";
 const adminnewslist = PreUrl + "News/adminnewslist";
 const form_detail = PreUrl + "News/form_detail";
 const appVerson = '1.1.0';
@@ -113,7 +114,7 @@ export default {
 	cart_goods_updateUrl,
 	cart_goods_delete,
 	get_user_order,
-	pointflowslist,dui_cart_goods_delete,dui_shop,main,adminnewslist,form_detail,
+	pointflowslist,dui_cart_goods_delete,dui_shop,main,adminnewslist,form_detail,dui_list,
 	seller_edit,open_seller_step4,Upload,set_bank,pwd2Edit,pwdEdit,order_edit,order_cancel,frontCurrencyConfirm,usersAdd,dui_cart_goods_add,dui_cart_items,dui_cart_goods_update,
 	url_Request: function(url, param, way, res) {
 		return urlRequest(url, param, way, res);

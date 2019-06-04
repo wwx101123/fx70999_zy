@@ -1,40 +1,27 @@
 <template>
-	<view class="content">
+	<view class=" ">
 		<div class="main" v-title data-title="登录">
 		</div>
-		<view class="navbar" :style="{position:headerPosition,top:headerTop}">
-			<view class="nav-item" :class="{current: filterIndex === 0}" @click="tabClick(0)">
-				综合排序
-			</view>
-			<view class="nav-item" :class="{current: filterIndex === 1}" @click="tabClick(1)">
-				销量优先
-			</view>
-			<view class="nav-item" :class="{current: filterIndex === 2}" @click="tabClick(2)">
-				<text>价格</text>
-				<view class="p-box">
-					<text :class="{active: priceOrder === 1 && filterIndex === 2}" class="yticon icon-shang"></text>
-					<text :class="{active: priceOrder === 2 && filterIndex === 2}" class="yticon icon-shang xia"></text>
+
+		<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" tab-class="text-center bg-white wuc-tab " :tab-style="CustomBar"
+		 select-class="text-blue" @change="tabChange" style="background: white;"></wuc-tab>
+
+
+		<view class="goods-list">
+			<view v-for="(item, index) in goodsList" :key="index" class="goods-item">
+				<view class="image-wrapper">
+					<image :src="item.icon" mode="aspectFill"></image>
+				</view>
+				<text class="title clamp">{{item.title}}</text>
+				<view class="price-box">
+					<text class="price">{{item.price}}</text>
+					<view class="pb-car iconfont" :id="item.id" :data-img="item.icon" @tap="addShopCar">
+						<image src="../../static/jiaru.png"></image>
+					</view>
 				</view>
 			</view>
-			<text class="cate-item yticon icon-fenlei1" @click="toggleCateMask('show')"></text>
 		</view>
 
-		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
-			<view class="goods-list">
-				<view v-for="(item, index) in goodsList" :key="index" class="goods-item">
-					<view class="image-wrapper">
-						<image :src="item.icon" mode="aspectFill"></image>
-					</view>
-					<text class="title clamp">{{item.title}}</text>
-					<view class="price-box">
-						<text class="price">{{item.price}}</text>
-						<view class="pb-car iconfont" :id="item.id" :data-img="item.icon" @tap="addShopCar">
-							<image src="../../static/jiaru.png"></image>
-						</view>
-					</view>
-				</view>
-			</view>
-		</mescroll-uni>
 
 		<view class="cate-mask" :class="cateMaskState===0 ? 'none' : cateMaskState===1 ? 'show' : ''" @click="toggleCateMask">
 			<view class="cate-content" @click.stop.prevent="stopPrevent" @touchmove.stop.prevent="stopPrevent">
@@ -64,8 +51,11 @@
 </template>
 
 <script>
+	import WucTab from '@/components/wuc-tab/wuc-tab.vue';
+	import {
+		obj2style
+	} from '@/utils/index';
 	import shopCarAnimation from '@/components/fly-in-cart/fly-in-cart.vue'
-	import MescrollUni from "../../components/mescroll-diy/mescroll-meituan.vue";
 	import common from '../../common/common.js';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
 	import empty from "@/components/empty";
@@ -74,14 +64,31 @@
 	} from 'vuex';
 	export default {
 		components: {
-			MescrollUni,
-			shopCarAnimation
+			shopCarAnimation,
+			WucTab
 		},
 		computed: {
+			CustomBar() {
+				let style = {};
+				// #ifdef MP-WEIXIN
+				const systemInfo = uni.getSystemInfoSync();
+				let CustomBar =
+					systemInfo.platform === "android" ?
+					systemInfo.statusBarHeight + 50 :
+					systemInfo.statusBarHeight + 45;
+				style['top'] = CustomBar + 'px';
+				// #endif
+				// #ifdef H5
+				style['top'] = 0 + 'px';
+				// #endif
+				return obj2style(style);
+			},
 			...mapState(['hasLogin', 'userInfo', 'bi', 'goods_id'])
 		},
 		data() {
 			return {
+				TabCur: 0,
+				tabList: [],
 				cateMaskState: 0, //分类面板展开状态
 				mescroll: null, //mescroll实例对象
 				// 下拉刷新的配置
@@ -103,7 +110,8 @@
 				priceOrder: 0, //1 价格从低到高 2价格从高到低
 				cateList: [],
 				goodsList: [],
-				totalAmount: 0
+				totalAmount: 0,
+				carouselList: [],
 			};
 		},
 
@@ -116,131 +124,65 @@
 			this.mescroll && this.mescroll.onPageScroll(e);
 		},
 		onLoad(options) {
-			wx.setNavigationBarTitle({
-				title: options.title
-			})
+			 
 
 			// #ifdef H5
 			this.headerTop = document.getElementsByTagName('uni-page-head')[0].offsetHeight + 'px';
 			// #endif
-			this.cateId = options.tid;
-			this.Id = options.sid;
+
+			let that = this;
+
+			console.log(common.dui_list)
+			uni.request({
+				url: common.dui_list, //仅为示例，并非真实接口地址。
+				data: {
+					is_mobile: 1,
+					category_id: 0,
+					page_index: 1,
+					page_num: 100000, 
+					user_id: 0,
+					keyword: ''
+				},
+				method: 'POST',
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				success: function(res) {
+					if (res.data.status == 1) {
+
+						let cateList = res.data.category;
+						that.tabList = res.data.category;
+						that.goodsList = cateList[0].item_list;
+
+						// console.log(hotList)
+						// that.hotList = hotList;
+					} else {
+
+
+
+					}
+
+
+
+				}
+			});
+
+
+
+
+
 		},
 
 		methods: {
+			tabChange(index) {
+				this.TabCur = index;
 
-			// mescroll组件初始化的回调,可获取到mescroll对象
-			mescrollInit(mescroll) {
-				this.mescroll = mescroll;
+				this.goodsList = this.tabList[index].item_list;
+
+
+
+
 			},
-			// 下拉刷新的回调
-			downCallback(mescroll) {
-				mescroll.resetUpScroll() // 重置列表为第一页 (自动执行 mescroll.num=1, 再触发upCallback方法 )
-			},
-			/*上拉加载的回调: mescroll携带page的参数, 其中num:当前页 从1开始, size:每页数据条数,默认10 */
-			upCallback(mescroll) {
-				let that = this;
-				//联网加载数据
-				this.getListDataFromNet(common.get_goods_listUrl, mescroll.num, mescroll.size, (curPageData) => {
-					//curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
-
-					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
-					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
-
-
-					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
-					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
-
-					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
-					//mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
-
-					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
-					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
-
-					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
-					mescroll.endSuccess(curPageData.data.length);
-
-					//设置列表数据
-					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
-					that.goodsList = that.goodsList.concat(curPageData.data); //追加新数据
-
-					that.cateList = curPageData.category;
-					console.log(curPageData.dui_cart_money)
-					that.totalAmount = curPageData.dui_cart_money;
-
-
-				}, () => {
-					//联网失败的回调,隐藏下拉刷新的状态
-					mescroll.endErr();
-				}) 
-			},
-			/*联网加载列表数据
-			在您的实际项目中,请参考官方写法: http://www.mescroll.com/uni.html#tagUpCallback
-			请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
-			实际项目以您服务器接口返回的数据为准,无需本地处理分页.
-			* */
-			getListDataFromNet(url, pageNum, pageSize, successCallback, errorCallback) {
-				let that = this;
-				console.log(that.filterIndex)
-				//延时一秒,模拟联网
-				setTimeout(() => {
-					try {
-
-						uni.request({
-							url: url, //仅为示例，并非真实接口地址。
-							data: {
-								is_mobile: 1,
-								category_id: that.cateId,
-								user_id: that.userInfo.id,
-								page_index: pageNum,
-								page_size: pageSize,
-								keyword: '',
-								goods_type: 1,
-								order: that.filterIndex,
-								priceOrder: that.priceOrder
-							},
-							method: 'POST',
-							header: {
-								'content-type': 'application/x-www-form-urlencoded'
-							},
-							success: function(res) {
-								console.log(res.data.data)
-								if (res.data.status == 1) {
-
-									// that.orderList.push(res.data.data)
-
-								} else {
-
-
-
-								}
-								if (res.data.data == null) {
-									res.data.data = [];
-								}
-								successCallback && successCallback(res.data);
-
-
-
-
-
-							}
-						});
-
-						// 
-						// //模拟分页数据
-						// var listData = [];
-						// for (var i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
-						// 	if (i == mockData.length) break;
-						// 	listData.push(mockData[i]);
-						// }
-						// //联网成功的回调
-					} catch (e) {
-						//联网失败的回调
-						errorCallback && errorCallback();
-					}
-				}, 10)
-			},
-
 
 			//筛选点击
 			tabClick(index) {
@@ -334,7 +276,7 @@
 				});
 			},
 			submit() {
-				 
+
 				uni.navigateTo({
 					url: '/pages/shop/createOrder'
 				})
@@ -518,7 +460,7 @@
 	/* 商品列表 */
 	.goods-list {
 		display: flex;
-		flex-wrap: wrap; 
+		flex-wrap: wrap;
 		background: #fff;
 
 		.goods-item {
@@ -526,16 +468,15 @@
 			flex-direction: column;
 			width: 46%;
 			margin-top: 20upx;
-						margin-left: 20upx;
-						padding: 20upx;
-						background: white;
-						border-radius: 5px;
+			margin-left: 20upx;
+			padding: 20upx;
+			background: white;
+			border-radius: 5px;
 			-webkit-box-shadow: #c7c7c7 0px 0px 18px;
-			  -moz-box-shadow: #c7c7c7 0px 0px 18px;
-			  box-shadow: #c7c7c7 0px 0px 18px;
+			-moz-box-shadow: #c7c7c7 0px 0px 18px;
+			box-shadow: #c7c7c7 0px 0px 18px;
 
-			&:nth-child(2n+1) { 
-			}
+			&:nth-child(2n+1) {}
 		}
 
 		.image-wrapper {
