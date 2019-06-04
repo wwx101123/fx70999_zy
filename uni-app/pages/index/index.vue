@@ -58,15 +58,17 @@
 				<text class="yticon"  @click="navToGoodsListPage(item.parent_id,item.id,item.title)">更多</text>
 			</view> -->
 
-		<view class="guess-section" style="margin-top: 10px;">
-			<view v-for="(item1, index1) in goodsList" :key="index1" class="guess-item" @click="navToGoodsDetailPage(item1.id)">
-				<view class="image-wrapper">
-					<image :src="item1.icon" mode="aspectFill"></image>
+		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
+			<view class="guess-section" style="margin-top: 10px;">
+				<view v-for="(item1, index1) in goodsList" :key="index1" class="guess-item" @click="navToGoodsDetailPage(item1.id)">
+					<view class="image-wrapper">
+						<image :src="item1.icon" mode="aspectFill"></image>
+					</view>
+					<text class="title clamp">{{item1.title}}</text>
+					<text class="price">￥{{item1.price}}</text>
 				</view>
-				<text class="title clamp">{{item1.title}}</text>
-				<text class="price">￥{{item1.price}}</text>
 			</view>
-		</view>
+		</mescroll-uni>
 		<!-- 	</view> -->
 
 
@@ -74,6 +76,7 @@
 </template>
 
 <script>
+	import MescrollUni from "../../components/mescroll-diy/mescroll-meituan.vue";
 	import uniNoticeBar from "@/components/uni-notice-bar/uni-notice-bar.vue"
 
 	import WucTab from '@/components/wuc-tab/wuc-tab.vue';
@@ -82,10 +85,12 @@
 	} from '@/utils/index';
 	import common from '../../common/common.js';
 	import {
+
 		mapState
 	} from 'vuex';
 	export default {
 		components: {
+			MescrollUni,
 			uniNoticeBar,
 			WucTab
 		},
@@ -109,6 +114,17 @@
 		},
 		data() {
 			return {
+				mescroll: null, //mescroll实例对象
+				// 下拉刷新的配置
+				downOption: {
+					use: true, // 是否启用下拉刷新; 默认true
+					auto: true, // 是否在初始化完毕之后自动执行下拉刷新的回调; 默认true
+				},
+				// 上拉加载的配置
+				upOption: {
+					use: false, // 是否启用上拉加载; 默认true
+					auto: false
+				},
 				titleNViewBackground: '',
 				swiperCurrent: 0,
 				swiperLength: 0,
@@ -185,6 +201,15 @@
 
 			this.loadData();
 		},
+
+		// 必须注册滚动到底部的事件,使上拉加载生效
+		onReachBottom() {
+			this.mescroll && this.mescroll.onReachBottom();
+		},
+		// 必须注册列表滚动事件,使下拉刷新生效
+		onPageScroll(e) {
+			this.mescroll && this.mescroll.onPageScroll(e);
+		},
 		onBackPress() {
 
 			let that = this;
@@ -212,10 +237,120 @@
 		},
 		methods: {
 
+			// mescroll组件初始化的回调,可获取到mescroll对象
+			mescrollInit(mescroll) {
+				this.mescroll = mescroll;
+			},
+			// 下拉刷新的回调
+			downCallback(mescroll) {
+				mescroll.resetUpScroll() // 重置列表为第一页 (自动执行 mescroll.num=1, 再触发upCallback方法 )
+			},
+			/*上拉加载的回调: mescroll携带page的参数, 其中num:当前页 从1开始, size:每页数据条数,默认10 */
+			upCallback(mescroll) {
+				let that = this;
+				//联网加载数据
+				this.getListDataFromNet(common.get_goods_listUrl, mescroll.num, mescroll.size, (curPageData) => {
+					//curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
+
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+					console.log("mescroll.num=" + mescroll.num + ", mescroll.size=" + mescroll.size + ", curPageData.length=" +
+						curPageData.length);
+
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+					mescroll.endSuccess(curPageData.length);
+
+					//设置列表数据
+					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
+					that.goodsList = that.goodsList.concat(curPageData); //追加新数据
+				}, () => {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				})
+			},
+			/*联网加载列表数据
+			在您的实际项目中,请参考官方写法: http://www.mescroll.com/uni.html#tagUpCallback
+			请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
+			实际项目以您服务器接口返回的数据为准,无需本地处理分页.
+			* */
+			getListDataFromNet(url, pageNum, pageSize, successCallback, errorCallback) {
+				let that = this;
+				console.log(that.filterIndex)
+				//延时一秒,模拟联网
+				setTimeout(() => {
+					try {
+
+						uni.request({
+							url: url, //仅为示例，并非真实接口地址。
+							data: {
+								is_mobile: 1,
+								category_id: that.cateId,
+								user_id: 0,
+								page_index: pageNum,
+								page_size: pageSize,
+								keyword: '',
+								goods_type: 0,
+								order: that.filterIndex,
+								priceOrder: that.priceOrder
+							},
+							method: 'POST',
+							header: {
+								'content-type': 'application/x-www-form-urlencoded'
+							},
+							success: function(res) {
+								console.log(res.data.data)
+								if (res.data.status == 1) {
+
+									// that.orderList.push(res.data.data)
+
+								} else {
+
+
+
+								}
+								if (res.data.data == null) {
+									res.data.data = [];
+								}
+								successCallback && successCallback(res.data.data);
+
+
+
+
+
+							}
+						});
+
+						// 
+						// //模拟分页数据
+						// var listData = [];
+						// for (var i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
+						// 	if (i == mockData.length) break;
+						// 	listData.push(mockData[i]);
+						// }
+						// //联网成功的回调
+					} catch (e) {
+						//联网失败的回调
+						errorCallback && errorCallback();
+					}
+				}, 10)
+			},
+
 			tabChange(index) {
 				this.TabCur = index;
+				this.cateId = this.cateList[index].id;
+				this.mescroll.resetUpScroll()
 
-				this.goodsList = this.cateList[index].item_list;
+
+				// this.goodsList = this.cateList[index].item_list;
 
 
 
@@ -274,7 +409,7 @@
 							carouselList = res.data.slider;
 							let cateList = res.data.category;
 							that.tabList = res.data.category;
-							that.goodsList = cateList[0].item_list;
+							// that.goodsList = cateList[0].item_list;
 
 							that.titleNViewBackground = '#fff';
 							that.swiperLength = carouselList.length;
@@ -900,7 +1035,7 @@
 		.guess-item {
 			display: flex;
 			flex-direction: column;
-			float:left;
+			float: left;
 			width: 46%;
 
 			margin-top: 20upx;

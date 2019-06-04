@@ -14,7 +14,7 @@
 				</view>
 				<text class="title clamp">{{item.title}}</text>
 				<view class="price-box">
-					<text class="price">{{item.price}}</text>
+					<text class="price">{{item.market_price}}</text>
 					<view class="pb-car iconfont" :id="item.id" :data-img="item.icon" @tap="addShopCar">
 						<image src="../../static/jiaru.png"></image>
 					</view>
