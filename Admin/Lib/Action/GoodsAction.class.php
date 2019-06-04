@@ -5056,7 +5056,7 @@ else if ($type == 5) {
             $item_list = M('goods')->alias('t')
             ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
             ->field('  t.*')
-            ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=1 AND t.stock>0')
+            ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=1 AND t.status=1  AND t.stock>0')
             ->order(' t.sort_id asc')
             ->limit(10)
             ->select();
