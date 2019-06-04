@@ -281,13 +281,7 @@ layui.use('layer', function() {
 						value="{$vo.price}" class="input normal" required="">
 				</dd>
 			</dl>
-			<dl style="display:NONE" >
-				<dt>供货价</dt>
-				<dd>
-					<input name="agent_use" ID="agent_use" type="text"
-						value="{$vo.agent_use}" class="input normal" required="">
-				</dd>
-			</dl>
+			 
 			 <dl>
 				<dt>市场价</dt>
 				<dd>
@@ -296,7 +290,8 @@ layui.use('layer', function() {
 						required="">
 				</dd>
 			</dl>
-			<dl style="display:none" >
+			<dl<EQ name="type" value="0"
+					> style="display:none"</EQ> >
 				<dt>赠送{$bi.agent_use}</dt>
 				<dd>
 					<input name="agent_use" ID="agent_use" type="text"

@@ -125,7 +125,8 @@ td {
 					<th style="display: none">类型</th>
 					<th>所属类别</th>
 					<th>市场价格</th>
-					<th>尊享价格</th>
+					<th>尊享价格</th><EQ name="type" value="0"
+					><th>商家奖励</th></EQ>
 						<th>排序</th>
 					<EQ name="type" value="0"
 					><th style="width: 10%;">属性</th></EQ>
@@ -143,7 +144,9 @@ td {
 					<td style="display: none"><span class="tablesaw-cell-content">{$vo.type_str}</span></td>
 					<td><span class="tablesaw-cell-content">{$vo.category}</span></td>
 					<td><span class="tablesaw-cell-content">{$vo.market_price}</span></td>
-					<td><span class="tablesaw-cell-content">{$vo.price}</span></td> <td>
+					<td><span class="tablesaw-cell-content">{$vo.price}</span></td> <td>	
+					<EQ name="type" value="0"
+					><td><span class="tablesaw-cell-content">{$vo.limit_money}</span></td></EQ>
                  <input ID="{$vo.id}" value="{$vo.sort_id}" Class="sort"
 										onkeydown="return checkNumber(event);"
 										onchange="ajaxSortUpdateField(this,'sort_id');"></td>
