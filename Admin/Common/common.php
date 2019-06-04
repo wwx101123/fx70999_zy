@@ -4221,6 +4221,19 @@ function give_agent_cash($money_count, $myid, $inUserID)
     }
 }
 
+function seller_award($money_count, $myid, $inUserID)
+{
+    $fck = D('Fck');
+    if ($money_count > 0) {
+        $jjbz = "赠送" . $money_count . '-' . C('agent_cash');
+        $usqlc = "agent_cash=agent_cash+" . $money_count;
+        // 加到记录表
+        $fck->execute("UPDATE __TABLE__ set " . $usqlc . "  where id=" . $myid);
+        
+        $fck->addencAdd($myid, $inUserID, $money_count, 1, 0, 0, 0, $jjbz);
+    }
+}
+
 /**
  * 格式化字节大小
  * 

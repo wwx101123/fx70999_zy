@@ -1385,9 +1385,9 @@ class GoodsAction extends CommonAction
             ->join("xt_article_category AS h ON   h.id = t.category_id", 'LEFT')
             ->where($map)
             ->sum('t.price');
-            if($totalAmount==null){
-                $totalAmount=0;
-            }
+        if ($totalAmount == null) {
+            $totalAmount = 0;
+        }
         
         $Page = new Page($count, 10);
         // ===============(总页数,每页显示记录数,css样式 0-9)
@@ -1495,17 +1495,17 @@ class GoodsAction extends CommonAction
                 
                 $item_list = null;
                 
-//                 $item_list = M('goods')->where('category_id=' . $goods['id'] . ' AND type=0 AND stock>0')
-//                 ->order(' id desc')
+                // $item_list = M('goods')->where('category_id=' . $goods['id'] . ' AND type=0 AND stock>0')
+                // ->order(' id desc')
                 
-//                 ->select();
-//                 foreach ($item_list as $key1 => $goods1) {
-//                 $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
-//                 $item_list[$key1]['url'] = 'goods_show.html';
-//                 $sell_count = 0;
-//                 $item_list[$key1]['sell_count'] = $sell_count;
-//                 $item_list[$key1]['percent'] = 90;
-//                 }
+                // ->select();
+                // foreach ($item_list as $key1 => $goods1) {
+                // $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
+                // $item_list[$key1]['url'] = 'goods_show.html';
+                // $sell_count = 0;
+                // $item_list[$key1]['sell_count'] = $sell_count;
+                // $item_list[$key1]['percent'] = 90;
+                // }
                 
                 $category[$key]['name'] = $goods['title'];
                 $category[$key]['item_list'] = $item_list;
@@ -3177,12 +3177,12 @@ class GoodsAction extends CommonAction
             
             IF ($payment_id == 3) {
                 
-               // copy_goods($goods, $userModel['id'], $item['quantity']);
+                // copy_goods($goods, $userModel['id'], $item['quantity']);
             }
-//             if ($payment_id == 2) {
-            $money_count = $item['quantity'] * $goods['price']*$fee_rs['i1'];
-                give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
-//             }
+            // if ($payment_id == 2) {
+            $money_count = $item['quantity'] * $goods['price'] * $fee_rs['i1'];
+            give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
+            // }
         }
         
         $sum_num = M('cart')->where('uid=' . $user_id)->sum('quantity');
@@ -3353,16 +3353,13 @@ class GoodsAction extends CommonAction
             $model['is_default'] = 1;
         }
         
-        
-       
-        
         if ($id > 0) {
             
             M('user_addr_book')->where('id=' . $id)->save($model);
             
             $data = array();
             $data['msg'] = '修改收货地址成功';
-            $data['status'] = 1; 
+            $data['status'] = 1;
             $data['url'] = 'useraddress.html';
         } else {
             $model['add_time'] = time();
@@ -3371,13 +3368,12 @@ class GoodsAction extends CommonAction
             $data = array();
             $data['msg'] = '新增收货地址成功';
             $data['status'] = 1;
-            $data['url'] = 'useraddress.html'; 
+            $data['url'] = 'useraddress.html';
         }
         
-        
         $user_addr_book = M('user_addr_book')->field('*,user_name as name,address as addressName')
-        ->where('user_id=' . $user_id)
-        ->select();
+            ->where('user_id=' . $user_id)
+            ->select();
         
         foreach ($user_addr_book as $key => $value) {
             $user_addr_book[$key]['default'] = false;
@@ -3388,8 +3384,6 @@ class GoodsAction extends CommonAction
             }
         }
         $data['data'] = $user_addr_book;
-        
-        
         
         $this->ajaxReturn($data);
         return;
@@ -4952,22 +4946,17 @@ else if ($type == 5) {
             $dui_cart_money = 0;
         }
         
-        
-        
-        
-        
-        $item=ARRAY();
-        $item['id']=0;
-        $item['name']='全部商品';
-        
+        $item = ARRAY();
+        $item['id'] = 0;
+        $item['name'] = '全部商品';
         
         $item_list = M('goods')->alias('t')
-        ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
-        ->field('  t.*')
-        ->where('  t.type=0 AND t.stock>0')
-        ->order(' t.sort_id asc,t.addtime desc ')
-        
-        ->select();
+            ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+            ->field('  t.*')
+            ->where('  t.type=0 AND t.stock>0')
+            ->order(' t.sort_id asc,t.addtime desc ')
+            ->
+        select();
         foreach ($item_list as $key1 => $goods1) {
             $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
             $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
@@ -4976,18 +4965,11 @@ else if ($type == 5) {
             $item_list[$key1]['sell_count'] = $sell_count;
             $item_list[$key1]['percent'] = 90;
         }
-        $item['item_list']=$item_list;
+        $item['item_list'] = $item_list;
         
-       
-        $category[]=$item;
+        $category[] = $item;
         
-        
-        
-        $category= array_reverse ($category);
-        
-        
-        
-        
+        $category = array_reverse($category);
         
         $data = array();
         $data['seller'] = $seller;
@@ -5006,9 +4988,7 @@ else if ($type == 5) {
         $data['status'] = 1;
         $this->ajaxReturn($data);
     }
-    
-    
-    
+
     function dui_list()
     {
         $slider = ARRAY();
@@ -5046,20 +5026,20 @@ else if ($type == 5) {
         
         foreach ($category as $key => $goods) {
             $cate_list = M('article_category')->where('parent_id=' . $goods['id'])
-            ->order('   id desc')
-            ->limit(100)
-            ->select();
+                ->order('   id desc')
+                ->limit(100)
+                ->select();
             $category[$key]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods['img_url'];
             
             $item_list = null;
             
             $item_list = M('goods')->alias('t')
-            ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
-            ->field('  t.*')
-            ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=1 AND t.status=1  AND t.stock>0')
-            ->order(' t.sort_id asc')
-            ->limit(10)
-            ->select();
+                ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+                ->field('  t.*')
+                ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=1 AND t.status=1  AND t.stock>0')
+                ->order(' t.sort_id asc')
+                ->limit(10)
+                ->select();
             foreach ($item_list as $key1 => $goods1) {
                 $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
                 $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
@@ -5078,9 +5058,9 @@ else if ($type == 5) {
         
         // 获取头条新闻
         $form = M('form')->field('id,title')
-        ->alias('t')
-        ->where(" t.type=0  and t.user_id=0   ")
-        ->select();
+            ->alias('t')
+            ->where(" t.type=0  and t.user_id=0   ")
+            ->select();
         $category_item = M('article_category')->where(array(
             'id' => $category_id
         ))->find();
@@ -5100,19 +5080,6 @@ else if ($type == 5) {
         if ($dui_cart_money == null) {
             $dui_cart_money = 0;
         }
-        
-        
-        
-        
-         
-         
-         
-        
-         
-        
-        
-        
-        
         
         $data = array();
         $data['seller'] = $seller;
