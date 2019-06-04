@@ -3354,6 +3354,27 @@ class GoodsAction extends CommonAction
         }
         
         
+       
+        
+        if ($id > 0) {
+            
+            M('user_addr_book')->where('id=' . $id)->save($model);
+            
+            $data = array();
+            $data['msg'] = '修改收货地址成功';
+            $data['status'] = 1; 
+            $data['url'] = 'useraddress.html';
+        } else {
+            $model['add_time'] = time();
+            M('user_addr_book')->add($model);
+            
+            $data = array();
+            $data['msg'] = '新增收货地址成功';
+            $data['status'] = 1;
+            $data['url'] = 'useraddress.html'; 
+        }
+        
+        
         $user_addr_book = M('user_addr_book')->field('*,user_name as name,address as addressName')
         ->where('user_id=' . $user_id)
         ->select();
@@ -3366,28 +3387,11 @@ class GoodsAction extends CommonAction
                 $user_addr_book[$key]['default'] = true;
             }
         }
+        $data['data'] = $user_addr_book;
         
-        if ($id > 0) {
-            
-            M('user_addr_book')->where('id=' . $id)->save($model);
-            
-            $data = array();
-            $data['msg'] = '修改收货地址成功';
-            $data['status'] = 1;
-            $data['data'] = $user_addr_book;
-            $data['url'] = 'useraddress.html';
-            $this->ajaxReturn($data);
-        } else {
-            $model['add_time'] = time();
-            M('user_addr_book')->add($model);
-            
-            $data = array();
-            $data['msg'] = '新增收货地址成功';
-            $data['data'] = $user_addr_book;
-            $data['status'] = 1;
-            $data['url'] = 'useraddress.html';
-            $this->ajaxReturn($data);
-        }
+        
+        
+        $this->ajaxReturn($data);
         return;
     }
 
