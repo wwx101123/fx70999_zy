@@ -2414,9 +2414,9 @@ class GoodsAction extends CommonAction
         $rs = M('goods')->where(array(
             'id' => $article_id
         ))
-            ->field('price')
+            ->field('market_price')
             ->find();
-        $price = $rs['price'];
+        $price = $rs['market_price'];
         if ($goods_id > 0) {
             
             $rs = M('article_goods')->where(array(
