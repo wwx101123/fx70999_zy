@@ -10,7 +10,7 @@ class GoodsAction extends CommonAction
         
         // $this->_inject_check(0); // 调用过滤函数
         
-        // $this->_checkUser();
+         $this->_checkUser();
         
         header("Content-Type:text/html; charset=utf-8");
     }
