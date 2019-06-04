@@ -1331,6 +1331,9 @@ class GoodsAction extends CommonAction
             if ($is_hot > 0) {
                 $map['t.is_hot'] = $is_hot;
             }
+            if ($user_id > 0) {
+                $map['t.user_id'] = $user_id;
+            }
             if (! empty($keyword)) {
                 $item = array();
                 $item['uid'] = $user_id;
