@@ -4647,6 +4647,7 @@ class YouZiAction extends CommonAction
         M('te_trade_orders')->where('id > 0')->delete();
         M('user_detail')->where('id > 0')->delete();
         M('form')->where('user_id > 0')->delete();
+        M('dui_cart')->where('id > 0')->delete();
 //         M('seller')->where('id > 0')->delete();
         // M('user_terminal')->where('id > 0')->setField('is_fan', 0);
 //         M('seller')->where('id > 0')->setField('trade_money', 0);
