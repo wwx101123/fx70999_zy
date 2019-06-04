@@ -57,7 +57,7 @@ td {
 									class="iconfont icon-close"></i><span>新增级别</span></a></li>
 							<li><a href="javacript:void(0);" id="itemAddButton2"><i
 									class="iconfont icon-close"></i><span>新增银行</span></a></li>
-							<li><a ID="btnSave" onclick="btnSave_Click()" ><i
+							<li><a ID="btnSave" onclick="btnSave_Click()"><i
 									class="iconfont icon-save"></i><span>保存</span> </a></li>
 						</ul>
 						<div class="menu-list">
@@ -68,27 +68,37 @@ td {
 							</div>
 						</div>
 					</div>
-					 
+
 				</div>
 			</div>
 		</div>
 		<!--/工具栏-->
-<div class="control-group tab-content">
+		<div class="control-group tab-content">
+			<dl>
+				<dt>购物赠送{$bi.agent_cash}：</dt>
+				<dd>
+					<input type="text" placeholder="下发次数" name="i1" value="{$i1}"
+						class="input normal">
+					<!-- <p class="help-block">￥</p> -->
+				</dd>
+			</dl>
 			<dl>
 				<dt>提现设置：</dt>
-			<dd>
-			
-			<div class="rule-multi-radio">
-						<input type="radio" name="i2" value="1" class="input normal"    <eq name="i2" value="1">checked</eq>    
-							required="" readonly /> <label>开启</label> <input
-							type="radio" value="0" class="input normal" required="" name="i2" <eq name="i2" value="0">checked</eq>
-							readonly /> <label>关闭</label>
+				<dd>
+
+					<div class="rule-multi-radio">
+						<input type="radio" name="i2" value="1" class="input normal"
+						<eq name="i2" value="1">checked</eq>
+						required="" readonly /> <label>开启</label> <input type="radio"
+							value="0" class="input normal" required="" name="i2"
+						<eq name="i2" value="0">checked</eq>
+						readonly /> <label>关闭</label>
 
 					</div>
-			
-			 
-				<p class="help-block">提现开关 关闭时禁止全部提现</p>
-			</dd>
+
+
+					<p class="help-block">提现开关 关闭时禁止全部提现</p>
+				</dd>
 		</div>
 		<!--列表-->
 		<div class="table-container">
@@ -292,26 +302,24 @@ td {
 	}
 	function btnSave_Click() {
 
-
-		 
 		$.ajax({
-			url: "{:U('YouZi/setBankParameterSave')}",
-			data:$("#form1").serialize(),
-			dataType: 'json', //服务器返回json格式数据
-			type: 'POST', //HTTP请求类型
-			timeout: 10000, //超时时间设置为10秒；
+			url : "{:U('YouZi/setBankParameterSave')}",
+			data : $("#form1").serialize(),
+			dataType : 'json', //服务器返回json格式数据
+			type : 'POST', //HTTP请求类型
+			timeout : 10000, //超时时间设置为10秒；
 
-			success: function(data) { 
+			success : function(data) {
 				layer.msg(data.msg, {
 					icon : 1,
 					time : 1000
 				});
 
-				if(data.status == 1) {
+				if (data.status == 1) {
 					location.reload()
 				}
 			},
-			error: function(xhr, type, errorThrown) {
+			error : function(xhr, type, errorThrown) {
 
 				mui.toast('提交失败');
 				//异常处理；
@@ -319,10 +327,6 @@ td {
 			}
 		});
 
-  
-
-		
-		
 	}
 </script>
 </html>

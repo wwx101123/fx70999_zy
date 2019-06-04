@@ -4,7 +4,7 @@
 			<text class="tit">联系人</text>
 
 
-			<input class="input" type="text" v-model="addressData.name" placeholder="收货人姓名" placeholder-class="placeholder" />
+			<input class="input" type="text" v-model="addressData.accept_name" placeholder="收货人姓名" placeholder-class="placeholder" />
 		</view>
 		<view class="row b-b">
 			<text class="tit">手机号</text>
@@ -43,6 +43,9 @@
 <script>
 	import mpvueCityPicker from '../../components/mpvue-citypicker/mpvueCityPicker.vue';
 	import common from '../../common/common.js';
+	import {
+		mapState
+	} from 'vuex';
 	export default {
 		components: {
 			mpvueCityPicker
@@ -88,6 +91,9 @@
 				title
 			})
 		},
+		computed: {
+			...mapState(['hasLogin', 'userInfo', 'bi'])
+		},
 		methods: {
 			chooseCity() {
 				this.$refs.mpvueCityPicker.show()
@@ -120,7 +126,7 @@
 			//提交
 			confirm() {
 				let data = this.addressData;
-				if (!data.name) {
+				if (!data.accept_name) {
 					this.$api.msg('请填写收货人姓名');
 					return;
 				}
@@ -145,10 +151,11 @@
 						txtProvince: data.province,
 						txtCity: data.city,
 						txtArea: data.area,
-						txtAcceptName: data.name,
+						txtAcceptName: data.accept_name,
 						txtAddress: data.addressName,
 						street: data.street,
 						txtMobile: data.mobile,
+						user_id: that.userInfo.id,
 						// is_default: data.default,
 						default: data.default,
 						id: data.id
@@ -160,7 +167,7 @@
 					success: function(res) {
 						if (res.data.status == 1) {
 							//this.$api.prePage()获取上一页实例，可直接调用上页所有数据和方法，在App.vue定义
-							that.$api.prePage().refreshList(data, that.manageType);
+							that.$api.prePage().refreshList(res.data.data, that.manageType);
 							that.$api.msg(`地址${that.manageType=='edit' ? '修改': '添加'}成功`);
 							setTimeout(() => {
 								uni.navigateBack()

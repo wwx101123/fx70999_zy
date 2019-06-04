@@ -6,7 +6,7 @@
 				<text class="yticon icon-shouhuodizhi"></text>
 				<view class="cen">
 					<view class="top">
-						<text class="name">{{addressData.name}}</text>
+						<text class="name">{{addressData.accept_name}}</text>
 						<text class="mobile">{{addressData.mobile}}</text>
 					</view>
 					<text class="address">{{addressData.address}} {{addressData.addressName}}</text>
@@ -191,12 +191,7 @@
 					}
 				],
 				addressData: {
-					name: '许小星',
-					mobile: '13853989563',
-					addressName: '金九大道',
-					address: '山东省济南市历城区',
-					area: '149号',
-					default: false,
+					name: '请选择收货地址'
 				},
 				goodsList: [],
 				paymentList: [],

@@ -89,9 +89,9 @@
 			},
 			//添加或修改成功之后回调
 			refreshList(data, type) {
-				//添加或修改后事件，这里直接在最前面添加了一条数据，实际应用中直接刷新地址列表即可
-				  // history.go(0);
-                    
+				console.log(data)
+				 
+                   this.addressList = data; 
 				console.log(data, type);
 			}
 

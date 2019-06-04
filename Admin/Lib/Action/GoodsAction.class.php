@@ -2765,7 +2765,7 @@ class GoodsAction extends CommonAction
     public function order_save()
     {
         $fee = M('fee');
-        $fee_rs = $fee->field('is_goods,min_limit_money')->find();
+        $fee_rs = $fee->field('is_goods,min_limit_money,i1')->find();
         if ($fee_rs['is_goods'] == 0) {
             $this->ajaxError('对不起，系统暂时禁止购物！');
             exit();
@@ -3177,12 +3177,12 @@ class GoodsAction extends CommonAction
             
             IF ($payment_id == 3) {
                 
-                copy_goods($goods, $userModel['id'], $item['quantity']);
+               // copy_goods($goods, $userModel['id'], $item['quantity']);
             }
-            if ($payment_id == 2) {
-                $money_count = $item['quantity'] * $goods['agent_use'];
+//             if ($payment_id == 2) {
+            $money_count = $item['quantity'] * $goods['agent_use']*$fee_rs['i2'];
                 give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
-            }
+//             }
         }
         
         $sum_num = M('cart')->where('uid=' . $user_id)->sum('quantity');
