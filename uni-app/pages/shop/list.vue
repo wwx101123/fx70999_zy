@@ -191,7 +191,7 @@ console.log(curPageData.seller)
 								page_index: pageNum,
 								page_size: pageSize,
 								keyword: '',
-								goods_type: 1,
+								goods_type: 0,
 								order:that.filterIndex,
 								priceOrder:that.priceOrder 
 							},
