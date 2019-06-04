@@ -1385,6 +1385,9 @@ class GoodsAction extends CommonAction
             ->join("xt_article_category AS h ON   h.id = t.category_id", 'LEFT')
             ->where($map)
             ->sum('t.price');
+            if($totalAmount==null){
+                $totalAmount=0;
+            }
         
         $Page = new Page($count, 10);
         // ===============(总页数,每页显示记录数,css样式 0-9)
@@ -3350,6 +3353,20 @@ class GoodsAction extends CommonAction
             $model['is_default'] = 1;
         }
         
+        
+        $user_addr_book = M('user_addr_book')->field('*,user_name as name,address as addressName')
+        ->where('user_id=' . $user_id)
+        ->select();
+        
+        foreach ($user_addr_book as $key => $value) {
+            $user_addr_book[$key]['default'] = false;
+            $user_addr_book[$key]['address'] = $value['province'] . $value['city'] . $value['area'];
+            IF ($value['is_default'] == 1) {
+                
+                $user_addr_book[$key]['default'] = true;
+            }
+        }
+        
         if ($id > 0) {
             
             M('user_addr_book')->where('id=' . $id)->save($model);
@@ -3357,6 +3374,7 @@ class GoodsAction extends CommonAction
             $data = array();
             $data['msg'] = '修改收货地址成功';
             $data['status'] = 1;
+            $data['data'] = $user_addr_book;
             $data['url'] = 'useraddress.html';
             $this->ajaxReturn($data);
         } else {
@@ -3365,6 +3383,7 @@ class GoodsAction extends CommonAction
             
             $data = array();
             $data['msg'] = '新增收货地址成功';
+            $data['data'] = $user_addr_book;
             $data['status'] = 1;
             $data['url'] = 'useraddress.html';
             $this->ajaxReturn($data);
