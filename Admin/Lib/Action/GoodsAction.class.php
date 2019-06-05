@@ -4998,75 +4998,60 @@ else if ($type == 5) {
         
         $category = array_reverse($category);
         
+        $map = array();
+        $map['is_red'] = 1;
+        $map['t.type'] = 0;
+        $map['t.stock'] = ARRAY(
+            'gt',
+            0
+        );
         
-        
-        
-        $map=array();
-        $map['is_red']=1;
-        $map['t.type']=0;
-        $map['t.stock']=ARRAY('gt',0);
-        
-        $redList =M('goods')->alias('t')
-        ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field('  t.*')
-        ->order(' t.sort_id asc')
-        ->select();
+        $redList = M('goods')->alias('t')
+            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
+            ->where($map)
+            ->field('  t.*')
+            ->order(' t.sort_id asc')
+            ->select();
         foreach ($redList as $key1 => $goods1) {
             $redList[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
-            $redList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];}
-        $map=array();
-        $map['is_red']=0;
-        $map['is_hot']=1;
-        $map['t.type']=0;
-        $map['t.stock']=ARRAY('gt',0);
+            $redList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
+        }
+        $map = array();
+        $map['is_hot'] = 1;
+        $map['t.type'] = 0;
+        $map['t.stock'] = ARRAY(
+            'gt',
+            0
+        );
         
-        $hotList =M('goods')->alias('t')
-        ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field('  t.*')
-        ->order(' t.sort_id asc')
-        ->select();
+        $hotList = M('goods')->alias('t')
+            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
+            ->where($map)
+            ->field('  t.*')
+            ->order(' t.sort_id asc')
+            ->select();
         foreach ($hotList as $key1 => $goods1) {
             $hotList[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
             $hotList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
-            
-            
-            
         }
-        $map=array();
-        $map['is_red']=0;
-        $map['is_hot']=0;
-        $map['is_top']=1;
-        $map['t.type']=0;
-        $map['t.stock']=ARRAY('gt',0);
+        $map = array();
+        $map['is_top'] = 1;
+        $map['t.type'] = 0;
+        $map['t.stock'] = ARRAY(
+            'gt',
+            0
+        );
         
-        $topList =M('goods')->alias('t')
-        ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field('  t.*')
-        ->order(' t.sort_id asc')
-        ->select();
+        $topList = M('goods')->alias('t')
+            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
+            ->where($map)
+            ->field('  t.*')
+            ->order(' t.sort_id asc')
+            ->select();
         foreach ($topList as $key1 => $goods1) {
             $topList[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
             $topList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
-            
-            
-            
-            
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         $data = array();
         $data['topList'] = $topList;
