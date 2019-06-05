@@ -67,59 +67,59 @@
 				</view> 
 				<text class="yticon"  @click="navToGoodsListPage(item.parent_id,item.id,item.title)">更多</text>
 			</view> -->
-		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-			<view class="title">
-				<image class="img" src="../../static/img/hua.png"></image>
-				最新推荐
-				<image class="img" src="../../static/img/hua.png"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToDetailPage(item)">
-						<image :src="item.icon" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-			<view class="title">
-				<image class="img" src="../../static/img/hua.png"></image>
-				最新新品
-				<image class="img" src="../../static/img/hua.png"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToDetailPage(item)">
-						<image :src="item.icon" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-			<view class="title">
-				<image class="img" src="../../static/img/hua.png"></image>
-				热门商品
-				<image class="img" src="../../static/img/hua.png"></image>
-			</view>
-			<scroll-view class="floor-list" scroll-x>
-				<view class="scoll-wrapper">
-					<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToDetailPage(item)">
-						<image :src="item.icon" mode="aspectFill"></image>
-						<text class="title clamp">{{item.title}}</text>
-						<text class="price">￥{{item.price}}</text>
-					</view>
-				</view>
-			</scroll-view>
-		</view>
-		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
 
+		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
+			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+				<view class="title">
+					<image class="img" src="../../static/img/hua.png"></image>
+					最新推荐
+					<image class="img" src="../../static/img/hua.png"></image>
+				</view>
+				<scroll-view class="floor-list" scroll-x>
+					<view class="scoll-wrapper">
+						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+							<image :src="item.icon" mode="aspectFill"></image>
+							<text class="title clamp">{{item.title}}</text>
+							<text class="price">￥{{item.price}}</text>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+				<view class="title">
+					<image class="img" src="../../static/img/hua.png"></image>
+					最新新品
+					<image class="img" src="../../static/img/hua.png"></image>
+				</view>
+				<scroll-view class="floor-list" scroll-x>
+					<view class="scoll-wrapper">
+						<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+							<image :src="item.icon" mode="aspectFill"></image>
+							<text class="title clamp">{{item.title}}</text>
+							<text class="price">￥{{item.price}}</text>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
+			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+				<view class="title">
+					<image class="img" src="../../static/img/hua.png"></image>
+					热门商品
+					<image class="img" src="../../static/img/hua.png"></image>
+				</view>
+				<scroll-view class="floor-list" scroll-x>
+					<view class="scoll-wrapper">
+						<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+							<image :src="item.icon" mode="aspectFill"></image>
+							<text class="title clamp">{{item.title}}</text>
+							<text class="price">￥{{item.price}}</text>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
 
 			<view class="guess-section" style="margin-top: 10px;">
-				<view class="title" v-show="is_show">
+				<view class="title" v-if="is_show">
 					<image class="img" src="../../static/img/hua.png"></image>
 					全部商品
 					<image class="img" src="../../static/img/hua.png"></image>
@@ -349,9 +349,7 @@
 					//设置列表数据
 					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
 					that.goodsList = that.goodsList.concat(curPageData); //追加新数据
-					that.redList = that.redList;
-					that.hotList = that.hotList
-					that.topList = that.topList
+
 				}, () => {
 					//联网失败的回调,隐藏下拉刷新的状态
 					mescroll.endErr();
@@ -427,13 +425,15 @@
 			tabChange(index) {
 				this.TabCur = index;
 				this.cateId = this.cateList[index].id;
-				this.mescroll.resetUpScroll()
+				console.log(this.cateId)
 				if (this.cateId != 0) {
 					this.is_show = false;
 				} else {
-
+				
 					this.is_show = true;
 				}
+				this.mescroll.resetUpScroll()
+				
 				// this.goodsList = this.cateList[index].item_list;
 
 
@@ -499,6 +499,9 @@
 							that.swiperLength = carouselList.length;
 							that.carouselList = carouselList;
 							that.cateList = cateList;
+							that.redList = res.data.redList;
+							that.hotList = res.data.hotList;
+							that.topList = res.data.topList;
 							let hotList = res.data.data;
 							// console.log(hotList)
 							// that.hotList = hotList;
