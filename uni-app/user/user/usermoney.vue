@@ -70,6 +70,7 @@
 				tabCurrentIndex:0,
 				navList: [ 
 				],
+				userInfo: {},
 				orderList: [],
 				type:''
 			};
@@ -85,7 +86,10 @@
 		onLoad(options) {
 			 wx.setNavigationBarTitle({
 			 	title: options.title+'明细'
-			 })
+			 });
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			 
 			this.type= options.type;
 

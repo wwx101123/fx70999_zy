@@ -122,10 +122,14 @@
 					value: 'C',
 					checked: false
 				}],
+				userInfo: {},
 				radio:0
 			}
 		},
 		onLoad(option) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			uni.request({
 				url: common.userInfoUrl, //仅为示例，并非真实接口地址。
@@ -247,6 +251,7 @@
 					success: function(res) {
 						if (res.data.status == 1) {
 
+							that.$api.prePage().refresh();
 							that.$api.msg(res.data.info);
 							setTimeout(() => {
 								uni.navigateBack()

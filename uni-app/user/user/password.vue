@@ -95,10 +95,14 @@
 						page: 1
 					}
 				],
+				userInfo: {},
 				showKeyboard: false
 			}
 		},
 		onLoad() {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 
 		},
 		computed: {
@@ -124,7 +128,7 @@
 				var url = common.pwdEdit;
 				var old_pwd = that.userInfo.pwd1;
 				if (that.titleShowId == 'tabTag-1') {
- old_pwd = that.userInfo.pwd2;
+					old_pwd = that.userInfo.pwd2;
 					url = common.pwd2Edit;
 				}
 				console.log(url)
@@ -136,7 +140,7 @@
 						user_id: that.userInfo.id,
 						pwd: password,
 						repwd: password,
-						old_pwd:old_pwd
+						old_pwd: old_pwd
 
 					},
 					method: 'POST',

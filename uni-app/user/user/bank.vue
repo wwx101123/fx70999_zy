@@ -52,10 +52,14 @@
 				},
 				index: -1,
 				picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
-				region: ''
+				region: '',
+				userInfo: {},
 			}
 		},
 		onLoad(option) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			uni.request({
 				url: common.userInfoUrl, //仅为示例，并非真实接口地址。
