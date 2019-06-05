@@ -5107,8 +5107,12 @@ else if ($type == 5) {
             $topList[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
             $topList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
         }
-        
+        $form = M('form')->field('id,title')
+        ->alias('t')
+        ->where(" t.type=1  and t.user_id=0   ")
+        ->select();
         $data = array();
+        $data['noticeList'] = $form;
         $data['topList'] = $topList;
         $data['hotList'] = $hotList;
         $data['redList'] = $redList;
