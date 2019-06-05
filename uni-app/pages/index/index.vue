@@ -353,6 +353,9 @@
 					//设置列表数据
 					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
 					that.goodsList = that.goodsList.concat(curPageData); //追加新数据
+							that.redList =that.redList;
+							that.hotList =that.hotList;
+							that.topList = that.topList;
 
 				}, () => {
 					//联网失败的回调,隐藏下拉刷新的状态

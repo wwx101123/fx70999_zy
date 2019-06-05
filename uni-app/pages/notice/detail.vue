@@ -31,6 +31,7 @@
 			return {
 				title: 'list-triplex-row',
 				banner: {},
+				userInfo: {},
 				htmlString: ""
 			}
 		},
@@ -48,6 +49,9 @@
 		},
 		methods: {
 			getDetail(id) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 				let that=this;
 						console.log(that.userInfo.id)
 				uni.request({

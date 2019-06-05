@@ -115,6 +115,7 @@
 				goodsList: [],
 				totalCount: 0,totalAmount:0,
 				loading: true,
+				userInfo: {},
 			};
 		},
 
@@ -136,6 +137,9 @@
 			// #endif
 			this.cateId = options.tid;
 			this.Id = options.sid;
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 		},
 
 		methods: {

@@ -531,6 +531,53 @@
 						}
 					}
 				})
+			},
+			//添加或修改成功之后回调
+			refresh() {
+				let that = this;
+
+				uni.request({
+					url: common.userInfoUrl, //仅为示例，并非真实接口地址。
+					data: {
+						is_mobile: 1,
+						id: that.userInfo.id
+					},
+					method: 'POST',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					success: function(res) {
+						console.log(res.data.status)
+						if (res.data.status == 1) {
+
+
+							that.userInfo = res.data.data;
+							uni.setStorage({ //缓存用户登陆状态
+								key: 'userInfo',
+								data: res.data.data
+							});
+							uni.setStorage({ //缓存用户登陆状态
+								key: 'bi',
+								data: res.data.bi
+							});
+							uni.setStorage({ //缓存用户登陆状态
+								key: 'user_id',
+								data: res.data.data.id
+							});
+
+
+
+
+						} else {}
+
+
+
+					}
+				});
+
+
+
+
 			}
 		}
 	}
