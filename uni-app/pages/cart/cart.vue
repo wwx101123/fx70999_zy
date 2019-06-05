@@ -90,6 +90,7 @@
 				allChecked: false, //全选状态  true|false 
 				empty: false, //空白页现实  true|false
 				cartList: [],
+				userInfo: {},
 				cart_ids: ''
 			};
 		},
@@ -99,7 +100,14 @@
 		},
 
 		onLoad() {
-			if (this.userInfo == undefined) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
+
+
+
+			if (user_id == undefined) {
+
 				let url = '/pages/public/login';
 				uni.navigateTo({
 					url

@@ -90,7 +90,8 @@
 				allChecked: false, //全选状态  true|false 
 				empty: false, //空白页现实  true|false
 				cartList: [],
-				cart_ids: ''
+				cart_ids: '',
+				userInfo: {},
 			};
 		},
 		//注册列表滚动事件,用于下拉刷新
@@ -99,6 +100,9 @@
 		},
 
 		onLoad() {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			if (this.userInfo == undefined) {
 				let url = '/pages/public/login';
 				uni.navigateTo({

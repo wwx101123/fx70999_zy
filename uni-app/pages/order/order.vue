@@ -124,6 +124,7 @@
 						orderList: []
 					}
 				],
+				userInfo: {},
 				orderList: []
 			};
 		},
@@ -136,6 +137,9 @@
 			this.mescroll && this.mescroll.onPageScroll(e);
 		},
 		onLoad(options) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			/**
 			 * 修复app端点击除全部订单外的按钮进入时不加载数据的问题
 			 * 替换onLoad下代码即可

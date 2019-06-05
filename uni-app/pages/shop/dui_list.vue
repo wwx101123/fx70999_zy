@@ -112,6 +112,7 @@
 				goodsList: [],
 				totalAmount: 0,
 				carouselList: [],
+				userInfo: {},
 			};
 		},
 
@@ -124,8 +125,12 @@
 			this.mescroll && this.mescroll.onPageScroll(e);
 		},
 		onLoad(options) {
-			 
 
+
+
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			// #ifdef H5
 			this.headerTop = document.getElementsByTagName('uni-page-head')[0].offsetHeight + 'px';
 			// #endif
@@ -139,8 +144,8 @@
 					is_mobile: 1,
 					category_id: 0,
 					page_index: 1,
-					page_num: 100000, 
-					user_id: 0,
+					page_num: 100000,
+					user_id: user_id,
 					keyword: ''
 				},
 				method: 'POST',
@@ -153,6 +158,7 @@
 						let cateList = res.data.category;
 						that.tabList = res.data.category;
 						that.goodsList = cateList[0].item_list;
+						that.totalAmount = res.data.dui_cart_money;
 
 						// console.log(hotList)
 						// that.hotList = hotList;

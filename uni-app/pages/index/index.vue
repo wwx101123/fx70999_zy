@@ -14,7 +14,7 @@
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
 			<swiper class="carousel" circular @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" @click="navToDetailPage(item.id)">
+				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" >
 					<image :src="item.src" />
 				</swiper-item>
 			</swiper>
@@ -76,7 +76,7 @@
 					<image class="img" src="../../static/img/hua.png"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
-					<view class="scoll-wrapper">
+					<view class="scoll-wrapper" >
 						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
 							<image :src="item.icon" mode="aspectFill"></image>
 							<text class="title clamp">{{item.title}}</text>
@@ -268,7 +268,11 @@
 		},
 
 		onLoad() {
-			if (this.userInfo == undefined) {
+			let user_id=uni.getStorageSync('user_id');
+			
+			
+			
+			if (user_id == undefined) {
 				console.log(this.userInfo)
 				uni.navigateTo({
 					url: `/pages/public/login`
@@ -905,6 +909,7 @@
 		.scoll-wrapper {
 			display: flex;
 			align-items: flex-start;
+			padding-left: 20upx
 		}
 
 		.floor-item {

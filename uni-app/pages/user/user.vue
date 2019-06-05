@@ -205,6 +205,9 @@
 			listCell,
 			avatar
 		},
+		computed: {
+			...mapState(['hasLogin', 'userInfo', 'bi'])
+		},
 
 		data() {
 			return {
@@ -214,6 +217,8 @@
 				isShow: true,
 				update_tips: '',
 				goods_show_list: [],
+				userInfo: {},
+				bi: {},
 				url: "../../static/logo.png",
 				basicArr: [],
 				// 工具栏列表
@@ -267,7 +272,6 @@
 		onLoad() {
 
 
-
 			// #ifdef MP-WEIXIN
 			console.log('MP-WEIXIN')
 			this.isShow = false;
@@ -276,12 +280,18 @@
 			console.log('H5')
 			this.isShow = false;
 			// #endif
+			console.log(this.userInfo);
+			let user_id = uni.getStorageSync('user_id');
 
-			if (this.userInfo == undefined) {
-				// console.log(this.userInfo)
+
+
+			if (user_id == undefined) {
 				this.navTo('/pages/public/login')
 			}
-
+			let userInfo = uni.getStorageSync('userInfo');
+			let bi = uni.getStorageSync('bi');
+			this.userInfo = userInfo;
+			this.bi = bi;
 			this.url = this.userInfo.portrait;
 			// console.log(common.IP + this.userInfo.portrait)
 
@@ -388,9 +398,6 @@
 			}
 		},
 		// #endif
-		computed: {
-			...mapState(['hasLogin', 'userInfo', 'bi'])
-		},
 		methods: {
 			...mapMutations(['logout']),
 			myUpload(rsp) {
@@ -761,7 +768,7 @@
 
 					image {
 						width: 6.5vw;
-						height:  6.5vw;
+						height: 6.5vw;
 					}
 				}
 

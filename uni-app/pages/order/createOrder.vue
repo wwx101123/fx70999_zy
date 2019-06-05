@@ -174,6 +174,7 @@
 	export default {
 		data() {
 			return {
+				userInfo: {},
 				maskState: 0, //优惠券面板显示状态
 				desc: '', //备注
 				payType: 1, //1微信 2支付宝
@@ -212,6 +213,9 @@
 			...mapState(['hasLogin', 'userInfo', 'bi'])
 		},
 		onLoad(option) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 
 			let that = this;
 			console.log(that.userInfo.id);

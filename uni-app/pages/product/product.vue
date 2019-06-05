@@ -217,6 +217,7 @@
 		},
 		data() {
 			return {
+				userInfo: {},
 				cart_count: 0,
 				seller: {},
 				goods: {},
@@ -296,6 +297,9 @@
 			};
 		},
 		async onLoad(options) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			console.log(that.hasLogin)
 			if (!that.hasLogin) {
