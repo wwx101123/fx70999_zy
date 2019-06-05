@@ -16,7 +16,7 @@
 					<text :class="{active: priceOrder === 2 && filterIndex === 2}" class="yticon icon-shang xia"></text>
 				</view>
 			</view>
-			<text class="cate-item yticon icon-fenlei1" @click="toggleCateMask('show')"></text>
+			<!-- <text class="cate-item yticon icon-fenlei1" @click="toggleCateMask('show')"></text> -->
 		</view>
 
 		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
@@ -32,7 +32,7 @@
 							库存:{{item.stock}}
 						</view>
 					</view>
-					<view class="flex margin-top">
+					<view class="flex margin-top" style="margin-top:30upx;" >
 						<view class="cu-progress round">
 							<view class="bg-green" :style="[{ width:loading?item.percent+'%':''}]"></view>
 						</view>
@@ -365,7 +365,6 @@
 
 	page,
 	.content {
-		background: $page-color-base;
 	}
 
 	.content {
@@ -569,7 +568,7 @@
 		}
 
 		.title {
-			font-size: $font-lg;
+			font-size:25upx;
 			color: $font-color-dark;
 			line-height: 80upx;
 		}
@@ -584,7 +583,7 @@
 		}
 
 		.price {
-			font-size: $font-lg;
+			font-size:25upx;
 			color: $uni-color-primary;
 			line-height: 1;
 

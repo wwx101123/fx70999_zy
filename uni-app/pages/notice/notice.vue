@@ -172,7 +172,7 @@
 								page_index: pageNum,
 								page_size: pageSize,
 								keyword: '',
-								type: 1
+								type: 0
 							},
 							method: 'POST',
 							header: {

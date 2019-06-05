@@ -30,8 +30,8 @@
 				<image src="../../static/logo.png" mode="widthFix"></image>
 			</view>
 			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
-				<swiper-item v-for="(item, index) in msg" :key="index">
-					<navigator>{{item}}</navigator>
+				<swiper-item v-for="(item, index) in noticeList" :key="index">
+					<navigator>{{item.title}}</navigator>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -208,6 +208,7 @@
 				hotList: [],
 				redList: [],
 				topList: [],
+				noticeList: [],
 
 				tabList: [],
 				tabList2: [{
@@ -509,6 +510,7 @@
 							that.redList = res.data.redList;
 							that.hotList = res.data.hotList;
 							that.topList = res.data.topList;
+							that.noticeList = res.data.noticeList;
 							let hotList = res.data.data;
 							// console.log(hotList)
 							// that.hotList = hotList;
@@ -1137,7 +1139,6 @@
 	.guess-section {
 		display: flex;
 		flex-wrap: wrap;
-		background: #f5f5f5;
 
 		.guess-item {
 			display: flex;

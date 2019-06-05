@@ -72,6 +72,7 @@
 					townName: '天河区',
 				},
 				region: '',
+				userInfo: {},
 
 				basicArr: [],
 				// 基础版配置
@@ -121,6 +122,9 @@
 		},
 		onLoad() {
 
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			console.log(that.userInfo.id)
 			uni.request({

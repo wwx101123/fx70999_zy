@@ -35,11 +35,15 @@
 		data() {
 			return {
 				source: 0,
+				userInfo: {},
 				addressList: []
 			}
 		},
 		inject: ['reload'],
 		onLoad(option) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			console.log(this.userInfo.id);
 

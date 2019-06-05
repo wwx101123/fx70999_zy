@@ -22,6 +22,7 @@
 			<text @click="chooseLocation" class="input" width="100%">
 				{{addressData.addressName}}
 			</text>
+			<!-- <input @click="chooseLocation" class="input" width="100%"  v-model="addressData.addressName"/> -->
 			<text class="yticon icon-shouhuodizhi"></text>
 		</view>
 		<view class="row b-b" >
@@ -68,10 +69,14 @@
 					cityName: '广州市',
 					townName: '天河区',
 				},
+				userInfo: {},
 				region: ''
 			}
 		},
 		onLoad(option) {
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 			let that = this;
 			let title = '新增收货地址';
 			option.type = 'add';

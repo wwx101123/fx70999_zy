@@ -4,10 +4,10 @@
 		</div>
 
 		<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" tab-class="text-center bg-white wuc-tab " :tab-style="CustomBar"
-		 select-class="text-blue" @change="tabChange" style="background: white;"></wuc-tab>
+		 select-class="text-blue tab" @change="tabChange"      style="background: white; position: fixed;top:80upx;z-index: 1;"></wuc-tab>
 
 
-		<view class="goods-list">
+		<view class="goods-list" style="margin-top: 100upx;margin-bottom: 100upx;" >
 			<view v-for="(item, index) in goodsList" :key="index" class="goods-item">
 				<view class="image-wrapper">
 					<image :src="item.icon" mode="aspectFill"></image>
@@ -125,7 +125,7 @@
 			this.mescroll && this.mescroll.onPageScroll(e);
 		},
 		onLoad(options) {
-
+             
 
 
 			let user_id = uni.getStorageSync('user_id');
@@ -159,7 +159,7 @@
 						that.tabList = res.data.category;
 						that.goodsList = cateList[0].item_list;
 						that.totalAmount = res.data.dui_cart_money;
-
+ that.$refs.tab;
 						// console.log(hotList)
 						// that.hotList = hotList;
 					} else {
@@ -297,7 +297,6 @@
 
 	page,
 	.content {
-		background: $page-color-base;
 	}
 
 	.content {
@@ -499,7 +498,7 @@
 		}
 
 		.title {
-			font-size: $font-lg;
+			font-size:25upx;
 			color: $font-color-dark;
 			line-height: 80upx;
 		}
@@ -514,7 +513,7 @@
 		}
 
 		.price {
-			font-size: $font-lg;
+			font-size:25upx;
 			color: $uni-color-primary;
 			line-height: 1;
 
