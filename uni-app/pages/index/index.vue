@@ -1,5 +1,5 @@
 <template>
-	<view class="container index-content  bg-white">
+	<view class="container index-content ">
 		<!-- 小程序头部兼容 -->
 		<!-- #ifdef MP -->
 		<view class="mp-search-box">
@@ -24,6 +24,16 @@
 				<text class="sign">/</text>
 				<text class="num">{{swiperLength}}</text>
 			</view>
+		</view>
+		<view class="uni-swiper-msg">
+			<view class="uni-swiper-msg-icon">
+				<image src="../../static/logo.png" mode="widthFix"></image>
+			</view>
+			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
+				<swiper-item v-for="(item, index) in msg" :key="index">
+					<navigator>{{item}}</navigator>
+				</swiper-item>
+			</swiper>
 		</view>
 		<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" tab-class="text-center bg-white wuc-tab " :tab-style="CustomBar"
 		 select-class="text-blue" @change="tabChange" style="background: white;"></wuc-tab>
@@ -57,9 +67,63 @@
 				</view> 
 				<text class="yticon"  @click="navToGoodsListPage(item.parent_id,item.id,item.title)">更多</text>
 			</view> -->
-
+		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+			<view class="title">
+				<image class="img" src="../../static/img/hua.png"></image>
+				最新推荐
+				<image class="img" src="../../static/img/hua.png"></image>
+			</view>
+			<scroll-view class="floor-list" scroll-x>
+				<view class="scoll-wrapper">
+					<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<image :src="item.icon" mode="aspectFill"></image>
+						<text class="title clamp">{{item.title}}</text>
+						<text class="price">￥{{item.price}}</text>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+			<view class="title">
+				<image class="img" src="../../static/img/hua.png"></image>
+				最新新品
+				<image class="img" src="../../static/img/hua.png"></image>
+			</view>
+			<scroll-view class="floor-list" scroll-x>
+				<view class="scoll-wrapper">
+					<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<image :src="item.icon" mode="aspectFill"></image>
+						<text class="title clamp">{{item.title}}</text>
+						<text class="price">￥{{item.price}}</text>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+			<view class="title">
+				<image class="img" src="../../static/img/hua.png"></image>
+				热门商品
+				<image class="img" src="../../static/img/hua.png"></image>
+			</view>
+			<scroll-view class="floor-list" scroll-x>
+				<view class="scoll-wrapper">
+					<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<image :src="item.icon" mode="aspectFill"></image>
+						<text class="title clamp">{{item.title}}</text>
+						<text class="price">￥{{item.price}}</text>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
 		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
+
+
 			<view class="guess-section" style="margin-top: 10px;">
+				<view class="title" v-show="is_show">
+					<image class="img" src="../../static/img/hua.png"></image>
+					全部商品
+					<image class="img" src="../../static/img/hua.png"></image>
+				</view>
 				<view v-for="(item1, index1) in goodsList" :key="index1" class="guess-item" @click="navToGoodsDetailPage(item1.id)">
 					<view class="image-wrapper">
 						<image :src="item1.icon" mode="aspectFill"></image>
@@ -68,6 +132,9 @@
 					<text class="price">￥{{item1.price}}</text>
 				</view>
 			</view>
+			<!-- 猜你喜欢 -->
+
+
 		</mescroll-uni>
 		<!-- 	</view> -->
 
@@ -114,6 +181,13 @@
 		},
 		data() {
 			return {
+				is_show: true,
+				title: "滚动公告",
+				msg: [
+					'uni-app行业峰会频频亮相，开发者反响热烈',
+					'DCloud完成B2轮融资，uni-app震撼发布',
+					'36氪热文榜推荐、CSDN公号推荐 DCloud CEO文章'
+				],
 				mescroll: null, //mescroll实例对象
 				// 下拉刷新的配置
 				downOption: {
@@ -131,6 +205,9 @@
 				carouselList: [],
 				cateList: [],
 				goodsList: [],
+				hotList: [],
+				redList: [],
+				topList: [],
 
 				tabList: [],
 				tabList2: [{
@@ -272,6 +349,9 @@
 					//设置列表数据
 					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
 					that.goodsList = that.goodsList.concat(curPageData); //追加新数据
+					that.redList = that.redList;
+					that.hotList = that.hotList
+					that.topList = that.topList
 				}, () => {
 					//联网失败的回调,隐藏下拉刷新的状态
 					mescroll.endErr();
@@ -348,8 +428,12 @@
 				this.TabCur = index;
 				this.cateId = this.cateList[index].id;
 				this.mescroll.resetUpScroll()
+				if (this.cateId != 0) {
+					this.is_show = false;
+				} else {
 
-
+					this.is_show = true;
+				}
 				// this.goodsList = this.cateList[index].item_list;
 
 
@@ -760,6 +844,7 @@
 	.seckill-section {
 		padding: 4upx 30upx 24upx;
 		background: #fff;
+		margin-top: 10px;
 
 		.s-header {
 			display: flex;
@@ -809,15 +894,15 @@
 		}
 
 		.floor-item {
-			width: 150upx;
+			width: 220upx;
 			margin-right: 20upx;
 			font-size: $font-sm+2upx;
 			color: $font-color-dark;
 			line-height: 1.8;
 
 			image {
-				width: 150upx;
-				height: 150upx;
+				width: 220upx;
+				height: 220upx;
 				border-radius: 6upx;
 			}
 
@@ -1048,7 +1133,25 @@
 			box-shadow: #c7c7c7 0px 0px 18px;
 
 			&:nth-child(2n+2) {
-				margin-right: 20upx;
+				// margin-right: 20upx;
+			}
+		}
+
+
+		.title {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 80upx;
+			color: #f47825;
+			font-size: 15px;
+			margin-top: 10upx;
+			background: white;
+
+			image {
+				width: 30upx;
+				height: 30upx;
 			}
 		}
 
@@ -1066,7 +1169,6 @@
 		}
 
 		.title {
-			font-size: $font-lg;
 			color: $font-color-dark;
 			line-height: 80upx;
 		}
