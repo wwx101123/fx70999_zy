@@ -5003,10 +5003,12 @@ else if ($type == 5) {
         
         $map=array();
         $map['is_red']=1;
+        $map['t.type']=0;
+        $map['t.stock']=ARRAY('gt',0);
         
         $redList =M('goods')->alias('t')
         ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field($field)
+        ->field('  t.*')
         ->order(' t.sort_id asc')
         ->select();
         foreach ($redList as $key1 => $goods1) {
@@ -5015,10 +5017,12 @@ else if ($type == 5) {
         $map=array();
         $map['is_red']=0;
         $map['is_hot']=1;
+        $map['t.type']=0;
+        $map['t.stock']=ARRAY('gt',0);
         
         $hotList =M('goods')->alias('t')
         ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field($field)
+        ->field('  t.*')
         ->order(' t.sort_id asc')
         ->select();
         foreach ($hotList as $key1 => $goods1) {
@@ -5032,10 +5036,12 @@ else if ($type == 5) {
         $map['is_red']=0;
         $map['is_hot']=0;
         $map['is_top']=1;
+        $map['t.type']=0;
+        $map['t.stock']=ARRAY('gt',0);
         
         $topList =M('goods')->alias('t')
         ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')->where($map)
-        ->field($field)
+        ->field('  t.*')
         ->order(' t.sort_id asc')
         ->select();
         foreach ($topList as $key1 => $goods1) {
