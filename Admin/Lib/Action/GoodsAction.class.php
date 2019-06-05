@@ -1274,6 +1274,7 @@ class GoodsAction extends CommonAction
     {
         $shop_id = I('shop_id', 0);
         $user_id = I('user_id', 0);
+        $user_id = $_SESSION[C('USER_AUTH_KEY')];
         $is_hot = I('is_hot', 0);
         $page_index = I('page_index', 1);
         $page_num = I('page_num', 10);
@@ -1374,6 +1375,11 @@ class GoodsAction extends CommonAction
         $field = 't.*,g.user_id as goods_user_id,g.user_name,h.title as category ';
         // =====================分页开始==============================================
         import("@.ORG.Page"); // 导入分页类
+        
+        $user = M('fck')->where('id=' . $user_id)
+            ->field('re_id')
+            ->find();
+        
         $count = $form->alias('t')
             ->join("xt_fck AS g ON   g.id = t.user_id", 'LEFT')
             ->join("xt_article_category AS h ON   h.id = t.category_id", 'LEFT')
@@ -1401,7 +1407,14 @@ class GoodsAction extends CommonAction
         $list = $form->alias('t')
             ->join("xt_fck AS g ON   g.id = t.user_id", 'LEFT')
             ->join("xt_article_category AS h ON   h.id = t.category_id", 'LEFT')
-            ->where($map)
+            ->
+        // ->union(array(
+        // 'SELECT '.$field.' FROM xt_goods t left join xt_fck g on
+        // g.id = t.user_id left join xt_article_category h on
+        // h.id = t.category_id where t.user_id!=' . $user['re_id'] . ' AND t.type=0 AND t.stock>0 '
+        // ), true)
+        
+        where($map)
             ->field($field)
             ->order(' ' . $order)
             ->page($p . ',' . $page_num)
@@ -3183,14 +3196,10 @@ class GoodsAction extends CommonAction
             $money_count = $item['quantity'] * $goods['price'] * $fee_rs['i1'];
             give_agent_cash($money_count, $userModel['id'], $userModel['user_id']);
             
-            
-            //商家获得奖励
+            // 商家获得奖励
             $sellerModel = M('fck')->where('id=' . $goods['user_id'])->find();
-            $money_count=$item['quantity'] * $goods['price'] * $goods['agent_use']*0.01;
+            $money_count = $item['quantity'] * $goods['price'] * $goods['agent_use'] * 0.01;
             seller_award($money_count, $sellerModel['id'], $sellerModel['user_id']);
-            
-            
-            
             
             // }
         }
@@ -4866,6 +4875,10 @@ else if ($type == 5) {
 
     function main()
     {
+        $user_id = $_POST['user_id'];
+        $user = M('fck')->where('id=' . $user_id)
+            ->field('re_id')
+            ->find();
         $slider = ARRAY();
         
         $fee = M('fee');
@@ -4910,11 +4923,16 @@ else if ($type == 5) {
             
             $item_list = M('goods')->alias('t')
                 ->join("xt_article_category AS g ON   g.id = t.category_id", 'LEFT')
+                ->union(array(
+                'SELECT    h.* FROM xt_goods h left join xt_article_category m on 
+ m.id = h.category_id where   m.class_list like "%,' . $goods['id'] . ',%" and h.user_id!=' . $user['re_id'] . ' AND h.type=0 AND h.stock>0  order by h.sort_id asc,h.addtime desc'
+            ), true)
                 ->field('  t.*')
-                ->where('g.class_list like "%,' . $goods['id'] . ',%" AND t.type=0 AND t.stock>0')
+                ->where('g.class_list like "%,' . $goods['id'] . ',%" and t.user_id=' . $user['re_id'] . ' AND t.type=0 AND t.stock>0')
                 ->order(' t.sort_id asc,t.addtime desc ')
                 ->limit(10)
                 ->select();
+            
             foreach ($item_list as $key1 => $goods1) {
                 $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
                 $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
@@ -4965,8 +4983,7 @@ else if ($type == 5) {
             ->field('  t.*')
             ->where('  t.type=0 AND t.stock>0')
             ->order(' t.sort_id asc,t.addtime desc ')
-            ->
-        select();
+            ->select();
         foreach ($item_list as $key1 => $goods1) {
             $item_list[$key1]['img'] = str_replace('__PUBLIC__/', __ROOT__ . '/Public/', $goods1['img']);
             $item_list[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];

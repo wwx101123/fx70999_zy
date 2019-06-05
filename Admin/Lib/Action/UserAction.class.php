@@ -2995,7 +2995,7 @@ GROUP BY
                 $goods_show_list= M('goods_show')->alias('t')
                 ->join("xt_goods AS g ON   g.id = t.goods_id ", 'LEFT')
                 ->join("xt_fck AS h ON   h.id = t.uid ", 'LEFT') 
-                ->where('t.uid='.$userInfo['id'] )
+                ->where('t.uid='.$userInfo['id'].' AND  g.id = t.goods_id ' )
                 ->field('t.*,g.title,g.img') 
                 ->order(' t.add_time desc ')
                 ->group(' t.goods_id ')
