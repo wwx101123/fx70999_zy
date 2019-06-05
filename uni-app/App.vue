@@ -11,7 +11,8 @@
 		},
 		onLaunch: function() {
 			let userInfo = uni.getStorageSync('userInfo') || '';
-			console.log(userInfo.id)
+			console.log(userInfo.id+'SSSSS')
+			
 			if(userInfo.id){
 				//更新登陆状态
 				uni.getStorage({

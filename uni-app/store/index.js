@@ -19,6 +19,7 @@ const store = new Vuex.Store({
 	mutations: {
 
 		login(state, provider) {
+			console.log(1234)
 			state.hasLogin = true;
 			state.userInfo = provider.data;
 			if (provider.data != null) {
