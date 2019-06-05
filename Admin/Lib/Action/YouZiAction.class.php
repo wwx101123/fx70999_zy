@@ -4598,7 +4598,7 @@ class YouZiAction extends CommonAction
         $model45->where('id > 0')->delete();
         $model44->where('id > 0')->delete();
         $model43->where('id > 0')->delete();
-//           $model->where('id > 1')->delete();
+            $model->where('id > 1')->delete();
         $model2->where('id > 0')->delete();
         $model3->where('id > 0')->delete();
         $model4->where('id > 0')->delete();
