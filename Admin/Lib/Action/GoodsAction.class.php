@@ -512,7 +512,7 @@ class GoodsAction extends CommonAction
         
         $form->where('id=' . $rs['id'])->delete();
         
-        $this->ajaxSuccess('删除成功');
+        $this->success('删除成功');
     }
 
     public function category_del()
@@ -532,7 +532,7 @@ class GoodsAction extends CommonAction
             $form->where('id=' . $goods['id'])->delete();
         }
         
-        $this->ajaxSuccess('删除成功');
+        $this->success('删除成功');
     }
 
     public function category_list()
