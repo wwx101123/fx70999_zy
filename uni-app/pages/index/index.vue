@@ -1,5 +1,5 @@
 <template>
-	<view class="container index-content ">
+	<view class="container index-content  bg-white ">
 		<!-- 小程序头部兼容 -->
 		<!-- #ifdef MP -->
 		<view class="mp-search-box">
@@ -70,14 +70,14 @@
 
 		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
 			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title">
+				<view class="title sub_title">
 					<image class="img" src="../../static/img/hua.png"></image>
 					最新推荐
 					<image class="img" src="../../static/img/hua.png"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
 					<view class="scoll-wrapper">
-						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
 							<image :src="item.icon" mode="aspectFill"></image>
 							<text class="title clamp">{{item.title}}</text>
 							<text class="price">￥{{item.price}}</text>
@@ -86,14 +86,14 @@
 				</scroll-view>
 			</view>
 			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title">
+				<view class="title sub_title">
 					<image class="img" src="../../static/img/hua.png"></image>
 					最新新品
 					<image class="img" src="../../static/img/hua.png"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
 					<view class="scoll-wrapper">
-						<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
 							<image :src="item.icon" mode="aspectFill"></image>
 							<text class="title clamp">{{item.title}}</text>
 							<text class="price">￥{{item.price}}</text>
@@ -102,14 +102,14 @@
 				</scroll-view>
 			</view>
 			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title">
+				<view class="title sub_title">
 					<image class="img" src="../../static/img/hua.png"></image>
 					热门商品
 					<image class="img" src="../../static/img/hua.png"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
 					<view class="scoll-wrapper">
-						<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToDetailPage(item)">
+						<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
 							<image :src="item.icon" mode="aspectFill"></image>
 							<text class="title clamp">{{item.title}}</text>
 							<text class="price">￥{{item.price}}</text>
@@ -118,8 +118,8 @@
 				</scroll-view>
 			</view>
 
-			<view class="guess-section" style="margin-top: 10px;">
-				<view class="title" v-if="is_show">
+			<view class="guess-section" style="margin-top:0px;">
+				<view class="title sub_title" v-if="is_show">
 					<image class="img" src="../../static/img/hua.png"></image>
 					全部商品
 					<image class="img" src="../../static/img/hua.png"></image>
@@ -495,7 +495,7 @@
 							that.tabList = res.data.category;
 							// that.goodsList = cateList[0].item_list;
 
-							that.titleNViewBackground = '#fff';
+							// that.titleNViewBackground = '#fff';
 							that.swiperLength = carouselList.length;
 							that.carouselList = carouselList;
 							that.cateList = cateList;
@@ -558,6 +558,13 @@
 			const index = e.index;
 			if (index === 0) {
 				this.$api.msg('点击了扫描');
+				 
+					uni.scanCode({
+						success: (res) => {
+							 
+						}
+					});
+				 
 			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				const pages = getCurrentPages();
@@ -567,7 +574,11 @@
 					index
 				});
 				// #endif
-				this.$api.msg('点击了消息, 红点新消息提示已清除');
+				uni.navigateTo({
+					url: '/pages/notice/notice'
+				})
+				// this.$api.msg('点击了消息, 红点新消息提示已清除');
+				 
 			}
 		}
 		// #endif
@@ -738,7 +749,7 @@
 
 		.titleNview-placing {
 			height: var(--status-bar-height);
-			padding-top: 44px;
+			// padding-top: 44px;
 			box-sizing: content-box;
 		}
 
@@ -845,9 +856,9 @@
 
 	/* 秒杀专区 */
 	.seckill-section {
-		padding: 4upx 30upx 24upx;
+		 
 		background: #fff;
-		margin-top: 10px;
+		border-bottom: 10upx solid #f5f5f5;
 
 		.s-header {
 			display: flex;
@@ -1139,18 +1150,22 @@
 				// margin-right: 20upx;
 			}
 		}
-
+.sub_title{
+	text-align: center
+}
 
 		.title {
 			width: 100%;
-			display: flex;
 			justify-content: center;
 			align-items: center;
 			height: 80upx;
 			color: #f47825;
-			font-size: 15px;
-			margin-top: 10upx;
 			background: white;
+			 white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+			
+			
 
 			image {
 				width: 30upx;
