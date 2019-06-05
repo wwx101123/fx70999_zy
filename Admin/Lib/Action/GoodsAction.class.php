@@ -4999,7 +4999,7 @@ else if ($type == 5) {
         $category = array_reverse($category);
         
         $map = array();
-        $map['is_red'] = 1;
+        $map['t.is_red'] = 1;
         $map['t.type'] = 0;
         $map['t.stock'] = ARRAY(
             'gt',
@@ -5007,7 +5007,6 @@ else if ($type == 5) {
         );
         
         $redList = M('goods')->alias('t')
-            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
             ->where($map)
             ->field('  t.*')
             ->order(' t.sort_id asc')
@@ -5017,7 +5016,7 @@ else if ($type == 5) {
             $redList[$key1]['icon'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $goods1['img'];
         }
         $map = array();
-        $map['is_hot'] = 1;
+        $map['t.is_hot'] = 1;
         $map['t.type'] = 0;
         $map['t.stock'] = ARRAY(
             'gt',
@@ -5025,7 +5024,6 @@ else if ($type == 5) {
         );
         
         $hotList = M('goods')->alias('t')
-            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
             ->where($map)
             ->field('  t.*')
             ->order(' t.sort_id asc')
@@ -5043,7 +5041,6 @@ else if ($type == 5) {
         );
         
         $topList = M('goods')->alias('t')
-            ->join("xt_channel_site AS g ON   g.id = t.site_id ", 'LEFT')
             ->where($map)
             ->field('  t.*')
             ->order(' t.sort_id asc')
