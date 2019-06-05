@@ -5075,6 +5075,10 @@ else if ($type == 5) {
     {
         $slider = ARRAY();
         
+        $user_id = $_POST['user_id'];
+        $user = M('fck')->where('id=' . $user_id)
+        ->field('re_id')
+        ->find();
         $fee = M('fee');
         
         $goods_images = $fee->where('id=1')->getField('str29');
