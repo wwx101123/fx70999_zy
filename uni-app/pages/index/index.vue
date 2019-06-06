@@ -25,7 +25,7 @@
 				<text class="num">{{swiperLength}}</text>
 			</view>
 		</view>
-		<view class="uni-swiper-msg" >
+		<view class="uni-swiper-msg" v-show="false">
 			<view class="uni-swiper-msg-icon">
 				<image src="../../static/icon-io-002.png" mode="widthFix"></image>
 			</view>
@@ -69,71 +69,80 @@
 			</view> -->
 
 		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
-			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title sub_title">
-					<image class="img" src="../../static/img/hua.png"></image>
-					最新推荐
-					<image class="img" src="../../static/img/hua.png"></image>
-				</view>
-				<scroll-view class="floor-list" scroll-x>
-					<view class="scoll-wrapper">
-						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
-							<image :src="item.icon" mode="aspectFill"></image>
-							<text class="title clamp">{{item.title}}</text>
-							<text class="price">￥{{item.price}}</text>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title sub_title">
-					<image class="img" src="../../static/img/hua.png"></image>
-					最新新品
-					<image class="img" src="../../static/img/hua.png"></image>
-				</view>
-				<scroll-view class="floor-list" scroll-x>
-					<view class="scoll-wrapper">
-						<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
-							<image :src="item.icon" mode="aspectFill"></image>
-							<text class="title clamp">{{item.title}}</text>
-							<text class="price">￥{{item.price}}</text>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-			<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
-				<view class="title sub_title">
-					<image class="img" src="../../static/img/hua.png"></image>
-					热门商品
-					<image class="img" src="../../static/img/hua.png"></image>
-				</view>
-				<scroll-view class="floor-list" scroll-x>
-					<view class="scoll-wrapper">
-						<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
-							<image :src="item.icon" mode="aspectFill"></image>
-							<text class="title clamp">{{item.title}}</text>
-							<text class="price">￥{{item.price}}</text>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
+			<view style="background: #f5f5f5;">
+				<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+					<view class="title sub_title" style="background: url(../../static/009.png);background-size: 100% 100%;">
 
-			<view class="guess-section" style="margin-top:0px; ">
-				<view class="title sub_title" v-if="is_show">
-					<image class="img" src="../../static/img/hua.png"></image>
-					全部商品
-					<image class="img" src="../../static/img/hua.png"></image>
-				</view>
-				<view v-for="(item1, index1) in goodsList" :key="index1" class="guess-item" @click="navToGoodsDetailPage(item1.id)">
-					<view class="image-wrapper">
-						<image :src="item1.icon" mode="aspectFill"></image>
+						最新推荐
 					</view>
-					<text class="title clamp">{{item1.title}}</text>
-					<text class="price">￥{{item1.price}}</text>
+					<scroll-view class="floor-list" scroll-x>
+						<view class="scoll-wrapper">
+							<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
+								<image :src="item.icon" mode="aspectFill"></image>
+								<text class="title clamp">{{item.title}}</text>
+								<text class="price">￥{{item.price}}</text>
+							</view>
+						</view>
+					</scroll-view>
 				</view>
+				<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+					<view class="title sub_title" style="background:url(../../static/010.png);background-size: 100% 100%;">
+
+						最新新品
+					</view>
+					<scroll-view class="floor-list" scroll-x>
+						<view class="scoll-wrapper">
+							<view v-for="(item, index) in topList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
+								<image :src="item.icon" mode="aspectFill"></image>
+								<text class="title clamp">{{item.title}}</text>
+								<text class="price">￥{{item.price}}</text>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+				<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+					<view class="title sub_title" style="background:url(../../static/010.png);background-size: 100% 100%;">
+
+						品牌专区
+					</view>
+					<scroll-view class="floor-list" scroll-x>
+						<view class="scoll-wrapper">
+							<view v-for="(item, index) in brandList" :key="index" class="floor-item">
+								<image :src="item.icon" mode="aspectFill"></image>
+
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+				<view class="guess-section seckill-section" style="background: #FFFFFF;" v-show="is_show">
+					<view class="title sub_title" style="background:url(../../static/011.png); background-size: 100% 100%;">
+						热门商品
+					</view>
+					<scroll-view class="floor-list" scroll-x>
+						<view class="scoll-wrapper">
+							<view v-for="(item, index) in hotList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
+								<image :src="item.icon" mode="aspectFill"></image>
+								<text class="title clamp">{{item.title}}</text>
+								<text class="price">￥{{item.price}}</text>
+							</view>
+						</view>
+					</scroll-view>
+				</view>
+
+				<view class="guess-section" style="margin-top:0px; ">
+					<view class="title sub_title" style="background: url(../../static/012.png); background-size: 100% 100%;" v-if="is_show">
+						全部商品
+					</view>
+					<view v-for="(item1, index1) in goodsList" :key="index1" class="guess-item" @click="navToGoodsDetailPage(item1.id)">
+						<view class="image-wrapper">
+							<image :src="item1.icon" mode="aspectFill"></image>
+						</view>
+						<text class="title clamp">{{item1.title}}</text>
+						<text class="price">￥{{item1.price}}</text>
+					</view>
+				</view>
+
 			</view>
-
-
 		</mescroll-uni>
 		<!-- 	</view> -->
 
@@ -207,6 +216,26 @@
 				hotList: [],
 				redList: [],
 				topList: [],
+				brandList: [{
+						icon: '../../static/001.jpg'
+					},
+					{
+						icon: '../../static/002.jpg'
+					}, {
+						icon: '../../static/003.jpg'
+					}, {
+						icon: '../../static/004.jpg'
+					}, {
+						icon: '../../static/005.jpg'
+					}, {
+						icon: '../../static/006.jpg'
+					}, {
+						icon: '../../static/007.jpg'
+					}, {
+						icon: '../../static/008.jpg'
+					}
+
+				],
 				noticeList: [],
 
 				tabList: [],
@@ -763,7 +792,7 @@
 
 	/* 头部 轮播图 */
 	.carousel-section {
-		position: relative;  
+		position: relative;
 
 		.titleNview-placing {
 			height: var(--status-bar-height);
@@ -788,14 +817,12 @@
 		.carousel-item {
 			width: 100%;
 			height: 100%;
-			padding: 0 28upx;
 			overflow: hidden;
 		}
 
 		image {
 			width: 100%;
 			height: 100%;
-			border-radius: 10upx;
 		}
 	}
 
@@ -1148,6 +1175,10 @@
 	.guess-section {
 		display: flex;
 		flex-wrap: wrap;
+		margin-left: 20upx;
+		margin-right: 20upx;
+		margin-top: 40upx;
+		background: white;
 
 		.guess-item {
 			display: flex;
@@ -1160,17 +1191,13 @@
 			padding: 20upx;
 			background: white;
 			border-radius: 5px;
-			-webkit-box-shadow: #c7c7c7 0px 0px 18px;
-			-moz-box-shadow: #c7c7c7 0px 0px 18px;
-			box-shadow: #c7c7c7 0px 0px 18px;
+			// -webkit-box-shadow: #c7c7c7 0px 0px 18px;
+			// -moz-box-shadow: #c7c7c7 0px 0px 18px;
+			// box-shadow: #c7c7c7 0px 0px 18px;
 
 			&:nth-child(2n+2) {
 				// margin-right: 20upx;
 			}
-		}
-
-		.sub_title {
-			text-align: center
 		}
 
 		.title {
@@ -1178,7 +1205,7 @@
 			justify-content: center;
 			align-items: center;
 			height: 80upx;
-			color: #f47825;
+
 			background: white;
 			white-space: nowrap;
 			overflow: hidden;
@@ -1190,6 +1217,12 @@
 				width: 30upx;
 				height: 30upx;
 			}
+		}
+
+		.sub_title {
+			text-align: center;
+			color: white;
+			background-size: 100% 100%;
 		}
 
 		.image-wrapper {
@@ -1206,7 +1239,6 @@
 		}
 
 		.title {
-			color: $font-color-dark;
 			line-height: 80upx;
 		}
 
