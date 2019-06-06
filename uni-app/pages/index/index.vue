@@ -14,7 +14,7 @@
 			<!-- 背景色区域 -->
 			<view class="titleNview-background" :style="{backgroundColor:titleNViewBackground}"></view>
 			<swiper class="carousel" circular @change="swiperChange">
-				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item" >
+				<swiper-item v-for="(item, index) in carouselList" :key="index" class="carousel-item">
 					<image :src="item.src" />
 				</swiper-item>
 			</swiper>
@@ -25,9 +25,9 @@
 				<text class="num">{{swiperLength}}</text>
 			</view>
 		</view>
-		<view class="uni-swiper-msg">
+		<view class="uni-swiper-msg" >
 			<view class="uni-swiper-msg-icon">
-				<image src="../../static/logo.png" mode="widthFix"></image>
+				<image src="../../static/icon-io-002.png" mode="widthFix"></image>
 			</view>
 			<swiper vertical="true" autoplay="true" circular="true" interval="3000">
 				<swiper-item v-for="(item, index) in noticeList" :key="index">
@@ -76,7 +76,7 @@
 					<image class="img" src="../../static/img/hua.png"></image>
 				</view>
 				<scroll-view class="floor-list" scroll-x>
-					<view class="scoll-wrapper" >
+					<view class="scoll-wrapper">
 						<view v-for="(item, index) in redList" :key="index" class="floor-item" @click="navToGoodsDetailPage(item.id)">
 							<image :src="item.icon" mode="aspectFill"></image>
 							<text class="title clamp">{{item.title}}</text>
@@ -118,7 +118,7 @@
 				</scroll-view>
 			</view>
 
-			<view class="guess-section" style="margin-top:0px;">
+			<view class="guess-section" style="margin-top:0px; ">
 				<view class="title sub_title" v-if="is_show">
 					<image class="img" src="../../static/img/hua.png"></image>
 					全部商品
@@ -132,7 +132,6 @@
 					<text class="price">￥{{item1.price}}</text>
 				</view>
 			</view>
-			<!-- 猜你喜欢 -->
 
 
 		</mescroll-uni>
@@ -269,10 +268,10 @@
 		},
 
 		onLoad() {
-			let user_id=uni.getStorageSync('user_id');
-			
-			
-			
+			let user_id = uni.getStorageSync('user_id');
+
+
+
 			if (user_id == undefined) {
 				console.log(this.userInfo)
 				uni.navigateTo({
@@ -354,9 +353,9 @@
 					//设置列表数据
 					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
 					that.goodsList = that.goodsList.concat(curPageData); //追加新数据
-							that.redList =that.redList;
-							that.hotList =that.hotList;
-							that.topList = that.topList;
+					that.redList = that.redList;
+					that.hotList = that.hotList;
+					that.topList = that.topList;
 
 				}, () => {
 					//联网失败的回调,隐藏下拉刷新的状态
@@ -437,11 +436,11 @@
 				if (this.cateId != 0) {
 					this.is_show = false;
 				} else {
-				
+
 					this.is_show = true;
 				}
 				this.mescroll.resetUpScroll()
-				
+
 				// this.goodsList = this.cateList[index].item_list;
 
 
@@ -567,13 +566,13 @@
 			const index = e.index;
 			if (index === 0) {
 				this.$api.msg('点击了扫描');
-				 
-					uni.scanCode({
-						success: (res) => {
-							 
-						}
-					});
-				 
+
+				uni.scanCode({
+					success: (res) => {
+
+					}
+				});
+
 			} else if (index === 1) {
 				// #ifdef APP-PLUS
 				const pages = getCurrentPages();
@@ -587,7 +586,7 @@
 					url: '/pages/notice/notice'
 				})
 				// this.$api.msg('点击了消息, 红点新消息提示已清除');
-				 
+
 			}
 		}
 		// #endif
@@ -631,6 +630,17 @@
 	.cu-bar .action:first-child {
 		margin-left: 30upx;
 		font-size: 30upx;
+	}
+
+	uni-swiper-slide-frame {
+		width: 80%;
+		overflow: hidden;
+
+	}
+
+	uni-swiper-item {
+		width: 80%;
+		overflow: hidden;
 	}
 
 	.solid,
@@ -753,8 +763,7 @@
 
 	/* 头部 轮播图 */
 	.carousel-section {
-		position: relative;
-		padding-top: 10px;
+		position: relative;  
 
 		.titleNview-placing {
 			height: var(--status-bar-height);
@@ -865,7 +874,7 @@
 
 	/* 秒杀专区 */
 	.seckill-section {
-		 
+
 		background: #fff;
 		border-bottom: 10upx solid #f5f5f5;
 
@@ -1159,9 +1168,10 @@
 				// margin-right: 20upx;
 			}
 		}
-.sub_title{
-	text-align: center
-}
+
+		.sub_title {
+			text-align: center
+		}
 
 		.title {
 			width: 100%;
@@ -1170,11 +1180,11 @@
 			height: 80upx;
 			color: #f47825;
 			background: white;
-			 white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-			
-			
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+
+
 
 			image {
 				width: 30upx;

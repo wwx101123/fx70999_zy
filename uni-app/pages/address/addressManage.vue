@@ -122,6 +122,7 @@
 			chooseLocation() {
 				uni.chooseLocation({
 					success: (data) => {
+						console.log(JSON.stringify(data))
 						this.addressData.addressName = data.name;
 						this.addressData.address = data.name;
 					}

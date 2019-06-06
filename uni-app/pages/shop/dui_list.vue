@@ -4,23 +4,25 @@
 		</div>
 
 		<wuc-tab :tab-list="tabList" :tabCur.sync="TabCur" tab-class="text-center bg-white wuc-tab " :tab-style="CustomBar"
-		 select-class="text-blue tab" @change="tabChange"      style="background: white; position: fixed;top:80upx;z-index: 1;"></wuc-tab>
+		 select-class="text-blue tab" @change="tabChange" style="background: white; position: fixed;top:80upx;z-index: 1;"></wuc-tab>
 
 
-		<view class="goods-list" style="margin-top: 100upx;margin-bottom: 100upx;" >
-			<view v-for="(item, index) in goodsList" :key="index" class="goods-item">
-				<view class="image-wrapper">
-					<image :src="item.icon" mode="aspectFill"></image>
-				</view>
-				<text class="title clamp">{{item.title}}</text>
-				<view class="price-box">
-					<text class="price">{{item.market_price}}</text>
-					<view class="pb-car iconfont" :id="item.id" :data-img="item.icon" @tap="addShopCar">
-						<image src="../../static/jiaru.png"></image>
+		<mescroll-uni @down="downCallback" @up="upCallback" @init="mescrollInit">
+			<view class="goods-list" style="padding-top:30upx;margin-bottom:130upx;">
+				<view v-for="(item, index) in goodsList" :key="index" class="goods-item">
+					<view class="image-wrapper">
+						<image :src="item.icon" mode="aspectFill"></image>
+					</view>
+					<text class="title clamp">{{item.title}}</text>
+					<view class="price-box">
+						<text class="price">{{item.market_price}}</text>
+						<view class="pb-car iconfont" :id="item.id" :data-img="item.icon" @tap="addShopCar">
+							<image src="../../static/jiaru.png"></image>
+						</view>
 					</view>
 				</view>
 			</view>
-		</view>
+		</mescroll-uni>
 
 
 		<view class="cate-mask" :class="cateMaskState===0 ? 'none' : cateMaskState===1 ? 'show' : ''" @click="toggleCateMask">
@@ -55,6 +57,7 @@
 	import {
 		obj2style
 	} from '@/utils/index';
+	import MescrollUni from "../../components/mescroll-diy/mescroll-meituan.vue";
 	import shopCarAnimation from '@/components/fly-in-cart/fly-in-cart.vue'
 	import common from '../../common/common.js';
 	import uniLoadMore from '@/components/uni-load-more/uni-load-more.vue';
@@ -64,6 +67,7 @@
 	} from 'vuex';
 	export default {
 		components: {
+			MescrollUni,
 			shopCarAnimation,
 			WucTab
 		},
@@ -125,7 +129,7 @@
 			this.mescroll && this.mescroll.onPageScroll(e);
 		},
 		onLoad(options) {
-             
+
 
 
 			let user_id = uni.getStorageSync('user_id');
@@ -157,9 +161,8 @@
 
 						let cateList = res.data.category;
 						that.tabList = res.data.category;
-						that.goodsList = cateList[0].item_list;
 						that.totalAmount = res.data.dui_cart_money;
- that.$refs.tab;
+						that.$refs.tab;
 						// console.log(hotList)
 						// that.hotList = hotList;
 					} else {
@@ -180,11 +183,126 @@
 		},
 
 		methods: {
+
+			// mescroll组件初始化的回调,可获取到mescroll对象
+			mescrollInit(mescroll) {
+				this.mescroll = mescroll;
+			},
+			// 下拉刷新的回调
+			downCallback(mescroll) {
+				mescroll.resetUpScroll() // 重置列表为第一页 (自动执行 mescroll.num=1, 再触发upCallback方法 )
+			},
+			/*上拉加载的回调: mescroll携带page的参数, 其中num:当前页 从1开始, size:每页数据条数,默认10 */
+			upCallback(mescroll) {
+				let that = this;
+				//联网加载数据
+				this.getListDataFromNet(common.get_goods_listUrl, mescroll.num, mescroll.size, (curPageData) => {
+					//curPageData=[]; //打开本行注释,可演示列表无任何数据empty的配置
+
+					//联网成功的回调,隐藏下拉刷新和上拉加载的状态;
+					//mescroll会根据传的参数,自动判断列表如果无任何数据,则提示空;列表无下一页数据,则提示无更多数据;
+
+
+					//方法一(推荐): 后台接口有返回列表的总页数 totalPage
+					//mescroll.endByPage(curPageData.length, totalPage); //必传参数(当前页的数据个数, 总页数)
+
+					//方法二(推荐): 后台接口有返回列表的总数据量 totalSize
+					//mescroll.endBySize(curPageData.length, totalSize); //必传参数(当前页的数据个数, 总数据量)
+
+					//方法三(推荐): 您有其他方式知道是否有下一页 hasNext
+					//mescroll.endSuccess(curPageData.length, hasNext); //必传参数(当前页的数据个数, 是否有下一页true/false)
+
+					//方法四 (不推荐),会存在一个小问题:比如列表共有20条数据,每页加载10条,共2页.如果只根据当前页的数据个数判断,则需翻到第三页才会知道无更多数据,如果传了hasNext,则翻到第二页即可显示无更多数据.
+					mescroll.endSuccess(curPageData.data.length);
+
+					//设置列表数据
+					if (mescroll.num == 1) that.goodsList = []; //如果是第一页需手动制空列表
+					that.goodsList = that.goodsList.concat(curPageData.data); //追加新数据
+
+					that.cateList = curPageData.category;
+					console.log(curPageData.dui_cart_money)
+					that.totalCount = curPageData.current_count;
+					that.totalAmount = curPageData.totalAmount;
+
+
+				}, () => {
+					//联网失败的回调,隐藏下拉刷新的状态
+					mescroll.endErr();
+				})
+			},
+			/*联网加载列表数据
+			在您的实际项目中,请参考官方写法: http://www.mescroll.com/uni.html#tagUpCallback
+			请忽略getListDataFromNet的逻辑,这里仅仅是在本地模拟分页数据,本地演示用
+			实际项目以您服务器接口返回的数据为准,无需本地处理分页.
+			* */
+			getListDataFromNet(url, pageNum, pageSize, successCallback, errorCallback) {
+				let that = this;
+				console.log(that.filterIndex)
+				//延时一秒,模拟联网
+				setTimeout(() => {
+					try {
+
+						uni.request({
+							url: url, //仅为示例，并非真实接口地址。
+							data: {
+								is_mobile: 1,
+								category_id: that.cateId,
+								user_id: that.userInfo.id,
+								page_index: pageNum,
+								page_size: pageSize,
+								keyword: '',
+								goods_type: 1,
+								order: that.filterIndex,
+								priceOrder: that.priceOrder
+							},
+							method: 'POST',
+							header: {
+								'content-type': 'application/x-www-form-urlencoded'
+							},
+							success: function(res) {
+								console.log(res.data.data)
+								if (res.data.status == 1) {
+
+									// that.orderList.push(res.data.data)
+
+								} else {
+
+
+
+								}
+								if (res.data.data == null) {
+									res.data.data = [];
+								}
+								successCallback && successCallback(res.data);
+
+
+
+
+
+							}
+						});
+
+						// 
+						// //模拟分页数据
+						// var listData = [];
+						// for (var i = (pageNum - 1) * pageSize; i < pageNum * pageSize; i++) {
+						// 	if (i == mockData.length) break;
+						// 	listData.push(mockData[i]);
+						// }
+						// //联网成功的回调
+					} catch (e) {
+						//联网失败的回调
+						errorCallback && errorCallback();
+					}
+				}, 10)
+			},
 			tabChange(index) {
 				this.TabCur = index;
+				this.cateId = this.tabList[index].id;
 
-				this.goodsList = this.tabList[index].item_list;
+				// this.goodsList = this.tabList[index].item_list;
 
+				this.mescroll.resetUpScroll()
 
 
 
@@ -296,8 +414,7 @@
 	@import '../../common/css/pubu.css';
 
 	page,
-	.content {
-	}
+	.content {}
 
 	.content {
 		padding-top: 96upx;
@@ -498,7 +615,7 @@
 		}
 
 		.title {
-			font-size:25upx;
+			font-size: 25upx;
 			color: $font-color-dark;
 			line-height: 80upx;
 		}
@@ -513,7 +630,7 @@
 		}
 
 		.price {
-			font-size:25upx;
+			font-size: 25upx;
 			color: $uni-color-primary;
 			line-height: 1;
 
