@@ -4952,7 +4952,7 @@ else if ($type == 5) {
                 $item = array();
                 $item['img'] = $rs;
                 $item['src'] = 'http://' . $_SERVER['SERVER_NAME'] . '/' . $rs;
-                $item['background'] = 'rgb(203, 87, 60)';
+//                 $item['background'] = 'rgb(203, 87, 60)';
                 
                 $slider[] = $item;
             }
