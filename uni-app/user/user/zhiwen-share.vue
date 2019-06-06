@@ -63,6 +63,7 @@
 		},
 		data() {
 			return {
+				userInfo: {},
 				providerList: [],
 				sourceLink: 'http://yunzhujiao.cn/bind_pub/index.html',
 				type: 0,
@@ -86,6 +87,9 @@
 		onLoad() {
 			// this.version = plus.runtime.version;
 
+			let user_id = uni.getStorageSync('user_id');
+			let userInfo = uni.getStorageSync('userInfo');
+			this.userInfo = userInfo;
 
 			this.recommend_url = common.PreUrl + 'Reg/register/rid/' + this.userInfo.id;
 			this.val = common.PreUrl + 'Reg/register/rid/' + this.userInfo.id;

@@ -45,7 +45,7 @@
 		data() {
 			return {
 				user: {
-					bank_name: '',
+					bank_name: '请选择银行',
 					bank_card: '',
 					user_name: '',
 					bank_address: ''
@@ -75,7 +75,10 @@
 					console.log(res.data.data.bank_address)
 					if (res.data.status == 1) {
 						that.user.bank_address = res.data.data.bank_address;
+						if(res.data.data.bank_name!='') {
 						that.user.bank_name = res.data.data.bank_name;
+							
+						}
 						that.user.bank_card = res.data.data.bank_card;
 						that.user.user_name = res.data.data.user_name;
 						that.picker = res.data.data.user_bank;
@@ -93,6 +96,7 @@
 		},
 		methods: {
 			PickerChange(e) {
+				console.log(2222)
 
 				this.index = e.detail.value;
 				console.log(this.index)
@@ -100,6 +104,7 @@
 				that.user.bank_name = that.userInfo.user_bank[this.index];
 			},
 			chooseCity() {
+				console.log(3333)
 				this.$refs.mpvueCityPicker.show()
 			},
 			//提交
